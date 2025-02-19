@@ -18,21 +18,18 @@ const Home: FunctionComponent<HomeProps> = ({ content }) => {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-	const res = await fetch('https://pugo.onrender.com/api/content')
-
-	console.log('Response status:', res.status)
-	const text = await res.text()
-	console.log('Response text:', text)
-
 	try {
-		const content: ContentData = text ? JSON.parse(text) : {}
+		const res = await fetch('https://pugo.onrender.com/api/content')
+		if (!res.ok) {
+			throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`)
+		}
+		const content: ContentData = await res.json()
 		return {
 			props: { content },
 			revalidate: 60,
 		}
 	} catch (error) {
-		console.error('Error parsing JSON:', error)
-
+		console.error('Error fetching data:', error)
 		return {
 			props: {
 				content: {
