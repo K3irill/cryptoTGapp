@@ -1,4 +1,6 @@
 // types.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface HeaderContent {
 	site_link: string
 	banner: {
