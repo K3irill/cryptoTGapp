@@ -12,13 +12,13 @@ const Home: FunctionComponent<HomeProps> = ({ content }) => {
 	console.log(content)
 	return (
 		<MainLayout header={content?.header} footer={content?.footer}>
-			<Container>Home</Container>
+			<Container></Container>
 		</MainLayout>
 	)
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-	const res = await fetch('http://localhost:4000/api/content')
+	const res = await fetch('https://pugo.onrender.com/api/content')
 
 	console.log('Response status:', res.status)
 	const text = await res.text()
