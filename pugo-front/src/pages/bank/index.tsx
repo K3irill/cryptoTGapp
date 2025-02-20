@@ -1,4 +1,5 @@
 import MainLayout from '@/components/Layouts/MainLayouts'
+import { getContent } from '@/lib/getContent'
 import { Container } from '@/styles/styled'
 import { ContentData } from '@/types/types'
 import { GetStaticProps } from 'next'
@@ -19,11 +20,7 @@ const BankPage: FunctionComponent<BankPageProps> = ({ content }) => {
 
 export const getStaticProps: GetStaticProps<BankPageProps> = async () => {
 	try {
-		const res = await fetch('https://pugo.onrender.com/api/content')
-		if (!res.ok) {
-			throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`)
-		}
-		const content: ContentData = await res.json()
+		const content = await getContent()
 		return {
 			props: { content },
 			revalidate: 60,
