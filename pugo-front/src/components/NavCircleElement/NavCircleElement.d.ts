@@ -7,4 +7,8 @@ export interface NavCircleElementProps {
 	children: React.ReactNode | string
 	path?: string
 	htmlTag?: NavCircleElement.LINK | NavCircleElement.BUTTON
+	width?: string
+	height?: string
+
+	background?: string
 }

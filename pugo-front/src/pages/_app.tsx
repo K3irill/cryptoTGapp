@@ -4,6 +4,7 @@ import '@/styles/globals.scss'
 import { Provider, useDispatch } from 'react-redux'
 import { store } from '@/store/store'
 import { setUser } from '@/store/slices/userSlice'
+import Script from 'next/script'
 
 type NextPageWithLayout = {
 	getLayout?: (page: ReactElement) => ReactNode
@@ -15,14 +16,11 @@ interface MyAppProps extends AppProps {
 
 function AppContent({ Component, pageProps }: MyAppProps) {
 	const dispatch = useDispatch()
-	if (typeof window !== 'undefined') {
-		console.log(window.Telegram)
-	}
 	useEffect(() => {
-		if (typeof window !== 'undefined' && window.Telegram) {
+		if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
 			const tg = window.Telegram.WebApp
-			if (tg?.initDataUnsafe?.user) {
-				const user = tg.initDataUnsafe.user
+			const user = tg.initDataUnsafe?.user
+			if (user) {
 				console.log(user)
 				dispatch(
 					setUser({
@@ -44,6 +42,10 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 export default function MyApp(props: MyAppProps) {
 	return (
 		<Provider store={store}>
+			<Script
+				src='https://telegram.org/js/telegram-web-app.js'
+				strategy='beforeInteractive'
+			/>
 			<AppContent {...props} />
 		</Provider>
 	)

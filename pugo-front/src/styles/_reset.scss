@@ -73,35 +73,6 @@ img {
 	vertical-align: top;
 }
 
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6 {
-//   font-family: $font-primary;
-//   font-size: inherit;
-// }
-
-// li,
-// span,
-// p,
-// a,
-// button {
-//   font-family: $font-primary;
-// }
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6,
-// li,
-// span,
-// p,
-// a {
-//   color: $white-primary;
-// }
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
 	-webkit-appearance: none;
@@ -109,4 +80,8 @@ input[type='number']::-webkit-outer-spin-button {
 }
 input[type='number'] {
 	-moz-appearance: textfield;
+}
+
+p {
+	margin: 0;
 }

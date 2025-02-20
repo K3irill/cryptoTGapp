@@ -5,6 +5,18 @@ import { NavCircleElementProps } from './NavCircleElement.d'
 export const NavCircleElement: FunctionComponent<NavCircleElementProps> = ({
 	children,
 	path,
+	width,
+	height,
+	background,
 }) => {
-	return <NavElement href={path}>{children}</NavElement>
+	return (
+		<NavElement
+			background={background}
+			width={width}
+			height={height}
+			href={path}
+		>
+			{children}
+		</NavElement>
+	)
 }
