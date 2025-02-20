@@ -1,6 +1,9 @@
 import { AppProps } from 'next/app'
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, useEffect } from 'react'
 import '@/styles/globals.scss'
+import { Provider, useDispatch } from 'react-redux'
+import { store } from '@/store/store'
+import { setUser } from '@/store/slices/userSlice'
 
 type NextPageWithLayout = {
 	getLayout?: (page: ReactElement) => ReactNode
@@ -10,7 +13,38 @@ interface MyAppProps extends AppProps {
 	Component: NextPageWithLayout
 }
 
-export default function MyApp({ Component, pageProps }: MyAppProps) {
+function AppContent({ Component, pageProps }: MyAppProps) {
+	const dispatch = useDispatch()
+	if (typeof window !== 'undefined') {
+		console.log(window.Telegram)
+	}
+	useEffect(() => {
+		if (typeof window !== 'undefined' && window.Telegram) {
+			const tg = window.Telegram.WebApp
+			if (tg?.initDataUnsafe?.user) {
+				const user = tg.initDataUnsafe.user
+				console.log(user)
+				dispatch(
+					setUser({
+						id: user.id,
+						username: user.username || null,
+						firstName: user.first_name || null,
+						lastName: user.last_name || null,
+						photoUrl: user.photo_url || null,
+					})
+				)
+			}
+		}
+	}, [dispatch])
+
 	const getLayout = Component.getLayout || (page => page)
 	return getLayout(<Component {...pageProps} />)
+}
+
+export default function MyApp(props: MyAppProps) {
+	return (
+		<Provider store={store}>
+			<AppContent {...props} />
+		</Provider>
+	)
 }

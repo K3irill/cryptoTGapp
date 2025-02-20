@@ -21,7 +21,9 @@
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
-		"../pugo-back/content.ts"
+		"../pugo-back/content.ts",
+		"src",
+		"types"
 	],
 	"exclude": ["node_modules"]
 }
