@@ -4,20 +4,20 @@ import { ContentData } from '@/types/types'
 import { GetStaticProps } from 'next'
 import { FunctionComponent } from 'react'
 
-interface HomePageProps {
+interface BankPageProps {
 	content: ContentData
 }
 
-const HomePage: FunctionComponent<HomePageProps> = ({ content }) => {
+const BankPage: FunctionComponent<BankPageProps> = ({ content }) => {
 	console.log(content)
 	return (
 		<MainLayout header={content?.header} footer={content?.footer}>
-			<Container>Home page</Container>
+			<Container>Bank page</Container>
 		</MainLayout>
 	)
 }
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+export const getStaticProps: GetStaticProps<BankPageProps> = async () => {
 	try {
 		const res = await fetch('https://pugo.onrender.com/api/content')
 		if (!res.ok) {
@@ -46,4 +46,4 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 	}
 }
 
-export default HomePage
+export default BankPage
