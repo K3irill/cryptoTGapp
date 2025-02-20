@@ -1,9 +1,6 @@
 const CONTENT = {
 	header: {
 		site_link: 'https://www.pugo.com',
-		banner: {
-			title: 'Listing will be soon, trust us <3',
-		},
 	},
 
 	footer: {
@@ -20,17 +17,21 @@ const CONTENT = {
 					href: '/exchange',
 				},
 			],
-			top_nav_elements: [
+		},
+	},
+
+	pages: {
+		home: {
+			banner: {
+				title: 'Listing will be soon, trust us <3',
+			},
+			navigation: [
 				{ id: '1', title: 'FRENS', src: 'icons/frens.svg', href: '/frens' },
 				{ id: '2', title: 'TASKS', src: 'icons/task.svg', href: '/tasks' },
 				{ id: '3', title: 'RATING', src: 'icons/rating.svg', href: '/rating' },
 				{ id: '4', title: 'MAP', src: 'icons/map.svg', href: '/map' },
 			],
 		},
-	},
-
-	pages: {
-		home: {},
 		bank: {},
 		exchange: {},
 		frens: {},
