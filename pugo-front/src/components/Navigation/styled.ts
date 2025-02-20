@@ -11,5 +11,5 @@ export const NavBlockStyled = styled.div`
 `
 
 export const NavTitleStyled = styled.p`
-	font-size: 36px;
+	font-size: 30px;
 `

@@ -16,7 +16,6 @@ export const Header: FunctionComponent<HeaderProps> = ({
 	children,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
-	// console.log(user)
 	return (
 		<HeaderStyled>
 			<UserBlockStyled>
@@ -30,10 +29,10 @@ export const Header: FunctionComponent<HeaderProps> = ({
 			<NavCircleElement
 				path={content.site_link}
 				background='#FDC910'
-				width='47px'
-				height='47px'
+				width='32px'
+				height='32px'
 			>
-				<img src='/icons/output.svg'></img>
+				<img style={{ width: '18px' }} src='/icons/output.svg' />
 			</NavCircleElement>
 			{children}
 		</HeaderStyled>

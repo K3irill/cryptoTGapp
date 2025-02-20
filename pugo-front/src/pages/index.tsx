@@ -1,6 +1,7 @@
+import { Home } from '@/components/Home/Home'
 import MainLayout from '@/components/Layouts/MainLayouts'
 import { getContent } from '@/lib/getContent'
-import { Container } from '@/styles/styled'
+
 import { ContentData } from '@/types/types'
 import { GetStaticProps } from 'next'
 import { FunctionComponent } from 'react'
@@ -13,7 +14,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({ content }) => {
 	console.log(content)
 	return (
 		<MainLayout header={content?.header} footer={content?.footer}>
-			<Container>Home page</Container>
+			<Home data={content.pages.home} />
 		</MainLayout>
 	)
 }

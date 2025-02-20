@@ -37,7 +37,7 @@ const MainLayout: FunctionComponent<MainLayoutsProps> = ({
 			</Head>
 			<div className={`app ${geistSans.variable} ${jerseyFont.variable}`}>
 				<Header content={header} />
-				<main className='flex-grow'>{children}</main>
+				{children}
 				<Footer content={footer} />
 			</div>
 		</>
