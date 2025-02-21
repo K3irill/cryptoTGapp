@@ -9,7 +9,7 @@ const HomeNavigation: FunctionComponent<HomeNavigationProps> = ({
 	return (
 		<NavigationStyled>
 			{elements.map(el => (
-				<NavElement href={el.href} key={el.id} background='light-grey'>
+				<NavElement href={el.href} key={el.id} background='transparent'>
 					<img src={el.src} alt='' />
 				</NavElement>
 			))}

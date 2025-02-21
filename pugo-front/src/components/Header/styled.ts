@@ -9,6 +9,8 @@ export const HeaderStyled = styled.header`
 export const UserBlockStyled = styled.div`
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+	width: 100%;
 `
 
 export const UserAvatarStyled = styled.img`
@@ -25,4 +27,6 @@ export const UserAvatarContainer = styled.div`
 	border-radius: 50%;
 	overflow: hidden;
 	margin-right: 5px;
+	box-shadow: 0px 0px 6.1479px #f0c777;
+	border: 0.5px solid #f0c777;
 `

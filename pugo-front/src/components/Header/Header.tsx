@@ -9,7 +9,7 @@ import {
 import { HeaderProps } from './Header.d'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import { NavCircleElement } from '../NavCircleElement/NavCircleElement'
+// import { NavCircleElement } from '../NavCircleElement/NavCircleElement'
 
 export const Header: FunctionComponent<HeaderProps> = ({
 	content,
@@ -19,21 +19,21 @@ export const Header: FunctionComponent<HeaderProps> = ({
 	return (
 		<HeaderStyled>
 			<UserBlockStyled>
+				<UserNicknameStyled>
+					@{user.username || 'Who are you?'}
+				</UserNicknameStyled>
 				<UserAvatarContainer>
 					<UserAvatarStyled src={user.photoUrl || '1.svg'} />
 				</UserAvatarContainer>
-				<UserNicknameStyled>
-					{user.username || 'Who are you?'}
-				</UserNicknameStyled>
 			</UserBlockStyled>
-			<NavCircleElement
+			{/* <NavCircleElement
 				path={content.site_link}
 				background='#FDC910'
 				width='32px'
 				height='32px'
 			>
 				<img style={{ width: '18px' }} src='/icons/output.svg' />
-			</NavCircleElement>
+			</NavCircleElement> */}
 			{children}
 		</HeaderStyled>
 	)
