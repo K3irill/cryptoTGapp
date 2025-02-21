@@ -11,10 +11,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 // import { NavCircleElement } from '../NavCircleElement/NavCircleElement'
 
-export const Header: FunctionComponent<HeaderProps> = ({
-	content,
-	children,
-}) => {
+export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
 	const user = useSelector((state: RootState) => state.user)
 	return (
 		<HeaderStyled>
