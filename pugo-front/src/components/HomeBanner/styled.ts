@@ -5,7 +5,7 @@ export const HomeBannerStyled = styled.div`
 	display: flex;
 	flex-direction: column;
 	background: url('./top-border.svg') no-repeat;
-	background-size: contain;
+	background-size: cover;
 	padding: 16px 0;
 	width: 100%;
 	p {
