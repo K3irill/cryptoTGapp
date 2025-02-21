@@ -19,4 +19,5 @@
 - **`pugo-front`**: Фронтенд, построенный на **Next.js**, с использованием **RTK (Redux Toolkit)** и **TypeScript**.
 
 App Design example
-![Screenshot 2025-02-20 235853](https://github.com/user-attachments/assets/defa07f7-5e55-4863-ad37-e55565a31861)
+
+![Screenshot 2025-02-21 230127](https://github.com/user-attachments/assets/21eb4f7b-1c2c-48a6-aa30-c91efa80dbc8)
