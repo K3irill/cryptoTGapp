@@ -20,4 +20,5 @@
 
 App Design example
 
-![Screenshot 2025-02-21 230127](https://github.com/user-attachments/assets/21eb4f7b-1c2c-48a6-aa30-c91efa80dbc8)
+![2025-02-22_01-39-30](https://github.com/user-attachments/assets/103f4bfd-9523-4964-8d0b-28ba3099407f)
+
