@@ -17,6 +17,12 @@ const CONTENT = {
 					href: '/exchange',
 				},
 			],
+			top_nav: [
+				{ id: '1', title: 'FRENS', src: 'icons/frens.svg', href: '/frens' },
+				{ id: '2', title: 'TASKS', src: 'icons/task.svg', href: '/tasks' },
+				{ id: '3', title: 'RATING', src: 'icons/rating.svg', href: '/rating' },
+				{ id: '4', title: 'MAP', src: 'icons/map.svg', href: '/map' },
+			],
 		},
 	},
 
@@ -25,12 +31,6 @@ const CONTENT = {
 			banner: {
 				title: 'Listing will be soon, trust us <3',
 			},
-			navigation: [
-				{ id: '1', title: 'FRENS', src: 'icons/frens.svg', href: '/frens' },
-				{ id: '2', title: 'TASKS', src: 'icons/task.svg', href: '/tasks' },
-				{ id: '3', title: 'RATING', src: 'icons/rating.svg', href: '/rating' },
-				{ id: '4', title: 'MAP', src: 'icons/map.svg', href: '/map' },
-			],
 		},
 		bank: {},
 		exchange: {},
