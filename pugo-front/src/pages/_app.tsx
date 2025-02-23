@@ -4,6 +4,7 @@ import '@/styles/globals.scss'
 import { Provider, useDispatch } from 'react-redux'
 import { store } from '@/store/store'
 import { setUser } from '@/store/slices/userSlice'
+import Script from 'next/script'
 
 type NextPageWithLayout = {
 	getLayout?: (page: ReactElement) => ReactNode
@@ -41,6 +42,10 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 export default function MyApp(props: MyAppProps) {
 	return (
 		<Provider store={store}>
+			<Script
+				src='https://telegram.org/js/telegram-web-app.js'
+				strategy='beforeInteractive'
+			/>
 			<AppContent {...props} />
 		</Provider>
 	)
