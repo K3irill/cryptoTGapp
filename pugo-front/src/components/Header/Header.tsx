@@ -5,6 +5,8 @@ import {
 	UserBlockStyled,
 	UserNicknameStyled,
 	UserAvatarContainer,
+	AvatarBacklight,
+	Backlight,
 } from './styled'
 import { HeaderProps } from './Header.d'
 import { useSelector } from 'react-redux'
@@ -19,18 +21,14 @@ export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
 				<UserNicknameStyled>
 					@{user.username || 'Who are you?'}
 				</UserNicknameStyled>
-				<UserAvatarContainer>
-					<UserAvatarStyled src={user.photoUrl || '1.svg'} />
-				</UserAvatarContainer>
+				<AvatarBacklight>
+					<Backlight src='./avatar-background.png' alt='' />
+					<UserAvatarContainer>
+						<UserAvatarStyled src={user.photoUrl || 'default.png'} />
+					</UserAvatarContainer>
+				</AvatarBacklight>
 			</UserBlockStyled>
-			{/* <NavCircleElement
-				path={content.site_link}
-				background='#FDC910'
-				width='32px'
-				height='32px'
-			>
-				<img style={{ width: '18px' }} src='/icons/output.svg' />
-			</NavCircleElement> */}
+
 			{children}
 		</HeaderStyled>
 	)

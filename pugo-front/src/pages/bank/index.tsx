@@ -1,45 +1,34 @@
+import { CONTENT as STATIC_CONTENT } from '@/assets/constants/static_content'
+import { Bank } from '@/components/Bank/Bank'
 import MainLayout from '@/components/Layouts/MainLayouts'
 import { getContent } from '@/lib/getContent'
-import { Container } from '@/styles/styled'
+
 import { ContentData } from '@/types/types'
-import { GetStaticProps } from 'next'
-import { FunctionComponent } from 'react'
+import { GetStaticProps, NextPage } from 'next'
 
 interface BankPageProps {
 	content: ContentData
 }
 
-const BankPage: FunctionComponent<BankPageProps> = ({ content }) => {
-	console.log(content)
-	return (
-		<MainLayout header={content?.header} footer={content?.footer}>
-			<Container>Bank page</Container>
-		</MainLayout>
-	)
-}
+const BankPage: NextPage<BankPageProps> = ({ content }) => (
+	<MainLayout header={content.header} footer={content.footer}>
+		<Bank data={content.pages.bank} />
+	</MainLayout>
+)
 
 export const getStaticProps: GetStaticProps<BankPageProps> = async () => {
+	let content: ContentData
+
 	try {
-		const content = await getContent()
-		return {
-			props: { content },
-			revalidate: 60,
-		}
+		content = (await getContent()) || STATIC_CONTENT
 	} catch (error) {
-		console.error('Error fetching data:', error)
-		return {
-			props: {
-				content: {
-					header: {
-						site_link: 'https://pugo.ru',
-						banner: { title: 'Default Title' },
-					},
-					footer: { navigation: { nav_elements: [] } },
-					pages: {},
-				},
-			},
-			revalidate: 60,
-		}
+		console.error('Error fetching content:', error)
+		content = STATIC_CONTENT as unknown as ContentData
+	}
+	console.log(content)
+	return {
+		props: { content },
+		revalidate: 60,
 	}
 }
 

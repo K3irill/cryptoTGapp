@@ -8,7 +8,14 @@ export const FooterBanner: FunctionComponent<FooterBannerProps> = ({}) => {
 	const routerPath = router.asPath
 	return (
 		<FooterBannerStyled>
-			<FooterBorder page={routerPath} />
+			<FooterBorder page={routerPath}>
+				<img
+					src={
+						router.asPath === '/' ? '/home-border.svg' : '/another-border.svg'
+					}
+					alt=''
+				/>
+			</FooterBorder>
 		</FooterBannerStyled>
 	)
 }

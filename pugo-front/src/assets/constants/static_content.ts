@@ -1,7 +1,5 @@
 export const CONTENT = {
-	header: {
-		site_link: 'https://www.pugo.com',
-	},
+	header: {},
 
 	footer: {
 		navigation: {
@@ -28,11 +26,18 @@ export const CONTENT = {
 
 	pages: {
 		home: {
+			top_section: null,
+			site_link: 'https://www.static-pugo.com',
 			banner: {
 				title: 'Listing will be soon, trust us <3',
 			},
 		},
-		bank: {},
+		bank: {
+			top_section: {
+				title: 'Bank',
+				titleWithBorder: true,
+			},
+		},
 		exchange: {},
 		frens: {},
 		tasks: {},

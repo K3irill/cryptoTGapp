@@ -3,14 +3,11 @@
 
 export interface HeaderContent {
 	site_link: string
-	banner: {
-		title: string
-	}
 }
 
 export interface NavItem {
 	id: string
-	title: string
+	title: string | null
 	src: string
 	href: string
 }

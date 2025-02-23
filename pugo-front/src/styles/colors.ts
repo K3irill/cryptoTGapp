@@ -1,6 +1,7 @@
 export const COLORS = {
 	yellow: '#FDC910',
 	gold: '#F0C777',
+	grey: '#CED8E1',
 }
 export const BACKGROUNDS = {
 	grey: `radial-gradient(

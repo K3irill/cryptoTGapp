@@ -15,11 +15,23 @@ export const NavElement = styled.a<NavElementStyledProps>`
 			: p.background
 			? p.background
 			: `radial-gradient(47.61% 47.61% at 49.12% 57.89%, #242320 50%, #161615 100%)`};
-	${p => p.background === 'transparent' && `background: transparent`}
+	${p => p.background === 'transparent' && `background: transparent`};
 	box-shadow: 0px 0px 6.1479px #f0c777;
 	border: 1px solid #f0c777;
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: transform 0.3s ease;
+	cursor: pointer;
+
+	&:active {
+		transform: scale(0.7);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			transform: scale(1.2);
+		}
+	}
 `
