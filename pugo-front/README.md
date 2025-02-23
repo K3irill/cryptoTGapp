@@ -36,6 +36,9 @@ ngrok http http://localhost:8080
 
 Open [http://localhost:8080](http://localhost:8080) with your browser to see the result.
 
+DEPLOY LINKS:
+Backend link: https://pugo.onrender.com/api/content
+Frontend link: https://pugocoin.netlify.app/
 Direct TG-BOT Link: https://t.me/PugoCoinBot/pugo
 
 <|||||||||||||||||||||||||||||||||||||--\_\_--|||||||||||||||||||||||||||||||||||||||||||||>

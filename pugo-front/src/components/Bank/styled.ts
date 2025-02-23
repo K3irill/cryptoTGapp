@@ -27,18 +27,18 @@ export const BannerStyled = styled.div`
 	grid-template-columns: repeat(2, 1fr);
 	gap: 10px;
 	padding: 0 8px;
-	margin-top: 10px;
 `
 
 export const ConnectBlock = styled.div`
 	${mainBlockBackground}
 	margin-top:24px;
 	width: 100%;
-	height: 140px;
+	height: 160px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 10px;
+	padding: 10px;
 `
 export const CoinWithFrameWrapper = styled.div`
 	width: 87px;
@@ -51,6 +51,7 @@ export const CoinWithFrame = styled.img`
 export const ButtonWrapper = styled.div`
 	width: 250px;
 	display: flex;
+	margin-bottom: 10px;
 `
 export const ButtonBlock = styled.div`
 	${mainBlockBackground}

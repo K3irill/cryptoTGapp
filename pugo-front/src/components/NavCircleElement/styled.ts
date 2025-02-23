@@ -31,7 +31,8 @@ export const NavElement = styled.a<NavElementStyledProps>`
 			? `
     opacity: 0.6;
     pointer-events: none;
-    cursor: not-allowed;`
+    cursor: not-allowed;
+    filter: brightness(0.3)`
 			: `	&:active {
 		transform: scale(0.7);
 	}
