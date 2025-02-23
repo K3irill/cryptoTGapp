@@ -23,33 +23,9 @@ export const CoinSection = styled.div`
 	align-items: center;
 	flex: 1 0;
 	position: relative;
-	background: url('./frame.svg') 49.3% 46.5%, url('./background.svg') 50% 50%;
+	background: url('./background.svg') 50% 50%;
 	background-repeat: no-repeat;
-
-	@media (max-width: 530px) {
-		background: url('./frame.svg') 48% 46.5%, url('./background.svg') 50% 50%;
-		background-repeat: no-repeat;
-	}
-	@media (max-width: 430px) {
-		background: url('./frame.svg') 42% 46.5%, url('./background.svg') 50% 50%;
-		background-repeat: no-repeat;
-	}
-	@media (max-width: 349px) {
-		background: url('./frame.svg') 56% 46.5%, url('./background.svg') 50% 50%;
-		background-repeat: no-repeat;
-	}
 `
-
-// export const CoinCountWrapper = styled.div`
-// 	margin-top: 20px;
-// 	display: flex;
-// 	width: 100%;
-// 	justify-content: center;
-// 	font-size: 56px;
-// 	letter-spacing: 7.1px;
-// 	line-height: 62px;
-// 	// flex: 1 0;
-// `
 
 export const CoinCount = styled.div<{ unit?: string }>`
 	font-size: 36px;

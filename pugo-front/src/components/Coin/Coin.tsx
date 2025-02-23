@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { CoinStyled } from './styled'
+import { CoinFrame, CoinStyled, ImgFrame } from './styled'
 
 export const Coin = () => {
 	const [rotation, setRotation] = useState({ x: 0, y: 0 })
@@ -57,16 +57,19 @@ export const Coin = () => {
 	}
 
 	return (
-		<CoinStyled
-			$rotateX={rotation.x}
-			$rotateY={rotation.y}
-			$scale={scale}
-			onMouseMove={handleMouseMove}
-			onMouseLeave={handleMouseLeave}
-			onMouseDown={handleMouseDown}
-			onMouseUp={handleMouseUp}
-		>
-			<img draggable={false} src='./coin.png' alt='Coin' />
-		</CoinStyled>
+		<CoinFrame>
+			<ImgFrame draggable={false} src='./frame.svg' alt='frame' />
+			<CoinStyled
+				$rotateX={rotation.x}
+				$rotateY={rotation.y}
+				$scale={scale}
+				onMouseMove={handleMouseMove}
+				onMouseLeave={handleMouseLeave}
+				onMouseDown={handleMouseDown}
+				onMouseUp={handleMouseUp}
+			>
+				<img draggable={false} src='./coin.svg' alt='Coin' />
+			</CoinStyled>
+		</CoinFrame>
 	)
 }
