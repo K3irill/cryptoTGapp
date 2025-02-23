@@ -1,11 +1,14 @@
 import { COLORS } from '@/styles/colors'
 import styled from 'styled-components'
 
-export const HeaderStyled = styled.header`
-	padding: 10px 8px 0 8px;
+export const HeaderStyled = styled.div`
+	padding: 10px 8px 10px 8px;
 	height: 47px;
 	display: flex;
 	justify-content: space-between;
+	box-shadow: 0px 0px 6.1479px #f0c8771f;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 `
 export const UserBlockStyled = styled.div`
 	display: flex;

@@ -8,6 +8,7 @@ import Document, {
 	DocumentInitialProps,
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
+import Script from 'next/script'
 
 class MyDocument extends Document {
 	static async getInitialProps(
@@ -40,7 +41,12 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html lang='ru'>
-				<Head />
+				<Head>
+					<Script
+						src='https://telegram.org/js/telegram-web-app.js'
+						strategy='beforeInteractive'
+					/>
+				</Head>
 				<body>
 					<Main />
 					<NextScript />
