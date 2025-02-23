@@ -29,6 +29,7 @@ export const UserAvatarWrapper = styled.div`
 	height: 40px;
 	border: 2px solid rgba(255, 255, 255, 0.2);
 	border-radius: 50%;
+	overflow: hidden;
 `
 
 export const UserAvatarStyled = styled.img`
