@@ -33,6 +33,10 @@ export interface PagesTypes {
 	rating: object
 	map: object
 }
+export interface TopSectionTypes {
+	title: string
+	titleWithBorder: boolean
+}
 export interface ContentData {
 	header: HeaderContent
 	footer: FooterContent
@@ -40,7 +44,7 @@ export interface ContentData {
 }
 
 export interface HomeTypes {
-	top_section: object | null
+	top_section: TopSectionTypes | null
 	site_link: string
 	banner: {
 		title: string
@@ -48,10 +52,7 @@ export interface HomeTypes {
 }
 
 export interface BankTypes {
-	top_section: {
-		title: string
-		titleWithBorder: boolean
-	}
+	top_section: TopSectionTypes
 	user_section: {
 		amount_coins: number
 	}

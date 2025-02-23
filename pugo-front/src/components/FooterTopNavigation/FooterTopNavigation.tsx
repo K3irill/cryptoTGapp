@@ -10,7 +10,7 @@ const FooterTopNavigation: FunctionComponent<FooterTopNavigationProps> = ({
 		<NavigationStyled>
 			{elements.map(el => (
 				<NavElement href={el.href} key={el.id} background='transparent'>
-					<img src={el.src} alt='' />
+					<img src={el.src || ''} alt='' />
 				</NavElement>
 			))}
 		</NavigationStyled>

@@ -1,5 +1,7 @@
+import { TopSectionTypes } from '@/types/types'
+
 export interface TopPageInfoProps {
-	data: any
+	data: TopSectionTypes
 }
 
 export interface TopPageInfoStyledProps {

@@ -16,7 +16,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({ elements }) => {
 						path={elem.href}
 						key={elem.id}
 					>
-						<SvgIconStyled src={elem.src} alt={elem.title} />
+						<SvgIconStyled src={elem.src || ''} alt={elem.title || 'alt'} />
 					</NavCircleElement>
 				)
 			)}

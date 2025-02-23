@@ -2,7 +2,7 @@
 import { ContentData } from '@/types/types'
 
 export async function getContent(): Promise<ContentData> {
-	const res = await fetch('https://pugo.onrende2r.com/api/content')
+	const res = await fetch('https://pugo.onrender.com/api/content')
 	if (!res.ok) {
 		throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`)
 	}
