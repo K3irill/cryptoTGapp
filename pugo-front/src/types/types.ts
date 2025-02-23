@@ -7,7 +7,7 @@ export interface HeaderContent {
 export interface NavItem {
 	id: string
 	title: string | null
-	src: string
+	src: string | null
 	href: string
 	availability: boolean
 }
