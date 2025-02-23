@@ -29,10 +29,10 @@ export const NavElement = styled.a<NavElementStyledProps>`
 	${p =>
 		!p.disabled
 			? `
-    opacity: 0.6;
+   
     pointer-events: none;
     cursor: not-allowed;
-    filter: brightness(0.3)`
+    filter: brightness(0.2)`
 			: `	&:active {
 		transform: scale(0.7);
 	}
