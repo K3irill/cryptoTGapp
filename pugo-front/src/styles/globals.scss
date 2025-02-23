@@ -1,7 +1,9 @@
 @use './reset.scss' as *;
 :root {
 	--font-jersey: 'Jersey 10', sans-serif;
-	--primary-color: #d9d9d9;
+	--font-monoton: 'Monoton', sans-serif;
+	--font-bai-jamjuree: 'Bai Jamjuree', sans-serif;
+	--font-dm_sans: 'DM Sans', sans-serif;
 }
 
 html,
@@ -20,10 +22,12 @@ body {
 }
 
 footer {
-	padding-bottom: 25px;
+	padding-bottom: 15px;
 }
 body {
-	font-family: var(--font-jersey);
+	font-family: var(--font-bai-jamjuree);
 	color: var(--primary-color);
-	background: #0a0d10;
+	background: url(/background.png) repeat;
+	background-position: center;
+	background-size: contain;
 }

@@ -13,9 +13,14 @@ export const NavBlockStyled = styled.div`
 `
 
 export const NavTitleStyled = styled.p`
-	font-size: 30px;
-
-	background: linear-gradient(180deg, #f0c777 24.48%, #85c2d7 76.56%);
-	-webkit-text-fill-color: transparent;
+	font-size: 14px;
+	font-family: var(--font-monoton);
+	background: linear-gradient(180deg, #f0c777 24.48%, #10151a 76.56%);
 	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+
+	@media (min-width: 768px) {
+		font-size: 24px;
+	}
 `

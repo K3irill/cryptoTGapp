@@ -1,6 +1,11 @@
 import Head from 'next/head'
 import React, { FunctionComponent } from 'react'
-import { Geist, Jersey_10 } from 'next/font/google'
+import {
+	jerseyFont,
+	mobotonFont,
+	BaiJamjureeFont,
+	DMSansFont,
+} from '@/assets/fonts/fonts'
 import { Footer } from '../Footer/Footer'
 import { Header } from '../Header/Header'
 import { FooterContent, HeaderContent } from '@/types/types'
@@ -10,17 +15,6 @@ interface MainLayoutsProps {
 	header: HeaderContent
 	footer: FooterContent
 }
-
-const geistSans = Geist({
-	subsets: ['latin'],
-	variable: '--font-geist-sans',
-})
-
-const jerseyFont = Jersey_10({
-	weight: '400',
-	subsets: ['latin'],
-	variable: '--font-jersey',
-})
 
 const MainLayout: FunctionComponent<MainLayoutsProps> = ({
 	children,
@@ -35,7 +29,9 @@ const MainLayout: FunctionComponent<MainLayoutsProps> = ({
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<div className={`app ${geistSans.variable} ${jerseyFont.variable}`}>
+			<div
+				className={`app  ${jerseyFont.variable} ${mobotonFont.variable} ${BaiJamjureeFont.variable} ${DMSansFont.variable}`}
+			>
 				<Header content={header} />
 				{children}
 				<Footer content={footer} />

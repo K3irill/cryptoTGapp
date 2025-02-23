@@ -17,6 +17,7 @@ export interface NavItem {
 export interface FooterContent {
 	navigation: {
 		nav_elements: NavItem[]
+		top_nav: NavItem[]
 	}
 }
 

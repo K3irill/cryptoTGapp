@@ -1,4 +1,4 @@
-import { COLORS } from '@/constants/colors'
+import { COLORS } from '@/assets/constants/colors'
 import styled from 'styled-components'
 import { ButtonStyledProps } from './Button.d'
 

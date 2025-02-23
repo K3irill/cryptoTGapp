@@ -4,8 +4,8 @@ export const CoinStyled = styled.div<{
 	$rotateY: number
 	$scale: number
 }>`
-	width: 268px;
-	height: 268px;
+	width: 163.68px;
+	height: 157.68px;
 	transition: transform 0.3s ease-out, scale 0.1s ease-in-out;
 	transform: perspective(500px) rotateX(${props => props.$rotateX}deg)
 		rotateY(${props => props.$rotateY}deg) scale(${props => props.$scale});
