@@ -65,3 +65,67 @@ export const goldenTextGradient = css`
 	background-clip: text;
 	text-fill-color: transparent;
 `
+
+export const mainBlockBackground = css`
+	background: url(./mramor.png) no-repeat, rgba(0, 0, 0, 0.613);
+	background-size: cover;
+	background-blend-mode: soft-light, normal;
+	box-shadow: 0px 40px 80px rgba(0, 0, 0, 0.25),
+		inset 0px -4px 2px rgba(0, 0, 0, 0.15),
+		inset 0px 4px 2px rgba(255, 255, 255, 0.05),
+		inset 4px 4px 26px rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(40px);
+	border-radius: 16px;
+	// filter: opacity(0.7);
+`
+
+//золотой градиент для текста v2
+export const goldenTextGradientV2 = css`
+	background: linear-gradient(0deg, #c1a875, #c1a875),
+		linear-gradient(339.03deg, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+		linear-gradient(
+			76.82deg,
+			#576265 11.6%,
+			#9ea1a1 25.31%,
+			#848b8a 48.06%,
+			#576265 55.72%,
+			#576265 77.23%,
+			#757a7b 85.34%,
+			#576265 91.31%
+		);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	background-blend-mode: color, overlay, normal;
+`
+
+export const silverTextGradient = css`
+	background: linear-gradient(
+		319.96deg,
+		#a8a8a6 15.87%,
+		#696969 48.67%,
+		#f9f8f6 64.17%,
+		#d4d4d4 75.79%,
+		#7f7f7f 88.5%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+`
+
+export const purpleTextGradient = css`
+	background: linear-gradient(
+		138.8deg,
+		#cce8fe 5.7%,
+		#cda0ff 27.03%,
+		#8489f5 41.02%,
+		#cdf1ff 68.68%,
+		#b591e9 94%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+`

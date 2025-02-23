@@ -4,6 +4,7 @@ interface NavElementStyledProps {
 	width?: string
 	height?: string
 	background?: string
+	disabled?: boolean
 }
 
 export const NavElement = styled.a<NavElementStyledProps>`
@@ -25,7 +26,13 @@ export const NavElement = styled.a<NavElementStyledProps>`
 	transition: transform 0.3s ease;
 	cursor: pointer;
 
-	&:active {
+	${p =>
+		!p.disabled
+			? `
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;`
+			: `	&:active {
 		transform: scale(0.7);
 	}
 
@@ -33,5 +40,5 @@ export const NavElement = styled.a<NavElementStyledProps>`
 		&:hover {
 			transform: scale(1.2);
 		}
-	}
+	}`}
 `

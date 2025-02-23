@@ -11,7 +11,11 @@ const Navigation: FunctionComponent<NavigationProps> = ({ elements }) => {
 				!!elem.title ? (
 					<NavTitleStyled key={elem.id}>{elem.title}</NavTitleStyled>
 				) : (
-					<NavCircleElement path={elem.href} key={elem.id}>
+					<NavCircleElement
+						disabled={elem.availability}
+						path={elem.href}
+						key={elem.id}
+					>
 						<SvgIconStyled src={elem.src} alt={elem.title} />
 					</NavCircleElement>
 				)

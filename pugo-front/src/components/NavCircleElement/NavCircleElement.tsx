@@ -8,6 +8,7 @@ export const NavCircleElement: FunctionComponent<NavCircleElementProps> = ({
 	width,
 	height,
 	background,
+	disabled,
 }) => {
 	return (
 		<NavElement
@@ -15,6 +16,7 @@ export const NavCircleElement: FunctionComponent<NavCircleElementProps> = ({
 			width={width}
 			height={height}
 			href={path}
+			disabled={disabled}
 		>
 			{children}
 		</NavElement>

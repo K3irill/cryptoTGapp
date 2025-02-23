@@ -9,6 +9,7 @@ export interface NavCircleElementProps {
 	htmlTag?: NavCircleElement.LINK | NavCircleElement.BUTTON
 	width?: string
 	height?: string
-
+	disabled: boolean
 	background?: string
+	disabled: boolean
 }
