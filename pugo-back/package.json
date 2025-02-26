@@ -19,7 +19,8 @@
 		"node-telegram-bot-api": "^0.66.0",
 		"pg": "^8.13.3",
 		"sequelize": "^6.37.5",
-		"telegraf": "^4.16.3"
+		"telegraf": "^4.16.3",
+		"ws": "^8.18.1"
 	},
 	"devDependencies": {
 		"nodemon": "^3.1.9"

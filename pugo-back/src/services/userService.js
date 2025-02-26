@@ -32,7 +32,6 @@ const getUserByTelegramId = async telegramId => {
 	return user
 }
 
-// Функция для создания пользователя, если он не существует
 const createUserIfNeeded = async ({
 	telegramId,
 	username,
@@ -48,7 +47,7 @@ const createUserIfNeeded = async ({
 			console.log('Реферальный код не найден, генерируем новый...')
 			const referralCode = generateReferralCode()
 			existingUser.referralCode = referralCode
-			await existingUser.save() // Сохраняем изменения в базе данных
+			await existingUser.save()
 			console.log('Реферальный код добавлен:', referralCode)
 		}
 
@@ -59,28 +58,22 @@ const createUserIfNeeded = async ({
 	return await createUser(telegramId, username, firstName, lastName)
 }
 
-// Функция для обновления реферальных кодов у всех пользователей, если их нет
-const updateReferralCodesForExistingUsers = async () => {
-	const users = await User.findAll()
+const updateUserTokens = async (telegramId, amount) => {
+	const user = await User.findOne({ where: { telegramId } })
 
-	for (const user of users) {
-		if (!user.referralCode) {
-			console.log(
-				`Реферальный код для пользователя ${user.telegramId} не найден, генерируем новый...`
-			)
-			const referralCode = generateReferralCode()
-			user.referralCode = referralCode
-			await user.save()
-			console.log(
-				`Реферальный код для пользователя ${user.telegramId}: ${referralCode}`
-			)
-		}
+	if (!user) {
+		throw new Error('Пользователь не найден')
 	}
+
+	user.tokens = parseFloat(user.tokens) + amount
+	await user.save()
+
+	return user
 }
 
 module.exports = {
 	createUser,
 	getUserByTelegramId,
 	createUserIfNeeded,
-	updateReferralCodesForExistingUsers,
+	updateUserTokens,
 }

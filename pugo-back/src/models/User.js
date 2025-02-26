@@ -1,6 +1,6 @@
 // src/models/User.js
 const { DataTypes } = require('sequelize')
-const sequelize = require('../config/dbConfig')
+const { sequelize } = require('../config/dbConfig')
 
 const User = sequelize.define(
 	'User',
@@ -13,6 +13,7 @@ const User = sequelize.define(
 		telegramId: {
 			type: DataTypes.BIGINT,
 			allowNull: false,
+			unique: true,
 		},
 		username: {
 			type: DataTypes.STRING,
@@ -31,13 +32,9 @@ const User = sequelize.define(
 			unique: true,
 			allowNull: false,
 		},
-		friends: {
-			type: DataTypes.ARRAY(DataTypes.INTEGER),
-			defaultValue: [],
-		},
-		invitedUsers: {
-			type: DataTypes.ARRAY(DataTypes.INTEGER),
-			defaultValue: [],
+		walletAddress: {
+			type: DataTypes.STRING,
+			allowNull: true,
 		},
 	},
 	{

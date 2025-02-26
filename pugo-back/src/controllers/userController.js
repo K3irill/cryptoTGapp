@@ -2,23 +2,20 @@
 const User = require('../models/User')
 
 // Получить информацию о пользователе
-const getUser = async (req, res) => {
-	try {
-		const user = await User.findByPk(req.user.id) // предполагаем, что id пользователя передается через middleware авторизации
-		if (!user) {
-			return res.status(404).json({ message: 'User not found' })
-		}
-		res.json(user)
-	} catch (error) {
-		res.status(500).json({ message: 'Server error' })
+const getUser = async telegramId => {
+	const user = await User.findOne({ where: { telegramId } })
+	if (!user) {
+		throw new Error('Пользователь не найден')
 	}
+
+	return user
 }
 
 // Пополнить баланс
 const depositBalance = async (req, res) => {
+	const { userId, amount } = req.body
 	try {
-		const { amount } = req.body
-		const user = await User.findByPk(req.user.id)
+		const user = await User.findByPk(userId)
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' })
 		}
@@ -30,7 +27,4 @@ const depositBalance = async (req, res) => {
 	}
 }
 
-module.exports = {
-	getUser,
-	depositBalance,
-}
+module.exports = { getUser, depositBalance }
