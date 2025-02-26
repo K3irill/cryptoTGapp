@@ -26,7 +26,7 @@ const UserBank: FunctionComponent<UserBankProps> = () => {
 				<UserInfo>
 					<UserNameStyled>{user.firstName || 'Who are you?'}</UserNameStyled>
 					<UserTokenCountStyled>
-						<p>15000</p>
+						<p>{!user.tokens ? 'loading...' : user.tokens}</p>
 						<span>PUGO</span>
 					</UserTokenCountStyled>
 				</UserInfo>

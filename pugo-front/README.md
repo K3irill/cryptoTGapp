@@ -32,6 +32,10 @@ run ngrok local
 ngrok http http://localhost:8080
 ```
 
+```bash localtunnel
+lt --port 8080
+```
+
 ---
 
 Open [http://localhost:8080](http://localhost:8080) with your browser to see the result.

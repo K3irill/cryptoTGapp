@@ -6,6 +6,12 @@ interface UserState {
 	firstName: string | null
 	lastName: string | null
 	photoUrl: string | null
+	balance: number | null
+	tokens: number | null
+	referralCode: string | null
+	walletAddress: string | null
+	createdAt: string | null
+	updatedAt: string | null
 }
 
 const initialState: UserState = {
@@ -14,6 +20,12 @@ const initialState: UserState = {
 	firstName: null,
 	lastName: null,
 	photoUrl: null,
+	balance: null,
+	tokens: null,
+	referralCode: null,
+	walletAddress: null,
+	createdAt: null,
+	updatedAt: null,
 }
 
 const userSlice = createSlice({
@@ -21,6 +33,7 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser(state, action: PayloadAction<Partial<UserState>>) {
+			console.log(action.payload)
 			return { ...state, ...action.payload }
 		},
 	},
