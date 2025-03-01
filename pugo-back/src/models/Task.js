@@ -1,20 +1,31 @@
-// src/models/Task.js
 const { DataTypes } = require('sequelize')
-const sequelize = require('../config/dbConfig')
+const { sequelize } = require('../config/dbConfig')
 
-const Task = sequelize.define('Task', {
-	description: {
-		type: DataTypes.TEXT,
-		allowNull: false,
+const Task = sequelize.define(
+	'Task',
+	{
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		icon: {
+			type: DataTypes.TEXT,
+			allowNull: false,
+		},
+		description: {
+			type: DataTypes.TEXT,
+			allowNull: false,
+		},
+		reward: {
+			type: DataTypes.DECIMAL(10, 2),
+			allowNull: false,
+		},
 	},
-	reward: {
-		type: DataTypes.DECIMAL(10, 2),
-		allowNull: false,
-	},
-	status: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-	},
-})
+	{
+		timestamps: true,
+		tableName: 'Tasks',
+	}
+)
 
 module.exports = Task

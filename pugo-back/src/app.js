@@ -7,6 +7,7 @@ const bot = require('./bot')
 const exchangeRoutes = require('./routes/exchange')
 const walletRoutes = require('./routes/wallet')
 const userRoutes = require('./routes/userRotes')
+const taskRoutes = require('./routes/taskRoutes')
 const telegramRegisterRouter = require('./routes/telegram-register')
 
 dotenv.config()
@@ -18,6 +19,7 @@ app.use(express.json())
 // Подключение роутов
 app.use('/api/wallet', walletRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/task', taskRoutes)
 app.use('/api', exchangeRoutes)
 app.use(telegramRegisterRouter)
 

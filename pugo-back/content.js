@@ -41,7 +41,7 @@ const CONTENT = {
 					title: 'TASKS',
 					src: 'icons/task.svg',
 					href: '/tasks',
-					availability: false,
+					availability: true,
 				},
 				{
 					id: '3',
@@ -74,75 +74,37 @@ const CONTENT = {
 				title: 'Bank',
 				titleWithBorder: true,
 			},
-			user_section: {
-				amount_coins: 1500,
-			},
-			activity_section: {
-				activity: [
-					{
-						id: 0,
-						date: '02.02.2025',
-						amount: 2000,
-						active: 'send',
-						wallet: 'RfDc..sase',
-					},
-					{
-						id: 1,
-						date: '01.02.2025',
-						amount: 12000,
-						active: 'receive',
-						wallet: 'UZQDc..ssqrv',
-					},
-					{
-						id: 2,
-						date: '30.01.2025',
-						amount: 19000,
-						active: 'send',
-						wallet: 'hTDc..drj',
-					},
-					{
-						id: 3,
-						date: '29.02.2025',
-						amount: 15000,
-						active: 'receive',
-						wallet: 'UZQDc..ssqrv',
-					},
-					{
-						id: 4,
-						date: '02.02.2025',
-						amount: 62000,
-						active: 'send',
-						wallet: 'UZQDc..yrrv',
-					},
-					{
-						id: 5,
-						date: '01.02.2025',
-						amount: 512000,
-						active: 'receive',
-						wallet: 'UZQDc..ssqrv',
-					},
-					{
-						id: 6,
-						date: '30.01.2025',
-						amount: 4000,
-						active: 'send',
-						wallet: 'sZhQDc..iihb',
-					},
-					{
-						id: 8,
-						date: '29.02.2025',
-						amount: 100,
-						active: 'send',
-						wallet: 'UfQDc..spfs',
-					},
-				],
+		},
+		exchange: {
+			top_section: {
+				title: 'Exchange',
+				titleWithBorder: true,
 			},
 		},
-		exchange: {},
-		frens: {},
-		tasks: {},
-		rating: {},
-		map: {},
+		frens: {
+			top_section: {
+				title: 'Friends',
+				titleWithBorder: false,
+			},
+		},
+		tasks: {
+			top_section: {
+				title: 'Tasks',
+				titleWithBorder: false,
+			},
+		},
+		rating: {
+			top_section: {
+				title: 'Rating',
+				titleWithBorder: false,
+			},
+		},
+		map: {
+			top_section: {
+				title: 'Map',
+				titleWithBorder: false,
+			},
+		},
 	},
 }
 
