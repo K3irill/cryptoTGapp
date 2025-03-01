@@ -63,8 +63,6 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
 			if (!user.id) return
-
-			// Fetch user information from server
 			const getUserInfo = async () => {
 				try {
 					const response = await fetch(
@@ -93,12 +91,11 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 				}
 			}
 
-			// Set interval to update user info every 15 seconds
 			const interval = setInterval(() => {
 				getUserInfo()
 			}, 15000)
 
-			return () => clearInterval(interval) // Cleanup interval on unmount
+			return () => clearInterval(interval)
 		}
 	}, [user.id, dispatch])
 

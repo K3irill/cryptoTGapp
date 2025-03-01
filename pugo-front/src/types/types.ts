@@ -28,8 +28,8 @@ export interface PagesTypes {
 	home: HomeTypes
 	bank: BankTypes
 	exchange: object
+	tasks: TasksTypes
 	frens: object
-	tasks: object
 	rating: object
 	map: object
 }
@@ -53,16 +53,14 @@ export interface HomeTypes {
 
 export interface BankTypes {
 	top_section: TopSectionTypes
-	user_section: {
-		amount_coins: number
-	}
-	activity_section: {
-		activity: ActivityItem[]
-	}
 }
+
+export interface TasksTypes {
+	top_section: TopSectionTypes
+}
+
 // export interface ExchangeTypes {}
 
 // export interface FrensTypes {}
-// export interface TasksTypes {}
 // export interface RatingTypes {}
 // export interface MapTypes {}

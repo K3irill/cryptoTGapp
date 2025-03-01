@@ -41,7 +41,7 @@ export const CONTENT = {
 					title: 'TASKS',
 					src: 'icons/task.svg',
 					href: '/tasks',
-					availability: false,
+					availability: true,
 				},
 				{
 					id: '3',
@@ -74,46 +74,36 @@ export const CONTENT = {
 				title: 'Bank',
 				titleWithBorder: true,
 			},
-			user_section: {
-				amount_coins: 1500,
-			},
-			activity_section: {
-				activity: [
-					{
-						id: 0,
-						date: '02.02.2025',
-						amount: 2000,
-						active: 'send',
-						wallet: 'UZQDc..ssqrv',
-					},
-					{
-						id: 1,
-						date: '01.02.2025',
-						amount: 12000,
-						active: 'receive',
-						wallet: 'UZQDc..ssqrv',
-					},
-					{
-						id: 2,
-						date: '30.01.2025',
-						amount: 9000,
-						active: 'receive',
-						wallet: 'UZQDc..ssqrv',
-					},
-					{
-						id: 3,
-						date: '29.02.2025',
-						amount: 15000,
-						active: 'receive',
-						wallet: 'UZQDc..ssqrv',
-					},
-				],
+		},
+		exchange: {
+			top_section: {
+				title: 'Exchange',
+				titleWithBorder: true,
 			},
 		},
-		exchange: {},
-		frens: {},
-		tasks: {},
-		rating: {},
-		map: {},
+		frens: {
+			top_section: {
+				title: 'Friends',
+				titleWithBorder: false,
+			},
+		},
+		tasks: {
+			top_section: {
+				title: 'Tasks',
+				titleWithBorder: false,
+			},
+		},
+		rating: {
+			top_section: {
+				title: 'Rating',
+				titleWithBorder: false,
+			},
+		},
+		map: {
+			top_section: {
+				title: 'Map',
+				titleWithBorder: false,
+			},
+		},
 	},
 }
