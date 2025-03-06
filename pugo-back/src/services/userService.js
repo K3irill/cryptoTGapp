@@ -1,7 +1,6 @@
-const User = require('../models/User')
+const { User, Task, UserTask } = require('../models')
 const generateReferralCode = require('../utils/generateReferralCode')
-const Task = require('../models/Task')
-const UserTask = require('../models/UserTask')
+
 // Функция создания пользователя с токенами и реферальным кодом
 const createUser = async (telegramId, username, firstName, lastName) => {
 	const user = await User.create({
@@ -18,7 +17,7 @@ const createUser = async (telegramId, username, firstName, lastName) => {
 
 	// Привязываем задачи к пользователю (по умолчанию статус false)
 	const userTasks = tasks.map(task => ({
-		userId: user.id,
+		userId: user.telegramId,
 		taskId: task.id,
 		status: false,
 	}))

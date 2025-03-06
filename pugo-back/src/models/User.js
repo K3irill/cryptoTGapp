@@ -4,13 +4,9 @@ const { sequelize } = require('../config/dbConfig')
 const User = sequelize.define(
 	'User',
 	{
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true,
-		},
 		telegramId: {
 			type: DataTypes.BIGINT,
+			primaryKey: true,
 			allowNull: false,
 			unique: true,
 		},
@@ -41,5 +37,13 @@ const User = sequelize.define(
 		tableName: 'Users',
 	}
 )
+
+User.associate = models => {
+	User.belongsToMany(models.Task, {
+		through: models.UserTask,
+		foreignKey: 'userId',
+		otherKey: 'taskId',
+	})
+}
 
 module.exports = User

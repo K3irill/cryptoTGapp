@@ -2,7 +2,7 @@ const cors = require('cors')
 const express = require('express')
 const http = require('http') // ✅ Добавляем http
 const dotenv = require('dotenv')
-const { sequelize } = require('./config/dbConfig')
+const { sequelize, User, Task, UserTask } = require('./models')
 const bot = require('./bot')
 const exchangeRoutes = require('./routes/exchange')
 const walletRoutes = require('./routes/wallet')
@@ -28,7 +28,13 @@ const server = http.createServer(app)
 const startServer = async () => {
 	try {
 		await sequelize.sync()
-
+		await sequelize.authenticate()
+		console.log(sequelize.models)
+		console.log('---------------------')
+		console.log(User.associations)
+		console.log(Task.associations)
+		console.log(UserTask.associations)
+		console.log('---------------------')
 		server.listen(7000, () => {
 			console.log('🚀 Server is running on port 7000')
 		})

@@ -1,7 +1,6 @@
-const Task = require('../models/Task')
-const User = require('../models/User')
-const UserTask = require('../models/UserTask')
+const { User, Task, UserTask } = require('../models')
 const { checkSubscription } = require('../utils/checkTelegramSubscription')
+const { sequelize } = require('../config/dbConfig') // Убедись, что путь к файлу правильный
 
 const createTaskForAllUsers = async (icon, description, reward) => {
 	// Создаём новую задачу в `Tasks`
@@ -10,11 +9,11 @@ const createTaskForAllUsers = async (icon, description, reward) => {
 	// Получаем всех пользователей
 	const users = await User.findAll()
 
-	// Создаём записи в `UserTasks`
+	// Создаём записи в `UserTasks` для каждого пользователя
 	const userTasks = users.map(user => ({
 		userId: user.telegramId,
 		taskId: task.id,
-		status: false, // Новая задача ещё не выполнена
+		status: 'pending', // Устанавливаем статус по умолчанию
 	}))
 
 	await UserTask.bulkCreate(userTasks)
@@ -31,7 +30,8 @@ const updateUserTaskStatus = async (userId, taskId) => {
 		throw new Error('Задача не найдена для данного пользователя')
 	}
 
-	userTask.status = true
+	// Обновляем статус на "completed"
+	userTask.status = 'completed'
 	await userTask.save()
 
 	return userTask
@@ -47,32 +47,35 @@ async function checkAndUpdateTaskStatus(userId, taskId, chatId, botToken) {
 			where: { userId, taskId },
 		})
 
-		if (userTask) {
-			// Обновляем статус задачи на "выполнено"
-			userTask.status = true
-			await userTask.save()
-			console.log('Задание выполнено, статус обновлен.')
-		} else {
-			console.log('Задача не найдена для этого пользователя.')
+		if (!userTask) {
+			throw new Error('Задача не найдена для данного пользователя')
 		}
+
+		// Обновляем статус задачи
+		userTask.status = 'completed'
+		await userTask.save()
+
+		return userTask
 	} else {
-		console.log('Пользователь не выполнил задание.')
+		throw new Error('Пользователь не выполнил задачу')
 	}
 }
-
 const getUserTasks = async userId => {
-	const userTasks = await UserTask.findAll({
-		where: { userId },
-		include: [{ model: Task }],
+	const user = await User.findOne({
+		where: { telegramId: userId },
+		include: [
+			{
+				model: Task,
+				through: { attributes: ['status'] }, // Включаем статус из промежуточной таблицы
+			},
+		],
 	})
 
-	return userTasks.map(ut => ({
-		id: ut.Task.id,
-		icon: ut.Task.icon,
-		description: ut.Task.description,
-		reward: ut.Task.reward,
-		status: ut.status,
-	}))
+	if (!user) {
+		throw new Error('Пользователь не найден')
+	}
+
+	return user.Tasks // Возвращаем задачи пользователя
 }
 
 module.exports = {

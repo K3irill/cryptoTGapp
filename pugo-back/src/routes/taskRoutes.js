@@ -13,6 +13,7 @@ router.get('/:userId/tasks', async (req, res) => {
 	const { userId } = req.params
 	try {
 		const tasks = await getUserTasks(userId)
+
 		res.json({ success: true, tasks })
 	} catch (error) {
 		res.status(400).json({ success: false, error: error.message })
