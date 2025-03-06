@@ -27,7 +27,7 @@ const server = http.createServer(app)
 
 const startServer = async () => {
 	try {
-		await sequelize.sync()
+		await sequelize.sync(/*{ force: true }*/)
 		await sequelize.authenticate()
 		console.log(sequelize.models)
 		console.log('---------------------')

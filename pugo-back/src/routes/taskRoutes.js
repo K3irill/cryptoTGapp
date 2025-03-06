@@ -6,6 +6,8 @@ const {
 	createTaskForAllUsers,
 	checkAndUpdateTaskStatus,
 } = require('../services/taskService')
+const { UserTask, Task } = require('../models')
+const { updateUserTokens } = require('../services/userService')
 const router = express.Router()
 
 // Получить задачи пользователя
@@ -24,7 +26,20 @@ router.get('/:userId/tasks', async (req, res) => {
 router.post('/:userId/tasks/:taskId/complete', async (req, res) => {
 	const { userId, taskId } = req.params
 	try {
+		// Обновляем статус задачи пользователя
+
+		// Находим запись в промежуточной таблице UserTask
+		const userTasks = await getUserTasks(userId)
+		const userTask = userTasks.find(task => task.id === parseInt(taskId))
+		console.log('-----------------------------------------------', userTask)
+		// Обновляем токены пользователя
+		if (userTask.UserTask.status === 'completed') {
+			res.status(400).json({ success: false, error: 'Задача уже выполнена!' })
+			return
+		}
 		await updateUserTaskStatus(userId, taskId)
+		await updateUserTokens(userId, +userTask.reward)
+
 		res.json({ success: true, message: 'Задача выполнена' })
 	} catch (error) {
 		res.status(400).json({ success: false, error: error.message })

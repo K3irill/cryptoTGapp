@@ -19,7 +19,7 @@ const User = sequelize.define(
 			defaultValue: 0,
 		},
 		tokens: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			defaultValue: 100,
 		},
 		referralCode: {
