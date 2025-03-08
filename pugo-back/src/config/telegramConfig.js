@@ -1,10 +1,10 @@
 const TelegramBot = require('node-telegram-bot-api')
 
-const token = process.env.TELEGRAM_BOT_TOKEN
+const token = process.env.BOT_TOKEN
 
 if (!token) {
 	console.error('Токен бота не предоставлен!')
-	process.exit(1) // Завершаем процесс, если токен отсутствует
+	process.exit(1)
 }
 
 const bot = new TelegramBot(token, { polling: true })
