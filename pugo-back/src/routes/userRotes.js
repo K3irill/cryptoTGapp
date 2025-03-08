@@ -1,6 +1,8 @@
 // src/routes/userRoutes.js
 const express = require('express')
 const { getUser, depositBalance } = require('../controllers/userController')
+const generateReferralCode = require('../utils/generateReferralCode')
+const { User } = require('../models')
 const router = express.Router()
 
 // Получить информацию о пользователе

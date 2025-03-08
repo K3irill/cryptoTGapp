@@ -20,7 +20,7 @@ const User = sequelize.define(
 		},
 		tokens: {
 			type: DataTypes.BIGINT,
-			defaultValue: 100,
+			defaultValue: 0,
 		},
 		referralCode: {
 			type: DataTypes.STRING,
@@ -30,6 +30,10 @@ const User = sequelize.define(
 		walletAddress: {
 			type: DataTypes.STRING,
 			allowNull: true,
+		},
+		referrals: {
+			type: DataTypes.ARRAY(DataTypes.BIGINT),
+			defaultValue: [],
 		},
 	},
 	{

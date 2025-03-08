@@ -9,7 +9,7 @@ const walletRoutes = require('./routes/wallet')
 const userRoutes = require('./routes/userRotes')
 const taskRoutes = require('./routes/taskRoutes')
 const telegramRegisterRouter = require('./routes/telegram-register')
-
+const CONTENT = require('./content')
 dotenv.config()
 
 const app = express()
@@ -22,7 +22,9 @@ app.use('/api/user', userRoutes)
 app.use('/api/task', taskRoutes)
 app.use('/api', exchangeRoutes)
 app.use(telegramRegisterRouter)
-
+app.get('/api/content', (req, res) => {
+	res.json(CONTENT)
+})
 const server = http.createServer(app)
 
 const startServer = async () => {

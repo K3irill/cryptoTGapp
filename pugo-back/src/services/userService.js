@@ -8,7 +8,7 @@ const createUser = async (telegramId, username, firstName, lastName) => {
 		username,
 		firstName,
 		lastName,
-		tokens: 100,
+		tokens: 1,
 		referralCode: generateReferralCode(),
 	})
 
