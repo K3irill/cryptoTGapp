@@ -29,12 +29,7 @@ const startServer = async () => {
 	try {
 		await sequelize.sync(/*{ force: true }*/)
 		await sequelize.authenticate()
-		console.log(sequelize.models)
-		console.log('---------------------')
-		console.log(User.associations)
-		console.log(Task.associations)
-		console.log(UserTask.associations)
-		console.log('---------------------')
+
 		server.listen(7000, () => {
 			console.log('🚀 Server is running on port 7000')
 		})

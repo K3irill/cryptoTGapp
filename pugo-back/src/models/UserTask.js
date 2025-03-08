@@ -22,8 +22,8 @@ const UserTask = sequelize.define(
 			},
 		},
 		status: {
-			type: DataTypes.ENUM('pending', 'completed'),
-			defaultValue: 'pending',
+			type: DataTypes.ENUM('available', 'pending', 'completed'),
+			defaultValue: 'available',
 		},
 	},
 	{

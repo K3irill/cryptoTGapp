@@ -13,6 +13,14 @@ const Task = sequelize.define(
 			type: DataTypes.TEXT,
 			allowNull: false,
 		},
+		link: {
+			type: DataTypes.TEXT,
+			allowNull: false,
+		},
+		chatId: {
+			type: DataTypes.TEXT,
+			allowNull: true,
+		},
 		description: {
 			type: DataTypes.TEXT,
 			allowNull: false,
