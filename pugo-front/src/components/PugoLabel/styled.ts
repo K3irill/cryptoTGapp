@@ -12,6 +12,7 @@ interface LabelStyledProps {
 	theme?: string
 	href?: string
 	target?: string
+	height?: string
 }
 
 export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
@@ -31,7 +32,7 @@ export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
 			  `}
 
 	border-radius: ${p => (p.radius ? p.radius : '10px')};
-	height: 18px;
+	height: ${p => (p.height ? p.height : '18px')};
 	display: flex;
 	padding: 0px 10px;
 	align-items: center;
@@ -39,6 +40,7 @@ export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
 	overflow: hidden;
 	text-align: center;
 	justify-content: center;
+	cursor: ${p => (p.onClick ? 'pointer' : 'default')};
 
 	span {
 		display: inline-block;

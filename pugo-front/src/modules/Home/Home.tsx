@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react'
 import { BannerStyled, CoinCount, CoinSection, HomeStyled } from './styled'
-import { HomeProps } from './Home'
+import { HomeProps } from './Home.d'
 import { Coin } from '@/components/Coin/Coin'
 import Button from '@/components/UI/Button/Button'
 

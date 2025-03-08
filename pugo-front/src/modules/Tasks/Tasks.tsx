@@ -18,9 +18,10 @@ import { RootState } from '@/store/store'
 import { TasksApi } from '@/types/types'
 import TaskItem from '@/components/TaskItem/TaskItem'
 import { Container } from '@/styles/styled'
+import { TopBorderStyled } from '../Bank/styled'
 
 export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
-	const [isCompletedOpen, setIsCompletedOpen] = useState<boolean>(false)
+	const [isCompletedOpen, setIsCompletedOpen] = useState<boolean>(true)
 	const [isAvailableOpen, setIsAvailableOpen] = useState<boolean>(true)
 	const [completedTasks, setCompletedTasks] = useState<TasksApi[]>([])
 	const [availableTasks, setAvailableTasks] = useState<TasksApi[]>([])
@@ -49,6 +50,8 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 		<TasksStyled>
 			<TopPageInfo data={data.top_section} />
 			<Container>
+				<TopBorderStyled src='./grey-top-border.svg' alt='border' />
+
 				<InstructionBlock />
 				<TasksBlock>
 					<CompletedTasks>

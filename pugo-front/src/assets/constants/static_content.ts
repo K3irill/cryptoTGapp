@@ -34,7 +34,7 @@ export const CONTENT = {
 					title: 'FRENS',
 					src: 'icons/frens.svg',
 					href: '/frens',
-					availability: false,
+					availability: true,
 				},
 				{
 					id: '2',

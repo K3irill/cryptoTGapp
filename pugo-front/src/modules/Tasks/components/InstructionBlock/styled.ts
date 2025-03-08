@@ -6,6 +6,7 @@ export const InstructionBlockStyled = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
+	margin: 10px 0;
 `
 export const InstructionStyled = styled.div`
 	width: 100%;

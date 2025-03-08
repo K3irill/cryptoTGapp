@@ -25,6 +25,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 				await completeTask({ userId, taskId: props.id }).unwrap()
 				console.log('Задача завершена')
 			}
+			window.Telegram.WebApp.openLink(props.link)
 		} catch (err) {
 			console.error('Ошибка при завершении задачи:', err)
 		}
@@ -46,11 +47,6 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 						props.UserTask.status === 'available'
 							? handleCompleteTask
 							: undefined
-					}
-					href={
-						props.UserTask.status === 'available' && props.link
-							? props.link
-							: ''
 					}
 					theme={
 						props.UserTask.status === 'available'

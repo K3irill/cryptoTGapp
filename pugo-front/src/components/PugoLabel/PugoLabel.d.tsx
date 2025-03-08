@@ -4,5 +4,6 @@ export interface PugoLabelProps {
 	radius?: string
 	theme?: string
 	href?: string
+	height?: string
 	onClick?: () => void
 }

@@ -29,7 +29,7 @@ export interface PagesTypes {
 	bank: BankTypes
 	exchange: object
 	tasks: TasksTypes
-	frens: object
+	frens: FrensTypes
 	rating: object
 	map: object
 }
@@ -58,7 +58,9 @@ export interface BankTypes {
 export interface TasksTypes {
 	top_section: TopSectionTypes
 }
-
+export interface FrensTypes {
+	top_section: TopSectionTypes
+}
 export interface TasksApi {
 	id: number
 	icon: string

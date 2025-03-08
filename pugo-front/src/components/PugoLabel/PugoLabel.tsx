@@ -8,12 +8,14 @@ const PugoLabel: FunctionComponent<PugoLabelProps> = ({
 	radius,
 	theme,
 	href,
+	height,
 	onClick,
 }) => {
 	return (
 		<LabelStyled
 			onClick={onClick}
 			href={href}
+			height={height}
 			target={href ? '_blank' : undefined}
 			rel={href ? 'noopener noreferrer' : undefined}
 			theme={theme}

@@ -17,7 +17,7 @@ interface MyAppProps extends AppProps {
 function AppContent({ Component, pageProps }: MyAppProps) {
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user)
-
+	const { referralCode } = useSelector((state: RootState) => state.user)
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
 			const tg = window.Telegram.WebApp
@@ -26,7 +26,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 			if (user) {
 				dispatch(
 					setUser({
-						id: user.id,
+						id: String(user.id),
 						username: user.username || null,
 						firstName: user.first_name || null,
 						lastName: user.last_name || null,
@@ -59,6 +59,39 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 			}
 		}
 	}, [dispatch])
+
+	const handleReferral = async (referralCode: string) => {
+		try {
+			const response = await fetch(`/ref/${referralCode}`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					telegramId: window.Telegram.WebApp.initDataUnsafe.user?.id,
+					username: window.Telegram.WebApp.initDataUnsafe.user?.username,
+					firstName: window.Telegram.WebApp.initDataUnsafe.user?.first_name,
+					lastName: window.Telegram.WebApp.initDataUnsafe.user?.last_name,
+				}),
+			})
+
+			const result = await response.json()
+			console.log('Результат обработки реферальной ссылки:', result)
+		} catch (error) {
+			console.error('Ошибка при обработке реферальной ссылки:', error)
+		}
+	}
+	useEffect(() => {
+		if (window.Telegram && window.Telegram.WebApp) {
+			const initData = window.Telegram.WebApp.initData
+			const startAppParam = new URLSearchParams(initData).get('startapp')
+
+			if (startAppParam) {
+				// Обработка реферальной ссылки
+				console.log('Реферальный код:', startAppParam)
+				// Вызовите API для обработки реферальной ссылки
+				handleReferral(startAppParam)
+			}
+		}
+	}, [])
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
