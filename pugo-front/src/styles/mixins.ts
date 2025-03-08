@@ -32,6 +32,29 @@ export const goldenBackground = css`
 	animation: gradientShift 5s infinite linear;
 `
 
+export const bronzeBackground = css`
+	background: linear-gradient(
+		135.31deg,
+		#9e8976 15.43%,
+		#7a5e50 30.62%,
+		#f6d0ab 47.37%,
+		#9d774e 62.96%,
+		#c99b70 82.05%,
+		#795f52 93.35%
+	);
+	background-size: 200% 200%;
+`
+export const purpleBackground = css`
+	background: linear-gradient(
+		138.8deg,
+		#cce8fe 5.7%,
+		#cda0ff 27.03%,
+		#8489f5 41.02%,
+		#cdf1ff 68.68%,
+		#b591e9 94%
+	);
+	background-size: 200% 200%;
+`
 //золотой градиент для текста
 export const goldenTextGradient = css`
 	background: linear-gradient(

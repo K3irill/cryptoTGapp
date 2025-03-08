@@ -30,7 +30,7 @@ export const Bank: FunctionComponent<BankProps> = ({ data, children }) => {
 			<TopPageInfo data={data.top_section} />
 			<ConnectBlock>
 				<CoinWithFrameWrapper>
-					<CoinWithFrame src='./coin-with-frame.svg' alt='' />
+					<CoinWithFrame src='./coin-with-frame.png' alt='' />
 				</CoinWithFrameWrapper>
 				<ButtonWrapper>
 					<MulticolouredButton

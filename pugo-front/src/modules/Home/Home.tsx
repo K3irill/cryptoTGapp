@@ -1,16 +1,15 @@
 import React, { FunctionComponent, useEffect } from 'react'
 import { BannerStyled, CoinCount, CoinSection, HomeStyled } from './styled'
-import { HomeProps } from './Home.d'
+import { HomeProps } from './Home'
 import { Coin } from '@/components/Coin/Coin'
 import Button from '@/components/UI/Button/Button'
 
 import { RootState } from '@/store/store'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 	const { tokens } = useSelector((state: RootState) => state.user)
-	const dispatch = useDispatch()
-	console.log(tokens)
+
 	return (
 		<HomeStyled>
 			<BannerStyled>

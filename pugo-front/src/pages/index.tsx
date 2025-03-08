@@ -1,5 +1,5 @@
 import { CONTENT as STATIC_CONTENT } from '@/assets/constants/static_content'
-import { Home } from '@/modules/Home/Home'
+import { Home } from '../modules/Home/Home'
 import MainLayout from '@/components/Layouts/MainLayouts'
 import { getContent } from '@/lib/getContent'
 

@@ -7,7 +7,7 @@ export const CONTENT = {
 				{
 					id: '1',
 					title: null,
-					src: 'icons/bank.svg',
+					src: 'icons/bank.png',
 					href: '/bank',
 					availability: true,
 				},
@@ -15,7 +15,7 @@ export const CONTENT = {
 				{
 					id: '3',
 					title: null,
-					src: 'icons/home.svg',
+					src: 'icons/home.png',
 					href: '/',
 					availability: true,
 				},
@@ -23,7 +23,7 @@ export const CONTENT = {
 				{
 					id: '5',
 					title: null,
-					src: 'icons/exchange.svg',
+					src: 'icons/exchange.png',
 					href: '/exchange',
 					availability: false,
 				},

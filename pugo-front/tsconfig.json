@@ -23,7 +23,8 @@
 		"**/*.tsx",
 		"../pugo-back/content.ts",
 		"src",
-		"types"
+		"types",
+		"src/modules/Home"
 	],
 	"exclude": ["node_modules"]
 }

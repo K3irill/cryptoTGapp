@@ -4,7 +4,7 @@ import {
 	goldenTextGradientV2,
 	mainBlockBackground,
 } from '@/styles/mixins'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const TasksStyled = styled.div`
 	display: flex;
@@ -23,34 +23,55 @@ export const TasksStyled = styled.div`
 	scrollbar-color: transparent transparent;
 `
 
-export const InstructionBlock = styled.div`
-	margin-top: 24px;
-	width: 100%;
+export const TextStyled = styled.h2`
+	font-weight: bold;
+	font-size: 12px;
+	color: ${COLORS.grey};
+`
 
+export const TasksBlock = styled.div``
+export const Tasks = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+`
+export const CompletedTasks = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+`
+export const AvailableTasks = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+`
+export const Column = styled.div<{ withOpacity?: boolean; isOpen?: boolean }>`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	overflow: hidden;
+	transition: all 0.4s;
+
+	${p =>
+		p.isOpen
+			? css`
+					max-height: 2000px;
+					height: 100%;
+			  `
+			: css`
+					max-height: 0;
+					height: 0px;
+			  `}
+	${p => p.withOpacity && 'opacity: 0.6'}
+`
+
+export const AccordionTop = styled.div<{ isOpen?: boolean }>`
+	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
 	gap: 10px;
-	padding: 10px;
+
+  img{
+  transition: all 0.4s;
+  ${p => (p.isOpen ? `transform: rotate(0)` : `transform: rotate(180deg)`)}
 `
-
-export const InstructionItem = styled.div`
-	${mainBlockBackground}
-	width: 69px;
-	height: 69px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	img {
-		transition: 0.5s all;
-	}
-
-	&:hover {
-		img {
-			transition: 0.5s all;
-			filter: drop-shadow(0px 0px 10px ${COLORS.gold});
-		}
-	}
-`
-export const ArrowIcon = styled.img``

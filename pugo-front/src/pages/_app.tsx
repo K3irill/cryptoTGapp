@@ -93,7 +93,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 
 			const interval = setInterval(() => {
 				getUserInfo()
-			}, 15000)
+			}, 12000)
 
 			return () => clearInterval(interval)
 		}

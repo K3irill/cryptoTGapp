@@ -59,6 +59,18 @@ export interface TasksTypes {
 	top_section: TopSectionTypes
 }
 
+export interface TasksApi {
+	id: number
+	icon: string
+	description: string
+	reward: string
+	createdAt: Date
+	updatedAt: Date
+	link: string
+	UserTask: {
+		status: string
+	}
+}
 // export interface ExchangeTypes {}
 
 // export interface FrensTypes {}
