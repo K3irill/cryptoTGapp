@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { PROD_LINK } from '../../../../constant'
 
 export const exchangeApi = createApi({
 	reducerPath: 'exchangeApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:7000/api' }),
+	baseQuery: fetchBaseQuery({ baseUrl: `${PROD_LINK}/api` }),
 	endpoints: builder => ({
 		exchangeStarsForTokens: builder.mutation({
 			query: ({ telegramId, stars }) => ({

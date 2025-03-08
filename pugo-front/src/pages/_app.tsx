@@ -5,6 +5,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 import { RootState, store } from '@/store/store'
 import { setUser } from '@/store/slices/userSlice'
 import Script from 'next/script'
+import { PROD_LINK } from '../../constant'
 
 type NextPageWithLayout = {
 	getLayout?: (page: ReactElement) => ReactNode
@@ -15,6 +16,7 @@ interface MyAppProps extends AppProps {
 }
 
 function AppContent({ Component, pageProps }: MyAppProps) {
+	console.log(PROD_LINK)
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user)
 	const { referralCode } = useSelector((state: RootState) => state.user)
@@ -35,7 +37,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 				)
 
 				// Telegram registration API call
-				fetch('http://localhost:7000/telegram-register', {
+				fetch(`${PROD_LINK}/telegram-register`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -98,14 +100,11 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 			if (!user.id) return
 			const getUserInfo = async () => {
 				try {
-					const response = await fetch(
-						`http://localhost:7000/api/user/${user.id}`,
-						{
-							headers: {
-								'Content-Type': 'application/json',
-							},
-						}
-					)
+					const response = await fetch(`${PROD_LINK}/api/user/${user.id}`, {
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					})
 					const data = await response.json()
 					if (!!data.success) {
 						dispatch(
