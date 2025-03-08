@@ -5,7 +5,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 import { RootState, store } from '@/store/store'
 import { setUser } from '@/store/slices/userSlice'
 import Script from 'next/script'
-import { PROD_LINK } from '../../constant'
+import { IS_DEV, REQUEST_LINK } from '../../constant'
 
 type NextPageWithLayout = {
 	getLayout?: (page: ReactElement) => ReactNode
@@ -16,10 +16,29 @@ interface MyAppProps extends AppProps {
 }
 
 function AppContent({ Component, pageProps }: MyAppProps) {
-	console.log(PROD_LINK)
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user)
 	const { referralCode } = useSelector((state: RootState) => state.user)
+
+	useEffect(() => {
+		const loadStateFromLocalStorage = () => {
+			try {
+				const serializedState = localStorage.getItem('userState')
+				if (serializedState) {
+					const state = JSON.parse(serializedState)
+					dispatch(setUser(state))
+				}
+			} catch (error) {
+				console.error(
+					'Ошибка при восстановлении состояния из localStorage:',
+					error
+				)
+			}
+		}
+
+		loadStateFromLocalStorage()
+	}, [dispatch])
+
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
 			const tg = window.Telegram.WebApp
@@ -37,7 +56,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 				)
 
 				// Telegram registration API call
-				fetch(`${PROD_LINK}/telegram-register`, {
+				fetch(`${REQUEST_LINK}/telegram-register`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -64,7 +83,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 
 	const handleReferral = async (referralCode: string) => {
 		try {
-			const response = await fetch(`/ref/${referralCode}`, {
+			const response = await fetch(`${REQUEST_LINK}/ref/${referralCode}`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
@@ -100,7 +119,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 			if (!user.id) return
 			const getUserInfo = async () => {
 				try {
-					const response = await fetch(`${PROD_LINK}/api/user/${user.id}`, {
+					const response = await fetch(`${REQUEST_LINK}/api/user/${user.id}`, {
 						headers: {
 							'Content-Type': 'application/json',
 						},

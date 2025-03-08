@@ -19,6 +19,8 @@ import { TasksApi } from '@/types/types'
 import TaskItem from '@/components/TaskItem/TaskItem'
 import { Container } from '@/styles/styled'
 import { TopBorderStyled } from '../Bank/styled'
+import Loader from '@/components/Loader/Loader'
+import Error from '@/components/Error/Error'
 
 export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 	const [isCompletedOpen, setIsCompletedOpen] = useState<boolean>(true)
@@ -43,8 +45,18 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 		}
 	}, [taskData])
 
-	if (isLoading) return <div>Загрузка...</div>
-	if (error) return <div>Ошибка при загрузке Задача</div>
+	if (isLoading)
+		return (
+			<TasksStyled>
+				<Loader />
+			</TasksStyled>
+		)
+	if (error)
+		return (
+			<TasksStyled>
+				<Error />
+			</TasksStyled>
+		)
 
 	return (
 		<TasksStyled>

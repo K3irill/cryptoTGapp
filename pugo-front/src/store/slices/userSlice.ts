@@ -28,13 +28,23 @@ const initialState: UserState = {
 	updatedAt: null,
 }
 
+const saveStateToLocalStorage = (state: UserState) => {
+	try {
+		const serializedState = JSON.stringify(state)
+		localStorage.setItem('userState', serializedState)
+	} catch (error) {
+		console.error('Ошибка при сохранении состояния в localStorage:', error)
+	}
+}
+
 const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
 		setUser(state, action: PayloadAction<Partial<UserState>>) {
-			console.log(action.payload)
-			return { ...state, ...action.payload }
+			const newState = { ...state, ...action.payload }
+			saveStateToLocalStorage(newState)
+			return newState
 		},
 	},
 })

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { TasksApi } from '@/types/types'
-import { PROD_LINK } from '../../../../constant'
+import { REQUEST_LINK } from '../../../../constant'
 
 interface GetUserTasksResponse {
 	tasks: TasksApi[]
@@ -14,7 +14,7 @@ interface CompleteTaskResponse {
 export const taskApi = createApi({
 	reducerPath: 'taskApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${PROD_LINK}/api`,
+		baseUrl: `${REQUEST_LINK}/api`,
 	}),
 	endpoints: builder => ({
 		getUserTasks: builder.query<GetUserTasksResponse, string>({

@@ -14,6 +14,7 @@ export const TasksStyled = styled.div`
 	overflow-y: auto;
 	max-height: calc(100vh - 265px);
 	padding-bottom: 8px;
+	position: relative;
 
 	::-webkit-scrollbar {
 		display: none;
