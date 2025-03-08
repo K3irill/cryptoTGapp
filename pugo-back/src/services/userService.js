@@ -19,7 +19,7 @@ const createUser = async (telegramId, username, firstName, lastName) => {
 	const userTasks = tasks.map(task => ({
 		userId: user.telegramId,
 		taskId: task.id,
-		status: false,
+		status: 'available',
 	}))
 
 	await UserTask.bulkCreate(userTasks)
