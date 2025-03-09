@@ -30,7 +30,9 @@ export const TextStyled = styled.h2`
 	color: ${COLORS.grey};
 `
 
-export const FrensBlock = styled.div``
+export const FrensBlock = styled.div`
+	position: relative;
+`
 export const Headline = styled.div`
 	padding: 10px 0;
 	display: flex;

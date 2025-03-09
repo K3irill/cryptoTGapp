@@ -19,7 +19,7 @@ const Error: React.FC<ErrorProps> = ({ text, onRetry }) => {
 	return (
 		<ErrorContainer>
 			<ErrorContent>
-				<Image src='/error.png' width={150} height={200} alt='Error' />
+				{/* <Image src='/error.png' width={150} height={200} alt='Error' /> */}
 				<ErrorButton onClick={handleRetry}>Try again</ErrorButton>
 				{text && <ErrorText>{text}</ErrorText>}
 			</ErrorContent>

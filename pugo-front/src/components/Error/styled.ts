@@ -18,8 +18,8 @@ export const ErrorContent = styled.div`
 `
 export const ErrorButton = styled.button`
 	padding: 5px 7px;
-	border-radius: 10px;
+	border-radius: 5px;
 	font-weight: bold;
 
-	${purpleBackground}
+	${goldenBackground}
 `
