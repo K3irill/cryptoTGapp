@@ -7,8 +7,8 @@ export const RefContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 
-	border-bottom: 1px solid ${COLORS.grey};
-	padding: 0px 8px;
+	border-top: 1px solid #3c3b3b8b;
+	padding: 5px 0px;
 `
 export const RefName = styled.div`
 	font-size: 16px;
