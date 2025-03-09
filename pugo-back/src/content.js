@@ -25,7 +25,7 @@ const CONTENT = {
 					title: null,
 					src: 'icons/exchange.png',
 					href: '/exchange',
-					availability: false,
+					availability: true,
 				},
 			],
 			top_nav: [
@@ -55,7 +55,7 @@ const CONTENT = {
 					title: 'MAP',
 					src: 'icons/map.svg',
 					href: '/map',
-					availability: false,
+					availability: true,
 				},
 			],
 		},
