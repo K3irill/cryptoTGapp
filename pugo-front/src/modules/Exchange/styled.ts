@@ -121,6 +121,6 @@ export const StarButton = styled.button`
 	padding: 5px 15px;
 	border-radius: 15px;
 	${goldenBackground}
-	${goldenShine}
+
 	font-weight: bold;
 `
