@@ -57,7 +57,7 @@ router.post('/ref/:referralCode', async (req, res) => {
 		})
 
 		if (!referrer.referrals.includes(newUser.telegramId)) {
-			referrer.referrals.push(newUser.telegramId)
+			referrer.referrals = [...referrer.referrals, newUser.telegramId]
 			await referrer.save()
 		} else {
 			console.log('Реферал уже добавлен ранее.')
