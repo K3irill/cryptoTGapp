@@ -57,6 +57,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 				const urlParams = new URLSearchParams(window.location.search)
 				const referralCode = urlParams.get('tgWebAppStartParam')
 				alert(referralCode)
+				alert(REQUEST_LINK)
 				if (!referralCode) {
 					alert('запускаю без кода')
 					fetch(`${REQUEST_LINK}/telegram-register`, {
