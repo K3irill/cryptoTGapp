@@ -56,7 +56,8 @@ router.post('/ref/:referralCode', async (req, res) => {
 			referralCode: generateReferralCode(),
 		})
 		console.log('Before updating referrals:', referrer.referrals)
-		referrer.referrals.push(newUser.telegramId)
+		referrer.referrals = [...referrer.referrals, newUser.telegramId]
+
 		await referrer.save()
 		console.log('After updating referrals:', referrer.referrals)
 
@@ -68,6 +69,7 @@ router.post('/ref/:referralCode', async (req, res) => {
 			success: true,
 			message: 'Пользователь успешно зарегистрирован, токены начислены',
 			referrer: referrer.telegramId,
+			referrerReferrals: referrer.referrals,
 			newUser: newUser.telegramId,
 		})
 	} catch (error) {
