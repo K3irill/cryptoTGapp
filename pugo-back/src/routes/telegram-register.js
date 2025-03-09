@@ -55,15 +55,22 @@ router.post('/ref/:referralCode', async (req, res) => {
 			tokens: 100,
 			referralCode: generateReferralCode(),
 		})
-		console.log('Before updating referrals:', referrer.referrals)
-		referrer.referrals = [...referrer.referrals, newUser.telegramId]
 
-		await referrer.save()
-		console.log('After updating referrals:', referrer.referrals)
+		if (!referrer.referrals.includes(newUser.telegramId)) {
+			referrer.referrals.push(newUser.telegramId)
+			await referrer.save()
+		} else {
+			console.log('Реферал уже добавлен ранее.')
+		}
 
-		const tokensToAdd = 50
-		await updateUserTokens(referrer.telegramId, tokensToAdd)
-		await updateUserTokens(newUser.telegramId, tokensToAdd)
+		if (!referrer.referralBonusGiven) {
+			const tokensToAdd = 50
+			await updateUserTokens(referrer.telegramId, tokensToAdd)
+			await updateUserTokens(newUser.telegramId, tokensToAdd)
+
+			referrer.referralBonusGiven = true
+			await referrer.save()
+		}
 
 		res.json({
 			success: true,
@@ -77,4 +84,5 @@ router.post('/ref/:referralCode', async (req, res) => {
 		res.status(500).json({ success: false, error: 'Ошибка сервера' })
 	}
 })
+
 module.exports = router
