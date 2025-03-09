@@ -55,9 +55,10 @@ router.post('/ref/:referralCode', async (req, res) => {
 			tokens: 100,
 			referralCode: generateReferralCode(),
 		})
-
+		console.log('Before updating referrals:', referrer.referrals)
 		referrer.referrals.push(newUser.telegramId)
 		await referrer.save()
+		console.log('After updating referrals:', referrer.referrals)
 
 		const tokensToAdd = 50
 		await updateUserTokens(referrer.telegramId, tokensToAdd)
