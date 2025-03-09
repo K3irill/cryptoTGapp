@@ -24,12 +24,14 @@ import { Container } from '@/styles/styled'
 import { StarWrapper } from '@/components/TopPageInfo/styled'
 import GoldStar from '@/components/GoldStar/GoldStar'
 import Image from 'next/image'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
 	children,
 }) => {
-	console.log(data.top_section)
+	const user = useSelector((state: RootState) => state.user)
 	return (
 		<ExchangeStyled>
 			<TopPageInfo data={data.top_section} />
@@ -39,7 +41,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						<h2>Overview</h2>
 						<p>Total Balance</p>
 						<Balance>
-							<h3>1179253.02</h3>
+							<h3>{user.tokens}</h3>
 							<PugoLabel title='PUGO' />
 						</Balance>
 						<p>$?????</p>
