@@ -99,3 +99,27 @@ export const ButtonBlock = styled.div`
 
 	margin: 15px 0;
 `
+
+export const ReferralsBlock = styled.div`
+	padding: 8px 12px 16px 8px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	height: fit-content;
+	${mainBlockBackground}
+	margin: 15px 0;
+`
+
+export const ReferralsInfo = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+`
+
+export const ReferralsHeading = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+`

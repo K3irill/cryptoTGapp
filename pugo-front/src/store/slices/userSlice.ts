@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface UserState {
+export interface UserState {
 	id: string | null
 	username: string | null
 	firstName: string | null
@@ -12,6 +12,7 @@ interface UserState {
 	walletAddress: string | null
 	createdAt: string | null
 	updatedAt: string | null
+	referrals: Array<number> | null
 }
 
 const initialState: UserState = {
@@ -26,6 +27,7 @@ const initialState: UserState = {
 	walletAddress: null,
 	createdAt: null,
 	updatedAt: null,
+	referrals: null,
 }
 
 const saveStateToLocalStorage = (state: UserState) => {

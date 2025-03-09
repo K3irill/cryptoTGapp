@@ -18,7 +18,6 @@ interface MyAppProps extends AppProps {
 function AppContent({ Component, pageProps }: MyAppProps) {
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user)
-	const { referralCode } = useSelector((state: RootState) => state.user)
 
 	useEffect(() => {
 		const loadStateFromLocalStorage = () => {
@@ -55,31 +54,37 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 					})
 				)
 
-				// Telegram registration API call
-				fetch(`${REQUEST_LINK}/telegram-register`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						telegramId: user.id,
-						username: user.username || null,
-						firstName: user.first_name,
-						lastName: user.last_name,
-					}),
-				})
-					.then(response => response.json())
-					.then(data => {
-						if (data.success) {
-							console.log('User registered successfully on frontend')
-						} else {
-							console.warn('Error during user registration on frontend')
-						}
+				const urlParams = new URLSearchParams(window.location.search)
+				const referralCode = urlParams.get('tgWebAppStartParam')
+
+				if (!referralCode) {
+					fetch(`${REQUEST_LINK}/telegram-register`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							telegramId: user.id,
+							username: user.username || null,
+							firstName: user.first_name,
+							lastName: user.last_name,
+						}),
 					})
-					.catch(error => console.error('Registration failed:', error))
+						.then(response => response.json())
+						.then(data => {
+							if (data.success) {
+								console.log('User registered successfully on frontend')
+							} else {
+								console.warn('Error during user registration on frontend')
+							}
+						})
+						.catch(error => console.error('Registration failed:', error))
+				} else {
+					handleReferral(referralCode)
+				}
 			}
 		}
-	}, [dispatch])
+	}, [dispatch]) // Только один раз при монтировании компонента
 
 	const handleReferral = async (referralCode: string) => {
 		try {
@@ -95,28 +100,16 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 			})
 
 			const result = await response.json()
-			console.log('Результат обработки реферальной ссылки:', result)
+			alert(result.message || 'Реферальная ссылка успешно обработана!')
 		} catch (error) {
 			console.error('Ошибка при обработке реферальной ссылки:', error)
 		}
 	}
-	useEffect(() => {
-		if (window.Telegram && window.Telegram.WebApp) {
-			const initData = window.Telegram.WebApp.initData
-			const startAppParam = new URLSearchParams(initData).get('startapp')
-
-			if (startAppParam) {
-				// Обработка реферальной ссылки
-				console.log('Реферальный код:', startAppParam)
-				// Вызовите API для обработки реферальной ссылки
-				handleReferral(startAppParam)
-			}
-		}
-	}, [])
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
 			if (!user.id) return
+
 			const getUserInfo = async () => {
 				try {
 					const response = await fetch(`${REQUEST_LINK}/api/user/${user.id}`, {
@@ -125,7 +118,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 						},
 					})
 					const data = await response.json()
-					if (!!data.success) {
+					if (data.success) {
 						dispatch(
 							setUser({
 								balance: data.userInfo.balance || null,
@@ -134,6 +127,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 								walletAddress: data.userInfo.walletAddress || null,
 								createdAt: data.userInfo.createdAt || null,
 								updatedAt: data.userInfo.updatedAt || null,
+								referrals: data.userInfo.referrals || null,
 							})
 						)
 					}

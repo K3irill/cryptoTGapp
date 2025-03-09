@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
 import {
 	FrensStyled,
 	FrensBlock,
@@ -11,6 +11,10 @@ import {
 	OptionTextBlock,
 	OptionImg,
 	ButtonBlock,
+	ReferralsBlock,
+	TextStyled,
+	ReferralsInfo,
+	ReferralsHeading,
 } from './styled'
 import { FrensProps } from './Frens.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
@@ -20,19 +24,30 @@ import { RootState } from '@/store/store'
 import { Container } from '@/styles/styled'
 import { TopBorderStyled } from '../Bank/styled'
 import PugoLabel from '@/components/PugoLabel/PugoLabel'
+import { REQUEST_LINK } from '../../../constant'
+import { Ref } from './components/Ref/Ref'
 
 export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
-	const { referralCode } = useSelector((state: RootState) => state.user)
+	const { referralCode, referrals } = useSelector(
+		(state: RootState) => state.user
+	)
 
-	const handleInviteClick = () => {
-		const botUsername = 'PugoCoinBot/pugo'
-		const referralLink = `https://t.me/${botUsername}/app?startapp=${referralCode}`
-		const message = `Присоединяйся ко мне и получи бонусы! Перейди по ссылке: ${referralLink}`
+	const handleCopyReferralLink = () => {
+		const botUsername = 'PugoCoinBot'
+		const referralLink = `https://t.me/${botUsername}/pugo?startapp=${referralCode}`
 
-		if (window.Telegram && window.Telegram.WebApp) {
-			window.Telegram.WebApp.openLink(referralLink)
+		if (document.hasFocus()) {
+			navigator.clipboard
+				.writeText(referralLink)
+				.then(() => {
+					alert('Реферальная ссылка скопирована в буфер обмена!')
+				})
+				.catch(error => {
+					alert('Не удалось скопировать ссылку')
+					console.error('Ошибка при копировании ссылки: ', error)
+				})
 		} else {
-			alert('Функция доступна только в Telegram Mini App')
+			alert('Пожалуйста, сначала активируйте окно приложения.')
 		}
 	}
 
@@ -54,7 +69,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 							<OptionTextBlock>
 								<OptionTitle>Invite your friend</OptionTitle>
 								<OptionTitle>
-									+ before 5 PUGO For you and your friend
+									+ before 50 PUGO For you and your friend
 								</OptionTitle>
 							</OptionTextBlock>
 						</OptionItem>
@@ -67,19 +82,37 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 									Invite a friend with <span>Telegram Premium</span>
 								</OptionTitle>
 								<OptionTitle>
-									+ up to 7.5 PUGO For you and your friend
+									+ up to 75 PUGO For you and your friend
 								</OptionTitle>
 							</OptionTextBlock>
 						</OptionItem>
 					</DescriptionBlock>
 					<ButtonBlock>
 						<PugoLabel
-							onClick={handleInviteClick}
+							onClick={handleCopyReferralLink}
 							height='30px'
 							radius='5px'
-							title='INVITE'
+							title='COPY REFERRAL LINK'
 						/>
 					</ButtonBlock>
+					<Headline>
+						<SubTitle>Your Referrals:</SubTitle>
+					</Headline>
+					<ReferralsBlock>
+						<ReferralsHeading>
+							<TextStyled>Name</TextStyled>
+							<TextStyled>Tokens</TextStyled>
+						</ReferralsHeading>
+						<ReferralsInfo>
+							{referrals && referrals?.length > 0 ? (
+								referrals?.map(ref => <Ref key={ref} ref={ref} />)
+							) : (
+								<TextStyled style={{ textAlign: 'center' }}>
+									There is empty here!
+								</TextStyled>
+							)}
+						</ReferralsInfo>
+					</ReferralsBlock>
 				</FrensBlock>
 				{children}
 			</Container>
