@@ -41,7 +41,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						<h2>Overview</h2>
 						<p>Total Balance</p>
 						<Balance>
-							<h3>{user.tokens}</h3>
+							<h3>{user.tokens || 'loading...'}</h3>
 							<PugoLabel title='PUGO' />
 						</Balance>
 						<p>$?????</p>
