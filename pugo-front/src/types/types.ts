@@ -27,11 +27,11 @@ export interface ActivityItem {
 export interface PagesTypes {
 	home: HomeTypes
 	bank: BankTypes
-	exchange: object
+	exchange: ExchangeTypes
 	tasks: TasksTypes
 	frens: FrensTypes
 	rating: object
-	map: object
+	map: MapTypes
 }
 export interface TopSectionTypes {
 	title: string
@@ -61,6 +61,13 @@ export interface TasksTypes {
 export interface FrensTypes {
 	top_section: TopSectionTypes
 }
+export interface ExchangeTypes {
+	top_section: TopSectionTypes
+}
+export interface MapTypes {
+	top_section: TopSectionTypes
+}
+
 export interface TasksApi {
 	id: number
 	icon: string

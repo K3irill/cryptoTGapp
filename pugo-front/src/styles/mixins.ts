@@ -89,6 +89,14 @@ export const goldenTextGradient = css`
 	text-fill-color: transparent;
 `
 
+export const yellowTextGradient = css`
+	background: linear-gradient(90deg, #ffeecc 4.29%, #ad9515 97.5%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+`
+
 export const mainBlockBackground = css`
 	background: url(./mramor.png) no-repeat, rgba(0, 0, 0, 0.613);
 	background-size: cover;

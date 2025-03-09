@@ -73,5 +73,5 @@ export const NamePage = styled.div<TopPageInfoStyledProps>`
 
 export const StarWrapper = styled.div`
 	width: 25px;
-	height: 25px;
+	height: auto;
 `

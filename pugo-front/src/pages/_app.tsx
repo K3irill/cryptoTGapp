@@ -56,10 +56,8 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 
 				const urlParams = new URLSearchParams(window.location.search)
 				const referralCode = urlParams.get('tgWebAppStartParam')
-				alert(referralCode)
-				alert(REQUEST_LINK)
+
 				if (!referralCode) {
-					alert('запускаю без кода')
 					fetch(`${REQUEST_LINK}/telegram-register`, {
 						method: 'POST',
 						headers: {
@@ -82,7 +80,6 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 						})
 						.catch(error => console.error('Registration failed:', error))
 				} else {
-					alert('запускаю с реф кодом')
 					handleReferral(referralCode)
 				}
 			}
@@ -103,7 +100,6 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 			})
 
 			const result = await response.json()
-			alert(result.message || 'Реферальная ссылка успешно обработана!')
 		} catch (error) {
 			console.error('Ошибка при обработке реферальной ссылки:', error)
 		}

@@ -6,10 +6,16 @@ export const Coin = () => {
 	const [scale, setScale] = useState(1)
 	const animationRef = useRef<number | null>(null)
 
-	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+	const handleMove = (
+		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+	) => {
+		const isTouch = 'touches' in e
+		const clientX = isTouch ? e.touches[0].clientX : e.clientX
+		const clientY = isTouch ? e.touches[0].clientY : e.clientY
 		const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
-		const x = ((e.clientX - left) / width - 0.5) * 30
-		const y = ((e.clientY - top) / height - 0.5) * -30
+
+		const x = ((clientX - left) / width - 0.5) * 30
+		const y = ((clientY - top) / height - 0.5) * -30
 
 		setRotation({ x: y, y: x })
 
@@ -40,10 +46,16 @@ export const Coin = () => {
 		animationRef.current = requestAnimationFrame(animateReturn)
 	}
 
-	const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+	const handleMouseDown = (
+		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+	) => {
+		const isTouch = 'touches' in e
+		const clientX = isTouch ? e.touches[0].clientX : e.clientX
+		const clientY = isTouch ? e.touches[0].clientY : e.clientY
 		const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
-		const x = ((e.clientX - left) / width - 0.5) * 10
-		const y = ((e.clientY - top) / height - 0.5) * -10
+
+		const x = ((clientX - left) / width - 0.5) * 10
+		const y = ((clientY - top) / height - 0.5) * -10
 
 		const randomScale = 0.8 + Math.random() * 0.2
 
@@ -63,9 +75,12 @@ export const Coin = () => {
 				$rotateX={rotation.x}
 				$rotateY={rotation.y}
 				$scale={scale}
-				onMouseMove={handleMouseMove}
+				onMouseMove={handleMove}
+				onTouchMove={handleMove}
 				onMouseLeave={handleMouseLeave}
+				onTouchEnd={handleMouseUp}
 				onMouseDown={handleMouseDown}
+				onTouchStart={handleMouseDown}
 				onMouseUp={handleMouseUp}
 			>
 				<img draggable={false} src='./coin.svg' alt='Coin' />
