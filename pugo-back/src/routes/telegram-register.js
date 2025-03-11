@@ -47,13 +47,11 @@ router.post('/ref/:referralCode', async (req, res) => {
 				.json({ success: false, error: 'Пользователь уже существует' })
 		}
 
-		const newUser = await User.create({
+		const newUser = await createUserIfNeeded({
 			telegramId,
 			username,
 			firstName,
 			lastName,
-			tokens: 100,
-			referralCode: generateReferralCode(),
 		})
 
 		if (!referrer.referrals.includes(newUser.telegramId)) {
