@@ -130,7 +130,10 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						<SecondColumnOverview>
 							{!user.automining ? (
 								<>
-									<GoldTitle>Enable mining for 7 days for 150 stars</GoldTitle>
+									<GoldTitle>
+										Enable mining for 7 days for 777 stars | Income 14500 per
+										day
+									</GoldTitle>
 									<ShinyButton
 										onClick={handleAutomining}
 										title='Enable mining'
