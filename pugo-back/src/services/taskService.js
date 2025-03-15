@@ -2,8 +2,14 @@ const { User, Task, UserTask } = require('../models')
 const { checkSubscription } = require('../utils/checkTelegramSubscription')
 const { sequelize } = require('../config/dbConfig')
 
-const createTaskForAllUsers = async (icon, description, reward, link) => {
-	const task = await Task.create({ icon, description, reward, link })
+const createTaskForAllUsers = async (
+	icon,
+	description,
+	reward,
+	link,
+	chatId = null
+) => {
+	const task = await Task.create({ icon, description, reward, link, chatId })
 
 	const users = await User.findAll()
 
@@ -53,6 +59,7 @@ async function checkAndUpdateTaskStatus(userId, taskId, chatId, botToken) {
 		throw new Error('Пользователь не выполнил задачу')
 	}
 }
+
 const getUserTasks = async userId => {
 	const user = await User.findOne({
 		where: { telegramId: userId },
