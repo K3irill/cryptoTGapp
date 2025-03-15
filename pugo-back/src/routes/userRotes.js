@@ -3,6 +3,7 @@ const express = require('express')
 const { getUser, depositBalance } = require('../controllers/userController')
 const generateReferralCode = require('../utils/generateReferralCode')
 const { User } = require('../models')
+const { updateUserTokens } = require('../services/userService')
 const router = express.Router()
 
 // Получить информацию о пользователе

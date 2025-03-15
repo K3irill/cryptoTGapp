@@ -65,17 +65,28 @@ const createUserIfNeeded = async ({
 }
 
 const updateUserTokens = async (telegramId, amount) => {
+	// Проверяем, что amount является числом
+	if (typeof amount !== 'number' || Number.isNaN(amount)) {
+		throw new Error('Type error! Amount must be a valid number.')
+	}
+
+	// Ищем пользователя в базе данных
 	const user = await User.findOne({ where: { telegramId } })
 
 	if (!user) {
 		throw new Error('Пользователь не найден')
 	}
 
+	// Обновляем токены пользователя
 	user.tokens = parseFloat(user.tokens) + amount
+	console.log(`🤑updating user tokens ${telegramId}, ${amount}`)
+
+	// Сохраняем изменения
 	await user.save()
 
 	return user
 }
+
 const enableMiningForUser = async (telegramId, stars, days) => {
 	const user = await User.findOne({ where: { telegramId } })
 
@@ -97,10 +108,8 @@ const checkAndAddPugoDaily = async () => {
 	const users = await User.findAll({ where: { autominig: true } })
 
 	for (const user of users) {
-		// Проверяем, не истек ли срок автомайнинга
 		if (user.autominigExpiresAt && new Date() < user.autominigExpiresAt) {
-			// Если срок не истек, добавляем PUGO
-			await addPugoToBalance(user.telegramId, 100)
+			await updateUserTokens(user.telegramId, 14500)
 		} else {
 			user.autominig = false
 			user.autominigExpiresAt = null

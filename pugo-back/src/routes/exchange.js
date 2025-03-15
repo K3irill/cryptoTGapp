@@ -81,7 +81,7 @@ router.post('/buy-tokens', async (req, res) => {
 })
 
 router.post('/automining', async (req, res) => {
-	const { telegramId } = req.body
+	const { telegramId, days, stars } = req.body
 
 	try {
 		const user = await getUser(telegramId)
@@ -89,8 +89,6 @@ router.post('/automining', async (req, res) => {
 			return res.status(404).json({ success: false, message: 'User not found' })
 		}
 
-		const stars = 150
-		const days = 7
 		// Send a message
 		await sendMessage(telegramId, `Activate Auto-Mining for 7 days.`)
 
