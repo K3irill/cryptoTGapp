@@ -76,7 +76,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 
 			toast(t => (
 				<Notify>
-					<p>The Pugo bot sent you a request in the</p>
+					The Pugo bot sent you a request in the
 					<a href='https://t.me/PugoCoinBot'>CHAT</a>😊
 				</Notify>
 			))
