@@ -1,10 +1,12 @@
 import { COLORS } from '@/styles/colors'
 import { goldenShine } from '@/styles/effects'
 import {
+	blueTextGradient,
 	goldenBackground,
 	goldenTextGradient,
 	goldenTextGradientV2,
 	mainBlockBackground,
+	purpleTextGradient,
 	silverTextGradient,
 } from '@/styles/mixins'
 import styled from 'styled-components'
@@ -67,6 +69,10 @@ export const Balance = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 5px;
+	h3 {
+		${purpleTextGradient};
+		font-weight: 900;
+	}
 `
 
 export const GoldTitle = styled.h3`
@@ -83,7 +89,11 @@ export const StarsWrapper = styled.div`
 	flex-direction: column;
 	gap: 5px;
 `
+export const StarOptionFirstBlock = styled.div`
+	display: flex;
 
+	gap: 10px;
+`
 export const StarsOptionList = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -119,8 +129,39 @@ export const StarButton = styled.button`
 	justify-content: center;
 	gap: 15px;
 	padding: 5px 15px;
-	border-radius: 15px;
-	${goldenBackground}
+	border-radius: 6px;
+	${blueTextGradient}
+	font-size: 16px;
+	border: 1px solid #7abbac;
 
+	font-weight: 900;
+`
+export const Mining = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding-left: 10px;
+	position: relative;
+
+	h3 {
+		z-index: 2;
+	}
+
+	img {
+		position: absolute;
+		width: 150px;
+		top: 15px;
+		z-index: 1;
+	}
+`
+
+export const InDollars = styled.h4`
+	font-size: 12px;
+	line-height: 120%;
+	${goldenTextGradientV2}
 	font-weight: bold;
+`
+export const StarWrapper = styled.div`
+	width: 40px;
+	height: auto;
 `

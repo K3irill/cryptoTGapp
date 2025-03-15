@@ -6,10 +6,10 @@ export const exchangeApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: `${REQUEST_LINK}/api` }),
 	endpoints: builder => ({
 		exchangeStarsForTokens: builder.mutation({
-			query: ({ telegramId, stars }) => ({
+			query: ({ userId, stars, pugos }) => ({
 				url: '/exchange',
 				method: 'POST',
-				body: { telegramId, stars },
+				body: { userId, stars, pugos },
 			}),
 		}),
 	}),

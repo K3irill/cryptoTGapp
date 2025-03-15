@@ -127,6 +127,9 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 								createdAt: data.userInfo.createdAt || null,
 								updatedAt: data.userInfo.updatedAt || null,
 								referrals: data.userInfo.referrals || null,
+								automining: data.userInfo.automining || null,
+								autominingExpiresAt: data.userInfo.automining || null,
+								transactions: data.userInfo.automining || null,
 							})
 						)
 					}

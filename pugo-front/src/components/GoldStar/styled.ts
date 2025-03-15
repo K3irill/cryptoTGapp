@@ -10,9 +10,10 @@ export const StarsWrapperStyled = styled.div`
 
 export const GoldStarStyled = styled.img<GoldStarStyledProps>`
 	position: relative;
-	width: 100%;
-	height: 100%;
-	margin-left: -${props => (props.index !== 0 ? 15 : 0)}px;
+	width: 25px;
+	height: 25px;
+
+	left: -${props => (props.index !== 0 ? 21 * props.index : 0)}px;
 
 	z-index: ${props => 10 - props.index};
 `

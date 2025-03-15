@@ -13,6 +13,9 @@ export interface UserState {
 	createdAt: string | null
 	updatedAt: string | null
 	referrals: Array<number> | null
+	automining: boolean | null
+	autominingExpiresAt: Date | null
+	transactions: Array<number> | null
 }
 
 const initialState: UserState = {
@@ -28,6 +31,9 @@ const initialState: UserState = {
 	createdAt: null,
 	updatedAt: null,
 	referrals: null,
+	automining: null,
+	autominingExpiresAt: null,
+	transactions: null,
 }
 
 const saveStateToLocalStorage = (state: UserState) => {

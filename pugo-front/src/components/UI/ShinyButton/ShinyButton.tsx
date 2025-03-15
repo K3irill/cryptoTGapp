@@ -6,11 +6,12 @@ export const ShinyButton: FunctionComponent<ShinyButtonProps> = ({
 	title,
 	subtitle,
 	theme,
+	onClick,
 }) => {
 	return (
 		<ButtonWrapper>
 			<BackgroundImg src='/shiny-back.png' alt='' />
-			<ButtonStyled theme={theme}>
+			<ButtonStyled onClick={onClick} theme={theme}>
 				{<p>{title}</p>}
 				{subtitle && <span>{subtitle}</span>}
 			</ButtonStyled>

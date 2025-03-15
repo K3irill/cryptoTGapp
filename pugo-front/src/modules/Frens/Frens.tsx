@@ -33,21 +33,23 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 	)
 
 	const handleCopyReferralLink = () => {
-		const botUsername = 'PugoCoinBot'
-		const referralLink = `https://t.me/${botUsername}/pugo?startapp=${referralCode}`
+		if (referralCode) {
+			const botUsername = 'PugoCoinBot'
+			const referralLink = `https://t.me/${botUsername}/pugo?startapp=${referralCode}`
 
-		if (document.hasFocus()) {
-			navigator.clipboard
-				.writeText(referralLink)
-				.then(() => {
-					alert('Реферальная ссылка скопирована в буфер обмена!')
-				})
-				.catch(error => {
-					alert('Не удалось скопировать ссылку')
-					console.error('Ошибка при копировании ссылки: ', error)
-				})
-		} else {
-			alert('Пожалуйста, сначала активируйте окно приложения.')
+			if (document.hasFocus()) {
+				navigator.clipboard
+					.writeText(referralLink)
+					.then(() => {
+						alert('Реферальная ссылка скопирована в буфер обмена!')
+					})
+					.catch(error => {
+						alert('Не удалось скопировать ссылку')
+						console.error('Ошибка при копировании ссылки: ', error)
+					})
+			} else {
+				alert('Пожалуйста, сначала активируйте окно приложения.')
+			}
 		}
 	}
 
@@ -92,7 +94,9 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 							onClick={handleCopyReferralLink}
 							height='30px'
 							radius='5px'
-							title='COPY REFERRAL LINK'
+							title={
+								referralCode ? 'COPY REFERRAL LINK' : 'Loading your ref link...'
+							}
 						/>
 					</ButtonBlock>
 					<Headline>

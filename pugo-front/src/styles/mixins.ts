@@ -160,3 +160,19 @@ export const purpleTextGradient = css`
 	background-clip: text;
 	text-fill-color: transparent;
 `
+export const blueTextGradient = css`
+	background: linear-gradient(
+		218.51deg,
+		#fdfffe 11%,
+		#7abbac 31.04%,
+		#b1ffef 44.99%,
+		#8ad2c3 57.63%,
+		#cffef4 75.93%,
+		#6ca196 90.75%,
+		#35544e 98.15%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+`
