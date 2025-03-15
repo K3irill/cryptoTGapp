@@ -4,7 +4,7 @@ require('dotenv').config()
 async function checkSubscription(
 	userId,
 	chatId,
-	botToken = process.env.TELEGRAM_BOT_TOKEN
+	botToken = process.env.BOT_TOKEN
 ) {
 	const url = `https://api.telegram.org/bot${botToken}/getChatMember?chat_id=${chatId}&user_id=${userId}`
 

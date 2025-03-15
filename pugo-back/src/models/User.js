@@ -35,6 +35,18 @@ const User = sequelize.define(
 			type: DataTypes.ARRAY(DataTypes.BIGINT),
 			defaultValue: [],
 		},
+		automining: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
+		autominingExpiresAt: {
+			type: DataTypes.DATE,
+			allowNull: true,
+		},
+		transactions: {
+			type: DataTypes.ARRAY(DataTypes.JSONB),
+			defaultValue: [],
+		},
 	},
 	{
 		timestamps: true,

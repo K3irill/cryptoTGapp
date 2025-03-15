@@ -10,6 +10,9 @@ const createUser = async (telegramId, username, firstName, lastName) => {
 		lastName,
 		tokens: 1,
 		referralCode: generateReferralCode(),
+		automining: false,
+		autominingExpiresAt: null,
+		transactions: [],
 	})
 
 	// Получаем все существующие задачи
@@ -73,10 +76,67 @@ const updateUserTokens = async (telegramId, amount) => {
 
 	return user
 }
+const enableMiningForUser = async (telegramId, stars, days) => {
+	const user = await User.findOne({ where: { telegramId } })
+
+	if (!user) {
+		throw new Error('Пользователь не найден')
+	}
+
+	const expiresAt = new Date()
+	expiresAt.setDate(expiresAt.getDate() + days) // Добавляем дни к текущей дате
+
+	user.automining = true
+	user.autominingExpiresAt = expiresAt
+	await user.save()
+
+	return user
+}
+
+const checkAndAddPugoDaily = async () => {
+	const users = await User.findAll({ where: { autominig: true } })
+
+	for (const user of users) {
+		// Проверяем, не истек ли срок автомайнинга
+		if (user.autominigExpiresAt && new Date() < user.autominigExpiresAt) {
+			// Если срок не истек, добавляем PUGO
+			await addPugoToBalance(user.telegramId, 100)
+		} else {
+			user.autominig = false
+			user.autominigExpiresAt = null
+			await user.save()
+
+			console.log(
+				`Автомайнинг для пользователя ${user.telegramId} отключен, срок истек.`
+			)
+		}
+	}
+}
+const addTransaction = async (telegramId, stars, description, amount) => {
+	const user = await User.findOne({ where: { telegramId } })
+
+	if (!user) {
+		throw new Error('User not found')
+	}
+
+	const transaction = {
+		time: new Date(),
+		stars: stars,
+		description: description,
+		amount: amount,
+	}
+	user.transactions = [...user.transactions, transaction]
+	await user.save()
+
+	return user
+}
 
 module.exports = {
 	createUser,
 	getUserByTelegramId,
 	createUserIfNeeded,
 	updateUserTokens,
+	enableMiningForUser,
+	addTransaction,
+	checkAndAddPugoDaily,
 }

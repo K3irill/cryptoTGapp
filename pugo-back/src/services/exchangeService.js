@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Transaction = require('../models/Transaction')
 
 const exchangeRate = 100
 
@@ -17,7 +18,15 @@ const exchangeStarsForTokens = async (telegramId, stars) => {
 	user.tokens += stars * exchangeRate
 	await user.save()
 
-	return user
+	const transaction = await Transaction.create({
+		userId: user.id,
+		type: 'expense',
+		amount: stars,
+		description: `Обмен ${stars} звезд на ${stars * exchangeRate} токенов`,
+		status: 'completed',
+	})
+
+	return { user, transaction }
 }
 
 module.exports = { exchangeStarsForTokens }
