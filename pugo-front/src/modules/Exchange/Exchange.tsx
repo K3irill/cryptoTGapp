@@ -33,6 +33,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { REQUEST_LINK } from '../../../constant'
 import { Toaster, toast } from 'react-hot-toast'
+
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
 	children,
@@ -40,21 +41,24 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 	const user = useSelector((state: RootState) => state.user)
 
 	const products = {
-		1: { stars: 1, pugo: 1000000, description: '1000000 PUGO for 1 Stars ⭐' },
-		50: { stars: 50, pugo: 1000, description: '1000 PUGO for 50 Stars ⭐' },
-		75: { stars: 75, pugo: 1750, description: '1750 PUGO for 75 Stars ⭐' },
-		100: { stars: 100, pugo: 2500, description: '2500 PUGO for 100 Stars ⭐' },
-		150: { stars: 150, pugo: 3500, description: '3500 PUGO for 150 Stars ⭐' },
-		250: { stars: 250, pugo: 7770, description: '7770 PUGO for 250 Stars ⭐' },
-		500: {
-			stars: 500,
-			pugo: 18000,
-			description: '18000 PUGO for 500 Stars ⭐',
+		1: {
+			for_admin: true,
+			stars: 1,
+			pugo: 1000000,
+			description: '1000000 PUGO for 1 Stars ⭐',
 		},
+		50: { stars: 50, pugo: 2500, description: '1000 PUGO for 50 Stars ⭐' },
+		150: { stars: 150, pugo: 10000, description: '1750 PUGO for 75 Stars ⭐' },
+		500: { stars: 500, pugo: 50000, description: '2500 PUGO for 100 Stars ⭐' },
 		1000: {
 			stars: 1000,
-			pugo: 45000,
-			description: '45000 PUGO for 1000 Stars ⭐',
+			pugo: 150000,
+			description: '3500 PUGO for 150 Stars ⭐',
+		},
+		2500: {
+			stars: 2500,
+			pugo: 500000,
+			description: '7770 PUGO for 250 Stars ⭐',
 		},
 	}
 
@@ -91,7 +95,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ telegramId: user.id }),
+				body: JSON.stringify({ telegramId: user.id, days: 7, stars: 777 }),
 			})
 
 			const data = await response.json()
@@ -149,29 +153,33 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						<StarsOptionList>
 							{Object.keys(products).map((productKey, index) => {
 								const product = products[productKey]
-								return (
-									<StarOptionItem key={productKey}>
-										<StarOptionFirstBlock>
-											<StarButton
-												onClick={() => handleBuy(product.stars, product.pugo)}
-											>
-												Buy
-											</StarButton>
-											<StarInfo>
-												<StarWrapper>
-													<GoldStar count={+(index + 1)} />
-												</StarWrapper>
-												<Count>
-													{product.stars} <span>Stars</span>
-												</Count>
-											</StarInfo>
-										</StarOptionFirstBlock>
-										<Count>
-											{product.pugo} <span>PUGO</span>
-										</Count>
-										<Image src='/coin.svg' width={33} height={33} alt='' />
-									</StarOptionItem>
-								)
+
+								if (!product.for_admin || user.id === '1112303359') {
+									return (
+										<StarOptionItem key={productKey}>
+											<StarOptionFirstBlock>
+												<StarButton
+													onClick={() => handleBuy(product.stars, product.pugo)}
+												>
+													Buy
+												</StarButton>
+												<StarInfo>
+													<StarWrapper>
+														<GoldStar count={+(index + 1)} />
+													</StarWrapper>
+													<Count>
+														{product.stars} <span>Stars</span>
+													</Count>
+												</StarInfo>
+											</StarOptionFirstBlock>
+											<Count>
+												{product.pugo} <span>PUGO</span>
+											</Count>
+											<Image src='/coin.svg' width={33} height={33} alt='' />
+										</StarOptionItem>
+									)
+								}
+								return null
 							})}
 						</StarsOptionList>
 					</StarsWrapper>
@@ -179,7 +187,6 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 				</Container>
 			</ExchangeStyled>
 
-			{/* Добавляем компонент Toaster для отображения уведомлений */}
 			<Toaster />
 		</>
 	)

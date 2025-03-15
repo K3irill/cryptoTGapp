@@ -54,8 +54,17 @@ const userSlice = createSlice({
 			saveStateToLocalStorage(newState)
 			return newState
 		},
+
+		updateTokens(state, action: PayloadAction<number>) {
+			if (state.tokens !== null) {
+				state.tokens += action.payload
+			} else {
+				state.tokens = action.payload
+			}
+			saveStateToLocalStorage(state)
+		},
 	},
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser, updateTokens } = userSlice.actions
 export default userSlice.reducer
