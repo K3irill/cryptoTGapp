@@ -95,6 +95,7 @@ router.post('/:userId/tg-tasks/:taskId/complete', async (req, res) => {
 
 		res.json({ success: true, message: 'Задача выполнена' })
 	} catch (error) {
+		await updateUserTaskStatus(userId, taskId, 'available')
 		res.status(400).json({ success: false, error: error.message })
 	}
 })

@@ -40,6 +40,7 @@ const updateUserTaskStatus = async (userId, taskId, status = 'completed') => {
 }
 
 async function checkAndUpdateTaskStatus(userId, taskId, chatId, botToken) {
+	await updateUserTaskStatus(userId, taskId, 'pending')
 	const taskCompleted = await checkSubscription(userId, chatId, botToken)
 
 	if (taskCompleted) {
@@ -56,6 +57,7 @@ async function checkAndUpdateTaskStatus(userId, taskId, chatId, botToken) {
 
 		return userTask
 	} else {
+		await updateUserTaskStatus(userId, taskId, 'available')
 		throw new Error('Пользователь не выполнил задачу')
 	}
 }
