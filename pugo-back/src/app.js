@@ -49,7 +49,7 @@ cron.schedule('0 0 * * *', async () => {
 
 const startServer = async () => {
 	try {
-		await sequelize.sync({ force: true }) //  { force: true }
+		await sequelize.sync() //  { force: true }
 		await sequelize.authenticate()
 
 		// Запуск сервера
