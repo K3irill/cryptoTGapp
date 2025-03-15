@@ -30,7 +30,20 @@ export const taskApi = createApi({
 				method: 'POST',
 			}),
 		}),
+		completeTgTask: builder.mutation<
+			CompleteTaskResponse,
+			{ userId: string | null; taskId: number }
+		>({
+			query: ({ userId, taskId }) => ({
+				url: `/task/${userId}/tg-tasks/${taskId}/complete`,
+				method: 'POST',
+			}),
+		}),
 	}),
 })
 
-export const { useGetUserTasksQuery, useCompleteTaskMutation } = taskApi
+export const {
+	useGetUserTasksQuery,
+	useCompleteTaskMutation,
+	useCompleteTgTaskMutation,
+} = taskApi

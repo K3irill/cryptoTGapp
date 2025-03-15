@@ -18,7 +18,7 @@ interface TaskItemProps {
 
 const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const [completeTask, { isLoading, error }] = useCompleteTaskMutation()
-
+	const [completeTgTask] = useCompleteTaskMutation()
 	const handleCompleteTask = async () => {
 		try {
 			if (props.UserTask.status === 'available') {
@@ -30,7 +30,17 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			console.error('Ошибка при завершении задачи:', err)
 		}
 	}
-
+	const handleCompleteTgTask = async () => {
+		try {
+			if (props.UserTask.status === 'available') {
+				await completeTgTask({ userId, taskId: props.id }).unwrap()
+				console.log('Задача завершена')
+			}
+			window.Telegram.WebApp.openLink(props.link)
+		} catch (err) {
+			console.error('Ошибка при завершении задачи:', err)
+		}
+	}
 	return (
 		<TaskItemContainer>
 			<IconWrapper>
@@ -45,7 +55,9 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 				<PugoLabel
 					onClick={
 						props.UserTask.status === 'available'
-							? handleCompleteTask
+							? props.chatId
+								? handleCompleteTgTask
+								: handleCompleteTask
 							: undefined
 					}
 					theme={

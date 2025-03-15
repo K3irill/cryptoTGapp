@@ -76,6 +76,7 @@ export interface TasksApi {
 	createdAt: Date
 	updatedAt: Date
 	link: string
+	chatId: string | null
 	UserTask: {
 		status: string
 	}
