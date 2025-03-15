@@ -9,7 +9,10 @@ import PugoLabel from '../PugoLabel/PugoLabel'
 import { FunctionComponent } from 'react'
 import { TasksApi } from '@/types/types'
 import Image from 'next/image'
-import { useCompleteTaskMutation } from '@/store/services/api/tasksApi'
+import {
+	useCompleteTaskMutation,
+	useCompleteTgTaskMutation,
+} from '@/store/services/api/tasksApi'
 
 interface TaskItemProps {
 	props: TasksApi
@@ -18,7 +21,7 @@ interface TaskItemProps {
 
 const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const [completeTask, { isLoading, error }] = useCompleteTaskMutation()
-	const [completeTgTask] = useCompleteTaskMutation()
+	const [completeTgTask] = useCompleteTgTaskMutation()
 	const handleCompleteTask = async () => {
 		try {
 			if (props.UserTask.status === 'available') {
@@ -34,7 +37,6 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 		try {
 			if (props.UserTask.status === 'available') {
 				await completeTgTask({ userId, taskId: props.id }).unwrap()
-				console.log('Задача завершена')
 			}
 			window.Telegram.WebApp.openLink(props.link)
 		} catch (err) {
