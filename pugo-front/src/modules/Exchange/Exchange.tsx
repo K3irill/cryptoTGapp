@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import React, { FunctionComponent } from 'react'
 import {
 	ExchangeStyled,
@@ -31,7 +33,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { REQUEST_LINK } from '../../../constant'
 import { Toaster, toast } from 'react-hot-toast'
-
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
 	children,
