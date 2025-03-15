@@ -77,7 +77,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 			toast(t => (
 				<Notify>
 					<p>The Pugo bot sent you a request in the</p>
-					<a href='https://t.me/PugoCoinTestBot'>CHAT</a>😊
+					<a href='https://t.me/PugoCoinBot'>CHAT</a>😊
 				</Notify>
 			))
 		} catch (error) {
@@ -103,7 +103,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 			toast(t => (
 				<Notify>
 					The bot sent you a request in the
-					<a href='https://t.me/PugoCoinTestBot'>chat</a>😊
+					<a href='https://t.me/PugoCoinBot'>chat</a>😊
 				</Notify>
 			))
 		} catch (error) {
