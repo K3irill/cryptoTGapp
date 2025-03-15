@@ -51,7 +51,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 				updateTokensOnServer(delta)
 				setInitialTokens(displayingTokens)
 			}
-		}, 10000)
+		}, 5000)
 	}
 
 	useEffect(() => {
