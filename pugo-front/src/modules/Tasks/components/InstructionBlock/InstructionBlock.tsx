@@ -8,11 +8,14 @@ import {
 } from './styled'
 import Image from 'next/image'
 import { TextStyled } from '../../styled'
+import { Headline } from '@/styles/styled'
 
 export const InstructionBlock = () => {
 	return (
 		<InstructionBlockStyled>
-			<TextStyled>Complete the tasks to get PUGO</TextStyled>
+			<Headline theme='purple' size={24}>
+				Complete the tasks to get PUGO
+			</Headline>
 			<InstructionStyled>
 				<InstructionItem>
 					<Image src='/instruction-card-1.svg' alt='1' width={49} height={49} />

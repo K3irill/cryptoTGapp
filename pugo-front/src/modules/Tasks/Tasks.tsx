@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { TasksApi } from '@/types/types'
 import TaskItem from '@/components/TaskItem/TaskItem'
-import { Container } from '@/styles/styled'
+import { Container, Headline } from '@/styles/styled'
 import { TopBorderStyled } from '../Bank/styled'
 import Loader from '@/components/Loader/Loader'
 import Error from '@/components/Error/Error'
@@ -71,7 +71,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 							isOpen={isCompletedOpen}
 							onClick={() => setIsCompletedOpen(prev => !prev)}
 						>
-							<TextStyled>Completed tasks</TextStyled>
+							<Headline size={20}>Completed tasks</Headline>
 							<Image src='/icons/accordion.svg' width={15} height={15} alt='' />
 						</AccordionTop>
 
@@ -81,9 +81,9 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 									<TaskItem key={task.id} props={task} userId={id} />
 								))
 							) : (
-								<TextStyled style={{ textAlign: 'center' }}>
+								<Headline theme='silver' size={12}>
 									There are no completed tasks
-								</TextStyled>
+								</Headline>
 							)}
 						</Column>
 					</CompletedTasks>
@@ -92,7 +92,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 							isOpen={isAvailableOpen}
 							onClick={() => setIsAvailableOpen(prev => !prev)}
 						>
-							<TextStyled>Available tasks</TextStyled>
+							<Headline size={20}>Available tasks</Headline>
 							<Image src='/icons/accordion.svg' width={15} height={15} alt='' />
 						</AccordionTop>
 
@@ -102,9 +102,9 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 									<TaskItem key={task.id} props={task} userId={id} />
 								))
 							) : (
-								<TextStyled style={{ textAlign: 'center' }}>
+								<Headline theme='silver' size={12}>
 									There are no available tasks
-								</TextStyled>
+								</Headline>
 							)}
 						</Column>
 					</AvailableTasks>

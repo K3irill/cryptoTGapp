@@ -70,6 +70,7 @@ export const AccordionTop = styled.div<{ isOpen?: boolean }>`
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
+  align-items: center;
 	gap: 10px;
 
   img{

@@ -47,14 +47,9 @@ export const SecondColumnOverview = styled.div`
 	gap: 5px;
 	text-align: center;
 	padding: 15px 0;
+	height: 120px;
 `
-export const ExchangeTitle = styled.div<{ size?: number }>`
-	font-size: ${p => (p.size ? p.size : '28px')};
-	${goldenTextGradientV2}
-	text-align: center;
-	font-weight: bold;
-	margin: 10px 0;
-`
+
 export const FirstColumnOverview = styled.div`
 	display: flex;
 	flex-direction: column;

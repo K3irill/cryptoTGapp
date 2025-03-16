@@ -1,4 +1,11 @@
 import styled from 'styled-components'
+import {
+	blueTextGradient,
+	goldenTextGradient,
+	goldenTextGradientV2,
+	purpleTextGradient,
+	silverTextGradient,
+} from './mixins'
 
 export const Container = styled.div`
 	padding: 0 8px;
@@ -15,4 +22,25 @@ export const Notify = styled.div`
 		font-size: 16px;
 		font-weight: 900;
 	}
+`
+export const Headline = styled.div<{
+	size?: number
+	theme?: 'blue' | 'purple' | 'silver' | 'goldV1'
+}>`
+	font-size: ${p => (p.size ? p.size : '28px')};
+
+	text-align: center;
+	font-weight: bold;
+	margin: 10px 0;
+
+	${p =>
+		p.theme === 'blue'
+			? `${blueTextGradient}`
+			: p.theme === 'purple'
+			? `${purpleTextGradient}`
+			: p.theme === 'silver'
+			? `${silverTextGradient}`
+			: p.theme === 'goldV1'
+			? `${goldenTextGradient}`
+			: `${goldenTextGradientV2}`}
 `

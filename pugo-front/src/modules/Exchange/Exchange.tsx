@@ -18,7 +18,6 @@ import {
 	Mining,
 	InDollars,
 	StarWrapper,
-	ExchangeTitle,
 } from './styled'
 import { ExchangeProps } from './Exchange.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
@@ -26,7 +25,7 @@ import PugoLabel from '@/components/PugoLabel/PugoLabel'
 import ShinyButton from '@/components/UI/ShinyButton/ShinyButton'
 
 import { TextStyled } from '../Frens/styled'
-import { Container, Notify } from '@/styles/styled'
+import { Container, Headline, Notify } from '@/styles/styled'
 
 import GoldStar from '@/components/GoldStar/GoldStar'
 import Image from 'next/image'
@@ -97,7 +96,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 			<ExchangeStyled>
 				<TopPageInfo data={data.top_section} />
 				<Container>
-					<ExchangeTitle>Overview</ExchangeTitle>
+					<Headline>Overview</Headline>
 					<OverviewStyled>
 						<FirstColumnOverview>
 							<p>Total Balance</p>
@@ -108,7 +107,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 							<InDollars>$?????</InDollars>
 						</FirstColumnOverview>
 						<SecondColumnOverview>
-							{!user.automining ? (
+							{user.automining ? (
 								<>
 									<GoldTitle>Enable mining for 7 days for 777 stars</GoldTitle>
 									<ShinyButton
@@ -128,9 +127,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						</SecondColumnOverview>
 					</OverviewStyled>
 					<StarsWrapper>
-						<ExchangeTitle size={22}>
-							The PUGO package for the stars:
-						</ExchangeTitle>
+						<Headline size={22}>The PUGO package for the stars:</Headline>
 						<StarsOptionList>
 							{Object.keys(products).map((productKey, index) => {
 								const product = products[productKey]
