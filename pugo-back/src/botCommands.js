@@ -53,7 +53,7 @@ module.exports = bot => {
 			}
 		} catch (error) {
 			console.error(error)
-			bot.sendMessage(chatId, 'An error occurred during registration.')
+			bot.sendMessage(chatId, 'An error occurred during registration. /help')
 		}
 	})
 	bot.onText(/\/balance/, async msg => {
@@ -187,17 +187,17 @@ module.exports = bot => {
 	// Mapping of auto-mining products
 	const autominingProducts = {
 		7: {
-			stars: 150,
+			stars: 777,
 			days: 7,
 			description: '7 days auto-mining',
 		},
 		21: {
-			stars: 300,
+			stars: 1500,
 			days: 21,
 			description: '21 days auto-mining',
 		},
 		40: {
-			stars: 500,
+			stars: 2222,
 			days: 40,
 			description: '40 days auto-mining',
 		},
