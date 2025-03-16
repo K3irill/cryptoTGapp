@@ -139,51 +139,31 @@ module.exports = bot => {
 	// })
 
 	const products = {
-		1: {
-			stars: 1,
-			pugo: 9999,
-			description: '🪙 9999 PUGO for 1 Stars ⭐',
-		},
-		50: {
-			stars: 50,
-			pugo: 1000,
-			description: '🪙 1000 PUGO for 50 Stars ⭐',
-		},
-		75: { stars: 75, pugo: 1750, description: '1750 PUGO for 75 Stars ⭐' },
-		100: {
-			stars: 100,
-			pugo: 2500,
-			description: '2500 PUGO for 100 Stars ⭐',
-		},
+		50: { stars: 50, pugo: 2500, description: '2500 PUGO for 50 Stars ⭐' },
 		150: {
 			stars: 150,
-			pugo: 3500,
-			description: '3500 PUGO for 150 Stars ⭐',
-		},
-		250: {
-			stars: 250,
-			pugo: 7770,
-			description: '7770 PUGO for 250 Stars ⭐',
+			pugo: 10000,
+			description: '10000 PUGO for 150 Stars ⭐',
 		},
 		500: {
 			stars: 500,
-			pugo: 18000,
-			description: '18000 PUGO for 500 Stars ⭐',
+			pugo: 50000,
+			description: '50000 PUGO for 500 Stars ⭐',
 		},
 		1000: {
 			stars: 1000,
-			pugo: 45000,
-			description: '45000 PUGO for 1000 Stars ⭐',
+			pugo: 150000,
+			description: '150000 PUGO for 1000 Stars ⭐',
+		},
+		2500: {
+			stars: 2500,
+			pugo: 500000,
+			description: '500000 PUGO for 2500 Stars ⭐',
 		},
 	}
 
 	// Mapping of auto-mining products
 	const autominingProducts = {
-		1: {
-			stars: 1,
-			days: 7,
-			description: '7 days auto-mining',
-		},
 		7: {
 			stars: 150,
 			days: 7,
