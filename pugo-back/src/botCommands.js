@@ -12,20 +12,18 @@ const User = require('./models/User')
 module.exports = bot => {
 	bot.on('web_app_data', async msg => {
 		const chatId = msg.chat.id
-		const command = msg.web_app_data.data // Data sent from the mini-app
+		const command = msg.web_app_data.data
 
 		if (command === '/automining') {
-			// Logic for the /automining command
 			bot.sendMessage(chatId, 'You have activated auto-mining!')
 		}
 	})
 
 	bot.on('web_app_data', async msg => {
 		const chatId = msg.chat.id
-		const data = JSON.parse(msg.web_app_data.data) // Data sent from the mini-app
+		const data = JSON.parse(msg.web_app_data.data)
 
 		if (data.text) {
-			// Send a response message
 			bot.sendMessage(chatId, `The bot received a message: "${data.text}"`)
 		}
 	})
@@ -58,7 +56,68 @@ module.exports = bot => {
 			bot.sendMessage(chatId, 'An error occurred during registration.')
 		}
 	})
+	bot.onText(/\/balance/, async msg => {
+		const chatId = msg.chat.id
+		const telegramId = msg.from.id
+		const username = msg.from.username || null
 
+		try {
+			let user = await getUserByTelegramId(telegramId)
+
+			if (user.tokens) {
+				bot.sendMessage(
+					chatId,
+					`Hello, ${username}! You have ${user.tokens} PUGO.`
+				)
+			} else {
+				bot.sendMessage(
+					chatId,
+					`Sorry, ${user.username}! An error occurred when checking the balance`
+				)
+			}
+		} catch (error) {
+			console.error(error)
+			bot.sendMessage(chatId, 'An error occurred during registration.')
+		}
+	})
+	bot.onText(/\/invite/, async msg => {
+		const telegramId = msg.from.id
+		const username = msg.from.username || null
+
+		const chatId = msg.chat.id
+
+		const options = {
+			reply_markup: {
+				inline_keyboard: [
+					[
+						{
+							text: '🎫My referral code🎫',
+							callback_data: 'my_ref_code',
+						},
+					],
+					[{ text: '🫂My referrals🫂', callback_data: 'my_ref_people' }],
+				],
+			},
+		}
+		bot.sendMessage(chatId, 'Choose option:', options)
+	})
+	bot.on('message', msg => {
+		const chatId = msg.chat.id
+		const text = msg.text.toLowerCase()
+
+		const knownCommands = [
+			'/start',
+			'/help',
+			'/balance',
+			'/tasks',
+			'/invite',
+			'/store',
+		]
+
+		if (!knownCommands.includes(text)) {
+			bot.sendMessage(chatId, 'Write the /help command to learn more.')
+		}
+	})
 	// When the user writes the /help command
 	bot.onText(/\/help/, async msg => {
 		const chatId = msg.chat.id
@@ -66,99 +125,62 @@ module.exports = bot => {
 		const options = {
 			reply_markup: {
 				inline_keyboard: [
-					[{ text: '🚀 How to Start', callback_data: 'how_to_start' }],
-					[{ text: '🛠 Support', callback_data: 'support' }],
-					[{ text: '📜 Basic Commands', callback_data: 'commands' }],
-					[{ text: '🌐 Our Socials', callback_data: 'socials' }],
-					[{ text: '💳 Internal Store', callback_data: 'pay' }],
+					[
+						{
+							text: '🚀How to Start🚀 ',
+							callback_data: 'how_to_start',
+						},
+					],
+					[{ text: '💳Store💳', callback_data: 'pay' }],
+					[{ text: '📜Basic Commands📜', callback_data: 'commands' }],
+					[{ text: '🌐Our Socials🌐', callback_data: 'socials' }],
+					[{ text: '🛠Support🛠 ', callback_data: 'support' }],
 				],
 			},
 		}
 
 		bot.sendMessage(chatId, 'Choose how we can help you:', options)
 	})
+	bot.onText(/\/store/, async msg => {
+		const chatId = msg.chat.id
 
-	// bot.on('message', async msg => {
-	// 	const chatId = msg.chat.id
-	// 	const text = msg.text.toLowerCase()
+		const options = {
+			reply_markup: {
+				inline_keyboard: [
+					[
+						{
+							text: '💳 Go to Store',
+							callback_data: 'pay',
+						},
+					],
+				],
+			},
+		}
 
-	// 	const match = text.match(/^\/buy_(\d+)$/)
-	// 	if (match) {
-	// 		const productKey = match[1]
-	// 		const product = products[productKey]
-
-	// 		if (product) {
-	// 			bot.sendInvoice(
-	// 				chatId,
-	// 				`Purchase: ${product.pugo} PUGO`,
-	// 				product.description,
-	// 				`payload_${product.stars}`,
-	// 				'YOUR_PROVIDER_TOKEN',
-	// 				'XTR', // Currency XTR
-	// 				[
-	// 					{
-	// 						amount: product.stars,
-	// 						label: `Purchase ${product.pugo} PUGO`,
-	// 					},
-	// 				],
-	// 				{ flexible: true }
-	// 			)
-	// 		} else {
-	// 			bot.sendMessage(
-	// 				chatId,
-	// 				'❌ Product with this number of stars not found.'
-	// 			)
-	// 		}
-	// 	} else if (text.includes('automining')) {
-	// 		const matchMining = text.match(/^\/automining_(\d+)$/)
-	// 		if (matchMining) {
-	// 			const productKey = matchMining[1]
-	// 			const product = autominingProducts[productKey]
-
-	// 			if (product) {
-	// 				bot.sendInvoice(
-	// 					chatId,
-	// 					`Purchase: ${product.days} days of auto-mining`,
-	// 					product.description,
-	// 					`payload_${product.stars}`,
-	// 					'YOUR_PROVIDER_TOKEN',
-	// 					'XTR',
-	// 					[
-	// 						{
-	// 							amount: product.stars,
-	// 							label: `Purchase ${product.days} days`,
-	// 						},
-	// 					],
-	// 					{ flexible: true }
-	// 				)
-	// 			} else {
-	// 				bot.sendMessage(chatId, '❌ Auto-mining product not found.')
-	// 			}
-	// 		}
-	// 	}
-	// })
+		bot.sendMessage(chatId, "Let's go to the store!", options)
+	})
 
 	const products = {
-		50: { stars: 50, pugo: 2500, description: '2500 PUGO for 50 Stars ⭐' },
+		50: { stars: 50, pugo: 2500, description: '2500 PUGO' },
 		150: {
 			stars: 150,
 			pugo: 10000,
-			description: '10000 PUGO for 150 Stars ⭐',
+			description: '10000 PUGO',
 		},
 		500: {
 			stars: 500,
 			pugo: 50000,
-			description: '50000 PUGO for 500 Stars ⭐',
+			description: '50000 PUGO',
 		},
 		1000: {
 			stars: 1000,
 			pugo: 150000,
-			description: '150000 PUGO for 1000 Stars ⭐',
+			description: '150000 PUGO ',
 		},
 		2500: {
 			stars: 2500,
 			pugo: 500000,
-			description: '500000 PUGO for 2500 Stars ⭐',
+			description: '500000 PUGO',
 		},
 	}
 
@@ -216,7 +238,13 @@ module.exports = bot => {
 							label: `Purchase ${product.pugo} PUGO`,
 						},
 					],
-					{ flexible: true }
+
+					{
+						flexible: true,
+						photo_url: 'https://i.postimg.cc/bwcSG7gY/10000003.png',
+						photo_width: 400,
+						photo_height: 400,
+					}
 				)
 			}
 		}
@@ -239,7 +267,12 @@ module.exports = bot => {
 							label: `Purchase ${product.days} days`,
 						},
 					],
-					{ flexible: true }
+					{
+						flexible: true,
+						photo_url: 'https://i.postimg.cc/hGHtwxYD/Group-1410119707.png',
+						photo_width: 400,
+						photo_height: 400,
+					}
 				)
 			}
 		}
@@ -291,13 +324,66 @@ module.exports = bot => {
 				{ parse_mode: 'Markdown', disable_web_page_preview: true }
 			)
 		} else if (query.data === 'support') {
-			bot.sendMessage(chatId, '📩 Write to us at: fsafas.@mail.ru')
+			bot.sendMessage(chatId, '📩 Link with our manager: @feel_so_empty')
+		} else if (query.data === 'my_ref_code') {
+			try {
+				let user = await getUserByTelegramId(query.from.id)
+				if (user.referralCode) {
+					const botUsername = 'PugoCoinBot'
+					const referralCode = user.referralCode
+					const referralLink = `https://t.me/${botUsername}/pugo?startapp=${referralCode}`
+					bot.sendMessage(
+						chatId,
+						`Your referral code is ${referralCode} and your referral link: ${referralLink} `
+					)
+				} else {
+					bot.sendMessage(
+						chatId,
+						`Sorry, ${user.username}! An error occurred when checking the referral code`
+					)
+				}
+			} catch (error) {
+				console.error(error)
+				bot.sendMessage(chatId, 'An error occurred during making a request.')
+			}
+		} else if (query.data === 'my_ref_people') {
+			try {
+				const user = await getUserByTelegramId(query.from.id)
+
+				if (user.referrals && user.referrals.length > 0) {
+					let referrals = []
+					for (let refId of user.referrals) {
+						const refUser = await getUserByTelegramId(refId)
+						referrals.push(refUser)
+					}
+
+					const referralNames = referrals
+						.map(ref => '@' + ref.username)
+						.join(', ')
+					bot.sendMessage(
+						chatId,
+						`You have ${referrals.length} referrals: ${referralNames}`
+					)
+				} else {
+					bot.sendMessage(
+						chatId,
+						`Sorry, ${user.username}, you don't have any referrals yet.`
+					)
+				}
+			} catch (error) {
+				console.error(error)
+				bot.sendMessage(
+					chatId,
+					'An error occurred while fetching referral data.'
+				)
+			}
 		} else if (query.data === 'commands') {
 			bot.sendMessage(
 				chatId,
 				'📜 **Basic Commands:**\n' +
 					'/start - Start\n' +
 					'/help - Help\n' +
+					'/store - Store\n' +
 					'/balance - Check Balance\n' +
 					'/tasks - List of Tasks\n' +
 					'/invite - Invite a Friend\n',
@@ -306,14 +392,15 @@ module.exports = bot => {
 		} else if (query.data === 'socials') {
 			bot.sendMessage(
 				chatId,
-				'✨ **Official PUGO Socials:**\n' +
+				'✨ <b>Official PUGO Socials:</b>\n' +
 					'\n' +
-					'1️⃣ Telegram Channel: https://telegram.com/\n' +
-					'2️⃣ Instagram: https://instagram.com/\n' +
-					'3️⃣ YouTube: https://youtube.com/\n' +
-					'4️⃣ X: https://x.com/\n ',
-				{ parse_mode: 'Markdown', disable_web_page_preview: true }
+					'1️⃣ <a href="https://t.me/pugo_official">Telegram Channel</a>\n' +
+					'2️⃣ <a href="https://instagram.com/">Instagram</a>\n' +
+					'3️⃣ <a href="https://youtube.com/">YouTube</a>\n' +
+					'4️⃣ <a href="https://x.com/">X</a>\n',
+				{ parse_mode: 'HTML', disable_web_page_preview: true }
 			)
+			bot.answerCallbackQuery(query.id)
 		}
 
 		bot.answerCallbackQuery(query.id)

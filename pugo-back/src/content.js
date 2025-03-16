@@ -9,7 +9,7 @@ const CONTENT = {
 					title: null,
 					src: 'icons/bank.png',
 					href: '/bank',
-					availability: true,
+					availability: false,
 				},
 				{ id: '2', title: 'PUGO', src: null, href: '#', availability: true },
 				{
