@@ -20,15 +20,15 @@ interface TaskItemProps {
 }
 
 const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
-	const [completeTask, { isLoading, error }] = useCompleteTaskMutation()
-	const [completeTgTask] = useCompleteTgTaskMutation()
+	const [completeTask] = useCompleteTaskMutation()
+	const [completeTgTask, { isLoading, error }] = useCompleteTgTaskMutation()
 	const handleCompleteTask = async () => {
 		try {
 			if (props.UserTask.status === 'available') {
 				await completeTask({ userId, taskId: props.id }).unwrap()
-				console.log('Задача завершена')
 			}
 			window.Telegram.WebApp.openLink(props.link)
+			window.location.reload()
 		} catch (err) {
 			console.error('Ошибка при завершении задачи:', err)
 		}
@@ -36,9 +36,10 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const handleCompleteTgTask = async () => {
 		try {
 			if (props.UserTask.status === 'available') {
+				window.Telegram.WebApp.openLink(props.link)
 				await completeTgTask({ userId, taskId: props.id }).unwrap()
+				window.location.reload()
 			}
-			window.Telegram.WebApp.openLink(props.link)
 		} catch (err) {
 			console.error('Ошибка при завершении задачи:', err)
 		}
@@ -63,7 +64,9 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 							: undefined
 					}
 					theme={
-						props.UserTask.status === 'available'
+						isLoading && props.chatId
+							? 'pending'
+							: props.UserTask.status === 'available'
 							? 'available'
 							: props.UserTask.status === 'pending'
 							? 'pending'
@@ -71,7 +74,9 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 					}
 					radius='5px'
 					title={
-						props.UserTask.status === 'available'
+						isLoading && props.chatId
+							? 'Checking'
+							: props.UserTask.status === 'available'
 							? 'Complete'
 							: props.UserTask.status === 'pending'
 							? 'Checking'

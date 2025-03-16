@@ -32,6 +32,9 @@ export const OverviewStyled = styled.div`
 	${mainBlockBackground}
 	display: flex;
 	justify-content: space-between;
+	// justify-content: center;
+	// flex-direction: column;
+	align-items: center;
 	gap: 15px;
 	padding: 10px 16px;
 	margin: 10px 0;
@@ -45,23 +48,28 @@ export const SecondColumnOverview = styled.div`
 	text-align: center;
 	padding: 15px 0;
 `
-
+export const ExchangeTitle = styled.div<{ size?: number }>`
+	font-size: ${p => (p.size ? p.size : '28px')};
+	${goldenTextGradientV2}
+	text-align: center;
+	font-weight: bold;
+	margin: 10px 0;
+`
 export const FirstColumnOverview = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
 
 	h2 {
-		color: #fff;
-		font-size: 20px;
+		font-size: 28px;
+		${goldenTextGradientV2}
 	}
-	h3 {
-		color: #fff;
-		font-size: 18px;
-	}
+
 	p {
+		font-weight: 600;
 		color: #fff;
-		font-size: 13px;
+		font-size: 16px;
+		${goldenTextGradient}
 	}
 `
 
@@ -72,6 +80,7 @@ export const Balance = styled.div`
 	h3 {
 		${purpleTextGradient};
 		font-weight: 900;
+		font-size: 18px;
 	}
 `
 
@@ -91,7 +100,8 @@ export const StarsWrapper = styled.div`
 `
 export const StarOptionFirstBlock = styled.div`
 	display: flex;
-
+	align-items: center;
+	justify-content: center;
 	gap: 10px;
 `
 export const StarsOptionList = styled.div`
@@ -110,7 +120,7 @@ export const StarOptionItem = styled.div`
 
 export const Count = styled.div`
 	color: ${COLORS.gold};
-	font-size: 15px;
+	font-size: 13px;
 	font-weight: bold;
 	span {
 		color: ${COLORS.grey};
@@ -130,10 +140,10 @@ export const StarButton = styled.button`
 	gap: 15px;
 	padding: 5px 15px;
 	border-radius: 6px;
-	${blueTextGradient}
+	${goldenTextGradient}
 	font-size: 16px;
-	border: 1px solid #7abbac;
-
+	border: 1px solid ${COLORS.gold};
+	height: fit-content;
 	font-weight: 900;
 `
 export const Mining = styled.div`
@@ -158,7 +168,7 @@ export const Mining = styled.div`
 export const InDollars = styled.h4`
 	font-size: 12px;
 	line-height: 120%;
-	${goldenTextGradientV2}
+	${silverTextGradient}
 	font-weight: bold;
 `
 export const StarWrapper = styled.div`

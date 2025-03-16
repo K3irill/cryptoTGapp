@@ -18,6 +18,7 @@ import {
 	Mining,
 	InDollars,
 	StarWrapper,
+	ExchangeTitle,
 } from './styled'
 import { ExchangeProps } from './Exchange.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
@@ -33,34 +34,13 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { REQUEST_LINK } from '../../../constant'
 import { Toaster, toast } from 'react-hot-toast'
+import { products } from './exchange.content'
 
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
 	children,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
-
-	const products = {
-		1: {
-			for_admin: true,
-			stars: 1,
-			pugo: 1000000,
-			description: '1000000 PUGO for 1 Stars ⭐',
-		},
-		50: { stars: 50, pugo: 2500, description: '1000 PUGO for 50 Stars ⭐' },
-		150: { stars: 150, pugo: 10000, description: '1750 PUGO for 75 Stars ⭐' },
-		500: { stars: 500, pugo: 50000, description: '2500 PUGO for 100 Stars ⭐' },
-		1000: {
-			stars: 1000,
-			pugo: 150000,
-			description: '3500 PUGO for 150 Stars ⭐',
-		},
-		2500: {
-			stars: 2500,
-			pugo: 500000,
-			description: '7770 PUGO for 250 Stars ⭐',
-		},
-	}
 
 	const handleBuy = async (stars: number, pugos: number) => {
 		try {
@@ -77,7 +57,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 			toast(t => (
 				<Notify>
 					The Pugo bot sent you a request in the
-					<a href='https://t.me/PugoCoinBot'>CHAT</a>😊
+					<a href='https://t.me/PugoCoinBot'>chat</a>😊
 				</Notify>
 			))
 		} catch (error) {
@@ -117,9 +97,9 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 			<ExchangeStyled>
 				<TopPageInfo data={data.top_section} />
 				<Container>
+					<ExchangeTitle>Overview</ExchangeTitle>
 					<OverviewStyled>
 						<FirstColumnOverview>
-							<h2>Overview</h2>
 							<p>Total Balance</p>
 							<Balance>
 								<h3>{user.tokens || 'loading...'}</h3>
@@ -148,8 +128,9 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						</SecondColumnOverview>
 					</OverviewStyled>
 					<StarsWrapper>
-						<TextStyled>The PUGO package for the stars:</TextStyled>
-
+						<ExchangeTitle size={22}>
+							The PUGO package for the stars:
+						</ExchangeTitle>
 						<StarsOptionList>
 							{Object.keys(products).map((productKey, index) => {
 								const product = products[productKey]
@@ -165,7 +146,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 												</StarButton>
 												<StarInfo>
 													<StarWrapper>
-														<GoldStar count={+(index + 1)} />
+														<GoldStar count={+index} />
 													</StarWrapper>
 													<Count>
 														{product.stars} <span>Stars</span>
