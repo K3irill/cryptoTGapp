@@ -59,6 +59,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 					<a href='https://t.me/PugoCoinBot'>chat</a>😊
 				</Notify>
 			))
+			window.open('https://t.me/PugoCoinBot', '_blank')
 		} catch (error) {
 			console.error('Error triggering bot action:', error)
 			toast.error(
@@ -85,6 +86,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 					<a href='https://t.me/PugoCoinBot'>chat</a>😊
 				</Notify>
 			))
+			window.open('https://t.me/PugoCoinBot', '_blank')
 		} catch (error) {
 			console.error('Error triggering bot action:', error)
 			toast.error('There was an error enabling auto-mining. Please try again.')
@@ -107,7 +109,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 							<InDollars>$?????</InDollars>
 						</FirstColumnOverview>
 						<SecondColumnOverview>
-							{user.automining ? (
+							{!user.automining ? (
 								<>
 									<GoldTitle>Enable mining for 7 days for 777 stars</GoldTitle>
 									<ShinyButton
