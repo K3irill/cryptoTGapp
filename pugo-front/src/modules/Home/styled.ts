@@ -6,6 +6,7 @@ export const HomeStyled = styled.div`
 	flex-direction: column;
 	flex-grow: 1;
 	height: 100%;
+
 	max-height: calc(100vh - 170px);
 `
 export const BannerStyled = styled.div`

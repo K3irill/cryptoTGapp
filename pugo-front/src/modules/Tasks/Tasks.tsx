@@ -71,7 +71,9 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 							isOpen={isCompletedOpen}
 							onClick={() => setIsCompletedOpen(prev => !prev)}
 						>
-							<Headline size={20}>Completed tasks</Headline>
+							<Headline theme='whity' size={20}>
+								Completed tasks
+							</Headline>
 							<Image src='/icons/accordion.svg' width={15} height={15} alt='' />
 						</AccordionTop>
 
@@ -81,7 +83,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 									<TaskItem key={task.id} props={task} userId={id} />
 								))
 							) : (
-								<Headline theme='silver' size={12}>
+								<Headline theme='whity' size={12}>
 									There are no completed tasks
 								</Headline>
 							)}

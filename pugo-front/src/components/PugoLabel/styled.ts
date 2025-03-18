@@ -3,10 +3,11 @@ import { goldenGradient, goldenShine } from '@/styles/effects'
 import {
 	goldenBackground,
 	bronzeBackground,
+	silverBackground,
 	purpleBackground,
 	blueGradientBackground,
 } from '@/styles/mixins'
-
+import { COLORS } from '@/styles/colors'
 interface LabelStyledProps {
 	radius?: string
 	color?: string
@@ -22,7 +23,7 @@ export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
 }))<LabelStyledProps>`
 	${p =>
 		p.theme === 'received'
-			? `${bronzeBackground}`
+			? `${silverBackground}`
 			: p.theme === 'pending'
 			? css`
 					${purpleBackground}
@@ -48,7 +49,7 @@ export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
 		display: inline-block;
 		line-height: 10px;
 		font-size: ${p => (p.fontSize ? `${p.fontSize};` : '8px;')}
-		color: #000;
+		color: ${p => (p.theme === 'received' ? `${COLORS.whity};` : `#000;`)}
 		font-weight: 900;
 
 		@media (min-width: 460px) {

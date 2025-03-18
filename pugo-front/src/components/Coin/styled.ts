@@ -11,6 +11,7 @@ export const CoinStyled = styled.div<{
 	right: -2px;
 	width: 326px;
 	height: 326px;
+	z-index: 3;
 	transition: transform 0.3s ease-out, scale 0.1s ease-in-out;
 	transform: perspective(500px) rotateX(${props => props.$rotateX}deg)
 		rotateY(${props => props.$rotateY}deg) scale(${props => props.$scale});

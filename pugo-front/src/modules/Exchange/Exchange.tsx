@@ -105,7 +105,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 							<p>Total Balance</p>
 							<Balance>
 								<h3>{user.tokens || 'loading...'}</h3>
-								<Label title='Jyntra' />
+								<Label size='20px' title='MAJ' />
 							</Balance>
 							<InDollars>$?????</InDollars>
 						</FirstColumnOverview>
@@ -153,8 +153,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 											</StarInfo>
 
 											<Count>
-												<p>{product.pugo}</p>{' '}
-												<Label size='18px' title='Jyntra' />
+												<p>{product.pugo}</p> <Label size='18px' title='MAJ' />
 											</Count>
 										</StarOptionItem>
 									)

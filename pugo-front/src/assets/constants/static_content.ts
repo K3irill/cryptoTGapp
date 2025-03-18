@@ -7,14 +7,14 @@ export const CONTENT = {
 				{
 					id: '1',
 					title: 'Home',
-					src: 'icons/home.png',
+					src: 'icons/home.svg',
 					href: '/',
 					availability: true,
 				},
 				{
 					id: '2',
 					title: 'Withdraw',
-					src: 'icons/bank.png',
+					src: 'icons/bank.svg',
 					href: '/bank',
 					availability: false,
 				},
@@ -30,14 +30,14 @@ export const CONTENT = {
 				{
 					id: '5',
 					title: 'Store',
-					src: 'icons/store.png',
+					src: 'icons/store.svg',
 					href: '/store',
 					availability: false,
 				},
 				{
 					id: '6',
 					title: 'Exchange',
-					src: 'icons/exchange.png',
+					src: 'icons/exchange.svg',
 					href: '/exchange',
 					availability: true,
 				},

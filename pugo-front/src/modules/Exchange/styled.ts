@@ -12,6 +12,8 @@ import {
 import styled from 'styled-components'
 
 export const ExchangeStyled = styled.div`
+	position: relative;
+	z-index: 2;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
@@ -43,9 +45,10 @@ export const OverviewStyled = styled.div`
 export const SecondColumnOverview = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	gap: 5px;
+	justify-content: center;
+
 	text-align: center;
+	gap: 15px;
 	padding: 15px 0;
 	height: 120px;
 `
@@ -56,7 +59,7 @@ export const FirstColumnOverview = styled.div`
 	gap: 2px;
 
 	h2 {
-		font-size: 28px;
+		font-size: 24px;
 		color: white;
 		padding-bottom: 18px;
 	}
@@ -116,7 +119,7 @@ export const StarOptionItem = styled.div`
 
 export const Count = styled.div`
 	display: flex;
-	gap: 5px;
+	gap: 7px;
 	align-items: center;
 	justify-content: center;
 	p {

@@ -1,5 +1,6 @@
 import { COLORS } from '@/styles/colors'
 import {
+	blueTextGradient,
 	goldenTextGradient,
 	goldenTextGradientV2,
 	mainBlockBackground,
@@ -19,7 +20,7 @@ export const TaskItemContainer = styled.div`
 export const IconWrapper = styled.div``
 
 export const Description = styled.div`
-	${goldenTextGradientV2}
+	color: ${COLORS.whity};
 	font-size: 14px;
 	line-height: 14px;
 	font-weight: bold;
@@ -31,8 +32,9 @@ export const Reward = styled.div`
 	justify-content: center;
 	border-radius: 5px;
 	padding: 4px 7px;
-	border: 1px solid ${COLORS.gold};
-	${goldenTextGradient}
+	border: 1px solid ${COLORS.ice};
+	color: ${COLORS.ice};
+	font-family: var(--font-inclusive-sans);
 	font-size: 13px;
 	line-height: 14px;
 	font-weight: bold;

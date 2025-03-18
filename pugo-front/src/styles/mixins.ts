@@ -44,7 +44,16 @@ export const bronzeBackground = css`
 	);
 	background-size: 200% 200%;
 `
-
+export const silverBackground = css`
+	background: linear-gradient(
+		319.96deg,
+		rgba(168, 168, 166, 0.2) 15.87%,
+		rgba(105, 105, 105, 0.2) 48.67%,
+		rgba(249, 248, 246, 0.2) 64.17%,
+		rgba(212, 212, 212, 0.2) 75.79%,
+		rgba(127, 127, 127, 0.2) 88.5%
+	);
+`
 export const shinyBlueBackground = css`
 	background: radial-gradient(
 			110.23% 82.81% at 50% 17.19%,

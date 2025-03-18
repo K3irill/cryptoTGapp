@@ -13,6 +13,7 @@ import {
 	useCompleteTaskMutation,
 	useCompleteTgTaskMutation,
 } from '@/store/services/api/tasksApi'
+import Label from '../Label/Label'
 
 interface TaskItemProps {
 	props: TasksApi
@@ -52,8 +53,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			<Description>{props.description}</Description>
 			<Status>
 				<Reward>
-					{Math.floor(+props.reward)}{' '}
-					<Image src='/coin.svg' width={17} height={17} alt='' />
+					{Math.floor(+props.reward)} <Label size='12px' title='MAJ' />
 				</Reward>
 				<PugoLabel
 					onClick={

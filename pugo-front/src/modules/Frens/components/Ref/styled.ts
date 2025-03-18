@@ -1,5 +1,10 @@
 import { COLORS } from '@/styles/colors'
-import { goldenTextGradientV2, silverTextGradient } from '@/styles/mixins'
+import {
+	bluePurpleTextGradient,
+	blueTextGradient,
+	goldenTextGradientV2,
+	silverTextGradient,
+} from '@/styles/mixins'
 import styled from 'styled-components'
 
 export const RefContainer = styled.div`
@@ -13,10 +18,15 @@ export const RefContainer = styled.div`
 export const RefName = styled.div`
 	font-size: 16px;
 
-	${silverTextGradient}
+	color: ${COLORS.grey};
 `
 export const RefTokens = styled.div`
-	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	font-size: 20px;
 	font-weight: bold;
-	${goldenTextGradientV2}
+	font-family: var(--font-inclusive-sans);
+	${blueTextGradient};
 `

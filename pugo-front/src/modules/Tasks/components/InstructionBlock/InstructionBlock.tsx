@@ -9,12 +9,13 @@ import {
 import Image from 'next/image'
 import { TextStyled } from '../../styled'
 import { Headline } from '@/styles/styled'
+import Label from '@/components/Label/Label'
 
 export const InstructionBlock = () => {
 	return (
 		<InstructionBlockStyled>
-			<Headline theme='purple' size={24}>
-				Complete the tasks to get PUGO
+			<Headline theme='purple' size={28}>
+				Complete the tasks to get <Label title='MAJ' />
 			</Headline>
 			<InstructionStyled>
 				<InstructionItem>
@@ -24,7 +25,7 @@ export const InstructionBlock = () => {
 					<ArrowIcon src='/icons/arrow-to-right.svg' />
 				</IconWrapper>
 				<InstructionItem>
-					<Image src='/coin.svg' alt='1' width={49} height={49} />
+					<Image src='/coin-c.png' alt='1' width={49} height={49} />
 				</InstructionItem>
 				<IconWrapper>
 					<ArrowIcon src='/icons/arrow-to-right.svg' />
