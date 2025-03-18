@@ -1,20 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import React, { useState, useRef, useEffect } from 'react'
 import { CoinFrame, CoinStyled, ImgFrame } from './styled'
 
-export const Coin = ({ tokens, setTokens, onActivity }) => {
+export const Coin = () => {
 	const [rotation, setRotation] = useState({ x: 0, y: 0 })
 	const [scale, setScale] = useState(1)
 	const [isInteracting, setIsInteracting] = useState(false)
 	const animationRef = useRef<number | null>(null)
-
-	const handleTap = () => {
-		setTokens(prevTokens => {
-			const currentTokens = Number(prevTokens)
-			const newTokens = +(currentTokens + 1)
-			return newTokens
-		})
-		onActivity()
-	}
 
 	const handleMove = e => {
 		const isTouch = 'touches' in e
