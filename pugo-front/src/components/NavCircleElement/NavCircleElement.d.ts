@@ -11,5 +11,6 @@ export interface NavCircleElementProps {
 	height?: string
 	disabled: boolean
 	background?: string
-	disabled: boolean
+	disabled?: boolean
+	isActive?: boolean
 }

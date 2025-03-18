@@ -5,6 +5,7 @@ import {
 	goldenTextGradientV2,
 	purpleTextGradient,
 	silverTextGradient,
+	silverMainTextGradient,
 } from './mixins'
 
 export const Container = styled.div`
@@ -42,5 +43,15 @@ export const Headline = styled.div<{
 			? `${silverTextGradient}`
 			: p.theme === 'goldV1'
 			? `${goldenTextGradient}`
-			: `${goldenTextGradientV2}`}
+			: `${silverMainTextGradient}`}
+`
+export const ShineBottomRightElem = styled.img`
+	position: absolute;
+	bottom: 0;
+	right: -20%;
+`
+export const ShineTopLeftElem = styled.img`
+	position: absolute;
+	top: -25%;
+	left: -25%;
 `

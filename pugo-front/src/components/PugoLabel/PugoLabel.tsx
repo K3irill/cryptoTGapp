@@ -10,6 +10,7 @@ const PugoLabel: FunctionComponent<PugoLabelProps> = ({
 	href,
 	height,
 	onClick,
+	fontSize,
 }) => {
 	return (
 		<LabelStyled
@@ -21,6 +22,7 @@ const PugoLabel: FunctionComponent<PugoLabelProps> = ({
 			theme={theme}
 			color={color}
 			radius={radius}
+			fontSize={fontSize}
 		>
 			<span>{title}</span>
 		</LabelStyled>

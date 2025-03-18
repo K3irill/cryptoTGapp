@@ -1,23 +1,34 @@
 import React, { FunctionComponent } from 'react'
-import { NavigationStyled } from './styled'
+import { NavigationStyled, Title } from './styled'
 import { NavElement } from '../NavCircleElement/styled'
 import { FooterTopNavigationProps } from './FooterTopNavigation.d'
+import { useRouter } from 'next/router'
+import { Lock } from '../Navigation/styled'
 
 const FooterTopNavigation: FunctionComponent<FooterTopNavigationProps> = ({
 	elements,
+	extraMenuOpen,
 }) => {
+	const router = useRouter()
 	return (
-		<NavigationStyled>
-			{elements.map(el => (
-				<NavElement
-					disabled={el.availability}
-					href={el.href}
-					key={el.id}
-					background='transparent'
-				>
-					<img src={el.src || ''} alt='' />
-				</NavElement>
-			))}
+		<NavigationStyled isOpen={extraMenuOpen}>
+			{elements.map((el, i) => {
+				const isActive = router.pathname === el.href
+				return (
+					<NavElement
+						// position={(i + 1) % 2 === 0 ? 'top' : 'bottom'}
+						disabled={el.availability}
+						href={el.href}
+						key={el.id}
+						isActive={isActive}
+						isTopNav
+					>
+						{!el.availability && <Lock src='/icons/lock.svg' alt='locked' />}
+						<img src={el.src || ''} alt='' />
+						{<Title opacity={extraMenuOpen}>{el.title}</Title>}
+					</NavElement>
+				)
+			})}
 		</NavigationStyled>
 	)
 }

@@ -1,19 +1,23 @@
 import { COLORS } from '@/styles/colors'
 import {
+	blueTextGradient,
 	goldenTextGradient,
 	goldenTextGradientV2,
 	mainBlockBackground,
 	purpleTextGradient,
+	silverMainTextGradient,
 } from '@/styles/mixins'
 import styled, { css } from 'styled-components'
 
 export const FrensStyled = styled.div`
+	position: relative;
+	z-index: 2;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
 	gap: 12px;
 	overflow-y: auto;
-	max-height: calc(100vh - 265px);
+	max-height: calc(100vh - 170px);
 	padding-bottom: 8px;
 
 	::-webkit-scrollbar {
@@ -44,12 +48,12 @@ export const Title = styled.h2`
 	font-size: 38px;
 	font-weight: bold;
 	line-height: 120%;
-	${goldenTextGradient}
+	${silverMainTextGradient}
 `
 export const SubTitle = styled.h3`
 	font-size: 16px;
 	font-weight: bold;
-	${goldenTextGradient}
+	${silverMainTextGradient}
 `
 
 export const DescriptionBlock = styled.div`
@@ -64,7 +68,7 @@ export const DescriptionBlock = styled.div`
 	margin-top: 10px;
 `
 export const OptionItem = styled.div`
-	border: 1px solid ${COLORS.gold};
+	border: 1px solid ${COLORS.ice};
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
@@ -74,12 +78,14 @@ export const OptionItem = styled.div`
 `
 
 export const OptionTitle = styled.p`
-	${goldenTextGradientV2}
+	color: ${COLORS.ice};
 	font-size: 12px;
 	font-weight: bold;
 
 	span {
 		${purpleTextGradient}
+		font:bold;
+		font-size: 14px;
 	}
 `
 

@@ -12,7 +12,7 @@ export const BankStyled = styled.div`
 	flex-grow: 1;
 	gap: 12px;
 	overflow-y: auto;
-	max-height: calc(100vh - 265px);
+	max-height: calc(100vh - 170px);
 	padding-bottom: 8px;
 
 	::-webkit-scrollbar {

@@ -2,18 +2,16 @@ import { COLORS } from '@/styles/colors'
 import styled from 'styled-components'
 
 export const HeaderStyled = styled.div`
-	padding: 10px 8px 10px 8px;
-	height: 47px;
+	padding: 10px 18px 10px 18px;
+	height: 90px;
 	display: flex;
 	justify-content: space-between;
-	box-shadow: 0px 0px 6.1479px #f0c8771f;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+	align-items: center;
 `
 export const UserBlockStyled = styled.div`
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	align-items: end;
+	gap: 15px;
 	width: 100%;
 `
 
@@ -21,19 +19,28 @@ export const UserAvatarStyled = styled.img`
 	width: 100%;
 	height: 100%;
 `
-export const UserNicknameStyled = styled.p`
-	font-size: 24px;
+export const UserNicknameStyled = styled.div`
+	p {
+		color: ${COLORS.grey};
+		font-size: 14x;
+	}
+	h3 {
+		font-size: 20x;
+		color: #fff;
+	}
+
 	margin: 0;
-	color: ${COLORS.grey};
+
+	padding-bottom: 8px;
 `
 export const UserAvatarContainer = styled.div`
-	width: 32px;
-	height: 32px;
+	width: 56px;
+	height: 56px;
 	border-radius: 50%;
 	overflow: hidden;
 	margin-right: 5px;
-
-	border: 1px solid #bf860b38;
+	box-shadow: 1px 0px 30px #526efb7b;
+	border: 3px solid ${COLORS.blue};
 `
 
 export const AvatarBacklight = styled.div`
@@ -53,3 +60,25 @@ export const Backlight = styled.img`
 	height: 100%;
 	right: 3px;
 `
+
+export const OutButton = styled.div`
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 5px;
+	box-shadow: inner 1px 0px 30px #91a2f854;
+	border: 2px solid #1e3451;
+	flex-shrink: 0;
+	background: rgba(18, 32, 49, 0.704);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+
+	img {
+		width: 22px;
+		height: 22px;
+	}
+`
+/* Ellipse 19 */

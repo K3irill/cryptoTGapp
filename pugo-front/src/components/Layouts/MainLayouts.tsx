@@ -5,10 +5,14 @@ import {
 	mobotonFont,
 	BaiJamjureeFont,
 	DMSansFont,
+	NosiferFont,
+	InspirationFont,
+	InclusiveFont,
 } from '@/assets/fonts/fonts'
 import { Footer } from '../Footer/Footer'
 import { Header } from '../Header/Header'
 import { FooterContent, HeaderContent } from '@/types/types'
+import { ShineBottomRightElem, ShineTopLeftElem } from '@/styles/styled'
 
 interface MainLayoutsProps {
 	children: React.ReactNode | string
@@ -30,10 +34,12 @@ const MainLayout: FunctionComponent<MainLayoutsProps> = ({
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div
-				className={`app  ${jerseyFont.variable} ${mobotonFont.variable} ${BaiJamjureeFont.variable} ${DMSansFont.variable}`}
+				className={`app ${NosiferFont.variable} ${mobotonFont.variable} ${BaiJamjureeFont.variable} ${DMSansFont.variable}   ${InspirationFont.variable} ${InclusiveFont.variable}`}
 			>
 				<Header content={header} />
 				{children}
+				<ShineTopLeftElem src='icons/shinyTopElem.svg' />
+				<ShineBottomRightElem src='icons/shinyElem.svg' />
 				<Footer content={footer} />
 			</div>
 		</>

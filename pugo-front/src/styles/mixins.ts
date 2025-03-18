@@ -44,6 +44,37 @@ export const bronzeBackground = css`
 	);
 	background-size: 200% 200%;
 `
+
+export const shinyBlueBackground = css`
+	background: radial-gradient(
+			110.23% 82.81% at 50% 17.19%,
+			rgba(255, 255, 255, 0.098) 0%,
+			rgba(255, 255, 255, 0.038) 100%
+		),
+		radial-gradient(
+				105.11% 170.6% at 105.11% -15.62%,
+				rgba(19, 229, 213, 0.5) 19.66%,
+				rgba(19, 229, 213, 0.06) 71.06%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				82.79% 104.69% at 20.17% -22.66%,
+				#1d52a0 0%,
+				rgba(29, 82, 160, 0.18) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				58.24% 134.23% at 33.81% 109.38%,
+				rgba(102, 129, 226, 0.81) 0%,
+				rgba(102, 129, 226, 0) 95.37%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#eef9ff;
+	box-shadow: -20px -20px 50px rgba(182, 117, 222, 0.4),
+		0px 20px 60px rgba(98, 118, 224, 0.2), 0px 10px 60px rgba(41, 142, 174, 0.8),
+		inset 0px 0px 10px rgba(255, 255, 255, 0.5);
+`
+
 export const purpleBackground = css`
 	background: linear-gradient(
 		138.8deg,
@@ -89,6 +120,19 @@ export const goldenTextGradient = css`
 	text-fill-color: transparent;
 `
 
+export const bluePurpleTextGradient = css`
+	background: radial-gradient(
+			51.08% 70.95% at 35.58% 26.67%,
+			#8be4ff 0%,
+			#543dae 100%
+		)
+		/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+`
+
 export const yellowTextGradient = css`
 	background: linear-gradient(90deg, #ffeecc 4.29%, #ad9515 97.5%);
 	-webkit-background-clip: text;
@@ -98,7 +142,17 @@ export const yellowTextGradient = css`
 `
 
 export const mainBlockBackground = css`
-	background: url(./mramor.png) no-repeat, rgba(0, 0, 0, 0.613);
+	background: url(grey-paper-texture_1253-25.png),
+		linear-gradient(
+			178.41deg,
+			rgba(31, 44, 60, 0.601) 1.72%,
+			rgba(23, 32, 45, 0.12) 67.48%
+		);
+	border-radius: 15px;
+`
+
+export const extraBlockBackground = css`
+	background: url(./finger-texture.png) no-repeat, rgba(0, 0, 0, 0.613);
 	background-size: cover;
 	background-blend-mode: soft-light, normal;
 	box-shadow: 0px 40px 80px rgba(0, 0, 0, 0.25),
@@ -109,7 +163,6 @@ export const mainBlockBackground = css`
 	border-radius: 16px;
 	// filter: opacity(0.7);
 `
-
 //золотой градиент для текста v2
 export const goldenTextGradientV2 = css`
 	background: linear-gradient(0deg, #c1a875, #c1a875),
@@ -175,4 +228,56 @@ export const blueTextGradient = css`
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
 	text-fill-color: transparent;
+`
+export const silverMainTextGradient = css`
+	background: linear-gradient(
+			339.03deg,
+			rgba(255, 255, 255, 0) 52.79%,
+			#ffffff 95.95%
+		),
+		linear-gradient(
+			76.82deg,
+			#576265 11.6%,
+			#9ea1a1 25.31%,
+			#848b8a 48.06%,
+			#576265 55.72%,
+			#576265 77.23%,
+			#757a7b 85.34%,
+			#576265 91.31%
+		);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	background-blend-mode: overlay, normal;
+
+	text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+`
+
+export const blueGradientBackground = css`
+	background: radial-gradient(
+			110.23% 82.81% at 50% 17.19%,
+			rgba(255, 255, 255, 0.098) 0%,
+			rgba(255, 255, 255, 0.038) 100%
+		),
+		radial-gradient(
+				105.11% 170.6% at 105.11% -15.62%,
+				rgba(19, 229, 213, 0.5) 19.66%,
+				rgba(19, 229, 213, 0.06) 71.06%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				82.79% 104.69% at 20.17% -22.66%,
+				#1d52a0 0%,
+				rgba(29, 82, 160, 0.18) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				58.24% 134.23% at 33.81% 109.38%,
+				rgba(102, 129, 226, 0.81) 0%,
+				rgba(102, 129, 226, 0) 95.37%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#eef9ff;
+	box-shadow: 0px 10px 60px rgba(41, 142, 174, 0.8);
 `

@@ -7,7 +7,7 @@ import {
 	FirstColumnOverview,
 	SecondColumnOverview,
 	Balance,
-	GoldTitle,
+	Title,
 	StarsWrapper,
 	StarOptionFirstBlock,
 	StarsOptionList,
@@ -34,6 +34,7 @@ import { RootState } from '@/store/store'
 import { REQUEST_LINK } from '../../../constant'
 import { Toaster, toast } from 'react-hot-toast'
 import { products } from './exchange.content'
+import Label from '@/components/Label/Label'
 
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
@@ -98,20 +99,20 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 			<ExchangeStyled>
 				<TopPageInfo data={data.top_section} />
 				<Container>
-					<Headline>Overview</Headline>
 					<OverviewStyled>
 						<FirstColumnOverview>
+							<h2>Overview</h2>
 							<p>Total Balance</p>
 							<Balance>
 								<h3>{user.tokens || 'loading...'}</h3>
-								<PugoLabel title='PUGO' />
+								<Label title='Jyntra' />
 							</Balance>
 							<InDollars>$?????</InDollars>
 						</FirstColumnOverview>
 						<SecondColumnOverview>
 							{!user.automining ? (
 								<>
-									<GoldTitle>Enable mining for 7 days for 777 stars</GoldTitle>
+									<Title>Auto-Mining</Title>
 									<ShinyButton
 										onClick={handleAutomining}
 										title='Enable mining'
@@ -121,9 +122,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 							) : (
 								<Mining>
 									<img src='/mining.gif' alt='' />
-									<GoldTitle>
-										You have auto mining enabled for 7 days.
-									</GoldTitle>
+									<Title>You have auto mining enabled for 7 days.</Title>
 								</Mining>
 							)}
 						</SecondColumnOverview>
@@ -137,25 +136,26 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 								if (!product.for_admin || user.id === '1112303359') {
 									return (
 										<StarOptionItem key={productKey}>
-											<StarOptionFirstBlock>
-												<StarButton
-													onClick={() => handleBuy(product.stars, product.pugo)}
-												>
-													Buy
-												</StarButton>
-												<StarInfo>
-													<StarWrapper>
-														<GoldStar count={+index} />
-													</StarWrapper>
-													<Count>
-														{product.stars} <span>Stars</span>
-													</Count>
-												</StarInfo>
-											</StarOptionFirstBlock>
+											<StarButton
+												onClick={() => handleBuy(product.stars, product.pugo)}
+											>
+												Buy
+											</StarButton>
+											<StarInfo>
+												<StarWrapper>
+													<GoldStar count={+index} />
+												</StarWrapper>
+												<Count>
+													<p>{product.stars}</p>
+
+													<span>Stars</span>
+												</Count>
+											</StarInfo>
+
 											<Count>
-												{product.pugo} <span>PUGO</span>
+												<p>{product.pugo}</p>{' '}
+												<Label size='18px' title='Jyntra' />
 											</Count>
-											<Image src='/coin.svg' width={33} height={33} alt='' />
 										</StarOptionItem>
 									)
 								}

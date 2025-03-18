@@ -1,4 +1,12 @@
-import { Jersey_10, Monoton, Bai_Jamjuree, DM_Sans } from 'next/font/google'
+import {
+	Jersey_10,
+	Monoton,
+	Bai_Jamjuree,
+	DM_Sans,
+	Nosifer,
+	Inspiration,
+	Inclusive_Sans,
+} from 'next/font/google'
 
 export const jerseyFont = Jersey_10({
 	weight: '400',
@@ -22,4 +30,20 @@ export const DMSansFont = DM_Sans({
 	weight: '400',
 	subsets: ['latin'],
 	variable: '--font-dm-sans',
+})
+export const NosiferFont = Nosifer({
+	weight: '400',
+	subsets: ['latin'],
+	variable: '--font-nosifer',
+})
+export const InspirationFont = Inspiration({
+	weight: '400',
+	subsets: ['latin'],
+	variable: '--font-inspiration',
+})
+
+export const InclusiveFont = Inclusive_Sans({
+	weight: '400',
+	subsets: ['latin'],
+	variable: '--font-inclusive-sans',
 })

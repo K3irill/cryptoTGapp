@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { CoinFrame, CoinStyled, ImgFrame } from './styled'
 
 export const Coin = ({ tokens, setTokens, onActivity }) => {
 	const [rotation, setRotation] = useState({ x: 0, y: 0 })
 	const [scale, setScale] = useState(1)
+	const [isInteracting, setIsInteracting] = useState(false)
 	const animationRef = useRef<number | null>(null)
 
 	const handleTap = () => {
@@ -27,6 +26,7 @@ export const Coin = ({ tokens, setTokens, onActivity }) => {
 		const y = ((clientY - top) / height - 0.5) * -30
 
 		setRotation({ x: y, y: x })
+		setIsInteracting(true)
 
 		if (animationRef.current) {
 			cancelAnimationFrame(animationRef.current)
@@ -53,6 +53,7 @@ export const Coin = ({ tokens, setTokens, onActivity }) => {
 		}
 
 		animationRef.current = requestAnimationFrame(animateReturn)
+		setIsInteracting(false)
 	}
 
 	const handleMouseDown = e => {
@@ -68,6 +69,7 @@ export const Coin = ({ tokens, setTokens, onActivity }) => {
 
 		setRotation({ x: y, y: x })
 		setScale(randomScale)
+		setIsInteracting(true)
 	}
 
 	const handleMouseUp = () => {
@@ -75,13 +77,33 @@ export const Coin = ({ tokens, setTokens, onActivity }) => {
 		handleMouseLeave()
 	}
 
+	useEffect(() => {
+		if (!isInteracting) {
+			const animateReturn = () => {
+				setRotation(prev => {
+					const newX = prev.x * 0.9
+					const newY = prev.y * 0.9
+
+					if (Math.abs(newX) < 0.5 && Math.abs(newY) < 0.5) {
+						return { x: 0, y: 0 }
+					}
+
+					animationRef.current = requestAnimationFrame(animateReturn)
+					return { x: newX, y: newY }
+				})
+			}
+
+			animationRef.current = requestAnimationFrame(animateReturn)
+		}
+	}, [isInteracting])
+
 	return (
 		<CoinFrame>
-			<ImgFrame draggable={false} src='./frame.svg' alt='frame' />
 			<CoinStyled
 				$rotateX={rotation.x}
 				$rotateY={rotation.y}
 				$scale={scale}
+				$isInteracting={isInteracting}
 				onMouseMove={handleMove}
 				onTouchMove={handleMove}
 				onMouseLeave={handleMouseLeave}
@@ -89,9 +111,9 @@ export const Coin = ({ tokens, setTokens, onActivity }) => {
 				onMouseDown={handleMouseDown}
 				onTouchStart={handleMouseDown}
 				onMouseUp={handleMouseUp}
-				onClick={handleTap}
+				// onClick={handleTap} тапааааааааалкааааа
 			>
-				<img draggable={false} src='./coin.svg' alt='Coin' />
+				<img draggable={false} src='./coin-c.png' alt='Coin' />
 			</CoinStyled>
 		</CoinFrame>
 	)

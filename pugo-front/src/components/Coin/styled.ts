@@ -1,32 +1,60 @@
 import styled from 'styled-components'
+
 export const CoinStyled = styled.div<{
 	$rotateX: number
 	$rotateY: number
 	$scale: number
+	$isInteracting: boolean
 }>`
 	position: relative;
 	top: 5px;
 	right: -2px;
-	width: 160px;
-	height: 160px;
+	width: 326px;
+	height: 326px;
 	transition: transform 0.3s ease-out, scale 0.1s ease-in-out;
 	transform: perspective(500px) rotateX(${props => props.$rotateX}deg)
 		rotateY(${props => props.$rotateY}deg) scale(${props => props.$scale});
+
+	/* Плавная анимация наклона по кругу */
+	animation: ${props =>
+		props.$isInteracting ? 'none' : 'rotateEffect 20s infinite linear'};
+
+	@keyframes rotateEffect {
+		0% {
+			transform: perspective(500px) rotateX(20deg) rotateY(0deg);
+		}
+		25% {
+			transform: perspective(500px) rotateX(0deg) rotateY(20deg);
+		}
+		50% {
+			transform: perspective(500px) rotateX(-20deg) rotateY(0deg);
+		}
+		75% {
+			transform: perspective(500px) rotateX(0deg) rotateY(-20deg);
+		}
+		100% {
+			transform: perspective(500px) rotateX(20deg) rotateY(0deg);
+		}
+	}
 
 	img {
 		width: 100%;
 		height: 100%;
 	}
+
+	@media (max-height: 931px) {
+		width: 286px;
+		height: 286px;
+	}
+
+	@media (max-height: 861px) {
+		width: 226px;
+		height: 226px;
+	}
 `
 
-export const CoinFrame = styled.div`
-	position: relative;
-	width: 370px;
-	height: 290px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`
+export const CoinFrame = styled.div``
+
 export const ImgFrame = styled.img`
 	position: absolute;
 	top: 0;

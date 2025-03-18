@@ -10,6 +10,7 @@ export interface NavItem {
 	src: string | null
 	href: string
 	availability: boolean
+	isButton?: boolean
 }
 export interface FooterContent {
 	navigation: {
@@ -32,6 +33,7 @@ export interface PagesTypes {
 	frens: FrensTypes
 	rating: object
 	map: MapTypes
+	earn: EarnTypes
 }
 export interface TopSectionTypes {
 	title: string
@@ -67,7 +69,9 @@ export interface ExchangeTypes {
 export interface MapTypes {
 	top_section: TopSectionTypes
 }
-
+export interface EarnTypes {
+	top_section: TopSectionTypes
+}
 export interface TasksApi {
 	id: number
 	icon: string

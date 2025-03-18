@@ -4,6 +4,7 @@ import {
 	goldenBackground,
 	bronzeBackground,
 	purpleBackground,
+	blueGradientBackground,
 } from '@/styles/mixins'
 
 interface LabelStyledProps {
@@ -13,6 +14,7 @@ interface LabelStyledProps {
 	href?: string
 	target?: string
 	height?: string
+	fontSize?: string
 }
 
 export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
@@ -28,7 +30,7 @@ export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
 			  `
 			: css`
 					${goldenShine}
-					${goldenBackground}
+					${blueGradientBackground}
 			  `}
 
 	border-radius: ${p => (p.radius ? p.radius : '10px')};
@@ -45,7 +47,7 @@ export const LabelStyled = styled.div.attrs<LabelStyledProps>(({ href }) => ({
 	span {
 		display: inline-block;
 		line-height: 10px;
-		font-size: 8px;
+		font-size: ${p => (p.fontSize ? `${p.fontSize};` : '8px;')}
 		color: #000;
 		font-weight: 900;
 

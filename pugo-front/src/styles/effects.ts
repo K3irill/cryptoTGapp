@@ -14,7 +14,7 @@ export const goldenShine = css`
 		content: '';
 		position: absolute;
 		top: 0;
-		left: -150%;
+		left: -300%;
 		width: 300%;
 		height: 100%;
 		background: linear-gradient(
@@ -23,7 +23,7 @@ export const goldenShine = css`
 			rgba(255, 255, 255, 0.5) 50%,
 			rgba(255, 255, 255, 0) 70%
 		);
-		animation: ${shineAnimation} 3s infinite linear;
+		animation: ${shineAnimation} 7s infinite linear;
 	}
 `
 

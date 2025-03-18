@@ -16,7 +16,7 @@ const TopPageInfo: FunctionComponent<TopPageInfoProps> = ({ data }) => {
 	return (
 		<TopPageStyled>
 			<BorderTopWrapper>
-				<BorderTopStyled src='/gold-top-border.svg' alt='' />
+				<BorderTopStyled src='/blue-top-border.svg' alt='' />
 			</BorderTopWrapper>
 			<TopInfoWrapperStyled>
 				<ButtonBackStyled href='/'>

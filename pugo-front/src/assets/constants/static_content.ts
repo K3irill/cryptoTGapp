@@ -6,56 +6,77 @@ export const CONTENT = {
 			nav_elements: [
 				{
 					id: '1',
-					title: null,
-					src: 'icons/bank.png',
-					href: '/bank',
-					availability: true,
-				},
-				{ id: '2', title: 'PUGO', src: null, href: '#', availability: true },
-				{
-					id: '3',
-					title: null,
+					title: 'Home',
 					src: 'icons/home.png',
 					href: '/',
 					availability: true,
 				},
-				{ id: '4', title: 'COIN', src: null, href: '#', availability: true },
+				{
+					id: '2',
+					title: 'Withdraw',
+					src: 'icons/bank.png',
+					href: '/bank',
+					availability: false,
+				},
+
+				{
+					id: '4',
+					title: null,
+					isButton: true,
+					src: 'icons/open.png',
+					href: '#',
+					availability: true,
+				},
 				{
 					id: '5',
-					title: null,
+					title: 'Store',
+					src: 'icons/store.png',
+					href: '/store',
+					availability: false,
+				},
+				{
+					id: '6',
+					title: 'Exchange',
 					src: 'icons/exchange.png',
 					href: '/exchange',
-					availability: false,
+					availability: true,
 				},
 			],
 			top_nav: [
 				{
 					id: '1',
-					title: 'FRENS',
+					title: 'Frens',
 					src: 'icons/frens.svg',
 					href: '/frens',
 					availability: true,
 				},
 				{
 					id: '2',
-					title: 'TASKS',
+					title: 'Tasks',
 					src: 'icons/task.svg',
 					href: '/tasks',
 					availability: true,
 				},
 				{
+					id: '4',
+					title: 'Earn',
+					src: 'icons/Bounty.svg',
+					href: '/earn',
+					availability: false,
+				},
+				{
 					id: '3',
-					title: 'RATING',
+					title: 'Rating',
 					src: 'icons/rating.svg',
 					href: '/rating',
 					availability: false,
 				},
 				{
 					id: '4',
-					title: 'MAP',
+					title: 'Map',
 					src: 'icons/map.svg',
 					href: '/map',
-					availability: false,
+					availability: true,
 				},
 			],
 		},
@@ -72,13 +93,13 @@ export const CONTENT = {
 		bank: {
 			top_section: {
 				title: 'Bank',
-				titleWithBorder: true,
+				titleWithBorder: false,
 			},
 		},
 		exchange: {
 			top_section: {
 				title: 'Exchange',
-				titleWithBorder: true,
+				titleWithBorder: false,
 			},
 		},
 		frens: {
@@ -102,6 +123,12 @@ export const CONTENT = {
 		map: {
 			top_section: {
 				title: 'Map',
+				titleWithBorder: false,
+			},
+		},
+		earn: {
+			top_section: {
+				title: 'Earn',
 				titleWithBorder: false,
 			},
 		},

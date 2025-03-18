@@ -8,12 +8,25 @@ export const TopPageStyled = styled.div`
 `
 
 export const ButtonBackStyled = styled.a`
-	cursor: pointer;
-	display: inline-block;
-	background-color: ${COLORS.gold};
 	width: 24px;
 	height: 24px;
 	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 5px;
+	box-shadow: inner 1px 0px 30px #91a2f854;
+	border: 2px solid #1e3451;
+	flex-shrink: 0;
+	background: rgba(18, 32, 49, 0.704);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+
+	img {
+		width: 22px;
+		height: 22px;
+		filter: invert(300%) brightness(200%) drop-shadow(0 0 10px white);
+	}
 `
 
 export const BorderTopWrapper = styled.div`
@@ -61,7 +74,7 @@ export const NamePage = styled.div<TopPageInfoStyledProps>`
 
 	p {
 		font-size: 16px;
-		color: ${COLORS.gold};
+		color: #fff;
 		text-transform: uppercase;
 		font-weight: 800;
 

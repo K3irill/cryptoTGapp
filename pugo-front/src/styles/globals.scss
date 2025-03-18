@@ -4,6 +4,9 @@
 	--font-monoton: 'Monoton', sans-serif;
 	--font-bai-jamjuree: 'Bai Jamjuree', sans-serif;
 	--font-dm_sans: 'DM Sans', sans-serif;
+	--font-nosifer: 'NosiferFont', sans-serif;
+	--font-inspiration: 'InspirationFont', sans-serif;
+	--font-inclusive-sans: 'Inclusive Sans', sans-serif;
 }
 
 html,
@@ -15,20 +18,29 @@ body {
 }
 
 .app {
+	box-shadow: 1px 0px 10px #1b2f4eb1;
+	overflow: hidden;
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
 	min-height: 100vh;
 	max-width: 768px;
+	background: linear-gradient(
+			176.64deg,
+			#233442 -58.73%,
+			rgba(16, 88, 146, 0) 97.22%
+		),
+		url('/circles.svg') top right no-repeat;
 }
 
 footer {
-	padding-bottom: 15px;
 }
+
 body {
 	font-family: var(--font-bai-jamjuree);
 	color: var(--primary-color);
-	background: url(/background.png) repeat;
+	background: #010114;
 	background-position: center;
 	background-size: contain;
 }

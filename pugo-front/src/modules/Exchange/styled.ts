@@ -17,7 +17,7 @@ export const ExchangeStyled = styled.div`
 	flex-grow: 1;
 	gap: 12px;
 	overflow-y: auto;
-	max-height: calc(100vh - 265px);
+	max-height: calc(100vh - 170px);
 	padding-bottom: 8px;
 
 	::-webkit-scrollbar {
@@ -53,18 +53,18 @@ export const SecondColumnOverview = styled.div`
 export const FirstColumnOverview = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
+	gap: 2px;
 
 	h2 {
 		font-size: 28px;
-		${goldenTextGradientV2}
+		color: white;
+		padding-bottom: 18px;
 	}
 
 	p {
 		font-weight: 600;
-		color: #fff;
-		font-size: 16px;
-		${goldenTextGradient}
+		color: ${COLORS.whity};
+		font-size: 14px;
 	}
 `
 
@@ -73,17 +73,18 @@ export const Balance = styled.div`
 	align-items: center;
 	gap: 5px;
 	h3 {
-		${purpleTextGradient};
+		${blueTextGradient};
 		font-weight: 900;
-		font-size: 18px;
+		font-size: 20px;
 	}
 `
 
-export const GoldTitle = styled.h3`
-	font-size: 12px;
+export const Title = styled.h3`
+	font-size: 14px;
 	line-height: 120%;
-	width: 150px;
-	${goldenTextGradientV2}
+	font-weight: 900;
+	width: 200px;
+	${blueTextGradient}
 `
 
 export const StarsWrapper = styled.div`
@@ -114,9 +115,18 @@ export const StarOptionItem = styled.div`
 `
 
 export const Count = styled.div`
-	color: ${COLORS.gold};
-	font-size: 13px;
-	font-weight: bold;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	justify-content: center;
+	p {
+		${blueTextGradient};
+		font-size: 13px;
+		font-weight: bold;
+	}
+
+	font-family: var(--font-inclusive-sans);
+
 	span {
 		color: ${COLORS.grey};
 	}
@@ -135,9 +145,10 @@ export const StarButton = styled.button`
 	gap: 15px;
 	padding: 5px 15px;
 	border-radius: 6px;
-	${goldenTextGradient}
+	color: ${COLORS.ice};
+	background: transparent;
 	font-size: 16px;
-	border: 1px solid ${COLORS.gold};
+	border: 1px solid ${COLORS.ice};
 	height: fit-content;
 	font-weight: 900;
 `

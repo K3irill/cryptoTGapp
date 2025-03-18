@@ -5,5 +5,6 @@ export interface PugoLabelProps {
 	theme?: string
 	href?: string
 	height?: string
+	fontSize?: string
 	onClick?: () => void
 }

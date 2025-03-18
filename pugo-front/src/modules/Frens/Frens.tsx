@@ -32,7 +32,6 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 		(state: RootState) => state.user
 	)
 
-	// Функция для копирования реферальной ссылки
 	const handleCopyReferralLink = () => {
 		if (referralCode) {
 			const botUsername = 'PugoCoinBot'
@@ -95,6 +94,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 								onClick={handleCopyReferralLink}
 								height='30px'
 								radius='5px'
+								fontSize='12px'
 								title={
 									referralCode
 										? 'COPY REFERRAL LINK'
