@@ -6,24 +6,38 @@ const CONTENT = {
 			nav_elements: [
 				{
 					id: '1',
-					title: null,
-					src: 'icons/bank.png',
-					href: '/bank',
-					availability: false,
-				},
-				{ id: '2', title: 'PUGO', src: null, href: '#', availability: true },
-				{
-					id: '3',
-					title: null,
-					src: 'icons/home.png',
+					title: 'Дом',
+					src: 'icons/home.svg',
 					href: '/',
 					availability: true,
 				},
-				{ id: '4', title: 'COIN', src: null, href: '#', availability: true },
+				{
+					id: '2',
+					title: 'Вывод',
+					src: 'icons/bank.svg',
+					href: '/bank',
+					availability: false,
+				},
+
+				{
+					id: '4',
+					title: null,
+					isButton: true,
+					src: 'icons/open.png',
+					href: '#',
+					availability: true,
+				},
 				{
 					id: '5',
-					title: null,
-					src: 'icons/exchange.png',
+					title: 'Маркет',
+					src: 'icons/store.svg',
+					href: '/store',
+					availability: false,
+				},
+				{
+					id: '6',
+					title: 'Обмен',
+					src: 'icons/exchange.svg',
 					href: '/exchange',
 					availability: true,
 				},
@@ -31,28 +45,35 @@ const CONTENT = {
 			top_nav: [
 				{
 					id: '1',
-					title: 'FRENS',
+					title: 'Друзья',
 					src: 'icons/frens.svg',
 					href: '/frens',
 					availability: true,
 				},
 				{
 					id: '2',
-					title: 'TASKS',
+					title: 'Задания',
 					src: 'icons/task.svg',
 					href: '/tasks',
 					availability: true,
 				},
 				{
+					id: '4',
+					title: 'Заработать',
+					src: 'icons/Bounty.svg',
+					href: '/earn',
+					availability: false,
+				},
+				{
 					id: '3',
-					title: 'RATING',
+					title: 'Рейтинг',
 					src: 'icons/rating.svg',
 					href: '/rating',
 					availability: false,
 				},
 				{
 					id: '4',
-					title: 'MAP',
+					title: 'Карта',
 					src: 'icons/map.svg',
 					href: '/map',
 					availability: true,
@@ -71,37 +92,43 @@ const CONTENT = {
 		},
 		bank: {
 			top_section: {
-				title: 'Bank',
-				titleWithBorder: true,
+				title: 'Вывод',
+				titleWithBorder: false,
 			},
 		},
 		exchange: {
 			top_section: {
-				title: 'Exchange',
-				titleWithBorder: true,
+				title: 'Обмен',
+				titleWithBorder: false,
 			},
 		},
 		frens: {
 			top_section: {
-				title: 'Friends',
+				title: 'Друзья',
 				titleWithBorder: false,
 			},
 		},
 		tasks: {
 			top_section: {
-				title: 'Tasks',
+				title: 'Задания',
 				titleWithBorder: false,
 			},
 		},
 		rating: {
 			top_section: {
-				title: 'Rating',
+				title: 'Рейтинг',
 				titleWithBorder: false,
 			},
 		},
 		map: {
 			top_section: {
-				title: 'Map',
+				title: 'Карта',
+				titleWithBorder: false,
+			},
+		},
+		earn: {
+			top_section: {
+				title: 'Заработать',
 				titleWithBorder: false,
 			},
 		},

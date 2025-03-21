@@ -2,7 +2,7 @@
 // @ts-nocheck
 import React, { useState, useRef, useEffect } from 'react'
 import { CoinFrame, CoinStyled, ImgFrame } from './styled'
-
+import { Toaster, toast } from 'react-hot-toast'
 export const Coin = () => {
 	const [rotation, setRotation] = useState({ x: 0, y: 0 })
 	const [scale, setScale] = useState(1)
@@ -89,6 +89,52 @@ export const Coin = () => {
 			animationRef.current = requestAnimationFrame(animateReturn)
 		}
 	}, [isInteracting])
+	const showMessage = () => {
+		const message = [
+			'Йоуу бро, ты что хомяк?!',
+			'НЕ Тапай плизз',
+			'Я что на тапалку похож?',
+			'Насчёт этого клика придется заплатить BIFS!',
+			'Ты что, с ума сошел? Держись, тут опасно!',
+			'Может, хватит кликать? Космос не терпит спешки!',
+			'Кликать можно, но аккуратно, а то черная дыра засосет!',
+			'Похоже, ты ищешь беду... И BIFS тебе не поможет.',
+			'Осторожно! Это не просто монета, а портал в другой мир!',
+			'Серьезно? Ты в этом мире не один. Ну и что, если это BONIFACE?',
+			'Я тут подумал... а ты точно знаешь, как пользоваться токенами?',
+			'Ты кликнул, а космос сейчас над тобой смеется.',
+			'Скорей, жми быстрее, пока черная дыра не сожрала твои BIFS!',
+		]
+
+		const emoji = [
+			'😍',
+			'🚀',
+			'🛸',
+			'💥',
+			'🌌',
+			'👽',
+			'🔥',
+			'🪐',
+			'👾',
+			'😎',
+			'💀',
+			'🤯',
+			'⚡',
+			'👻',
+			'🤑',
+			'💎',
+			'🌍',
+			'🪙',
+			'💣',
+		]
+
+		const randomMessage = message[Math.floor(Math.random() * message.length)]
+		const randomEmoji = emoji[Math.floor(Math.random() * emoji.length)]
+
+		toast(`${randomMessage} ${randomEmoji}`, {
+			icon: randomEmoji,
+		})
+	}
 
 	return (
 		<CoinFrame>
@@ -105,9 +151,11 @@ export const Coin = () => {
 				// onTouchStart={handleMouseDown}
 				// onMouseUp={handleMouseUp}
 				// onClick={handleTap} тапааааааааалкааааа
+				onClick={showMessage}
 			>
 				<img draggable={false} src='./coin-c.png' alt='Coin' />
 			</CoinStyled>
+			<Toaster />
 		</CoinFrame>
 	)
 }
