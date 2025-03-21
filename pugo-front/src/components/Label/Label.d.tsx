@@ -7,4 +7,5 @@ export interface LabelProps {
 	height?: string
 	size?: string
 	onClick?: () => void
+	isInline?: boolean
 }

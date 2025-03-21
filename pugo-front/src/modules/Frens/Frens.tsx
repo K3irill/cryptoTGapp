@@ -26,6 +26,7 @@ import PugoLabel from '@/components/PugoLabel/PugoLabel'
 import { REQUEST_LINK } from '../../../constant'
 import { Ref } from './components/Ref/Ref'
 import { Toaster, toast } from 'react-hot-toast'
+import Label from '@/components/Label/Label'
 
 export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 	const { referralCode, referrals } = useSelector(
@@ -41,14 +42,12 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 				navigator.clipboard
 					.writeText(referralLink)
 					.then(() => {
-						toast.success('Referral code copied!')
+						toast.success('Реферальный код скопирован!')
 					})
 					.catch(error => {
 						console.error('Ошибка при копировании ссылки: ', error)
-						toast.error('Error while copying the referral link!')
+						toast.error('Ошибка, обновите страницу пожалуйста!')
 					})
-			} else {
-				alert('Пожалуйста, сначала активируйте окно приложения.')
 			}
 		}
 	}
@@ -60,8 +59,8 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 				<Container>
 					<FrensBlock>
 						<Headline>
-							<Title>Invite your friends</Title>
-							<SubTitle>You and your friend will receive bonuses</SubTitle>
+							<Title>Приглашайте друзей</Title>
+							<SubTitle>Вы и ваш друг получите токены</SubTitle>
 						</Headline>
 						<DescriptionBlock>
 							<OptionItem>
@@ -69,9 +68,10 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 									<Image src='/icons/gift.svg' width={50} height={50} alt='' />
 								</OptionImg>
 								<OptionTextBlock>
-									<OptionTitle>Invite your friend</OptionTitle>
+									<OptionTitle>За приглашение одно друга</OptionTitle>
 									<OptionTitle>
-										+ before 50 PUGO For you and your friend
+										+ до 50 <Label isInline size='18px' title='BIFS' /> для тебя
+										и твоего друга
 									</OptionTitle>
 								</OptionTextBlock>
 							</OptionItem>
@@ -81,10 +81,12 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 								</OptionImg>
 								<OptionTextBlock>
 									<OptionTitle>
-										Invite a friend with <span>Telegram Premium</span>
+										За приглашение одно друга с<br></br>{' '}
+										<span> Telegram Premium</span>
 									</OptionTitle>
 									<OptionTitle>
-										+ up to 75 PUGO For you and your friend
+										+ до 75 <Label isInline size='18px' title='BIFS' /> для тебя
+										и твоего друга
 									</OptionTitle>
 								</OptionTextBlock>
 							</OptionItem>
@@ -97,25 +99,30 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 								fontSize='12px'
 								title={
 									referralCode
-										? 'COPY REFERRAL LINK'
-										: 'Loading your ref link...'
+										? 'КОПИРОВАТЬ РЕФ ССЫЛКУ'
+										: 'Загружаем вашу реф ссылку...'
 								}
 							/>
 						</ButtonBlock>
 						<Headline>
-							<SubTitle>Your Referrals:</SubTitle>
+							<SubTitle>Ваши рефералы:</SubTitle>
 						</Headline>
 						<ReferralsBlock>
 							<ReferralsHeading>
-								<TextStyled>Name</TextStyled>
-								<TextStyled>Tokens</TextStyled>
+								{referrals && referrals?.length > 0 && (
+									<>
+										<TextStyled>Имя</TextStyled>
+										<TextStyled>Токены</TextStyled>
+									</>
+								)}
 							</ReferralsHeading>
 							<ReferralsInfo>
 								{referrals && referrals?.length > 0 ? (
 									referrals?.map(ref => <Ref key={ref} ref={ref} />)
 								) : (
 									<TextStyled style={{ textAlign: 'center' }}>
-										There is empty here!
+										У вас пока нет рефералов. Скорее приглашайте и получайте
+										бонусы!
 									</TextStyled>
 								)}
 							</ReferralsInfo>

@@ -8,6 +8,8 @@ import {
 import styled, { css } from 'styled-components'
 
 export const MapStyled = styled.div`
+	position: relative;
+	z-index: 2;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;

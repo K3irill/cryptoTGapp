@@ -290,3 +290,34 @@ export const blueGradientBackground = css`
 		#eef9ff;
 	box-shadow: 0px 10px 60px rgba(41, 142, 174, 0.8);
 `
+export const redGradientBackground = css`
+	background: radial-gradient(
+				31.25% 236.33% at 96.59% 31.25%,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				39.2% 181% at 5.68% 100%,
+				rgba(246, 251, 34, 0.51) 0%,
+				rgba(255, 158, 69, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				75% 351.94% at -10.23% 35.94%,
+				rgba(38, 0, 0, 0.92) 21.25%,
+				rgba(225, 27, 84, 0.42) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				68.42% 175% at 96.59% -90.62%,
+				rgba(225, 27, 84, 0.86) 54.93%,
+				rgba(255, 193, 7, 0.38) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#fff500;
+	box-shadow: -20px -20px 50px rgba(211, 70, 70, 0.4),
+		0px 20px 60px rgba(232, 205, 110, 0.2),
+		0px 10px 60px rgba(193, 111, 15, 0.8),
+		inset 0px 0px 20px rgba(255, 255, 255, 0.3);
+`

@@ -17,12 +17,12 @@ export const LoaderContainer = styled.div`
 	transform: translate(-50%, -50%);
 `
 export const LoaderWrap = styled.div`
-	background: url('/coin.svg');
+	background: url('/coin-c.png');
 	background-size: cover;
 `
 export const LoaderSpinner = styled.div`
 	border: 4px solid #8d531000;
-	border-top: 4px solid ${COLORS.gold};
+	border-top: 4px solid ${COLORS.ice};
 	border-radius: 50%;
 	width: 75px;
 	height: 75px;

@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import React, { FunctionComponent } from 'react'
 import {
-	jerseyFont,
 	mobotonFont,
 	BaiJamjureeFont,
 	DMSansFont,
 	NosiferFont,
 	InspirationFont,
 	InclusiveFont,
+	IcebergFont,
 } from '@/assets/fonts/fonts'
 import { Footer } from '../Footer/Footer'
 import { Header } from '../Header/Header'
@@ -28,13 +28,13 @@ const MainLayout: FunctionComponent<MainLayoutsProps> = ({
 	return (
 		<>
 			<Head>
-				<title>PUGO</title>
-				<meta name='description' content='PUGO coin' />
+				<title>BIFS</title>
+				<meta name='description' content='STELLARIS coin' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div
-				className={`app ${NosiferFont.variable} ${mobotonFont.variable} ${BaiJamjureeFont.variable} ${DMSansFont.variable}   ${InspirationFont.variable} ${InclusiveFont.variable}`}
+				className={`app ${NosiferFont.variable} ${mobotonFont.variable} ${BaiJamjureeFont.variable} ${DMSansFont.variable}   ${InspirationFont.variable} ${InclusiveFont.variable}  ${IcebergFont.variable} `}
 			>
 				<Header content={header} />
 				{children}

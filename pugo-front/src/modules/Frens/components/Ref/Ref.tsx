@@ -13,7 +13,7 @@ export const Ref = ({ ref }: RefProps) => {
 	if (isLoading) {
 		return (
 			<RefContainer>
-				<RefName>Loading...</RefName>
+				<RefName>Загрузка...</RefName>
 			</RefContainer>
 		)
 	}
@@ -21,7 +21,7 @@ export const Ref = ({ ref }: RefProps) => {
 	if (error) {
 		return (
 			<RefContainer>
-				<RefName>Error</RefName>
+				<RefName>Ошибка</RefName>
 			</RefContainer>
 		)
 	}
@@ -33,7 +33,7 @@ export const Ref = ({ ref }: RefProps) => {
 					<RefName>{data.userInfo.username}</RefName>
 					<RefTokens>
 						{`${data.userInfo.tokens} `}
-						<Label size='18px' title='MAJ' />
+						<Label size='18px' title='BIFS' />
 					</RefTokens>
 				</>
 			)}

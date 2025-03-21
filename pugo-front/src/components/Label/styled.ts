@@ -11,10 +11,13 @@ import {
 interface LabelStyledProps {
 	title?: string
 	size?: string
+	isInline?: boolean
 }
 
 export const LabelStyled = styled.div<LabelStyledProps>`
-	font-family: var(--font-inspiration);
+	${p => p.isInline && 'display: inline;'}
+
+	font-family: var(--font-iceberg);
 	font-style: normal;
 	font-weight: 400;
 	font-size: ${p => (p.size ? `${p.size}` : '24px')};

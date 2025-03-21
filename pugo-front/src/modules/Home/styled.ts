@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const HomeStyled = styled.div`
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
+	flex-grow: 2;
 	height: 100%;
 
 	max-height: calc(100vh - 170px);
@@ -102,7 +102,7 @@ export const CoinCount = styled.div<{ unit?: string }>`
 
 export const CoinName = styled.div<{ unit?: string }>`
 	font-family: var(--font-nosifer);
-	font-size: 48px;
+	font-size: 38px;
 	font-weight: 600;
 	letter-spacing: 7.1px;
 	line-height: 62px;
@@ -110,7 +110,7 @@ export const CoinName = styled.div<{ unit?: string }>`
 	${bluePurpleTextGradient}
 
 	@media (max-height: 931px) {
-		font-size: 34px;
+		font-size: 28px;
 	}
 `
 export const CoinFrame = styled.div``

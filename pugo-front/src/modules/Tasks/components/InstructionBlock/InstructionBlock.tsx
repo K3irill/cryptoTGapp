@@ -15,7 +15,7 @@ export const InstructionBlock = () => {
 	return (
 		<InstructionBlockStyled>
 			<Headline theme='purple' size={28}>
-				Complete the tasks to get <Label title='MAJ' />
+				Выполняйте задания чтобы получить <Label title='BIFS' />
 			</Headline>
 			<InstructionStyled>
 				<InstructionItem>

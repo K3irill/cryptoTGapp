@@ -169,18 +169,18 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 					</CoinCount>
 					<CoinCountInfo>
 						<ReturnStyled>
-							In TON: <span>$1,500</span>
+							In TON: <span>$?</span>
 						</ReturnStyled>
 						<NDXStyled>
-							NDX: <span>+7,50%</span>
+							NDX: <span>+?%</span>
 						</NDXStyled>
 					</CoinCountInfo>
 				</CoinCountInfoWrapper>
 				<Coin />
 				<ActivityWrapper>
-					<CoinName>MAJESTIC</CoinName>
+					<CoinName>Boniface</CoinName>
 					<AutoMining>
-						<AutoMiningText>Auto-Mining</AutoMiningText>
+						<AutoMiningText>Авто-Майнинг</AutoMiningText>
 						<FormControlLabel
 							control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
 							label=''

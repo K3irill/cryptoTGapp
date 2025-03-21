@@ -53,7 +53,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			<Description>{props.description}</Description>
 			<Status>
 				<Reward>
-					{Math.floor(+props.reward)} <Label size='12px' title='MAJ' />
+					{Math.floor(+props.reward)} <Label size='12px' title='BIFS' />
 				</Reward>
 				<PugoLabel
 					onClick={
@@ -75,12 +75,12 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 					radius='5px'
 					title={
 						isLoading && props.chatId
-							? 'Checking'
+							? 'Проверяем...'
 							: props.UserTask.status === 'available'
-							? 'Complete'
+							? 'Выполнить'
 							: props.UserTask.status === 'pending'
-							? 'Checking'
-							: 'Completed'
+							? 'Проверка'
+							: 'Выполнена'
 					}
 				/>
 			</Status>

@@ -1,5 +1,9 @@
 import { COLORS } from '@/styles/colors'
-import { goldenBackground, purpleBackground } from '@/styles/mixins'
+import {
+	goldenBackground,
+	purpleBackground,
+	redGradientBackground,
+} from '@/styles/mixins'
 import styled from 'styled-components'
 
 export const ErrorContainer = styled.div`
@@ -21,5 +25,5 @@ export const ErrorButton = styled.button`
 	border-radius: 5px;
 	font-weight: bold;
 
-	${goldenBackground}
+	${redGradientBackground}
 `

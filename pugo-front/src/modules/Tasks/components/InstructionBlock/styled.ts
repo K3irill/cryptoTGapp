@@ -33,7 +33,7 @@ export const InstructionItem = styled.div`
 	&:hover {
 		img {
 			transition: 0.5s all;
-			filter: drop-shadow(0px 0px 10px ${COLORS.gold});
+			filter: drop-shadow(0px 0px 10px ${COLORS.ice});
 		}
 	}
 `

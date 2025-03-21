@@ -56,16 +56,14 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 
 			toast(t => (
 				<Notify>
-					The Pugo bot sent you a request in the
-					<a href='https://t.me/PugoCoinBot'>chat</a>😊
+					Бот отправил вам сообщение об оплате, откройте
+					<a href='https://t.me/PugoCoinBot'>чат с ботом</a>😊
 				</Notify>
 			))
 			window.open('https://t.me/PugoCoinBot', '_blank')
 		} catch (error) {
 			console.error('Error triggering bot action:', error)
-			toast.error(
-				'There was an error completing your purchase. Please try again.'
-			)
+			toast.error('Возникла ошибка, попробуйте ещё раз.')
 		}
 	}
 
@@ -83,14 +81,14 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 
 			toast(t => (
 				<Notify>
-					The bot sent you a request in the
-					<a href='https://t.me/PugoCoinBot'>chat</a>😊
+					Бот отправил вам сообщение об оплате, откройте
+					<a href='https://t.me/PugoCoinBot'>чат с ботом</a>😊
 				</Notify>
 			))
 			window.open('https://t.me/PugoCoinBot', '_blank')
 		} catch (error) {
 			console.error('Error triggering bot action:', error)
-			toast.error('There was an error enabling auto-mining. Please try again.')
+			toast.error('Возникла ошибка, попробуйте ещё раз.')
 		}
 	}
 
@@ -101,22 +99,22 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 				<Container>
 					<OverviewStyled>
 						<FirstColumnOverview>
-							<h2>Overview</h2>
-							<p>Total Balance</p>
+							<h2>Обзор</h2>
+							<p>Баланс</p>
 							<Balance>
 								<h3>{user.tokens || 'loading...'}</h3>
-								<Label size='20px' title='MAJ' />
+								<Label size='20px' title='BIF' />
 							</Balance>
 							<InDollars>$?????</InDollars>
 						</FirstColumnOverview>
 						<SecondColumnOverview>
 							{!user.automining ? (
 								<>
-									<Title>Auto-Mining</Title>
+									<Title>Авто-добыча монет</Title>
 									<ShinyButton
 										onClick={handleAutomining}
-										title='Enable mining'
-										subtitle='14500 tokens per one day'
+										title='Подключить майнинг'
+										subtitle='1450 монет в день!'
 									></ShinyButton>
 								</>
 							) : (
@@ -128,7 +126,10 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						</SecondColumnOverview>
 					</OverviewStyled>
 					<StarsWrapper>
-						<Headline size={22}>The PUGO package for the stars:</Headline>
+						<Headline size={22}>
+							Купить монеты <Label isInline size='14px' title='BIF' /> за звезды
+							телеграм:
+						</Headline>
 						<StarsOptionList>
 							{Object.keys(products).map((productKey, index) => {
 								const product = products[productKey]
@@ -139,7 +140,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 											<StarButton
 												onClick={() => handleBuy(product.stars, product.pugo)}
 											>
-												Buy
+												Купить
 											</StarButton>
 											<StarInfo>
 												<StarWrapper>
@@ -148,12 +149,12 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 												<Count>
 													<p>{product.stars}</p>
 
-													<span>Stars</span>
+													<span>Звезд</span>
 												</Count>
 											</StarInfo>
 
 											<Count>
-												<p>{product.pugo}</p> <Label size='18px' title='MAJ' />
+												<p>{product.pugo}</p> <Label size='18px' title='BIF' />
 											</Count>
 										</StarOptionItem>
 									)

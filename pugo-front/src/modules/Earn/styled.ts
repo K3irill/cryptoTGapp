@@ -16,7 +16,7 @@ export const EarnStyled = styled.div`
 	max-height: calc(100vh - 170px);
 	padding-bottom: 8px;
 	position: relative;
-
+	z-index: 2;
 	::-webkit-scrollbar {
 		display: none;
 	}

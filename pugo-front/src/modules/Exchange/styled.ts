@@ -20,7 +20,7 @@ export const ExchangeStyled = styled.div`
 	gap: 12px;
 	overflow-y: auto;
 	max-height: calc(100vh - 170px);
-	padding-bottom: 8px;
+	padding-bottom: 50px;
 
 	::-webkit-scrollbar {
 		display: none;
@@ -132,6 +132,7 @@ export const Count = styled.div`
 
 	span {
 		color: ${COLORS.grey};
+		font-size: 14px;
 	}
 `
 
@@ -145,12 +146,12 @@ export const StarButton = styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 15px;
+	gap: 12px;
 	padding: 5px 15px;
 	border-radius: 6px;
 	color: ${COLORS.ice};
 	background: transparent;
-	font-size: 16px;
+	font-size: 12px;
 	border: 1px solid ${COLORS.ice};
 	height: fit-content;
 	font-weight: 900;

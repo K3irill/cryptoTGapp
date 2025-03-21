@@ -61,7 +61,7 @@ export const Coin = () => {
 		const randomScale = 0.8 + Math.random() * 0.2
 
 		setRotation({ x: y, y: x })
-		setScale(randomScale)
+		// setScale(randomScale)
 		setIsInteracting(true)
 	}
 
@@ -95,15 +95,15 @@ export const Coin = () => {
 			<CoinStyled
 				$rotateX={rotation.x}
 				$rotateY={rotation.y}
-				$scale={scale}
-				$isInteracting={isInteracting}
-				onMouseMove={handleMove}
-				onTouchMove={handleMove}
-				onMouseLeave={handleMouseLeave}
-				onTouchEnd={handleMouseUp}
-				onMouseDown={handleMouseDown}
-				onTouchStart={handleMouseDown}
-				onMouseUp={handleMouseUp}
+				// $scale={scale}
+				// $isInteracting={isInteracting}
+				// onMouseMove={handleMove}
+				// onTouchMove={handleMove}
+				// onMouseLeave={handleMouseLeave}
+				// onTouchEnd={handleMouseUp}
+				// onMouseDown={handleMouseDown}
+				// onTouchStart={handleMouseDown}
+				// onMouseUp={handleMouseUp}
 				// onClick={handleTap} тапааааааааалкааааа
 			>
 				<img draggable={false} src='./coin-c.png' alt='Coin' />

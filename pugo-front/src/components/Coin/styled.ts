@@ -7,6 +7,7 @@ export const CoinStyled = styled.div<{
 	$isInteracting: boolean
 }>`
 	position: relative;
+	border-radius: 50%;
 	top: 5px;
 	right: -2px;
 	width: 326px;

@@ -1,21 +1,21 @@
 export const products = {
-	50: { stars: 50, pugo: 2500, description: '2500 PUGO for 50 Stars ⭐' },
-	150: { stars: 150, pugo: 10000, description: '10000 PUGO for 150 Stars ⭐' },
-	500: { stars: 500, pugo: 50000, description: '50000 PUGO for 500 Stars ⭐' },
+	50: { stars: 50, pugo: 150, description: '150 SLS for 50 Stars ⭐' },
+	150: { stars: 150, pugo: 500, description: '500 SLS for 150 Stars ⭐' },
+	500: { stars: 500, pugo: 2000, description: '2000 SLS for 500 Stars ⭐' },
 	1000: {
 		stars: 1000,
-		pugo: 150000,
-		description: '150000 PUGO for 1000 Stars ⭐',
+		pugo: 5000,
+		description: '5000 SLS for 1000 Stars ⭐',
 	},
 	2500: {
 		stars: 2500,
-		pugo: 500000,
-		description: '500000 PUGO for 2500 Stars ⭐',
+		pugo: 15000,
+		description: '15000 SLS for 2500 Stars ⭐',
 	},
 	1: {
 		for_admin: true,
 		stars: 1,
 		pugo: 1000000,
-		description: '1000000 PUGO for 1 Stars ⭐',
+		description: '1000000 SLS for 1 Stars ⭐',
 	},
 }

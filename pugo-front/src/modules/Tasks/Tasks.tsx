@@ -72,7 +72,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 							onClick={() => setIsCompletedOpen(prev => !prev)}
 						>
 							<Headline theme='whity' size={20}>
-								Completed tasks
+								Выполненные задания
 							</Headline>
 							<Image src='/icons/accordion.svg' width={15} height={15} alt='' />
 						</AccordionTop>
@@ -83,8 +83,8 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 									<TaskItem key={task.id} props={task} userId={id} />
 								))
 							) : (
-								<Headline theme='whity' size={12}>
-									There are no completed tasks
+								<Headline theme='silver' size={12}>
+									выполненных заданий пока нет
 								</Headline>
 							)}
 						</Column>
@@ -94,7 +94,9 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 							isOpen={isAvailableOpen}
 							onClick={() => setIsAvailableOpen(prev => !prev)}
 						>
-							<Headline size={20}>Available tasks</Headline>
+							<Headline theme='whity' size={20}>
+								Доступные задания
+							</Headline>
 							<Image src='/icons/accordion.svg' width={15} height={15} alt='' />
 						</AccordionTop>
 
@@ -105,7 +107,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 								))
 							) : (
 								<Headline theme='silver' size={12}>
-									There are no available tasks
+									доступных заданий пока нет
 								</Headline>
 							)}
 						</Column>

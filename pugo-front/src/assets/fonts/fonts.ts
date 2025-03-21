@@ -6,6 +6,7 @@ import {
 	Nosifer,
 	Inspiration,
 	Inclusive_Sans,
+	Iceberg,
 } from 'next/font/google'
 
 export const jerseyFont = Jersey_10({
@@ -46,4 +47,9 @@ export const InclusiveFont = Inclusive_Sans({
 	weight: '400',
 	subsets: ['latin'],
 	variable: '--font-inclusive-sans',
+})
+export const IcebergFont = Iceberg({
+	weight: '400',
+	subsets: ['latin'],
+	variable: '--font-iceberg',
 })

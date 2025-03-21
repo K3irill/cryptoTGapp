@@ -43,9 +43,10 @@ export const Headline = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	text-align: center;
 `
 export const Title = styled.h2`
-	font-size: 38px;
+	font-size: 34px;
 	font-weight: bold;
 	line-height: 120%;
 	${silverMainTextGradient}

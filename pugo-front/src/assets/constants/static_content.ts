@@ -6,14 +6,14 @@ export const CONTENT = {
 			nav_elements: [
 				{
 					id: '1',
-					title: 'Home',
+					title: 'Дом',
 					src: 'icons/home.svg',
 					href: '/',
 					availability: true,
 				},
 				{
 					id: '2',
-					title: 'Withdraw',
+					title: 'Вывод',
 					src: 'icons/bank.svg',
 					href: '/bank',
 					availability: false,
@@ -29,14 +29,14 @@ export const CONTENT = {
 				},
 				{
 					id: '5',
-					title: 'Store',
+					title: 'Маркет',
 					src: 'icons/store.svg',
 					href: '/store',
 					availability: false,
 				},
 				{
 					id: '6',
-					title: 'Exchange',
+					title: 'Обмен',
 					src: 'icons/exchange.svg',
 					href: '/exchange',
 					availability: true,
@@ -45,35 +45,35 @@ export const CONTENT = {
 			top_nav: [
 				{
 					id: '1',
-					title: 'Frens',
+					title: 'Друзья',
 					src: 'icons/frens.svg',
 					href: '/frens',
 					availability: true,
 				},
 				{
 					id: '2',
-					title: 'Tasks',
+					title: 'Задания',
 					src: 'icons/task.svg',
 					href: '/tasks',
 					availability: true,
 				},
 				{
 					id: '4',
-					title: 'Earn',
+					title: 'Заработать',
 					src: 'icons/Bounty.svg',
 					href: '/earn',
 					availability: false,
 				},
 				{
 					id: '3',
-					title: 'Rating',
+					title: 'Рейтинг',
 					src: 'icons/rating.svg',
 					href: '/rating',
 					availability: false,
 				},
 				{
 					id: '4',
-					title: 'Map',
+					title: 'Карта',
 					src: 'icons/map.svg',
 					href: '/map',
 					availability: true,
@@ -92,43 +92,43 @@ export const CONTENT = {
 		},
 		bank: {
 			top_section: {
-				title: 'Bank',
+				title: 'Вывод',
 				titleWithBorder: false,
 			},
 		},
 		exchange: {
 			top_section: {
-				title: 'Exchange',
+				title: 'Обмен',
 				titleWithBorder: false,
 			},
 		},
 		frens: {
 			top_section: {
-				title: 'Friends',
+				title: 'Друзья',
 				titleWithBorder: false,
 			},
 		},
 		tasks: {
 			top_section: {
-				title: 'Tasks',
+				title: 'Задания',
 				titleWithBorder: false,
 			},
 		},
 		rating: {
 			top_section: {
-				title: 'Rating',
+				title: 'Рейтинг',
 				titleWithBorder: false,
 			},
 		},
 		map: {
 			top_section: {
-				title: 'Map',
+				title: 'Карта',
 				titleWithBorder: false,
 			},
 		},
 		earn: {
 			top_section: {
-				title: 'Earn',
+				title: 'Заработать',
 				titleWithBorder: false,
 			},
 		},

@@ -14,7 +14,7 @@ export const BankStyled = styled.div`
 	overflow-y: auto;
 	max-height: calc(100vh - 170px);
 	padding-bottom: 8px;
-
+	z-index: 2;
 	::-webkit-scrollbar {
 		display: none;
 	}
