@@ -8,8 +8,8 @@ export interface MulticolouredButtonProps {
 	children?: React.Node | Element | string
 	onTouchStart?: () => void
 	onTouchEnd?: () => void
-	onMouseUp: () => void
-	onMouseDown: () => void
+	onMouseUp?: () => void
+	onMouseDown?: () => void
 }
 
 export interface MulticolouredButtonStyledProps {

@@ -20,6 +20,8 @@ export const MulticolouredButton: FunctionComponent<
 			onTouchStart={onTouchStart}
 			onTouchEnd={onTouchEnd}
 			onClick={onClick}
+			onMouseUp={onMouseUp}
+			onMouseDown={onMouseDown}
 			theme={theme}
 		>
 			{title}{' '}
