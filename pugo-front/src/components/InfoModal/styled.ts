@@ -12,10 +12,10 @@ export const Content = styled.div`
 export const CloseButtonWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	position: absolute;
+	position: fixed;
 	right: 15px;
 	top: 15px;
-	z-index: 2;
+	z-index: 4;
 `
 
 export const PugImage = styled.img`
