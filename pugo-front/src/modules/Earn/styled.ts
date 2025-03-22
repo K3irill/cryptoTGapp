@@ -4,6 +4,7 @@ import {
 	goldenTextGradient,
 	goldenTextGradientV2,
 	mainBlockBackground,
+	purpleTextGradient,
 } from '@/styles/mixins'
 import styled, { css } from 'styled-components'
 
@@ -34,33 +35,39 @@ export const TextStyled = styled.h2`
 export const EarnBlock = styled.div`
 	margin-top: 20px;
 	display: flex;
-	justify-content: space-between;
-	gap: 10px;
+	flex-direction: column;
+	gap: 15px;
 	flex-wrap: wrap;
 `
-export const GameCard = styled.a`
+export const GameCard = styled.a<{ background?: string }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	width: 100px;
+	width: 100%;
 	height: 100px;
-	${extraBlockBackground}
+	border-radius: 6px;
 	gap: 6px;
 	padding: 10px;
 	cursor: pointer;
+	${p => p.background && `background: url(${p.background}) no-repeat;`}
+	background-size: 100%;
 `
 
 export const GCardImageWrapper = styled.div<{ radius?: string }>`
+	position: absolute;
+	object-fit: cover;
 	img {
+		width: 100%;
 		${p => p.radius && `border-radius: ${p.radius}; `}
 	}
 `
 
 export const GCardTitle = styled.div`
-	${goldenTextGradient}
+	${purpleTextGradient}
 	text-align: center;
-	font-size: 12px;
-	line-height: 14px;
+	font-size: 32px;
+	text-shadow: 0px 0px 10px black;
+	line-height: 46px;
 	font-weight: 900;
 `

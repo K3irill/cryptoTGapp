@@ -62,7 +62,7 @@ export const CONTENT = {
 					title: 'Заработать',
 					src: 'icons/Bounty.svg',
 					href: '/earn',
-					availability: false,
+					availability: true,
 				},
 				{
 					id: '3',

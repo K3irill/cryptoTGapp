@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import {
 	EarnBlock,
 	EarnStyled,
@@ -8,19 +8,22 @@ import {
 } from './styled'
 import { EarnProps } from './Earn.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
-
-import { InstructionBlock } from './components/InstructionBlock/InstructionBlock'
-
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-
-import TaskItem from '@/components/TaskItem/TaskItem'
-import { Container, Headline } from '@/styles/styled'
+import { Container } from '@/styles/styled'
 import { TopBorderStyled } from '../Bank/styled'
 import Image from 'next/image'
 
+import { useRouter } from 'next/router' // Импортируем useRouter из Next.js
+
 export const Earn: FunctionComponent<EarnProps> = ({ data, children }) => {
 	const { id } = useSelector((state: RootState) => state.user)
+	const router = useRouter() // Используем useRouter для навигации
+
+	// Обработчик клика на карточку
+	const handleCardClick = () => {
+		router.push('/game/spacepug') // Перенаправляем на страницу игры
+	}
 
 	return (
 		<EarnStyled>
@@ -28,32 +31,14 @@ export const Earn: FunctionComponent<EarnProps> = ({ data, children }) => {
 			<Container>
 				<TopBorderStyled src='./grey-top-border.svg' alt='border' />
 				<EarnBlock>
-					<GameCard>
-						<GCardImageWrapper>
-							<Image src='/icons/roulete.png' width='45' height='45' alt='' />
-						</GCardImageWrapper>
-						<GCardTitle>The Wheel of Fortune</GCardTitle>
-					</GameCard>
-					<GameCard>
-						<GCardImageWrapper radius='8px'>
-							<Image src='/icons/777.png' width='45' height='45' alt='' />
-						</GCardImageWrapper>
-						<GCardTitle>777</GCardTitle>
-					</GameCard>
-					<GameCard>
-						<GCardImageWrapper>
-							<Image src='/icons/roulete.png' width='45' height='45' alt='' />
-						</GCardImageWrapper>
-						<GCardTitle>The Wheel of Fortune</GCardTitle>
-					</GameCard>
-					<GameCard>
-						<GCardImageWrapper>
-							<Image src='/icons/roulete.png' width='45' height='45' alt='' />
-						</GCardImageWrapper>
-						<GCardTitle>The Wheel of Fortune</GCardTitle>
+					{/* Карточка с игрой "Space Pug" */}
+					<GameCard
+						background='/backgrounds/rocket.png'
+						onClick={handleCardClick}
+					>
+						<GCardTitle>Space Pug</GCardTitle>
 					</GameCard>
 				</EarnBlock>
-				{children}
 			</Container>
 		</EarnStyled>
 	)
