@@ -252,7 +252,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 					>
 						<strong style={{ color: '#12b317' }}>3. Отправьте отчёт:</strong>{' '}
 						Перейдите в нашего бота, напишите <strong>/earn</strong>, выберите
-						"Получить вознаграждение" и прикрепите:
+						Получить вознаграждение и прикрепите:
 					</Typography>
 					<Typography
 						id='modal-modal-description'
