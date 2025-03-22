@@ -33,7 +33,7 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({ onClose }) => {
 			title: 'Добро пожаловать в BONIFACE!',
 			img: '/pugs/greet-pug.png',
 			name: 'BONIFACE',
-			text: 'BIFS — не просто мем, а целый космос! Наша цель — сделать криптовалюту доступной и увлекательной для каждого. Присоединяйтесь к нам и начните путешествие уже сегодня!',
+			text: 'BONIFACE (BIFS) — не просто мем, а целый космос! Наша цель — сделать криптовалюту доступной и увлекательной для каждого. Присоединяйтесь к нам и начните путешествие уже сегодня!',
 		},
 		{
 			title: 'Зарабатывайте токены легко!',
@@ -44,19 +44,19 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({ onClose }) => {
 		{
 			title: 'Используйте токены с пользой!',
 			img: '/pugs/with-coins-pug.png',
-			name: 'BIFS',
+			name: 'BONIFACE',
 			text: 'Покупайте токены за Telegram Stars или TON, обменивайте их на бусты, улучшения и эксклюзивные возможности. Скоро вы сможете выводить токены на биржи и использовать их в реальном мире!',
 		},
 		{
 			title: 'Приглашайте друзей и получайте больше!',
 			img: '/pugs/frens-pug.png',
-			name: 'BIFS',
+			name: 'BONIFACE',
 			text: 'Делитесь своей реферальной ссылкой и получайте токены за каждого приглашённого друга. Ваши друзья тоже получат бонусы — выигрывают все!',
 		},
 		{
 			title: 'Мы растем вместе с вами!',
 			img: '/pugs/heart-pug.png',
-			name: 'BIFS',
+			name: 'BONIFACE',
 			text: 'Мы активно развиваемся и добавляем новые функции. Следите за обновлениями, участвуйте в событиях и будьте в курсе новых возможностей. Вместе мы создаем будущее криптовалют!',
 		},
 	]
@@ -103,7 +103,7 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({ onClose }) => {
 							<SlideTitle>{slide.title}</SlideTitle>
 							<SlideBanner>
 								<SlideImage src={slide.img} />
-								<CoinName>{slide.name}</CoinName>
+								<SlideTokenName>{slide.name}</SlideTokenName>
 							</SlideBanner>
 							<SlideText>
 								{shownSlides.includes(index) ? (

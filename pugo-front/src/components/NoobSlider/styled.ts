@@ -26,7 +26,7 @@ export const NoobSlide = styled.div`
 	height: 100vh;
 	color: white;
 	background-position: cover;
-	background: url('/backgrounds/stars.png'),
+	background: url('/backgrounds/space-stars.gif'),
 		radial-gradient(
 				42.85% 184.29% at 15.34% 39.06%,
 				rgba(131, 113, 243, 0.2) 0%,
@@ -76,11 +76,12 @@ export const SlideImage = styled.img`
 `
 export const SlideTokenName = styled.div`
 	font-family: var(--font-nosifer);
-	font-size: 38px;
-	font-weight: 600;
+	font-size: 42px;
+	font-weight: 900;
 	letter-spacing: 7.1px;
 	line-height: 62px;
-
+	position: relative;
+	top: -30px;
 	${bluePurpleTextGradient}
 
 	@media (max-height: 931px) {
