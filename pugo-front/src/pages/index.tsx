@@ -13,21 +13,31 @@ interface HomePageProps {
 }
 
 const HomePage: NextPage<HomePageProps> = ({ content }) => {
-	const [isFirstTime, setIsFirstTime] = useState<boolean>(() => {
-		if (typeof window !== 'undefined') {
-			const isFirstTime = localStorage.getItem('isFirstTime')
-			return isFirstTime !== 'false'
+	const [isFirstTime, setIsFirstTime] = useState<boolean>(false)
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [isClient, setIsClient] = useState<boolean>(false)
+
+	useEffect(() => {
+		setIsClient(true)
+		const firstTimeStatus = localStorage.getItem('isFirstTime')
+
+		if (firstTimeStatus !== 'false') {
+			setIsFirstTime(true)
 		}
-		return true
-	})
+		setIsLoading(false)
+	}, [])
 
 	const handleSliderClose = () => {
 		localStorage.setItem('isFirstTime', 'false')
 		setIsFirstTime(false)
 	}
 
-	if (isFirstTime) {
+	if (isClient && isFirstTime && !isLoading) {
 		return <NoobSlider onClose={handleSliderClose} />
+	}
+
+	if (isLoading) {
+		return <Loader />
 	}
 
 	return (
