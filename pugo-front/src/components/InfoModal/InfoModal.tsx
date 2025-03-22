@@ -22,7 +22,7 @@ const modalStyle = {
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
 	width: 320,
-	maxHeight: '80vh',
+	maxHeight: '70vh',
 	overflowY: 'auto',
 	background: `linear-gradient(120.56deg, #1D2948 -2.28%, #141D33 21.31%, #0F1628 33.91%, #050A16 92.75%)`,
 	backgroundSize: 'cover',
