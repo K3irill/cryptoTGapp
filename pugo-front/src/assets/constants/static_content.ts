@@ -6,7 +6,7 @@ export const CONTENT = {
 			nav_elements: [
 				{
 					id: '1',
-					title: 'Дом',
+					title: 'Главная',
 					src: 'icons/home.svg',
 					href: '/',
 					availability: true,

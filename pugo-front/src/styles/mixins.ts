@@ -321,3 +321,25 @@ export const redGradientBackground = css`
 		0px 10px 60px rgba(193, 111, 15, 0.8),
 		inset 0px 0px 20px rgba(255, 255, 255, 0.3);
 `
+
+export const pinkOrangeGradientBackground = css`
+	background: radial-gradient(
+				57.81% 391.02% at 25.57% 34.38%,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				59.09% 164.65% at -3.98% 12.5%,
+				#ff33ba 19.65%,
+				rgba(237, 66, 179, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(68.78% 100% at 43.75% 114.06%, #ad12f5 0%, #fdac62 80.98%)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#55128a;
+	box-shadow: -20px -10px 50px rgba(102, 67, 242, 0.5),
+		10px 20px 80px rgba(218, 37, 156, 0.3),
+		0px 10px 60px rgba(125, 20, 208, 0.8),
+		inset 0px 0px 20px rgba(255, 255, 255, 0.5);
+`

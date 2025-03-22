@@ -35,62 +35,13 @@ import { REQUEST_LINK } from '../../../constant'
 import { Toaster, toast } from 'react-hot-toast'
 import { products } from './exchange.content'
 import Label from '@/components/Label/Label'
+import { handleAutomining, handleBuyTokens } from '@/utils/sendBotMessage'
 
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
 	children,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
-
-	const handleBuy = async (stars: number, pugos: number) => {
-		try {
-			const response = await fetch(`${REQUEST_LINK}/api/exchange/buy-tokens`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ stars, pugos, telegramId: user.id }),
-			})
-
-			const data = await response.json()
-
-			toast(t => (
-				<Notify>
-					Бот отправил вам сообщение об оплате, откройте
-					<a href='https://t.me/PugoCoinBot'>чат с ботом</a>😊
-				</Notify>
-			))
-			window.open('https://t.me/PugoCoinBot', '_blank')
-		} catch (error) {
-			console.error('Error triggering bot action:', error)
-			toast.error('Возникла ошибка, попробуйте ещё раз.')
-		}
-	}
-
-	const handleAutomining = async () => {
-		try {
-			const response = await fetch(`${REQUEST_LINK}/api/exchange/automining`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ telegramId: user.id, days: 7, stars: 777 }),
-			})
-
-			const data = await response.json()
-
-			toast(t => (
-				<Notify>
-					Бот отправил вам сообщение об оплате, откройте
-					<a href='https://t.me/PugoCoinBot'>чат с ботом</a>😊
-				</Notify>
-			))
-			window.open('https://t.me/PugoCoinBot', '_blank')
-		} catch (error) {
-			console.error('Error triggering bot action:', error)
-			toast.error('Возникла ошибка, попробуйте ещё раз.')
-		}
-	}
 
 	return (
 		<>
@@ -112,7 +63,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 								<>
 									<Title>Авто-добыча монет</Title>
 									<ShinyButton
-										onClick={handleAutomining}
+										onClick={() => handleAutomining(user)}
 										title='Подключить майнинг'
 										subtitle='1450 монет в день!'
 									></ShinyButton>
@@ -138,7 +89,9 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 									return (
 										<StarOptionItem key={productKey}>
 											<StarButton
-												onClick={() => handleBuy(product.stars, product.pugo)}
+												onClick={() =>
+													handleBuyTokens(product.stars, product.pugo, user)
+												}
 											>
 												Купить
 											</StarButton>

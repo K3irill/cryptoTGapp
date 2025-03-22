@@ -1,10 +1,12 @@
 import { COLORS } from '@/styles/colors'
 import styled from 'styled-components'
-import { MulticolouredButtonStyledProps } from './MulticolouredButton.d'
-import { pinkOrangeGradientBackground } from '@/styles/mixins'
+import { CloseButtonStyledProps } from './CloseButton.d'
+import {
+	blueGradientBackground,
+	pinkOrangeGradientBackground,
+} from '@/styles/mixins'
 
-export const ButtonStyled = styled.a<MulticolouredButtonStyledProps>`
-	width: 100%;
+export const ButtonStyled = styled.button<CloseButtonStyledProps>`
 	text-align: center;
 	font-size: 12px;
 	font-weight: 900;
@@ -12,12 +14,15 @@ export const ButtonStyled = styled.a<MulticolouredButtonStyledProps>`
 		border-color 0.3s ease;
 	border: 1px solid transparent;
 	cursor: pointer;
-	padding: 8px 10px;
-
-	${pinkOrangeGradientBackground}
-	border-radius: 10px;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
 	text-wrap: nowrap;
 	position: relative;
+	${blueGradientBackground}
 
 	span {
 		position: absolute;

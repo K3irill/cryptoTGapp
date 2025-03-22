@@ -1,10 +1,13 @@
 import React, { FunctionComponent } from 'react'
-import { MulticolouredButtonProps } from './MulticolouredButton.d'
+import { CloseButtonProps } from './CloseButton.d'
 import { ButtonStyled } from './styled'
 
-export const MulticolouredButton: FunctionComponent<
-	MulticolouredButtonProps
-> = ({ title, theme, iconSrc, onClick }) => {
+export const CloseButton: FunctionComponent<CloseButtonProps> = ({
+	title,
+	theme,
+	iconSrc,
+	onClick,
+}) => {
 	return (
 		<ButtonStyled onClick={onClick} theme={theme}>
 			{title}{' '}
@@ -17,4 +20,4 @@ export const MulticolouredButton: FunctionComponent<
 	)
 }
 
-export default MulticolouredButton
+export default CloseButton
