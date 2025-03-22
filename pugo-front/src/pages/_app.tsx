@@ -54,6 +54,12 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 					})
 				)
 
+				// Инициализация флага isFirstTime, если он ещё не установлен
+				const isFirstTime = localStorage.getItem('isFirstTime')
+				if (isFirstTime === null) {
+					localStorage.setItem('isFirstTime', 'true') // Устанавливаем флаг для нового пользователя
+				}
+
 				const urlParams = new URLSearchParams(window.location.search)
 				const referralCode = urlParams.get('tgWebAppStartParam')
 
@@ -84,7 +90,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 				}
 			}
 		}
-	}, [dispatch]) // Только один раз при монтировании компонента
+	}, [dispatch])
 
 	const handleReferral = async (referralCode: string) => {
 		try {

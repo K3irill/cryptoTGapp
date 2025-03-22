@@ -1,7 +1,10 @@
 import { COLORS } from '@/styles/colors'
 import styled from 'styled-components'
 import { MulticolouredButtonStyledProps } from './MulticolouredButton.d'
-import { pinkOrangeGradientBackground } from '@/styles/mixins'
+import {
+	pinkOrangeGradientBackground,
+	blueGradientBackground,
+} from '@/styles/mixins'
 
 export const ButtonStyled = styled.a<MulticolouredButtonStyledProps>`
 	width: 100%;
@@ -13,8 +16,11 @@ export const ButtonStyled = styled.a<MulticolouredButtonStyledProps>`
 	border: 1px solid transparent;
 	cursor: pointer;
 	padding: 8px 10px;
+	${p =>
+		p.theme === 'blue'
+			? `${blueGradientBackground};`
+			: `	${pinkOrangeGradientBackground};`}
 
-	${pinkOrangeGradientBackground}
 	border-radius: 10px;
 	text-wrap: nowrap;
 	position: relative;

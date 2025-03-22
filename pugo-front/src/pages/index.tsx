@@ -2,19 +2,40 @@ import { CONTENT as STATIC_CONTENT } from '@/assets/constants/static_content'
 import { Home } from '../modules/Home/Home'
 import MainLayout from '@/components/Layouts/MainLayouts'
 import { getContent } from '@/lib/getContent'
-
 import { ContentData } from '@/types/types'
 import { GetStaticProps, NextPage } from 'next'
+import NoobSlider from '@/components/NoobSlider/NoobSlider'
+import { useEffect, useState } from 'react'
 
 interface HomePageProps {
 	content: ContentData
 }
 
-const HomePage: NextPage<HomePageProps> = ({ content }) => (
-	<MainLayout header={content.header} footer={content.footer}>
-		<Home data={content.pages.home} />
-	</MainLayout>
-)
+const HomePage: NextPage<HomePageProps> = ({ content }) => {
+	const [isFirstTime, setIsFirstTime] = useState<boolean>(true)
+
+	useEffect(() => {
+		const isFirstTime = localStorage.getItem('isFirstTime')
+		if (isFirstTime === 'false') {
+			setIsFirstTime(false)
+		}
+	}, [])
+
+	const handleSliderClose = () => {
+		localStorage.setItem('isFirstTime', 'false')
+		setIsFirstTime(false)
+	}
+
+	if (isFirstTime) {
+		return <NoobSlider onClose={handleSliderClose} />
+	}
+
+	return (
+		<MainLayout header={content.header} footer={content.footer}>
+			<Home data={content.pages.home} />
+		</MainLayout>
+	)
+}
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 	let content: ContentData
