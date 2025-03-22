@@ -25,13 +25,13 @@ import {
 import { REQUEST_LINK } from '../../../constant'
 
 import IOSSwitch from '@/components/IOSSwitch/IOSSwitch'
-import { BasicModal } from '@/components/CenterModal/CenterModal' // Импортируем доработанный BasicModal
+import { BasicModal } from '@/components/CenterModal/CenterModal'
 
 export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 	const { id, tokens } = useSelector((state: RootState) => state.user)
 	const dispatch = useDispatch()
 	const [showModal, setShowModal] = useState<boolean>(false)
-	const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false) // Состояние для IOSSwitch
+	const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false)
 	const [displayingTokens, setDisplayingTokens] = useState<number>(tokens || 0)
 	const [initialTokens, setInitialTokens] = useState<number>(tokens || 0)
 	const inactivityTimer = useRef<NodeJS.Timeout | null>(null)

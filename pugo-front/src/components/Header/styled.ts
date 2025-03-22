@@ -7,6 +7,8 @@ export const HeaderStyled = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	position: relative;
+	z-index: 2px;
 `
 export const UserBlockStyled = styled.div`
 	display: flex;
@@ -61,7 +63,7 @@ export const Backlight = styled.img`
 	right: 3px;
 `
 
-export const OutButton = styled.div`
+export const OutButton = styled.button`
 	width: 56px;
 	height: 56px;
 	border-radius: 50%;
@@ -75,10 +77,11 @@ export const OutButton = styled.div`
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-
+	position: relative;
+	z-index: 5;
 	img {
-		width: 22px;
-		height: 22px;
+		width: 35px;
+		height: 35px;
 	}
 `
 /* Ellipse 19 */

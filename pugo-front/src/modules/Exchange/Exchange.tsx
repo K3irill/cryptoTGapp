@@ -54,7 +54,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 							<p>Баланс</p>
 							<Balance>
 								<h3>{user.tokens || 'loading...'}</h3>
-								<Label size='20px' title='BIF' />
+								<Label size='20px' title='BIFS' />
 							</Balance>
 							<InDollars>$?????</InDollars>
 						</FirstColumnOverview>
@@ -78,8 +78,8 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 					</OverviewStyled>
 					<StarsWrapper>
 						<Headline size={22}>
-							Купить монеты <Label isInline size='14px' title='BIF' /> за звезды
-							телеграм:
+							Купить монеты <Label isInline size='14px' title='BIFS' /> за
+							звезды телеграм:
 						</Headline>
 						<StarsOptionList>
 							{Object.keys(products).map((productKey, index) => {
@@ -107,7 +107,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 											</StarInfo>
 
 											<Count>
-												<p>{product.pugo}</p> <Label size='18px' title='BIF' />
+												<p>{product.pugo}</p> <Label size='18px' title='BIFS' />
 											</Count>
 										</StarOptionItem>
 									)

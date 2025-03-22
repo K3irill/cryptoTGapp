@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import {
 	HeaderStyled,
 	UserAvatarStyled,
@@ -12,10 +12,15 @@ import {
 import { HeaderProps } from './Header.d'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import { InfoModal } from '../InfoModal/InfoModal'
 // import { NavCircleElement } from '../NavCircleElement/NavCircleElement'
 
 export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
 	const user = useSelector((state: RootState) => state.user)
+	const [openInfoModal, setOpenInfoModal] = useState(false)
+	const handleModalClose = () => {
+		setOpenInfoModal(false)
+	}
 	return (
 		<HeaderStyled>
 			<UserBlockStyled>
@@ -35,10 +40,11 @@ export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
 					)}
 				</UserNicknameStyled>
 			</UserBlockStyled>
-			<OutButton>
-				<img src='/icons/out.svg' alt='' />
+			<OutButton onClick={() => setOpenInfoModal(prev => !prev)}>
+				<img src='/icons/info.svg' alt='' />
 			</OutButton>
 			{children}
+			<InfoModal isVisible={openInfoModal} onClose={handleModalClose} />
 		</HeaderStyled>
 	)
 }

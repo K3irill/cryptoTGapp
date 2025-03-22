@@ -6,20 +6,20 @@ import { ContentData } from '@/types/types'
 import { GetStaticProps, NextPage } from 'next'
 import NoobSlider from '@/components/NoobSlider/NoobSlider'
 import { useEffect, useState } from 'react'
+import Loader from '@/components/Loader/Loader'
 
 interface HomePageProps {
 	content: ContentData
 }
 
 const HomePage: NextPage<HomePageProps> = ({ content }) => {
-	const [isFirstTime, setIsFirstTime] = useState<boolean>(true)
-
-	useEffect(() => {
-		const isFirstTime = localStorage.getItem('isFirstTime')
-		if (isFirstTime === 'false') {
-			setIsFirstTime(false)
+	const [isFirstTime, setIsFirstTime] = useState<boolean>(() => {
+		if (typeof window !== 'undefined') {
+			const isFirstTime = localStorage.getItem('isFirstTime')
+			return isFirstTime !== 'false'
 		}
-	}, [])
+		return true
+	})
 
 	const handleSliderClose = () => {
 		localStorage.setItem('isFirstTime', 'false')
