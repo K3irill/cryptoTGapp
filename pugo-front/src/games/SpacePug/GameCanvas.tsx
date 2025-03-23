@@ -50,7 +50,7 @@ const GameCanvas = () => {
 			const data = await response.json()
 
 			if (data.success) {
-				dispatch(updateTokens(roundedDelta))
+				// dispatch(updateTokens(roundedDelta))
 			} else {
 				console.error('Ошибка при обновлении токенов на сервере')
 			}
