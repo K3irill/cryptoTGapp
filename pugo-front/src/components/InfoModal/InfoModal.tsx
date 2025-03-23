@@ -391,8 +391,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 						<strong style={{ color: '#12b317' }}>1. Заработок токенов:</strong>{' '}
 						Выполняйте задания, такие как создание контента (посты, видео,
 						мемы), и получайте токены. Для этого отправьте боту ссылку на
-						контент и скриншот с количеством просмотров через команду{' '}
-						<strong style={{ color: '#d309bb' }}>/earn</strong>.
+						контент и скриншот с количеством просмотров через команду.
 					</Typography>
 					<Typography
 						id='modal-modal-description'
@@ -411,18 +410,16 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 						sx={{ mt: 1, color: '#FFFFFF' }}
 					>
 						<strong style={{ color: '#12b317' }}>3. Автомайнинг:</strong>{' '}
-						Активируйте автомайнинг токенов на 7, 21 или 30 дней через команду{' '}
-						<strong style={{ color: '#d309bb' }}>/automine</strong>. Бот будет
-						ежедневно начислять токены и уведомлять о статусе.
+						Активируйте автомайнинг токенов на 7, 21 или 30 дней через команду.
+						Бот будет ежедневно начислять токены и уведомлять о статусе.
 					</Typography>
 					<Typography
 						id='modal-modal-description'
 						sx={{ mt: 1, color: '#FFFFFF' }}
 					>
 						<strong style={{ color: '#12b317' }}>4. Покупка токенов:</strong>{' '}
-						Покупайте токены BIFS напрямую через бота. Используйте команду{' '}
-						<strong style={{ color: '#d309bb' }}>/buy</strong>, чтобы выбрать
-						количество токенов и получить реквизиты для оплаты.
+						Покупайте токены BIFS напрямую через бота. Используйте команду,
+						чтобы выбрать количество токенов и получить реквизиты для оплаты.
 					</Typography>
 					<Typography
 						id='modal-modal-description'
@@ -432,9 +429,8 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							5. Техническая поддержка:
 						</strong>{' '}
 						Если у вас возникли вопросы или проблемы, напишите в поддержку через
-						команду <strong style={{ color: '#d309bb' }}>/support</strong>. Бот
-						предоставит ответы на часто задаваемые вопросы или свяжет с
-						оператором.
+						команду. Бот предоставит ответы на часто задаваемые вопросы или
+						свяжет с оператором.
 					</Typography>
 					<Typography
 						id='modal-modal-description'

@@ -36,7 +36,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 	const handleCopyReferralLink = () => {
 		if (referralCode) {
 			const botUsername = 'BIFSCryptoBot'
-			const referralLink = `https://t.me/${botUsername}/gifs?startapp=${referralCode}`
+			const referralLink = `https://t.me/${botUsername}/bifs?startapp=${referralCode}`
 
 			if (document.hasFocus()) {
 				navigator.clipboard
