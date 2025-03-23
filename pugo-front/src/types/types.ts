@@ -34,6 +34,7 @@ export interface PagesTypes {
 	rating: object
 	map: MapTypes
 	earn: EarnTypes
+	store: StoreTypes
 }
 export interface TopSectionTypes {
 	title: string
@@ -70,6 +71,9 @@ export interface MapTypes {
 	top_section: TopSectionTypes
 }
 export interface EarnTypes {
+	top_section: TopSectionTypes
+}
+export interface StoreTypes {
 	top_section: TopSectionTypes
 }
 export interface TasksApi {

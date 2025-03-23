@@ -32,7 +32,7 @@ export const CONTENT = {
 					title: 'Маркет',
 					src: 'icons/store.svg',
 					href: '/store',
-					availability: false,
+					availability: true,
 				},
 				{
 					id: '6',
@@ -129,6 +129,12 @@ export const CONTENT = {
 		earn: {
 			top_section: {
 				title: 'Заработать',
+				titleWithBorder: false,
+			},
+		},
+		store: {
+			top_section: {
+				title: 'Маркет',
 				titleWithBorder: false,
 			},
 		},

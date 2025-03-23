@@ -6,7 +6,7 @@ const CONTENT = {
 			nav_elements: [
 				{
 					id: '1',
-					title: 'Дом',
+					title: 'Главная',
 					src: 'icons/home.svg',
 					href: '/',
 					availability: true,
@@ -62,7 +62,7 @@ const CONTENT = {
 					title: 'Заработать',
 					src: 'icons/Bounty.svg',
 					href: '/earn',
-					availability: false,
+					availability: true,
 				},
 				{
 					id: '3',

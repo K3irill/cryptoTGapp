@@ -57,9 +57,9 @@ const userSlice = createSlice({
 
 		updateTokens(state, action: PayloadAction<number>) {
 			if (state.tokens !== null) {
-				state.tokens += action.payload
+				state.tokens += Number(action.payload)
 			} else {
-				state.tokens = action.payload
+				state.tokens = Number(action.payload)
 			}
 			saveStateToLocalStorage(state)
 		},
