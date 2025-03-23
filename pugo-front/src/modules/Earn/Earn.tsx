@@ -14,15 +14,14 @@ import { Container } from '@/styles/styled'
 import { TopBorderStyled } from '../Bank/styled'
 import Image from 'next/image'
 
-import { useRouter } from 'next/router' // Импортируем useRouter из Next.js
+import { useRouter } from 'next/router'
 
 export const Earn: FunctionComponent<EarnProps> = ({ data, children }) => {
 	const { id } = useSelector((state: RootState) => state.user)
-	const router = useRouter() // Используем useRouter для навигации
+	const router = useRouter()
 
-	// Обработчик клика на карточку
 	const handleCardClick = () => {
-		router.push('/game/spacepug') // Перенаправляем на страницу игры
+		router.push('/game/spacepug')
 	}
 
 	return (

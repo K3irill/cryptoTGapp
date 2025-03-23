@@ -52,6 +52,7 @@ export const GameCard = styled.a<{ background?: string }>`
 	cursor: pointer;
 	${p => p.background && `background: url(${p.background}) no-repeat;`}
 	background-size: 100%;
+	box-shadow: inset 0px 0px 5px #ffffff;
 `
 
 export const GCardImageWrapper = styled.div<{ radius?: string }>`
@@ -67,7 +68,7 @@ export const GCardTitle = styled.div`
 	${purpleTextGradient}
 	text-align: center;
 	font-size: 32px;
-	text-shadow: 0px 0px 10px black;
+	text-shadow: 0px 0px 10px #ffffff;
 	line-height: 46px;
 	font-weight: 900;
 `

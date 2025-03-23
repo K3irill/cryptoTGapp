@@ -80,7 +80,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 							? 'Выполнить'
 							: props.UserTask.status === 'pending'
 							? 'Проверка'
-							: 'Выполнена'
+							: 'Выполнено'
 					}
 				/>
 			</Status>

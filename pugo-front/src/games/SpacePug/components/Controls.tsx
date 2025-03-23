@@ -7,7 +7,7 @@ import MulticolouredButton from '@/components/UI/MulticolouredButton/Multicolour
 const Controls = ({ onMove, onSpeedUp, onSpeedDown }) => {
 	return (
 		<ControlsWrapper className='controls'>
-			<MulticolouredButton
+			<button
 				onTouchStart={() => onSpeedUp('ArrowLeft')}
 				onTouchEnd={() => onSpeedDown('ArrowLeft')}
 				onMouseDown={() => onSpeedUp('ArrowLeft')} // Для компьютеров
@@ -19,9 +19,9 @@ const Controls = ({ onMove, onSpeedUp, onSpeedDown }) => {
 					src='/icons/arrow-control.svg'
 					alt='Left'
 				/>
-			</MulticolouredButton>
+			</button>
 			<ContorlsTopBottom>
-				<MulticolouredButton
+				<button
 					onTouchStart={() => onSpeedUp('ArrowUp')}
 					onTouchEnd={() => onSpeedDown('ArrowUp')}
 					onMouseDown={() => onSpeedUp('ArrowUp')} // Для компьютеров
@@ -33,8 +33,8 @@ const Controls = ({ onMove, onSpeedUp, onSpeedDown }) => {
 						src='/icons/arrow-control.svg'
 						alt='Up'
 					/>
-				</MulticolouredButton>
-				<MulticolouredButton
+				</button>
+				<button
 					onTouchStart={() => onSpeedUp('ArrowDown')}
 					onTouchEnd={() => onSpeedDown('ArrowDown')}
 					onMouseDown={() => onSpeedUp('ArrowDown')} // Для компьютеров
@@ -50,9 +50,9 @@ const Controls = ({ onMove, onSpeedUp, onSpeedDown }) => {
 						src='/icons/arrow-control.svg'
 						alt='Down'
 					/>
-				</MulticolouredButton>
+				</button>
 			</ContorlsTopBottom>
-			<MulticolouredButton
+			<button
 				onTouchStart={() => onSpeedUp('ArrowRight')}
 				onTouchEnd={() => onSpeedDown('ArrowRight')}
 				onMouseDown={() => onSpeedUp('ArrowRight')} // Для компьютеров
@@ -64,7 +64,7 @@ const Controls = ({ onMove, onSpeedUp, onSpeedDown }) => {
 					src='/icons/arrow-control.svg'
 					alt='Right'
 				/>
-			</MulticolouredButton>
+			</button>
 		</ControlsWrapper>
 	)
 }

@@ -1,3 +1,4 @@
+import { pinkOrangeGradientBackground } from '@/styles/mixins'
 import styled, { keyframes } from 'styled-components'
 export const ControlsStyled = styled.div`
 	position: fixed;
@@ -13,8 +14,10 @@ export const ControlsWrapper = styled.div`
 	display: flex;
 	a,
 	button {
+		${pinkOrangeGradientBackground};
 		flex-grow: 0;
 		align-self: end;
+		padding: 15px 35px;
 		img {
 			width: 25px;
 			height: 25px;
@@ -49,14 +52,6 @@ const rotate = keyframes`
   to {
     transform: rotate(360deg);
   }
-`
-
-export const AsteroidStyled = styled.div`
-	position: absolute;
-	width: 30px;
-	height: 30px;
-	background: url('/photos/meteors.png') no-repeat center/contain;
-	animation: ${rotate} 5s linear infinite; // Добавляем анимацию вращения
 `
 
 export const GameUi = styled.div`
@@ -98,7 +93,28 @@ const blinkGreen = keyframes`
     filter: brightness(1);
   }
 `
-
+const blinkMegaGreen = keyframes`
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5) drop-shadow(0 0 10px #01ff01);
+  }
+  100% {
+    filter: brightness(1);
+  }
+`
+const blinkRed = keyframes`
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5) drop-shadow(0 0 10px #ff0101);
+  }
+  100% {
+    filter: brightness(1);
+  }
+`
 export const CoinStyled = styled.div`
 	position: absolute;
 	width: 50px;
@@ -114,6 +130,20 @@ export const HealthPackStyled = styled.div`
 	height: 30px;
 	background: url('/photos/healt-pack.png') no-repeat center/contain;
 	animation: ${blinkGreen} 1s infinite; // Мигание зелёным
+`
+export const MegaHealthPackStyled = styled.div`
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background: url('/photos/mega-healt-pack.png') no-repeat center/contain;
+	animation: ${blinkMegaGreen} 1s infinite;
+`
+export const MegaBombsStyled = styled.div`
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background: url('/photos/bomb.png') no-repeat center/contain;
+	animation: ${blinkRed} 1s infinite;
 `
 
 export const ShipStyled = styled.div`
@@ -137,4 +167,52 @@ export const ShipStyled = styled.div`
 	&.tilt-down {
 		transform: rotate(0deg) translateY(5px);
 	}
+`
+// Анимация взрыва
+const explode = keyframes`
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+`
+
+// Анимация ударной волны
+const shockwave = keyframes`
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+`
+
+export const AsteroidStyled = styled.div`
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background: url('/photos/meteors.png') no-repeat center/contain;
+	animation: ${rotate} 5s linear infinite;
+`
+
+export const ExplosionStyled = styled.div`
+	position: absolute;
+	width: 60px; // Увеличим размер взрыва
+	height: 60px; // Увеличим размер взрыва
+	background: url('/photos/explosion.gif') no-repeat center/contain;
+	// animation: ${explode} 0.5s ease-out forwards;
+`
+
+export const ShockwaveStyled = styled.div`
+	position: absolute;
+	width: 100px; // Увеличим размер ударной волны
+	height: 100px; // Увеличим размер ударной волны
+	border: 2px solid rgba(255, 0, 0, 0.5);
+	border-radius: 50%;
+	// animation: ${shockwave} 0.5s ease-out forwards;
 `

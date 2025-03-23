@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
-import { AsteroidStyled } from '../styled'
+import { AsteroidStyled, ExplosionStyled, ShockwaveStyled } from '../styled'
 
 const Asteroid = ({
 	speed,
@@ -11,6 +11,18 @@ const Asteroid = ({
 	shipPosition,
 }) => {
 	const [position, setPosition] = useState(initialPosition)
+	const [isExploding, setIsExploding] = useState(false) // Состояние для взрыва
+	const [isShockwaveVisible, setIsShockwaveVisible] = useState(false) // Состояние для ударной волны
+
+	// useEffect для вызова alert, когда происходит взрыв
+	useEffect(() => {
+		if (isExploding) {
+			setTimeout(() => {
+				setIsExploding(false) // Останавливаем взрыв
+				setIsShockwaveVisible(false) // Скрываем ударную волну
+			}, 500) // 500 мс для задержки
+		}
+	}, [isExploding]) // Срабатывает, когда isExploding изменяется
 
 	useEffect(() => {
 		if (!isGameOver) {
@@ -25,8 +37,11 @@ const Asteroid = ({
 						prev.x + 40 >= shipPosition.x && // Левая граница астероида
 						prev.x <= shipPosition.x + 50 // Правая граница астероида
 					) {
+						setIsExploding(true) // Начинаем анимацию взрыва
+						setIsShockwaveVisible(true) // Показываем ударную волну
 						onCollide() // Вызываем колбэк при столкновении
-						return { x: Math.random() * window.innerWidth, y: -50 } // Перезапускаем астероид
+
+						return prev // Оставляем астероид на месте во время анимации
 					}
 
 					// Если астероид выходит за пределы экрана
@@ -42,7 +57,20 @@ const Asteroid = ({
 		}
 	}, [speed, onCollide, isGameOver, shipPosition])
 
-	return <AsteroidStyled style={{ left: position.x, top: position.y }} />
+	return (
+		<>
+			{isExploding ? (
+				<>
+					<ExplosionStyled style={{ left: position.x, top: position.y }} />
+					{isShockwaveVisible && (
+						<ShockwaveStyled style={{ left: position.x, top: position.y }} />
+					)}
+				</>
+			) : (
+				<AsteroidStyled style={{ left: position.x, top: position.y }} />
+			)}
+		</>
+	)
 }
 
 export default Asteroid

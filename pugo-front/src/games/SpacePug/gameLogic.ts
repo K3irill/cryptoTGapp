@@ -10,12 +10,16 @@ export class Game {
 		this.score += 10
 	}
 
-	decreaseLives() {
-		this.lives -= 1
+	decreaseLives(value = 1) {
+		this.lives -= value
 	}
 
-	increaseLives() {
-		this.lives += 2
+	increaseLives(value = 2) {
+		this.lives += value
+	}
+
+	megaIncreaseLives() {
+		this.lives += 10
 	}
 
 	reset() {

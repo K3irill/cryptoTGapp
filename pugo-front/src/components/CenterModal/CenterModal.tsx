@@ -30,11 +30,21 @@ const modalStyle = {
 interface BasicModalProps {
 	isVisible: boolean
 	onClose: () => void
+	title?: string
+	text?: string
+	btnText?: string
+	onButtonClick?: () => void
+	imgSrc?: string
 }
 
 export const BasicModal: React.FC<BasicModalProps> = ({
 	isVisible,
 	onClose,
+	title,
+	text,
+	btnText,
+	onButtonClick,
+	imgSrc,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
 	return (
@@ -48,19 +58,24 @@ export const BasicModal: React.FC<BasicModalProps> = ({
 				<CloseButtonWrapper>
 					<CloseButton onClick={onClose} title='X' />
 				</CloseButtonWrapper>
+
 				<Content>
 					<Typography id='modal-modal-title' variant='h6' component='h2'>
-						Авто-майнинг недоступен
+						{title ? title : 'Авто-майнинг недоступен'}
 					</Typography>
 					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
-						Чтобы использовать авто-майнинг, необходимо приобрести эту функцию..
+						{text
+							? text
+							: 'Чтобы использовать авто-майнинг, необходимо приобрести эту функцию.'}
 					</Typography>
 					<MulticolouredButton
-						title='КУПИТЬ'
-						onClick={() => handleAutomining(user)}
+						title={btnText ? btnText : 'КУПИТЬ'}
+						onClick={
+							onButtonClick ? onButtonClick : () => handleAutomining(user)
+						}
 					/>
 				</Content>
-				<PugImage src='/pugs/stop-pug.png' />
+				<PugImage src={imgSrc ? imgSrc : '/pugs/stop-pug.png'} />
 			</Box>
 		</Modal>
 	)
