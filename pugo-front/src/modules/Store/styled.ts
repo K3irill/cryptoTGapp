@@ -58,16 +58,17 @@ export const GameCard = styled.a<{ background?: string }>`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	width: 100%; // Изменено: ширина на 100%
-	height: 150px; // Высота остается фиксированной
+	width: 100%;
+	height: 100px;
 	border-radius: 6px;
 	gap: 6px;
 	padding: 10px;
 	cursor: pointer;
 	${p => p.background && `background: url(${p.background}) no-repeat;`}
 	background-size: cover;
+	background-position: center;
 	box-shadow: inset 0px 0px 5px #ffffff;
-	flex-shrink: 0; // Добавлено: предотвращает сжатие
+	flex-shrink: 0;
 `
 
 export const GCardImageWrapper = styled.div<{ radius?: string }>`
