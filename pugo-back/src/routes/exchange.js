@@ -55,20 +55,17 @@ router.post('/buy-tokens', async (req, res) => {
 		}
 
 		// Send a message
-		await sendMessage(
-			telegramId,
-			`Purchasing ${pugos} PUGO for ${stars} Stars.`
-		)
+		await sendMessage(telegramId, `Покупка ${pugos} BIFS за ${stars} Stars.`)
 
 		// Send an invoice
 		await sendInvoice(
 			telegramId,
-			`Purchase: ${pugos} PUGO for Stars`,
-			`You are purchasing ${pugos} PUGO`,
+			`Покупка: ${pugos} BIFS за Stars`,
+			`Вы покупаете ${pugos} BIFS`,
 			`pugos_${stars}_${pugos}`,
 			`${process.env.PROVIDER_TOKEN}`,
 			'XTR',
-			[{ amount: stars, label: `Purchase ${pugos} PUGO` }]
+			[{ amount: stars, label: `Покупка ${pugos} BIFS` }]
 		)
 
 		return res.json({ success: true })
@@ -90,17 +87,17 @@ router.post('/automining', async (req, res) => {
 		}
 
 		// Send a message
-		await sendMessage(telegramId, `Activate Auto-Mining for 7 days.`)
+		await sendMessage(telegramId, `Активация автомайнинга на 7 days.`)
 
 		// Send an invoice
 		await sendInvoice(
 			telegramId,
-			`Purchase: Auto-Mining for 7 days`,
-			`You are purchasing Auto-Mining`,
+			`Покупка: Авто-Майнинг на 7 дней`,
+			`Вы покупаете Авто-Майнинг`,
 			`automining_${stars}_${days}`,
 			`${process.env.PROVIDER_TOKEN}`,
 			'XTR',
-			[{ amount: stars, label: `Purchase Auto-Mining` }]
+			[{ amount: stars, label: `Покупка Авто-Майнинг` }]
 		)
 
 		return res.json({ success: true })

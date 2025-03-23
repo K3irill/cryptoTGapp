@@ -11,7 +11,7 @@ export class Game {
 	}
 
 	decreaseLives(value = 1) {
-		this.lives -= value
+		this.lives -= 1
 	}
 
 	increaseLives(value = 2) {

@@ -47,10 +47,10 @@ export const handleBuyTokens = async (
 		toast(t => (
 			<Notify>
 				Бот отправил вам сообщение об оплате, откройте
-				<a href='https://t.me/PugoCoinBot'>чат с ботом</a>😊
+				<a href='https://t.me/BIFSCryptoBot'>чат с ботом</a>😊
 			</Notify>
 		))
-		window.open('https://t.me/PugoCoinBot', '_blank')
+		window.open('https://t.me/BIFSCryptoBot', '_blank')
 	} catch (error) {
 		console.error('Error triggering bot action:', error)
 		toast.error('Возникла ошибка, попробуйте ещё раз.')
@@ -72,10 +72,10 @@ export const handleAutomining = async (user: UserState) => {
 		toast(t => (
 			<Notify>
 				Бот отправил вам сообщение об оплате, откройте
-				<a href='https://t.me/PugoCoinBot'>чат с ботом</a>😊
+				<a href='https://t.me/BIFSCryptoBot'>чат с ботом</a>😊
 			</Notify>
 		))
-		window.open('https://t.me/PugoCoinBot', '_blank')
+		window.open('https://t.me/BIFSCryptoBot', '_blank')
 	} catch (error) {
 		console.error('Error triggering bot action:', error)
 		toast.error('Возникла ошибка, попробуйте ещё раз.')

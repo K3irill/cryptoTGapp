@@ -26,6 +26,7 @@ import { REQUEST_LINK } from '../../../constant'
 
 import IOSSwitch from '@/components/IOSSwitch/IOSSwitch'
 import { BasicModal } from '@/components/CenterModal/CenterModal'
+import toast, { Toaster } from 'react-hot-toast'
 
 export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 	const { id, tokens, automining } = useSelector(
@@ -93,7 +94,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 
 	// Обработчик для IOSSwitch
 	const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (automining) return
+		if (automining) return toast(`🤑Работает? Не трогай!`)
 		const isChecked = event.target.checked
 		setIsSwitchOn(isChecked)
 		setShowModal(isChecked)
@@ -153,7 +154,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 
 				{/* Модальное окно */}
 				<BasicModal isVisible={showModal} onClose={handleModalClose} />
-
+				<Toaster />
 				{children}
 			</HomeStyled>
 		</>

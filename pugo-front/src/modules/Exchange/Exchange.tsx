@@ -65,7 +65,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 									<ShinyButton
 										onClick={() => handleAutomining(user)}
 										title='Подключить майнинг'
-										subtitle='1450 монет в день!'
+										subtitle='1000 BIFS в день!'
 									></ShinyButton>
 								</>
 							) : (

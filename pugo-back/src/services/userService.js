@@ -109,7 +109,7 @@ const checkAndAddPugoDaily = async () => {
 
 	for (const user of users) {
 		if (user.autominigExpiresAt && new Date() < user.autominigExpiresAt) {
-			await updateUserTokens(user.telegramId, 14500)
+			await updateUserTokens(user.telegramId, 1000)
 		} else {
 			user.autominig = false
 			user.autominigExpiresAt = null

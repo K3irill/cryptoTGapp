@@ -13,8 +13,13 @@ import { ButtonBackStyled } from '@/components/TopPageInfo/styled'
 import { useRouter } from 'next/router'
 import MegaBombs from './components/MegaBomb'
 import { BasicModal } from '@/components/CenterModal/CenterModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { REQUEST_LINK } from '../../../constant'
+import { updateTokens } from '@/store/slices/userSlice'
+import { RootState } from '@/store/store'
 
 const GameCanvas = () => {
+	const dispatch = useDispatch()
 	const [game] = useState(new Game())
 	const [state, setState] = useState(game.getState())
 	const [shipPosition, setShipPosition] = useState({ x: 0, y: 0 })
@@ -28,6 +33,31 @@ const GameCanvas = () => {
 	const [gameTime, setGameTime] = useState(0)
 	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
+	const { id, tokens, automining } = useSelector(
+		(state: RootState) => state.user
+	)
+	const updateTokensOnServer = async (delta: number) => {
+		try {
+			const roundedDelta = Number(delta)
+			const response = await fetch(`${REQUEST_LINK}/api/user/update-tokens`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					telegramId: id,
+					amount: roundedDelta,
+				}),
+			})
+			const data = await response.json()
+
+			if (data.success) {
+				dispatch(updateTokens(roundedDelta))
+			} else {
+				console.error('Ошибка при обновлении токенов на сервере')
+			}
+		} catch (error) {
+			console.error('Ошибка при отправке запроса на сервер:', error)
+		}
+	}
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			setShipPosition({
@@ -174,6 +204,7 @@ const GameCanvas = () => {
 
 	useEffect(() => {
 		if (state.lives <= 0) {
+			updateTokensOnServer(state.score)
 			setIsGameOver(true)
 			setShowModal(true)
 		}
