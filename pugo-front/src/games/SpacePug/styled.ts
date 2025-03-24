@@ -199,19 +199,26 @@ export const AsteroidStyled = styled.div`
 	background: url('/photos/meteors.png') no-repeat center/contain;
 	animation: ${rotate} 5s linear infinite;
 `
+export const FlashAsteroidStyled = styled.div`
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background: url('/photos/flash.png') no-repeat center/contain;
+	// animation: ${rotate} 5s linear infinite;
+`
 
 export const ExplosionStyled = styled.div`
 	position: absolute;
-	width: 60px; // Увеличим размер взрыва
-	height: 60px; // Увеличим размер взрыва
+	width: 60px;
+	height: 60px;
 	background: url('/photos/explosion.gif') no-repeat center/contain;
 	// animation: ${explode} 0.5s ease-out forwards;
 `
 
 export const ShockwaveStyled = styled.div`
 	position: absolute;
-	width: 100px; // Увеличим размер ударной волны
-	height: 100px; // Увеличим размер ударной волны
+	width: 100px;
+	height: 100px;
 	border: 2px solid rgba(255, 0, 0, 0.5);
 	border-radius: 50%;
 	// animation: ${shockwave} 0.5s ease-out forwards;

@@ -12,11 +12,10 @@ const Coin = ({ onCollide, initialPosition, isGameOver, shipPosition }) => {
 				setPosition(prev => {
 					const newY = prev.y + 2
 
-					// Проверка столкновения с кораблём
 					if (
-						newY + 20 >= shipPosition.y &&
+						newY + 40 >= shipPosition.y &&
 						prev.y <= shipPosition.y + 50 &&
-						prev.x + 20 >= shipPosition.x &&
+						prev.x + 40 >= shipPosition.x &&
 						prev.x <= shipPosition.x + 50
 					) {
 						onCollide()

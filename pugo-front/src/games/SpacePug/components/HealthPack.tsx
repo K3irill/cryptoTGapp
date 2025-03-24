@@ -19,9 +19,9 @@ const HealthPack = ({
 
 					// Проверка столкновения с кораблём
 					if (
-						newY + 20 >= shipPosition.y &&
+						newY + 30 >= shipPosition.y &&
 						prev.y <= shipPosition.y + 50 &&
-						prev.x + 20 >= shipPosition.x &&
+						prev.x + 30 >= shipPosition.x &&
 						prev.x <= shipPosition.x + 50
 					) {
 						onCollect()

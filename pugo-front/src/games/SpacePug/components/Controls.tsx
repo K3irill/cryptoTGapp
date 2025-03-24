@@ -4,7 +4,7 @@ import React from 'react'
 import { ContorlsTopBottom, ControlsWrapper } from '../styled'
 import MulticolouredButton from '@/components/UI/MulticolouredButton/MulticolouredButton'
 
-const Controls = ({ onMove, onSpeedUp, onSpeedDown }) => {
+const Controls = ({ onMove, onSpeedUp, onSpeedDown, handleShoot }) => {
 	return (
 		<ControlsWrapper className='controls'>
 			<button

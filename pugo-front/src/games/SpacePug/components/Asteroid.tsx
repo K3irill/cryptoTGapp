@@ -11,18 +11,6 @@ const Asteroid = ({
 	shipPosition,
 }) => {
 	const [position, setPosition] = useState(initialPosition)
-	const [isExploding, setIsExploding] = useState(false) // Состояние для взрыва
-	const [isShockwaveVisible, setIsShockwaveVisible] = useState(false) // Состояние для ударной волны
-
-	// useEffect для вызова alert, когда происходит взрыв
-	useEffect(() => {
-		if (isExploding) {
-			setTimeout(() => {
-				setIsExploding(false) // Останавливаем взрыв
-				setIsShockwaveVisible(false) // Скрываем ударную волну
-			}, 500) // 500 мс для задержки
-		}
-	}, [isExploding]) // Срабатывает, когда isExploding изменяется
 
 	useEffect(() => {
 		if (!isGameOver) {
@@ -30,23 +18,19 @@ const Asteroid = ({
 				setPosition(prev => {
 					const newY = prev.y + speed
 
-					// Проверка столкновения с кораблём
 					if (
-						newY + 40 >= shipPosition.y && // Нижняя граница астероида
-						prev.y <= shipPosition.y + 50 && // Верхняя граница астероида
-						prev.x + 40 >= shipPosition.x && // Левая граница астероида
-						prev.x <= shipPosition.x + 50 // Правая граница астероида
+						newY + 20 >= shipPosition.y &&
+						prev.y <= shipPosition.y + 50 &&
+						prev.x + 20 >= shipPosition.x &&
+						prev.x <= shipPosition.x + 50
 					) {
-						setIsExploding(true) // Начинаем анимацию взрыва
-						setIsShockwaveVisible(true) // Показываем ударную волну
-						onCollide() // Вызываем колбэк при столкновении
+						onCollide()
 
-						return prev // Оставляем астероид на месте во время анимации
+						return prev
 					}
 
-					// Если астероид выходит за пределы экрана
 					if (newY > window.innerHeight) {
-						return { x: Math.random() * window.innerWidth, y: -50 } // Перезапускаем астероид
+						return { x: Math.random() * window.innerWidth, y: -50 }
 					}
 
 					return { ...prev, y: newY }
@@ -57,20 +41,7 @@ const Asteroid = ({
 		}
 	}, [speed, onCollide, isGameOver, shipPosition])
 
-	return (
-		<>
-			{isExploding ? (
-				<>
-					<ExplosionStyled style={{ left: position.x, top: position.y }} />
-					{isShockwaveVisible && (
-						<ShockwaveStyled style={{ left: position.x, top: position.y }} />
-					)}
-				</>
-			) : (
-				<AsteroidStyled style={{ left: position.x, top: position.y }} />
-			)}
-		</>
-	)
+	return <AsteroidStyled style={{ left: position.x, top: position.y }} />
 }
 
 export default Asteroid

@@ -9,9 +9,11 @@ export class Game {
 	increaseScore() {
 		this.score += 10
 	}
-
+	gameOver() {
+		this.lives = 0
+	}
 	decreaseLives(value = 1) {
-		this.lives -= 1
+		this.lives -= value
 	}
 
 	increaseLives(value = 2) {
@@ -34,3 +36,4 @@ export class Game {
 		}
 	}
 }
+export const MAX_FLASH_ASTEROIDS = 3

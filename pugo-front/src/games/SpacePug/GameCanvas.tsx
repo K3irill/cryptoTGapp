@@ -6,7 +6,7 @@ import Asteroid from './components/Asteroid'
 import Coin from './components/Coin'
 import HealthPack from './components/HealthPack'
 import Controls from './components/Controls'
-import { Game } from './gameLogic'
+import { Game, MAX_FLASH_ASTEROIDS } from './gameLogic'
 import { GameCanvasStyled, GameUi, UiButtonsWrapper } from './styled'
 import MulticolouredButton from '@/components/UI/MulticolouredButton/MulticolouredButton'
 import { ButtonBackStyled } from '@/components/TopPageInfo/styled'
@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { REQUEST_LINK } from '../../../constant'
 import { updateTokens } from '@/store/slices/userSlice'
 import { RootState } from '@/store/store'
+import FlashAsteroid from './components/FlashAsteroid'
 
 const GameCanvas = () => {
 	const dispatch = useDispatch()
@@ -24,13 +25,16 @@ const GameCanvas = () => {
 	const [state, setState] = useState(game.getState())
 	const [shipPosition, setShipPosition] = useState({ x: 0, y: 0 })
 	const [asteroids, setAsteroids] = useState([])
+	const [flashAsteroids, setFlashAsteroids] = useState([])
 	const [coins, setCoins] = useState([])
+
 	const [healthPacks, setHealthPacks] = useState([])
 	const [megaBombs, setMegaBombs] = useState([])
 	const [isGameOver, setIsGameOver] = useState(false)
 	const [isShiftPressed, setIsShiftPressed] = useState(false)
 	const [activeKeys, setActiveKeys] = useState(new Set())
 	const [gameTime, setGameTime] = useState(0)
+
 	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
 	const { id, tokens, automining } = useSelector(
@@ -142,6 +146,22 @@ const GameCanvas = () => {
 	}, [isGameOver])
 
 	useEffect(() => {
+		if (!isGameOver && flashAsteroids.length < MAX_FLASH_ASTEROIDS) {
+			const interval = setInterval(() => {
+				setFlashAsteroids(prev => [
+					...prev,
+					{
+						id: `${Date.now()}-${Math.random()}`,
+						x: Math.random() * window.innerWidth,
+						y: -50,
+					},
+				])
+			}, 60000)
+			return () => clearInterval(interval)
+		}
+	}, [isGameOver, flashAsteroids.length])
+
+	useEffect(() => {
 		if (!isGameOver) {
 			const coinInterval = setInterval(() => {
 				setCoins(prev => [
@@ -217,7 +237,28 @@ const GameCanvas = () => {
 			setAsteroids(prev => prev.filter(asteroid => asteroid.id !== asteroidId))
 		}
 	}
+	const handleFlashCollide = asteroidId => {
+		if (!isGameOver) {
+			game.decreaseLives(3)
+			setState(game.getState())
+			setFlashAsteroids(prev => [
+				...prev,
+				{
+					id: `${Date.now()}-${Math.random()}`,
+					x: Math.random() * window.innerWidth,
+					y: -50,
+				},
+			])
+		}
+	}
 
+	const handleMegaBombsCollide = megaBombsId => {
+		if (!isGameOver) {
+			game.gameOver()
+			setState(game.getState())
+			setMegaBombs(prev => prev.filter(megaBomb => megaBomb.id !== megaBombsId))
+		}
+	}
 	const handleCollect = coinId => {
 		if (!isGameOver) {
 			game.increaseScore()
@@ -228,19 +269,11 @@ const GameCanvas = () => {
 
 	const handleHealthPackCollect = healthPackId => {
 		if (!isGameOver) {
-			game.increaseLives()
+			game.increaseLives(2)
 			setState(game.getState())
 			setHealthPacks(prev =>
 				prev.filter(healthPack => healthPack.id !== healthPackId)
 			)
-		}
-	}
-
-	const handleMegaBombsCollect = megaBombsId => {
-		if (!isGameOver) {
-			game.decreaseLives(10)
-			setState(game.getState())
-			setMegaBombs(prev => prev.filter(megaBomb => megaBomb.id !== megaBombsId))
 		}
 	}
 
@@ -253,6 +286,7 @@ const GameCanvas = () => {
 		setCoins([])
 		setHealthPacks([])
 		setMegaBombs([])
+		setFlashAsteroids([])
 	}
 	const handleModalClose = () => {
 		setShowModal(false)
@@ -260,6 +294,16 @@ const GameCanvas = () => {
 	return (
 		<GameCanvasStyled>
 			<Ship onMove={handleMove} position={shipPosition} />
+			{flashAsteroids.map(asteroid => (
+				<FlashAsteroid
+					key={asteroid.id}
+					speed={6}
+					onCollide={() => handleFlashCollide(asteroid.id)}
+					initialPosition={{ x: asteroid.x, y: asteroid.y }}
+					isGameOver={isGameOver}
+					shipPosition={shipPosition}
+				/>
+			))}
 			{asteroids.map(asteroid => (
 				<Asteroid
 					key={asteroid.id}
@@ -291,7 +335,7 @@ const GameCanvas = () => {
 			{megaBombs.map(megaBomb => (
 				<MegaBombs
 					key={megaBomb.id}
-					onCollect={() => handleMegaBombsCollect(megaBomb.id)}
+					onCollect={() => handleMegaBombsCollide(megaBomb.id)}
 					initialPosition={{ x: megaBomb.x, y: megaBomb.y }}
 					isGameOver={isGameOver}
 					shipPosition={shipPosition}
