@@ -24,10 +24,10 @@ router.get('/:telegramId', async (req, res) => {
 router.post('/deposit', depositBalance)
 
 router.post('/update-tokens', async (req, res) => {
-	const { telegramId, amount } = req.body
+	const { telegramId, amount, isPlus } = req.body
 
 	try {
-		const user = await updateUserTokens(telegramId, amount)
+		const user = await updateUserTokens(telegramId, amount, isPlus)
 		res.json({ success: true, tokens: user.tokens })
 	} catch (error) {
 		res.status(400).json({ success: false, error: error.message })

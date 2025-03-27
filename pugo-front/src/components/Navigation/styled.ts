@@ -63,4 +63,5 @@ export const FooterBtn = styled.div<{ active?: boolean }>`
 export const Lock = styled.img`
 	position: absolute;
 	object-fit: cover;
+	z-index: 5;
 `

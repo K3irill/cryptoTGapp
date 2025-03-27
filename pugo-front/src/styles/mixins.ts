@@ -343,3 +343,63 @@ export const pinkOrangeGradientBackground = css`
 		0px 10px 60px rgba(125, 20, 208, 0.8),
 		inset 0px 0px 20px rgba(255, 255, 255, 0.5);
 `
+
+export const pinkBlueGradientBackground = css`
+	 radial-gradient(
+				42.85% 184.29% at 15.34% 39.06%,
+				rgba(131, 113, 243, 0.5) 0%,
+				rgba(69, 156, 236, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				130.16% 129.69% at 63.64% -12.5%,
+				rgba(133, 40, 251, 0.8) 0%,
+				rgba(86, 84, 74, 0.096) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				80.68% 51.24% at 19.32% 40.62%,
+				rgba(24, 100, 183, 0.9) 0%,
+				rgba(23, 61, 102, 0.792) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				28.98% 110.94% at 43.75% -31.25%,
+				rgba(24, 17, 24, 0.424) 21.25%,
+				rgba(0, 0, 0, 0.8) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		rgba(3, 3, 3, 0.8);
+	box-shadow: 0px 20px 30px rgba(64, 100, 228, 0.3),
+		-20px -20px 50px rgba(42, 94, 142, 0.5),
+		10px 20px 80px rgba(122, 33, 237, 0.3),
+		inset 0px 0px 30px rgba(255, 255, 255, 0.3);
+`
+
+export const redOrangeTextGradient = css`
+	background: radial-gradient(
+				31.25% 236.33% at 96.59% 31.25%,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				39.2% 181% at 5.68% 100%,
+				rgba(246, 251, 34, 0.51) 0%,
+				rgba(255, 158, 69, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				75% 351.94% at -10.23% 35.94%,
+				rgba(38, 0, 0, 0.92) 21.25%,
+				rgba(225, 27, 84, 0.42) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				68.42% 175% at 96.59% -90.62%,
+				rgba(225, 27, 84, 0.86) 54.93%,
+				rgba(255, 193, 7, 0.38) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#fff500;
+`

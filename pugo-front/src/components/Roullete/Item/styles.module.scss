@@ -1,0 +1,94 @@
+@use 'sass:color';
+
+.item {
+	$size: 80px;
+	width: $size;
+	height: $size;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	position: relative;
+	text-align: center;
+
+	&::before {
+		position: absolute;
+		content: '';
+		width: 1px;
+		height: 100%;
+
+		background-color: #4fd1da;
+		left: -5px;
+	}
+
+	.item {
+		flex: 1;
+
+		.img {
+			background-size: contain;
+			height: 100%;
+			background-repeat: no-repeat;
+			background-position: center;
+			margin: 5px;
+		}
+
+		.price {
+			margin: 5px 10px;
+			font-size: 0.8em;
+			background: linear-gradient(
+				218.51deg,
+				#fdfffe 11%,
+				#7abbac 31.04%,
+				#b1ffef 44.99%,
+				#8ad2c3 57.63%,
+				#cffef4 75.93%,
+				#6ca196 90.75%,
+				#35544e 98.15%
+			);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-fill-color: transparent;
+			font-size: 16px;
+			font-weight: 600;
+		}
+	}
+
+	.info {
+		padding: 3px 10px;
+		display: flex;
+		flex-direction: column;
+		font-size: 0.75em;
+		color: #fff;
+		text-shadow: 0 0 3px rgba(0, 0, 0, 0.85);
+		box-sizing: border-box;
+		font-family: 'Roboto Condensed';
+		min-height: 34px;
+
+		@mixin rarityBg($color-bg) {
+			color: $color-bg;
+		}
+
+		&.rarity-gray {
+			@include rarityBg(#9fa8b0);
+		}
+		&.rarity-blue {
+			@include rarityBg(#335ec3);
+		}
+		&.rarity-purple {
+			@include rarityBg(#8058b5);
+		}
+		&.rarity-pink {
+			@include rarityBg(#c921cf);
+		}
+		&.rarity-red {
+			@include rarityBg(#b83131);
+		}
+
+		.name {
+			font-weight: 600;
+		}
+
+		.weapon {
+		}
+	}
+}

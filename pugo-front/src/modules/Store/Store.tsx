@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import {
 	StoreBlock,
 	StoreStyled,
-	GameCard,
-	GCardTitle,
 	StoreSliderTitle,
 	StoreSliderRow,
+	CaseCard,
+	CaseTitle,
 } from './styled'
 import { StoreProps } from './Store.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
@@ -18,15 +18,22 @@ import { useRouter } from 'next/router'
 // Import Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
+import { BasicModal } from '@/components/CenterModal/CenterModal'
+import { CaseModal } from '@/components/CaseModal/CaseModal'
+import { Lock } from '@/components/Navigation/styled'
 
 export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 	const { id } = useSelector((state: RootState) => state.user)
 	const router = useRouter()
+	const [showModal, setShowModal] = useState<boolean>(false)
 
-	const handleCardClick = () => {
-		router.push('/game/spacepug')
+	const handleCaseClick = (type: string) => {
+		setShowModal(true)
 	}
 
+	const handleModalClose = () => {
+		setShowModal(false)
+	}
 	return (
 		<StoreStyled>
 			<TopPageInfo data={data.top_section} />
@@ -37,61 +44,66 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 						<StoreSliderTitle>Кейсы</StoreSliderTitle>
 
 						<Swiper spaceBetween={15} slidesPerView={3} loop={true}>
-							{/* SwiperSlide for each GameCard */}
 							<SwiperSlide>
-								<GameCard background='/store/cases/case-4.jpg'></GameCard>
+								<CaseCard
+									shadowColor='#4f046c'
+									onClick={() => handleCaseClick('tokens')}
+								>
+									<img src='/store/cases/case-1.png' alt='' />
+									<CaseTitle>BIFS COINS</CaseTitle>
+								</CaseCard>
 							</SwiperSlide>
 							<SwiperSlide>
-								<GameCard background='/store/cases/case-1.jpg'></GameCard>
+								<CaseCard
+									disabled
+									shadowColor='#045885'
+									onClick={() => handleCaseClick('ships')}
+								>
+									<Lock
+										style={{ width: '70%', top: '0%', filter: 'none' }}
+										src='/icons/lock.svg'
+										alt='locked'
+									/>
+									<img src='/store/cases/case-2.png' alt='' />
+									<CaseTitle>SPACESHIPS</CaseTitle>
+								</CaseCard>
 							</SwiperSlide>
 							<SwiperSlide>
-								<GameCard background='/store/cases/case-2.jpg'></GameCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-3.jpg'></GameCard>
+								<CaseCard
+									disabled
+									shadowColor='#92210d'
+									onClick={() => handleCaseClick('mining')}
+								>
+									<Lock
+										style={{ width: '70%', top: '0%', filter: 'none' }}
+										src='/icons/lock.svg'
+										alt='locked'
+									/>
+									<img src='/store/cases/case-3.png' alt='' />
+									<CaseTitle>AUTOMINING</CaseTitle>
+								</CaseCard>
 							</SwiperSlide>
 						</Swiper>
 					</StoreSliderRow>
 					<StoreSliderRow>
-						<StoreSliderTitle>Наборы карточек</StoreSliderTitle>
+						{/* <StoreSliderTitle>Наборы карточек</StoreSliderTitle> */}
 
-						<Swiper spaceBetween={15} slidesPerView={3} loop={true}>
-							{/* SwiperSlide for each GameCard */}
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-4.jpg'></GameCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-1.jpg'></GameCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-2.jpg'></GameCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-3.jpg'></GameCard>
-							</SwiperSlide>
-						</Swiper>
+						<Swiper spaceBetween={15} slidesPerView={3} loop={true}></Swiper>
 					</StoreSliderRow>
 					<StoreSliderRow>
-						<StoreSliderTitle>Наборы с привилегиями</StoreSliderTitle>
+						{/* <StoreSliderTitle>Наборы с привилегиями</StoreSliderTitle> */}
 
-						<Swiper spaceBetween={15} slidesPerView={3} loop={true}>
-							{/* SwiperSlide for each GameCard */}
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-4.jpg'></GameCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-1.jpg'></GameCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-2.jpg'></GameCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<GameCard background='/store/cases/case-3.jpg'></GameCard>
-							</SwiperSlide>
-						</Swiper>
+						<Swiper spaceBetween={15} slidesPerView={3} loop={true}></Swiper>
 					</StoreSliderRow>
 				</StoreBlock>
 			</Container>
+			{showModal && (
+				<CaseModal
+					caseType='coins'
+					isVisible={showModal}
+					onClose={handleModalClose}
+				/>
+			)}
 		</StoreStyled>
 	)
 }

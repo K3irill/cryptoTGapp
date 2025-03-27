@@ -64,27 +64,54 @@ const createUserIfNeeded = async ({
 	return await createUser(telegramId, username, firstName, lastName)
 }
 
-const updateUserTokens = async (telegramId, amount) => {
-	// Проверяем, что amount является числом
-	if (typeof amount !== 'number' || Number.isNaN(amount)) {
-		throw new Error('Type error! Amount must be a valid number.')
+const updateUserTokens = async (telegramId, amount, isPlus = true) => {
+	if (typeof telegramId !== 'number' || Number.isNaN(telegramId)) {
+		throw new Error('Invalid telegramId! Must be a valid number.')
 	}
 
-	// Ищем пользователя в базе данных
-	const user = await User.findOne({ where: { telegramId } })
-
-	if (!user) {
-		throw new Error('Пользователь не найден')
+	if (typeof amount !== 'number' || Number.isNaN(amount) || amount <= 0) {
+		throw new Error('Amount must be a valid positive number.')
 	}
 
-	// Обновляем токены пользователя
-	user.tokens = parseFloat(user.tokens) + amount
-	console.log(`🤑updating user tokens ${telegramId}, ${amount}`)
+	try {
+		const user = await User.findOne({ where: { telegramId } })
 
-	// Сохраняем изменения
-	await user.save()
+		if (!user) {
+			throw new Error(`User with telegramId ${telegramId} not found`)
+		}
 
-	return user
+		const currentTokens = parseFloat(user.tokens)
+		if (Number.isNaN(currentTokens)) {
+			throw new Error('Invalid current tokens value in database')
+		}
+
+		const newTokens = isPlus ? currentTokens + amount : currentTokens - amount
+
+		if (newTokens < 0) {
+			throw new Error('Insufficient tokens for this operation')
+		}
+
+		// Обновление и сохранение
+		user.tokens = newTokens
+		await user.save()
+
+		console.log(
+			`🤑 Updated user tokens - TelegramID: ${telegramId}, Operation: ${
+				isPlus ? '+' : '-'
+			}${amount}, New balance: ${newTokens}`
+		)
+
+		return {
+			user: user,
+			success: true,
+			newBalance: newTokens,
+			previousBalance: currentTokens,
+			message: 'Balance updated successfully',
+		}
+	} catch (error) {
+		console.error('❌ Error updating user tokens:', error.message)
+		throw error // Пробрасываем ошибку для обработки на уровне выше
+	}
 }
 
 const enableMiningForUser = async (telegramId, stars, days) => {

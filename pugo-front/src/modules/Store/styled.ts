@@ -1,5 +1,7 @@
+import { Lock } from '@/components/Navigation/styled'
 import { COLORS } from '@/styles/colors'
 import {
+	blueTextGradient,
 	extraBlockBackground,
 	goldenTextGradient,
 	goldenTextGradientV2,
@@ -53,22 +55,35 @@ export const StoreSliderItems = styled.div`
 	display: flex;
 `
 
-export const GameCard = styled.a<{ background?: string }>`
+export const CaseCard = styled.a<{ shadowColor?: string; disabled?: boolean }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	width: 100%;
-	height: 100px;
+	position: relative;
 	border-radius: 6px;
 	gap: 6px;
 	padding: 10px;
 	cursor: pointer;
-	${p => p.background && `background: url(${p.background}) no-repeat;`}
+
 	background-size: cover;
 	background-position: center;
-	box-shadow: inset 0px 0px 5px #ffffff;
+
 	flex-shrink: 0;
+
+	img {
+		width: 100%;
+		${p =>
+			p.shadowColor && `filter: drop-shadow(0px 0px 10px ${p.shadowColor});`}
+	}
+
+	${p =>
+		p.disabled &&
+		`
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: brightness(0.2)`}
 `
 
 export const GCardImageWrapper = styled.div<{ radius?: string }>`
@@ -80,11 +95,15 @@ export const GCardImageWrapper = styled.div<{ radius?: string }>`
 	}
 `
 
-export const GCardTitle = styled.div`
-	${purpleTextGradient}
+export const CaseTitle = styled.div`
+	${blueTextGradient};
 	text-align: center;
-	font-size: 32px;
-	text-shadow: 0px 0px 10px #ffffff;
+	font-size: 8px;
+
 	line-height: 46px;
 	font-weight: 900;
+	position: relative;
+	transform: rotate(9deg);
+	bottom: 24px;
+	left: -4px;
 `

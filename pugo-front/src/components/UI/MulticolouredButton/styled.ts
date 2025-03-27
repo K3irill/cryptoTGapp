@@ -4,6 +4,7 @@ import { MulticolouredButtonStyledProps } from './MulticolouredButton.d'
 import {
 	pinkOrangeGradientBackground,
 	blueGradientBackground,
+	redOrangeTextGradient,
 } from '@/styles/mixins'
 
 export const ButtonStyled = styled.a<MulticolouredButtonStyledProps>`
@@ -19,6 +20,8 @@ export const ButtonStyled = styled.a<MulticolouredButtonStyledProps>`
 	${p =>
 		p.theme === 'blue'
 			? `${blueGradientBackground};`
+			: p.theme === 'red'
+			? `${redOrangeTextGradient}`
 			: `	${pinkOrangeGradientBackground};`}
 
 	border-radius: 10px;

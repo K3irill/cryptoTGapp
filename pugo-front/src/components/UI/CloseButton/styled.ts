@@ -23,6 +23,7 @@ export const ButtonStyled = styled.button<CloseButtonStyledProps>`
 	text-wrap: nowrap;
 	position: relative;
 	${blueGradientBackground}
+	z-index: 40;
 
 	span {
 		position: absolute;
