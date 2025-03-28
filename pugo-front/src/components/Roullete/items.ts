@@ -105,22 +105,22 @@ export default {
 
 	// Призы для кейса с днями автомайнинга
 	'7': {
-		image: '/path/to/7-days-image.png',
-		price: 0.7,
+		image: '/store/cases/7.svg',
+		price: 'Days',
 		rarity: 'common',
-		weapon: '7 Days Auto-Mining',
+		weapon: '7 Дней Автомайнинга',
 	},
 	'21': {
-		image: '/path/to/21-days-image.png',
-		price: 2.1,
+		image: '/store/cases/21.svg',
+		price: 'Days',
 		rarity: 'uncommon',
-		weapon: '21 Days Auto-Mining',
+		weapon: '21 Дней Автомайнинга',
 	},
 	'30': {
-		image: '/path/to/30-days-image.png',
-		price: 3.0,
+		image: '/store/cases/30.svg',
+		price: 'Days',
 		rarity: 'rare',
-		weapon: '30 Days Auto-Mining',
+		weapon: '30 Дней Автомайнинга',
 	},
 
 	// Призы для кейса с кораблями

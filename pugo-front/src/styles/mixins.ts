@@ -344,6 +344,25 @@ export const pinkOrangeGradientBackground = css`
 		inset 0px 0px 20px rgba(255, 255, 255, 0.5);
 `
 
+export const yellowGradientBackground = css`
+radial-gradient(
+				35.16% 50% at 41.48% 50%,
+				rgba(255, 248, 82, 0.2) 0%,
+				rgba(255, 248, 82, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(91.73% 126.56% at 63.64% -12.5%, #dfd82b 0%, #37352a 100%)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(80.68% 51.24% at 19.32% 40.62%, #08203a 0%, #000000 100%)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				11.22% 118.75% at 43.75% -31.25%,
+				rgba(60, 48, 58, 0.53) 21.25%,
+				#392732 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#030303;
+`
 export const pinkBlueGradientBackground = css`
 	 radial-gradient(
 				42.85% 184.29% at 15.34% 39.06%,
@@ -402,4 +421,8 @@ export const redOrangeTextGradient = css`
 			)
 			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
 		#fff500;
+	box-shadow: -20px -20px 50px rgba(211, 70, 70, 0.4),
+		0px 20px 60px rgba(232, 205, 110, 0.2),
+		0px 10px 60px rgba(193, 111, 15, 0.8),
+		inset 0px 0px 20px rgba(255, 255, 255, 0.3);
 `

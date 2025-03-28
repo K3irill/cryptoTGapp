@@ -190,11 +190,11 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const getPrizeImage = useCallback(() => {
 		const images = {
 			coins: '/coin-c.png',
-			days: '/day-icon.png',
+			days: `/store/cases/${prizeResult}.svg`,
 			ships: '/ship-icon.png',
 		}
 		return images[caseType] || '/coin-c.png'
-	}, [caseType])
+	}, [prizeResult, caseType])
 
 	const getPrizeName = useCallback(() => {
 		if (!prizeResult) return ''
@@ -220,7 +220,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	if (!isVisible) return null
 
 	return (
-		<CaseModalStyled>
+		<CaseModalStyled theme={caseType}>
 			<CloseButtonWrapper>
 				{!showCaseItems && <CloseButton onClick={handleCloseModal} title='X' />}
 			</CloseButtonWrapper>
@@ -245,7 +245,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 
 				<CaseButtonWrapper>
 					<MulticolouredButton
-						theme={hasEnoughTokens ? '' : 'red'}
+						theme={hasEnoughTokens && caseType !== 'days' ? '' : 'red'}
 						onClick={
 							hasEnoughTokens ? handleOpenRoulette : () => setShowBuyModal(true)
 						}

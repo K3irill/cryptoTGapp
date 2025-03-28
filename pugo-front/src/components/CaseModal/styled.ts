@@ -2,10 +2,11 @@ import { COLORS } from '@/styles/colors'
 import {
 	bluePurpleTextGradient,
 	pinkBlueGradientBackground,
+	yellowGradientBackground,
 } from '@/styles/mixins'
 import styled from 'styled-components'
 
-export const CaseModalStyled = styled.div`
+export const CaseModalStyled = styled.div<{ theme: string }>`
 	display: flex;
 	flex-direction: column;
 
@@ -18,8 +19,16 @@ export const CaseModalStyled = styled.div`
 	overflow: hidden;
 	border-radius: 14px;
 	z-index: 10;
-	background: url(/backgrounds/stars.png), ${pinkBlueGradientBackground};
-	background-size: contain;
+	${p =>
+		p.theme === 'coins'
+			? `background: url(/backgrounds/stars.png), url(/backgrounds/purple-panet.png),
+		${pinkBlueGradientBackground};`
+			: p.theme === 'days'
+			? `background: url(/backgrounds/stars.png), url(/backgrounds/yellow-panet.png),
+		${yellowGradientBackground};`
+			: ''};
+
+	background-size: cover;
 
 	max-width: 748px;
 	width: 100%;
@@ -102,7 +111,6 @@ export const CaseButtonWrapper = styled.div`
 `
 
 export const CaseItems = styled.div`
-	padding-top: 50px;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 15px;
@@ -126,9 +134,6 @@ export const CaseItemsModal = styled.div`
 	right: 0;
 	bottom: 0;
 	background: rgba(35, 7, 47, 0.856);
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	padding: 50px 15px;
 	z-index: 1000;
 	overflow-y: scroll;
@@ -136,6 +141,7 @@ export const CaseItemsModal = styled.div`
 	scrollbar-width: none;
 	max-width: 748px;
 	width: 100%;
+	height: 100%;
 	margin: 0 auto;
 `
 

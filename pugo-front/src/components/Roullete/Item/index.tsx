@@ -15,8 +15,8 @@ const getRarityStyle = (rarity: string) => {
 			color: '#E0E0E0',
 		},
 		uncommon: {
-			textShadow: '0 0 4px #7CFC00, 0 0 8px #ADFF2F',
-			color: '#9ACD32',
+			textShadow: '0 0 4px #77dd52, 0 0 8px #77dd52',
+			color: '#77dd52',
 			animation: 'glow-green 2s ease-in-out infinite alternate',
 		},
 		rare: {
