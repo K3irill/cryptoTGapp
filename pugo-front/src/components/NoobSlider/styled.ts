@@ -12,7 +12,6 @@ import styled from 'styled-components'
 export const NoobSliderStyled = styled.div`
 	width: 100%;
 	height: 100%;
-
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -22,6 +21,9 @@ export const NoobSlide = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 30px 15px;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 	width: 100%;
 	height: 100vh;
 	color: white;

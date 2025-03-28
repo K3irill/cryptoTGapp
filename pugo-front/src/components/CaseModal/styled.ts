@@ -13,13 +13,17 @@ export const CaseModalStyled = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 90vw;
+
 	height: 70vh;
 	overflow: hidden;
 	border-radius: 14px;
 	z-index: 10;
 	background: url(/backgrounds/stars.png), ${pinkBlueGradientBackground};
 	background-size: contain;
+
+	max-width: 748px;
+	width: 100%;
+	margin: 0 auto;
 `
 
 export const Content = styled.div`
@@ -27,6 +31,11 @@ export const Content = styled.div`
 	flex-direction: column;
 	position: relative;
 	z-index: 19;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	padding-bottom: 25px;
+	height: 100%;
 	& a {
 		margin-top: 15px;
 	}
@@ -93,10 +102,11 @@ export const CaseButtonWrapper = styled.div`
 `
 
 export const CaseItems = styled.div`
+	padding-top: 50px;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px;
-	justify-content: space-between;
+	gap: 15px;
+	justify-content: center;
 	flex: 1;
 	& > div {
 		background: #01bbff23;
@@ -119,8 +129,14 @@ export const CaseItemsModal = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 50px;
+	padding: 50px 15px;
 	z-index: 1000;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	max-width: 748px;
+	width: 100%;
+	margin: 0 auto;
 `
 
 export const ResultModal = styled.div`

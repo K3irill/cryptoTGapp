@@ -9,32 +9,66 @@ interface ItemProps {
 }
 
 const getRarityStyle = (rarity: string) => {
-	switch (rarity) {
-		case 'common':
-			return { textShadow: '0 0 5px #b0b0b0' }
-		case 'uncommon':
-			return { textShadow: '0 0 5px #2ecc71' }
-		case 'rare':
-			return { textShadow: '0 0 5px #3498db' }
-		case 'epic':
-			return { textShadow: '0 0 5px #9b59b6' }
-		case 'legendary':
-			return { textShadow: '0 0 5px #f1c40f, 0 0 10px #f1c40f' }
-		case 'mythic':
-			return { textShadow: '0 0 5px #e74c3c, 0 0 10px #e74c3c' }
-		case 'exotic':
-			return {
-				textShadow: '0 0 5px #1abc9c, 0 0 10px #1abc9c, 0 0 15px #1abc9c',
-			}
-		case 'ultimate':
-			return {
-				textShadow:
-					'0 0 5px #e67e22, 0 0 10px #e67e22, 0 0 15px #e67e22, 0 0 20px #e67e22',
-				animation: 'pulse 1.5s infinite alternate',
-			}
-		default:
-			return { textShadow: '0 0 5px #ffffff' }
+	const styles = {
+		common: {
+			textShadow: '0 0 4px #A0A0A0, 0 0 8px #D3D3D3',
+			color: '#E0E0E0',
+		},
+		uncommon: {
+			textShadow: '0 0 4px #7CFC00, 0 0 8px #ADFF2F',
+			color: '#9ACD32',
+			animation: 'glow-green 2s ease-in-out infinite alternate',
+		},
+		rare: {
+			textShadow: '0 0 4px #1E90FF, 0 0 8px #00BFFF',
+			color: '#4682B4',
+			animation: 'glow-blue 2s ease-in-out infinite alternate',
+		},
+		epic: {
+			textShadow: '0 0 4px #9370DB, 0 0 8px #BA55D3',
+			color: '#8A2BE2',
+			animation: 'glow-purple 1.5s ease-in-out infinite alternate',
+		},
+		legendary: {
+			textShadow: '0 0 4px #FFD700, 0 0 8px #FFA500, 0 0 12px #FF8C00',
+			color: '#FFD700',
+			animation: 'glow-gold 1.2s ease-in-out infinite alternate',
+		},
+		mythic: {
+			textShadow: '0 0 4px #FF1493, 0 0 8px #FF69B4, 0 0 12px #DB7093',
+			color: '#FF00FF',
+			animation: 'glow-pink 1s ease-in-out infinite alternate',
+		},
+		exotic: {
+			textShadow: '0 0 4px #00FA9A, 0 0 8px #3CB371, 0 0 12px #2E8B57',
+			color: '#7FFFD4',
+			animation: 'glow-aqua 0.8s ease-in-out infinite alternate',
+		},
+		ultimate: {
+			textShadow:
+				'0 0 4px #FF4500, 0 0 8px #FF6347, 0 0 12px #FF7F50, 0 0 16px #FFA07A',
+			color: '#FF8C00',
+			animation: 'pulse-orange 0.7s ease-in-out infinite alternate',
+		},
+		impossible: {
+			textShadow:
+				'0 0 4px #9400D3, 0 0 8px #9932CC, 0 0 12px #8A2BE2, 0 0 16px #9370DB',
+			color: '#DA70D6',
+			animation: 'pulse-violet 0.6s ease-in-out infinite alternate',
+		},
+		sueta: {
+			textShadow: '0 0 4px #000000, 0 0 8px #333333, 0 0 12px #666666',
+			color: '#222222',
+			animation: 'pulse-dark 0.5s ease-in-out infinite alternate',
+		},
 	}
+
+	return (
+		styles[rarity] || {
+			textShadow: '0 0 4px #FFFFFF, 0 0 8px #F8F8FF',
+			color: '#FFFFFF',
+		}
+	)
 }
 
 const Item: React.FC<ItemProps> = props => {

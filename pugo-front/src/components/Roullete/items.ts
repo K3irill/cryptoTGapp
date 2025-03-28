@@ -78,6 +78,30 @@ export default {
 		rarity: 'ultimate',
 		weapon: '20,000 BIFS Coins',
 	},
+	'40000': {
+		image: '/coin-c.png',
+		price: 40000,
+		rarity: 'impossible',
+		weapon: '40,000 BIFS Coins',
+	},
+	'60000': {
+		image: '/coin-c.png',
+		price: 60000,
+		rarity: 'impossible',
+		weapon: '60,000 BIFS Coins',
+	},
+	'80000': {
+		image: '/coin-c.png',
+		price: 80000,
+		rarity: 'impossible ',
+		weapon: '80,000 BIFS Coins',
+	},
+	'100000': {
+		image: '/coin-c.png',
+		price: 100000,
+		rarity: 'sueta',
+		weapon: '100,000 BIFS Coins',
+	},
 
 	// Призы для кейса с днями автомайнинга
 	'7': {

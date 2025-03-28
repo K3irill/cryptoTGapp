@@ -41,10 +41,10 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	onClose,
 	title = 'CASE',
 	text = 'BIFS COINS',
-	btnText = 'ОТКРЫТЬ ЗА 2000 BIFS',
+	btnText = 'ОТКРЫТЬ ЗА 500 BIFS',
 	imgSrc = '/store/cases/case-1.png',
 	caseType,
-	casePrice = 2000,
+	casePrice = 500,
 }) => {
 	const [showBuyModal, setShowBuyModal] = useState<boolean>(false)
 	const [isSpinning, setIsSpinning] = useState(false)
@@ -91,18 +91,21 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		const generateCaseItems = () => {
 			const chances = {
 				coins: {
-					50: 300,
-					250: 200,
-					500: 150,
-					1000: 100,
-					1500: 70,
+					250: 300,
+					500: 250,
+					1000: 150,
+					1500: 100,
 					2000: 50,
-					4000: 20,
-					6000: 5,
-					8000: 3,
+					4000: 30,
+					6000: 20,
+					8000: 10,
 					10000: 2,
 					15000: 1,
 					20000: 1,
+					40000: 0.8,
+					60000: 0.5,
+					80000: 0.3,
+					100000: 0.1,
 				},
 				days: {
 					7: 60,
@@ -130,8 +133,6 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		try {
 			setIsProcessing(true)
 
-			await updateTokensOnServer(casePrice, false)
-
 			setIsSpinning(true)
 			setShowResult(false)
 			setPrizeResult('')
@@ -147,19 +148,24 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		async (result: string) => {
 			setPrizeResult(result)
 
-			if (caseType === 'coins') {
-				try {
-					const prizeAmount = parseInt(result, 10)
-					if (!isNaN(prizeAmount) && prizeAmount > 0) {
-						await updateTokensOnServer(prizeAmount, true)
-					}
-				} catch (error) {
-					alert('ошибка')
-					console.error('Ошибка при начислении выигрыша:', error)
+			if (caseType !== 'coins') return
+
+			try {
+				const prizeAmount = parseInt(result, 10)
+				if (isNaN(prizeAmount)) {
+					throw new Error('Invalid prize amount')
 				}
+
+				const delta = Math.abs(prizeAmount - casePrice)
+				const isWin = prizeAmount > casePrice
+
+				await updateTokensOnServer(delta, isWin)
+			} catch (error) {
+				console.error('Ошибка при начислении выигрыша:', error)
+				alert('Произошла ошибка. Попробуйте ещё раз.')
 			}
 		},
-		[caseType]
+		[caseType, casePrice]
 	)
 
 	const handleAnimationEnd = useCallback(() => {

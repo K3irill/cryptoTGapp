@@ -92,3 +92,86 @@
 		}
 	}
 }
+@keyframes glow-green {
+	from {
+		text-shadow: 0 0 4px #7cfc00, 0 0 8px #adff2f;
+	}
+	to {
+		text-shadow: 0 0 8px #7cfc00, 0 0 16px #adff2f;
+	}
+}
+
+@keyframes glow-blue {
+	from {
+		text-shadow: 0 0 4px #1e90ff, 0 0 8px #00bfff;
+	}
+	to {
+		text-shadow: 0 0 8px #1e90ff, 0 0 16px #00bfff;
+	}
+}
+
+@keyframes glow-purple {
+	from {
+		text-shadow: 0 0 4px #9370db, 0 0 8px #ba55d3;
+	}
+	to {
+		text-shadow: 0 0 8px #9370db, 0 0 16px #ba55d3, 0 0 20px #8a2be2;
+	}
+}
+
+@keyframes glow-gold {
+	from {
+		text-shadow: 0 0 4px #ffd700, 0 0 8px #ffa500;
+	}
+	to {
+		text-shadow: 0 0 8px #ffd700, 0 0 16px #ffa500, 0 0 24px #ff8c00;
+	}
+}
+
+@keyframes glow-pink {
+	0% {
+		text-shadow: 0 0 4px #ff1493;
+	}
+	50% {
+		text-shadow: 0 0 16px #ff69b4, 0 0 24px #db7093;
+	}
+	100% {
+		text-shadow: 0 0 4px #ff1493, 0 0 8px #ff69b4;
+	}
+}
+
+@keyframes glow-aqua {
+	from {
+		text-shadow: 0 0 4px #00fa9a;
+	}
+	to {
+		text-shadow: 0 0 12px #3cb371, 0 0 20px #2e8b57;
+	}
+}
+
+@keyframes pulse-orange {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(1.05);
+	}
+}
+
+@keyframes pulse-violet {
+	0% {
+		filter: hue-rotate(0deg);
+	}
+	100% {
+		filter: hue-rotate(360deg);
+	}
+}
+
+@keyframes pulse-dark {
+	from {
+		opacity: 0.8;
+	}
+	to {
+		opacity: 1;
+	}
+}
