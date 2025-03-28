@@ -91,6 +91,8 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		const generateCaseItems = () => {
 			const chances = {
 				coins: {
+					50: 400,
+					150: 350,
 					250: 300,
 					500: 250,
 					1000: 150,

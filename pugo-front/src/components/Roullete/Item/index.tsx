@@ -57,8 +57,8 @@ const getRarityStyle = (rarity: string) => {
 			animation: 'pulse-violet 0.6s ease-in-out infinite alternate',
 		},
 		sueta: {
-			textShadow: '0 0 4px #000000, 0 0 8px #333333, 0 0 12px #666666',
-			color: '#222222',
+			textShadow: '0 0 4px #ff0000, 0 0 8px #ff0000, 0 0 12px #ff0000',
+			color: '#ff0000',
 			animation: 'pulse-dark 0.5s ease-in-out infinite alternate',
 		},
 	}

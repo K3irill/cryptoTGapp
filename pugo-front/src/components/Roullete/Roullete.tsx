@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux'
 
 const PRIZE_TYPES = {
 	coins: {
+		50: 400,
+		150: 350,
 		250: 300,
 		500: 250,
 		1000: 150,
