@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-// Roulette.tsx
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import styles from './styles.module.scss'
 import Item from './Item'

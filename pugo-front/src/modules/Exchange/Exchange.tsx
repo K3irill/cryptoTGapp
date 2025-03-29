@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useState, useEffect } from 'react'
 import {
 	ExchangeStyled,
 	OverviewStyled,
@@ -42,6 +42,63 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 	children,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
+	const [timeLeft, setTimeLeft] = useState({
+		days: 0,
+		hours: 0,
+		minutes: 0,
+	})
+
+	useEffect(() => {
+		if (!user.autominingExpiresAt) return
+
+		const calculateTimeLeft = () => {
+			const now = new Date()
+			const expiry = new Date(user.autominingExpiresAt)
+			const diffTime = expiry.getTime() - now.getTime()
+
+			if (diffTime <= 0) {
+				return { days: 0, hours: 0, minutes: 0 }
+			}
+
+			const days = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+			const hours = Math.floor(
+				(diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+			)
+			const minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60))
+
+			return { days, hours, minutes }
+		}
+
+		// Обновляем сразу при монтировании
+		setTimeLeft(calculateTimeLeft())
+
+		// Обновляем каждую минуту
+		const timer = setInterval(() => {
+			setTimeLeft(calculateTimeLeft())
+		}, 60000)
+
+		return () => clearInterval(timer)
+	}, [user.autominingExpiresAt])
+
+	const getDayWord = (days: number) => {
+		const lastDigit = days % 10
+		const lastTwoDigits = days % 100
+
+		if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'дней'
+		if (lastDigit === 1) return 'день'
+		if (lastDigit >= 2 && lastDigit <= 4) return 'дня'
+		return 'дней'
+	}
+
+	const getHourWord = (hours: number) => {
+		const lastDigit = hours % 10
+		const lastTwoDigits = hours % 100
+
+		if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'часов'
+		if (lastDigit === 1) return 'час'
+		if (lastDigit >= 2 && lastDigit <= 4) return 'часа'
+		return 'часов'
+	}
 
 	return (
 		<>
@@ -61,7 +118,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 						<SecondColumnOverview>
 							{!user.automining ? (
 								<>
-									<Title>Авто-добыча монет</Title>
+									<Title>Авто-добыча монет</Title>ы
 									<ShinyButton
 										onClick={() => handleAutomining(user)}
 										title='Подключить майнинг'
@@ -71,7 +128,17 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 							) : (
 								<Mining>
 									<img src='/mining.gif' alt='' />
-									<Title>You have auto mining enabled for 7 days.</Title>
+									<Title>
+										{timeLeft.days > 0 ? (
+											<>
+												Осталось до конца действия автомайнинга: {timeLeft.days}{' '}
+												{getDayWord(timeLeft.days)}, {timeLeft.hours}{' '}
+												{getHourWord(timeLeft.hours)}
+											</>
+										) : (
+											'У вас нет активного майнинга'
+										)}
+									</Title>
 								</Mining>
 							)}
 						</SecondColumnOverview>
@@ -101,7 +168,6 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 												</StarWrapper>
 												<Count>
 													<p>{product.stars}</p>
-
 													<span>Звезд</span>
 												</Count>
 											</StarInfo>
