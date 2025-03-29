@@ -72,7 +72,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 											'coins',
 											'BIFS COINS',
 											'/store/cases/case-1.png',
-											500
+											1000
 										)
 									}
 								>
@@ -82,13 +82,13 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 							</SwiperSlide>
 							<SwiperSlide>
 								<CaseCard
-									shadowColor='#92210d'
+									shadowColor='#d1ce105c'
 									onClick={() =>
 										handleCaseClick(
 											'days',
 											'AUTOMINING',
 											'/store/cases/case-3.png',
-											300
+											4000
 										)
 									}
 								>
@@ -105,7 +105,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 											'ships',
 											'SPACESHIPS',
 											'/store/cases/case-2.png',
-											1000
+											2500
 										)
 									}
 								>
@@ -116,6 +116,59 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 									/>
 									<img src='/store/cases/case-2.png' alt='' />
 									<CaseTitle>SPACESHIPS</CaseTitle>
+								</CaseCard>
+							</SwiperSlide>
+							<SwiperSlide>
+								<CaseCard shadowColor='#045885' onClick={() => () => null}>
+									<img src='/store/secret.png' alt='' />
+									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
+								</CaseCard>
+							</SwiperSlide>
+						</Swiper>
+					</StoreSliderRow>
+					<StoreSliderRow>
+						<StoreSliderTitle>Наборы карточек</StoreSliderTitle>
+
+						<Swiper
+							spaceBetween={5}
+							slidesPerView={2}
+							loop={true}
+							navigation
+							modules={[Navigation]}
+						>
+							<SwiperSlide>
+								{' '}
+								<CaseCard
+									disabled
+									shadowColor='#045885'
+									onClick={() =>
+										handleCaseClick(
+											'cards',
+											'SPACESHIPS',
+											'/store/cases/case-2.png',
+											2500
+										)
+									}
+								>
+									<Lock
+										style={{ width: '70%', top: '0%', filter: 'none' }}
+										src='/icons/lock.svg'
+										alt='locked'
+									/>
+									<img src='/store/cards/card-1.png' alt='' />
+									<CaseTitle>BIFS CARDS</CaseTitle>
+								</CaseCard>
+							</SwiperSlide>
+							<SwiperSlide>
+								<CaseCard shadowColor='#045885' onClick={() => null}>
+									<img src='/store/secret.png' alt='' />
+									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
+								</CaseCard>
+							</SwiperSlide>
+							<SwiperSlide>
+								<CaseCard shadowColor='#045885' onClick={() => () => null}>
+									<img src='/store/secret.png' alt='' />
+									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
 								</CaseCard>
 							</SwiperSlide>
 						</Swiper>

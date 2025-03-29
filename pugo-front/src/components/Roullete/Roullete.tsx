@@ -1,12 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+// Roulette.tsx
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import styles from './styles.module.scss'
 import Item from './Item'
 import _ from 'lodash'
-import { REQUEST_LINK } from '../../../constant'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
+import {
+	useActivateMiningMutation,
+	useUpdateTokensMutation,
+} from '@/store/services/api/userApi'
 
 const PRIZE_TYPES = {
 	coins: {
@@ -29,9 +35,11 @@ const PRIZE_TYPES = {
 		100000: 0.1,
 	},
 	days: {
+		3: 90,
 		7: 60,
 		21: 30,
 		30: 10,
+		45: 1,
 	},
 	ships: {
 		Ship1: 20,
@@ -67,6 +75,7 @@ interface RouletteProps {
 	onDrop: (result: string) => void
 	isSpinning: boolean
 	onAnimationEnd?: () => void
+	casePrice: number
 }
 
 export const Roulette: React.FC<RouletteProps> = ({
@@ -74,6 +83,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 	onDrop,
 	isSpinning,
 	onAnimationEnd,
+	casePrice,
 }) => {
 	const [items, setItems] = useState<string[]>([])
 	const [previewItems, setPreviewItems] = useState<string[]>([])
@@ -86,13 +96,49 @@ export const Roulette: React.FC<RouletteProps> = ({
 	const resultRef = useRef<string>()
 	const currentPositionRef = useRef<number>(0)
 	const { id } = useSelector((state: RootState) => state.user)
+	const [updateTokens] = useUpdateTokensMutation()
+	const [activateMining] = useActivateMiningMutation()
 
-	// Инициализация превью элементов
+	// Initialize preview items
 	useEffect(() => {
 		const chances = PRIZE_TYPES[caseType]
 		const getRandomItem = () => getRandomPrize(chances)
 		setPreviewItems(Array(10).fill(null).map(getRandomItem))
 	}, [caseType])
+
+	const updateTokensOnServer = async (
+		delta: number,
+		isPlus: boolean = true
+	) => {
+		const roundedDelta = Math.round(Number(delta))
+		try {
+			await updateTokens({
+				telegramId: Number(id),
+				amount: roundedDelta,
+				isPlus: isPlus,
+			}).unwrap()
+		} catch (error) {
+			console.error('Update tokens error:', error)
+			throw error
+		}
+	}
+
+	const activateUserMiningOnServer = async (days: number) => {
+		const roundedDays = Math.round(Number(days))
+		try {
+			const response = await activateMining({
+				telegramId: Number(id),
+				days: roundedDays,
+			}).unwrap()
+
+			if (!response.success) {
+				throw new Error(response.error || 'Failed to activate mining')
+			}
+		} catch (error) {
+			console.error('Mining activation error:', error)
+			throw error
+		}
+	}
 
 	const easeOut = useCallback((t: number) => {
 		return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
@@ -104,17 +150,38 @@ export const Roulette: React.FC<RouletteProps> = ({
 			rollerRef.current.style.transform = `translateX(${value}px)`
 		}
 	}, [])
+
 	const handlePrizeResult = useCallback(
 		async (result: string) => {
 			try {
-				// Сначала вызываем внешний обработчик
+				if (caseType === 'coins') {
+					const prizeAmount = parseInt(result, 10)
+					if (isNaN(prizeAmount)) {
+						throw new Error('Invalid prize amount')
+					}
+
+					const delta = Math.abs(prizeAmount - casePrice)
+					const isWin = prizeAmount > casePrice
+
+					await updateTokensOnServer(delta, isWin)
+				} else if (caseType === 'days') {
+					const daysWon = parseInt(result, 10)
+					if (isNaN(daysWon)) {
+						throw new Error('Invalid days amount')
+					}
+					await updateTokensOnServer(casePrice, false)
+					await activateUserMiningOnServer(daysWon)
+				}
+
 				onDrop(result)
 			} catch (error) {
-				console.error('Ошибка обработки приза:', error)
+				console.error('Ошибка при обработке выигрыша:', error)
+				throw error
 			}
 		},
-		[caseType, onDrop]
+		[caseType, casePrice, onDrop]
 	)
+
 	const resetPosition = useCallback(
 		(callback: () => void) => {
 			const start = currentPositionRef.current
@@ -156,7 +223,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 			return
 		}
 
-		let isMounted = true // Флаг для проверки mounted компонента
+		let isMounted = true
 
 		resetPosition(() => {
 			if (!isMounted) return
@@ -170,6 +237,9 @@ export const Roulette: React.FC<RouletteProps> = ({
 
 				const result = getRandomItem()
 				resultRef.current = result
+
+				handlePrizeResult(result).catch(console.error)
+
 				const resultIndex = _.random(
 					caseType === 'coins' ? 40 : caseType === 'days' ? 30 : 20,
 					caseType === 'coins' ? 60 : caseType === 'days' ? 50 : 40
@@ -203,9 +273,6 @@ export const Roulette: React.FC<RouletteProps> = ({
 				if (progress < 1) {
 					animationRef.current = requestAnimationFrame(animate)
 				} else {
-					if (resultRef.current) {
-						handlePrizeResult(resultRef.current).catch(console.error)
-					}
 					setTimeout(() => {
 						onAnimationEnd?.()
 						cleanup()
@@ -230,18 +297,28 @@ export const Roulette: React.FC<RouletteProps> = ({
 	}, [
 		isSpinning,
 		caseType,
-		handlePrizeResult,
 		onAnimationEnd,
 		cleanup,
 		setTransform,
 		easeOut,
 		resetPosition,
+		handlePrizeResult,
 	])
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.display}>
-				<div className={styles.screen} />
+				<div
+					style={{
+						background:
+							caseType === 'coins'
+								? `radial-gradient(transparent 50%, rgb(61, 116, 164))`
+								: caseType === 'days'
+								? `radial-gradient(transparent 50%, rgba(169, 123, 43, 0.751))`
+								: `radial-gradient(transparent 50%, rgba(169, 43, 154, 0.751))`,
+					}}
+					className={styles.screen}
+				/>
 				<div className={styles.divider} />
 				<div className={styles.roller} ref={rollerRef}>
 					{items.length > 0

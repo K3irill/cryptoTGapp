@@ -24,6 +24,10 @@ import { useSelector } from 'react-redux'
 import { REQUEST_LINK } from '../../../constant'
 import { RootState } from '@/store/store'
 import { BasicModal } from '../CenterModal/CenterModal'
+import {
+	useActivateMiningMutation,
+	useUpdateTokensMutation,
+} from '@/store/services/api/userApi'
 
 interface CaseModalProps {
 	isVisible: boolean
@@ -41,7 +45,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	onClose,
 	title = 'CASE',
 	text = 'BIFS COINS',
-	btnText = 'ОТКРЫТЬ ЗА 500 BIFS',
+	btnText = 'ОТКРЫТЬ ЗА',
 	imgSrc = '/store/cases/case-1.png',
 	caseType,
 	casePrice = 500,
@@ -55,7 +59,8 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const [caseItems, setCaseItems] = useState<string[]>([])
 	const { id, tokens } = useSelector((state: RootState) => state.user)
 	const [isProcessing, setIsProcessing] = useState(false)
-
+	const [updateTokens] = useUpdateTokensMutation()
+	const [activateMining] = useActivateMiningMutation()
 	const handleBuyModalClose = () => {
 		setShowBuyModal(false)
 	}
@@ -64,29 +69,38 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		delta: number,
 		isPlus: boolean = true
 	) => {
+		const roundedDelta = Math.round(Number(delta))
 		try {
-			const roundedDelta = Number(delta)
-			const response = await fetch(`${REQUEST_LINK}/api/user/update-tokens`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					telegramId: Number(id),
-					amount: roundedDelta,
-					isPlus: isPlus,
-				}),
-			})
-			const data = await response.json()
-
-			if (data.success) {
-				// dispatch(updateTokens(roundedDelta))
-			} else {
-				console.error('Ошибка при обновлении токенов на сервере')
-			}
+			const response = await updateTokens({
+				telegramId: Number(id),
+				amount: roundedDelta,
+				isPlus: isPlus,
+			}).unwrap()
+			// if (response.success) {
+			// } else {
+			// }
 		} catch (error) {
-			console.error('Ошибка при отправке запроса на сервер:', error)
+			console.error('Update tokens error:', error)
 		}
 	}
+	const activateUserMiningOnServer = async (days: number) => {
+		const roundedDays = Math.round(Number(days))
+		try {
+			const response = await activateMining({
+				telegramId: Number(id),
+				days: roundedDays,
+			}).unwrap()
 
+			if (response.success) {
+				console.log(`Активирован майнинг на ${roundedDays} дней`)
+			} else {
+				throw new Error(response.error || 'Failed to activate mining')
+			}
+		} catch (error) {
+			console.error('Mining activation error:', error)
+			throw error
+		}
+	}
 	useEffect(() => {
 		const generateCaseItems = () => {
 			const chances = {
@@ -110,9 +124,11 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 					100000: 0.1,
 				},
 				days: {
+					3: 90,
 					7: 60,
 					21: 30,
 					30: 10,
+					45: 1,
 				},
 				ships: {
 					Ship1: 20,
@@ -146,29 +162,9 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		}
 	}, [isSpinning, isProcessing, casePrice])
 
-	const handleDrop = useCallback(
-		async (result: string) => {
-			setPrizeResult(result)
-
-			if (caseType !== 'coins') return
-
-			try {
-				const prizeAmount = parseInt(result, 10)
-				if (isNaN(prizeAmount)) {
-					throw new Error('Invalid prize amount')
-				}
-
-				const delta = Math.abs(prizeAmount - casePrice)
-				const isWin = prizeAmount > casePrice
-
-				await updateTokensOnServer(delta, isWin)
-			} catch (error) {
-				console.error('Ошибка при начислении выигрыша:', error)
-				alert('Произошла ошибка. Попробуйте ещё раз.')
-			}
-		},
-		[caseType, casePrice]
-	)
+	const handleDrop = useCallback((result: string) => {
+		setPrizeResult(result)
+	}, [])
 
 	const handleAnimationEnd = useCallback(() => {
 		setIsSpinning(false)
@@ -201,7 +197,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 
 		const names = {
 			coins: `${prizeResult} BIFS Coins`,
-			days: `${prizeResult} Days Auto-Mining`,
+			days: `${prizeResult} Дней авто-майнинга`,
 			ships: `Ship ${prizeResult.replace('Ship', '')}`,
 		}
 
@@ -241,8 +237,8 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 					onDrop={handleDrop}
 					isSpinning={isSpinning}
 					onAnimationEnd={handleAnimationEnd}
+					casePrice={casePrice}
 				/>
-
 				<CaseButtonWrapper>
 					<MulticolouredButton
 						theme={hasEnoughTokens && caseType !== 'days' ? '' : 'red'}
@@ -250,7 +246,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 							hasEnoughTokens ? handleOpenRoulette : () => setShowBuyModal(true)
 						}
 					>
-						{buttonText}
+						{`${buttonText} ЗА ${casePrice} BIFS`}
 					</MulticolouredButton>
 				</CaseButtonWrapper>
 

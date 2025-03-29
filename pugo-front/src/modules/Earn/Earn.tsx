@@ -37,6 +37,16 @@ export const Earn: FunctionComponent<EarnProps> = ({ data, children }) => {
 					>
 						<GCardTitle>Space Pug</GCardTitle>
 					</GameCard>
+					<GameCard
+						disabled
+						background='/backgrounds/lock-3.jpg'
+						onClick={handleCardClick}
+					></GameCard>
+					<GameCard
+						disabled
+						background='/backgrounds/lock-3.jpg'
+						onClick={handleCardClick}
+					></GameCard>
 				</EarnBlock>
 			</Container>
 		</EarnStyled>

@@ -1223,7 +1223,7 @@ Chat ID: ${chatId}
 					`✅ Платеж успешен! Вы оплатили ${total_amount} ${currency}. Вы получили ${value} BIFS!`
 				)
 			} else if (type === 'automining') {
-				await enableMiningForUser(userId, parseInt(stars), parseInt(value))
+				await enableMiningForUser(userId, parseInt(value))
 
 				await addTransaction(
 					userId,

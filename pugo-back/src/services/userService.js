@@ -102,7 +102,7 @@ const updateUserTokens = async (telegramId, amount, isPlus = true) => {
 		)
 
 		return {
-			user: user,
+			userId: user.telegramId,
 			success: true,
 			newBalance: newTokens,
 			previousBalance: currentTokens,
@@ -110,36 +110,46 @@ const updateUserTokens = async (telegramId, amount, isPlus = true) => {
 		}
 	} catch (error) {
 		console.error('❌ Error updating user tokens:', error.message)
-		throw error // Пробрасываем ошибку для обработки на уровне выше
+		throw error
 	}
 }
 
-const enableMiningForUser = async (telegramId, stars, days) => {
+const enableMiningForUser = async (telegramId, days) => {
 	const user = await User.findOne({ where: { telegramId } })
 
 	if (!user) {
 		throw new Error('Пользователь не найден')
 	}
 
-	const expiresAt = new Date()
-	expiresAt.setDate(expiresAt.getDate() + days) // Добавляем дни к текущей дате
+	const currentDate = new Date()
+	let expiresAt
+
+	if (user.automining && user.autominingExpiresAt > currentDate) {
+		expiresAt = new Date(user.autominingExpiresAt)
+		expiresAt.setDate(expiresAt.getDate() + days)
+	} else {
+		expiresAt = new Date()
+		expiresAt.setDate(expiresAt.getDate() + days)
+	}
 
 	user.automining = true
 	user.autominingExpiresAt = expiresAt
 	await user.save()
 
+	console.log(`Майнинг для ${telegramId} продлён до ${expiresAt}`)
 	return user
 }
+const MINING_AWARD = 1000
 
 const checkAndAddPugoDaily = async () => {
-	const users = await User.findAll({ where: { autominig: true } })
+	const users = await User.findAll({ where: { automining: true } })
 
 	for (const user of users) {
-		if (user.autominigExpiresAt && new Date() < user.autominigExpiresAt) {
-			await updateUserTokens(user.telegramId, 1000)
+		if (user.autominingExpiresAt && new Date() < user.autominingExpiresAt) {
+			await updateUserTokens(Number(user.telegramId), MINING_AWARD)
 		} else {
-			user.autominig = false
-			user.autominigExpiresAt = null
+			user.automining = false
+			user.autominingExpiresAt = null
 			await user.save()
 
 			console.log(

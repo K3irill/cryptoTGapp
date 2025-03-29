@@ -46,7 +46,7 @@ export const StoreSliderTitle = styled.div`
 	text-align: center;
 	align-items: center;
 	justify-content: center;
-	font-size: 26px;
+	font-size: 16px;
 	font-weight: 800;
 	${purpleTextGradient}
 `

@@ -39,7 +39,7 @@ export const EarnBlock = styled.div`
 	gap: 15px;
 	flex-wrap: wrap;
 `
-export const GameCard = styled.a<{ background?: string }>`
+export const GameCard = styled.a<{ background?: string; disabled?: boolean }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -53,6 +53,14 @@ export const GameCard = styled.a<{ background?: string }>`
 	${p => p.background && `background: url(${p.background}) no-repeat;`}
 	background-size: 100%;
 	box-shadow: inset 0px 0px 5px #ffffff;
+
+	${p =>
+		p.disabled &&
+		`background-position: center;
+    filter: saturate(0.2)  brightness(0.2);
+    pointer-events: none;
+    cursor: not-allowed;
+      `}
 `
 
 export const GCardImageWrapper = styled.div<{ radius?: string }>`

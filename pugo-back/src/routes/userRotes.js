@@ -3,7 +3,10 @@ const express = require('express')
 const { getUser, depositBalance } = require('../controllers/userController')
 const generateReferralCode = require('../utils/generateReferralCode')
 const { User } = require('../models')
-const { updateUserTokens } = require('../services/userService')
+const {
+	updateUserTokens,
+	enableMiningForUser,
+} = require('../services/userService')
 const router = express.Router()
 
 // Получить информацию о пользователе
@@ -28,7 +31,22 @@ router.post('/update-tokens', async (req, res) => {
 
 	try {
 		const user = await updateUserTokens(telegramId, amount, isPlus)
-		res.json({ success: true, tokens: user.tokens })
+		res.json(user)
+	} catch (error) {
+		res.status(400).json({ success: false, error: error.message })
+	}
+})
+
+router.post('/activate-automining', async (req, res) => {
+	const { telegramId, days } = req.body
+
+	try {
+		const user = await enableMiningForUser(telegramId, days)
+		res.json({
+			success: true,
+			automining: user.automining,
+			autominingExpiresAt: user.autominingExpiresAt,
+		})
 	} catch (error) {
 		res.status(400).json({ success: false, error: error.message })
 	}

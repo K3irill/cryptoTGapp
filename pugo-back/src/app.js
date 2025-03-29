@@ -12,7 +12,10 @@ const telegramRegisterRouter = require('./routes/telegram-register')
 const CONTENT = require('./content')
 const bot = require('./config/telegramConfig')
 const setupBotCommands = require('./botCommands')
-const { checkAndAddPugoDaily } = require('./services/userService')
+const {
+	checkAndAddPugoDaily,
+	enableMiningForUser,
+} = require('./services/userService')
 
 dotenv.config()
 
@@ -38,15 +41,16 @@ app.use((err, req, res, next) => {
 	console.error('❌ Ошибка:', err.stack)
 	res.status(500).json({ success: false, error: 'Внутренняя ошибка сервера' })
 })
-// Запускать задачу каждый день в полночь
-cron.schedule('0 0 * * *', async () => {
-	const users = await User.findAll({ where: { autominig: true } })
 
-	for (const user of users) {
-		await checkAndAddPugoDaily(user.telegramId)
+cron.schedule('0 0 * * *', async () => {
+	console.log('👀Запуск ежедневной проверки автомайнинга...')
+	try {
+		await checkAndAddPugoDaily()
+		console.log('✅Ежедневная проверка автомайнинга завершена')
+	} catch (error) {
+		console.error('☠️Ошибка при проверке автомайнинга:', error)
 	}
 })
-
 const startServer = async () => {
 	try {
 		await sequelize.sync() //  { force: true }

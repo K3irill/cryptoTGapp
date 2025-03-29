@@ -18,6 +18,7 @@ import { REQUEST_LINK } from '../../../constant'
 import { updateTokens } from '@/store/slices/userSlice'
 import { RootState } from '@/store/store'
 import FlashAsteroid from './components/FlashAsteroid'
+import { useUpdateTokensMutation } from '@/store/services/api/userApi'
 
 const GameCanvas = () => {
 	const dispatch = useDispatch()
@@ -34,34 +35,30 @@ const GameCanvas = () => {
 	const [isShiftPressed, setIsShiftPressed] = useState(false)
 	const [activeKeys, setActiveKeys] = useState(new Set())
 	const [gameTime, setGameTime] = useState(0)
+	const [updateTokens, { isLoadingUpdatingTokens, errorUpdatingTokens }] =
+		useUpdateTokensMutation()
 
 	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
 	const { id, tokens, automining } = useSelector(
 		(state: RootState) => state.user
 	)
-	const updateTokensOnServer = async (delta: number) => {
-		try {
-			const roundedDelta = Number(delta)
-			const response = await fetch(`${REQUEST_LINK}/api/user/update-tokens`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					telegramId: id,
-					amount: roundedDelta,
-				}),
-			})
-			const data = await response.json()
 
-			if (data.success) {
-				// dispatch(updateTokens(roundedDelta))
-			} else {
-				console.error('Ошибка при обновлении токенов на сервере')
-			}
+	const updateTokensOnServer = async (delta: number) => {
+		const roundedDelta = Math.round(Number(delta))
+		try {
+			const response = await updateTokens({
+				telegramId: Number(id),
+				amount: roundedDelta,
+			}).unwrap()
+			// if (response.success) {
+			// } else {
+			// }
 		} catch (error) {
-			console.error('Ошибка при отправке запроса на сервер:', error)
+			console.error('Update tokens error:', error)
 		}
 	}
+
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			setShipPosition({
