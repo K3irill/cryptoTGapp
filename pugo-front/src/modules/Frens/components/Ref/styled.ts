@@ -7,7 +7,7 @@ import {
 } from '@/styles/mixins'
 import styled from 'styled-components'
 
-export const RefContainer = styled.div`
+export const RefContainer = styled.li`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

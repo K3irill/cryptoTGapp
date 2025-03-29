@@ -140,10 +140,14 @@ export const ReferralsTitle = styled.h3`
 	color: ${COLORS.ice};
 `
 
-export const ReferralsList = styled(motion.div)`
+export const ReferralsList = styled(motion.ul)`
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
+
+	& li:first-child {
+		border: none;
+	}
 `
 
 export const EmptyState = styled(motion.div)`

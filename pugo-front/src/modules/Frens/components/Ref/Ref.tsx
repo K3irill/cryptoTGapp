@@ -21,7 +21,7 @@ export const Ref = ({ ref }: RefProps) => {
 	if (error) {
 		return (
 			<RefContainer>
-				<RefName>Ошибка</RefName>
+				<RefName>Ошибка получении данных о реферале</RefName>
 			</RefContainer>
 		)
 	}
