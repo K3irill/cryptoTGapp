@@ -8,6 +8,12 @@ import {
 	StoreSliderRow,
 	CaseCard,
 	CaseTitle,
+	StoreContainer,
+	StoreContent,
+	SliderSection,
+	SliderTitle,
+	StyledSwiper,
+	LockOverlay,
 } from './styled'
 import { StoreProps } from './Store.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
@@ -21,12 +27,11 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { CaseModal } from '@/components/CaseModal/CaseModal'
 import { Lock } from '@/components/Navigation/styled'
-import { Navigation } from 'swiper/modules'
+import { EffectCreative, Navigation } from 'swiper/modules'
 
-export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
+export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 	const { id } = useSelector((state: RootState) => state.user)
-	const router = useRouter()
-	const [showModal, setShowModal] = useState<boolean>(false)
+	const [showModal, setShowModal] = useState(false)
 	const [modalData, setModalData] = useState({})
 
 	const handleCaseClick = (
@@ -48,175 +53,150 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 		setShowModal(false)
 	}
 
+	// Данные для кейсов
+	const cases = [
+		{
+			type: 'coins',
+			title: 'BIFS COINS',
+			img: '/store/cases/case-1.png',
+			price: 1000,
+			color: '#4f046c',
+			locked: false,
+		},
+		{
+			type: 'days',
+			title: 'AUTOMINING',
+			img: '/store/cases/case-3.png',
+			price: 4000,
+			color: '#d1ce105c',
+			locked: false,
+		},
+		{
+			type: 'ships',
+			title: 'SPACESHIPS',
+			img: '/store/cases/case-2.png',
+			price: 2500,
+			color: '#045885',
+			locked: true,
+		},
+		{
+			type: 'secret',
+			title: 'ЗАТЕРЯЛОСЬ В КОСМОСЕ',
+			img: '/store/secret.png',
+			price: 0,
+			color: '#045885',
+			locked: true,
+		},
+	]
+
+	// Данные для наборов
+	const packs = [
+		{
+			type: 'privileges',
+			title: 'PRIVILEGES',
+			img: '/store/cards/card-2.png',
+			price: 100000,
+			color: '#f9090987',
+			locked: false,
+		},
+		{
+			type: 'cards',
+			title: 'BIFS CARDS',
+			img: '/store/cards/card-1.png',
+			price: 0,
+			color: '#045885',
+			locked: true,
+		},
+		{
+			type: 'secret',
+			title: 'ЗАТЕРЯЛОСЬ В КОСМОСЕ',
+			img: '/store/secret.png',
+			price: 0,
+			color: '#045885',
+			locked: true,
+		},
+	]
+
 	return (
-		<StoreStyled>
+		<StoreContainer
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 0.5 }}
+		>
 			<TopPageInfo data={data.top_section} />
-			<Container>
-				<TopBorderStyled src='./grey-top-border.svg' alt='border' />
-				<StoreBlock>
-					<StoreSliderRow>
-						<StoreSliderTitle>Кейсы</StoreSliderTitle>
 
-						<Swiper
-							spaceBetween={5}
-							slidesPerView={2}
-							loop={true}
-							navigation
-							modules={[Navigation]}
-						>
-							<SwiperSlide>
-								<CaseCard
-									shadowColor='#4f046c'
-									onClick={() =>
-										handleCaseClick(
-											'coins',
-											'BIFS COINS',
-											'/store/cases/case-1.png',
-											1000
-										)
-									}
-								>
-									<img src='/store/cases/case-1.png' alt='' />
-									<CaseTitle>BIFS COINS</CaseTitle>
-								</CaseCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<CaseCard
-									shadowColor='#d1ce105c'
-									onClick={() =>
-										handleCaseClick(
-											'days',
-											'AUTOMINING',
-											'/store/cases/case-3.png',
-											4000
-										)
-									}
-								>
-									<img src='/store/cases/case-3.png' alt='' />
-									<CaseTitle>AUTOMINING</CaseTitle>
-								</CaseCard>
-							</SwiperSlide>
+			{/* Секция кейсов */}
 
-							<SwiperSlide>
-								<CaseCard
-									disabled
-									shadowColor='#045885'
-									onClick={() =>
-										handleCaseClick(
-											'ships',
-											'SPACESHIPS',
-											'/store/cases/case-2.png',
-											2500
-										)
-									}
-								>
-									<Lock
-										style={{ width: '70%', top: '0%', filter: 'none' }}
-										src='/icons/lock.svg'
-										alt='locked'
-									/>
-									<img src='/store/cases/case-2.png' alt='' />
-									<CaseTitle>SPACESHIPS</CaseTitle>
-								</CaseCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<CaseCard
-									disabled
-									shadowColor='#045885'
-									onClick={() => () => null}
-								>
-									{' '}
-									<Lock
-										style={{ width: '70%', top: '0%', filter: 'none' }}
-										src='/icons/lock.svg'
-										alt='locked'
-									/>
-									<img src='/store/secret.png' alt='' />
-									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
-								</CaseCard>
-							</SwiperSlide>
-						</Swiper>
-					</StoreSliderRow>
-					<StoreSliderRow>
-						<StoreSliderTitle>Особые Наборы</StoreSliderTitle>
+			<SliderSection
+				initial={{ y: 20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ delay: 0.2, duration: 0.5 }}
+			>
+				<SliderTitle>Кейсы</SliderTitle>
+				<StyledSwiper
+					slidesPerView={'auto'}
+					spaceBetween={20}
+					navigation
+					modules={[Navigation, EffectCreative]}
+				>
+					{cases.map((item, index) => (
+						<SwiperSlide key={index}>
+							<CaseCard
+								$shadowColor={item.color}
+								$disabled={item.locked}
+								onClick={() =>
+									!item.locked &&
+									handleCaseClick(item.type, item.title, item.img, item.price)
+								}
+							>
+								{item.locked && (
+									<LockOverlay>
+										<img src='/icons/lock.svg' alt='locked' />
+									</LockOverlay>
+								)}
+								<img src={item.img} alt={item.title} />
+								<CaseTitle>{item.title}</CaseTitle>
+							</CaseCard>
+						</SwiperSlide>
+					))}
+				</StyledSwiper>
+			</SliderSection>
 
-						<Swiper
-							spaceBetween={5}
-							slidesPerView={2}
-							loop={true}
-							navigation
-							modules={[Navigation]}
-						>
-							<SwiperSlide>
-								<CaseCard
-									shadowColor='#f9090987'
-									onClick={() =>
-										handleCaseClick(
-											'privileges',
-											'PRIVILEGES',
-											'/store/cards/card-2.png',
-											100000
-										)
-									}
-								>
-									<img src='/store/cards/card-2.png' alt='' />
-								</CaseCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								{' '}
-								<CaseCard
-									disabled
-									shadowColor='#045885'
-									onClick={() =>
-										handleCaseClick(
-											'cards',
-											'SPACESHIPS',
-											'/store/cases/case-2.png',
-											2500
-										)
-									}
-								>
-									<Lock
-										style={{ width: '70%', top: '0%', filter: 'none' }}
-										src='/icons/lock.svg'
-										alt='locked'
-									/>
-									<img src='/store/cards/card-1.png' alt='' />
-									<CaseTitle>BIFS CARDS</CaseTitle>
-								</CaseCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<CaseCard disabled shadowColor='#045885' onClick={() => null}>
-									{' '}
-									<Lock
-										style={{ width: '70%', top: '0%', filter: 'none' }}
-										src='/icons/lock.svg'
-										alt='locked'
-									/>
-									<img src='/store/secret.png' alt='' />
-									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
-								</CaseCard>
-							</SwiperSlide>
-							<SwiperSlide>
-								<CaseCard
-									disabled
-									shadowColor='#045885'
-									onClick={() => () => null}
-								>
-									{' '}
-									<Lock
-										style={{ width: '70%', top: '0%', filter: 'none' }}
-										src='/icons/lock.svg'
-										alt='locked'
-									/>
-									<img src='/store/secret.png' alt='' />
-									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
-								</CaseCard>
-							</SwiperSlide>
-						</Swiper>
-					</StoreSliderRow>
-				</StoreBlock>
-			</Container>
+			{/* Секция наборов */}
+			<SliderSection
+				initial={{ y: 20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ delay: 0.2, duration: 0.5 }}
+			>
+				<SliderTitle>Особые Наборы</SliderTitle>
+				<StyledSwiper
+					slidesPerView={'auto'}
+					spaceBetween={20}
+					navigation
+					modules={[Navigation, EffectCreative]}
+				>
+					{packs.map((item, index) => (
+						<SwiperSlide key={index}>
+							<CaseCard
+								$shadowColor={item.color}
+								$disabled={item.locked}
+								onClick={() =>
+									!item.locked &&
+									handleCaseClick(item.type, item.title, item.img, item.price)
+								}
+							>
+								{item.locked && (
+									<LockOverlay>
+										<img src='/icons/lock.svg' alt='locked' />
+									</LockOverlay>
+								)}
+								<img src={item.img} alt={item.title} />
+								<CaseTitle>{item.title}</CaseTitle>
+							</CaseCard>
+						</SwiperSlide>
+					))}
+				</StyledSwiper>
+			</SliderSection>
 
 			{showModal && (
 				<CaseModal
@@ -228,6 +208,6 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 					casePrice={modalData.casePrice}
 				/>
 			)}
-		</StoreStyled>
+		</StoreContainer>
 	)
 }
