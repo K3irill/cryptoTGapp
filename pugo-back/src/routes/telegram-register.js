@@ -63,7 +63,10 @@ router.post('/ref/:referralCode', async (req, res) => {
 
 		if (!referrer.referralBonusGiven) {
 			const tokensToAdd = 50
-			await updateUserTokens(referrer.telegramId, tokensToAdd)
+			await updateUserTokens(
+				referrer.telegramId,
+				defineReferralAwardByStatus(referrer.status)
+			)
 			await updateUserTokens(newUser.telegramId, tokensToAdd)
 
 			referrer.referralBonusGiven = true

@@ -57,6 +57,19 @@ export const userInfoApi = createApi({
 				body: { telegramId, days },
 			}),
 		}),
+		setUserStatus: builder.mutation<
+			MiningActivationResponse,
+			{
+				telegramId: number
+				status: number
+			}
+		>({
+			query: ({ telegramId, status }) => ({
+				url: 'user/set-status',
+				method: 'POST',
+				body: { telegramId, status },
+			}),
+		}),
 	}),
 })
 
@@ -64,4 +77,5 @@ export const {
 	useGetUserInfoQuery,
 	useUpdateTokensMutation,
 	useActivateMiningMutation,
+	useSetUserStatusMutation,
 } = userInfoApi

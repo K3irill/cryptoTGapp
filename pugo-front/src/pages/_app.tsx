@@ -135,6 +135,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 								automining: data.userInfo.automining || null,
 								autominingExpiresAt: data.userInfo.autominingExpiresAt || null,
 								transactions: data.userInfo.automining || null,
+								status: data.userInfo.status || null,
 							})
 						)
 					}

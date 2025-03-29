@@ -1,5 +1,10 @@
 const { User, Task, UserTask } = require('../models')
 const generateReferralCode = require('../utils/generateReferralCode')
+const {
+	defineUserStatus,
+	defineMiningAwardByStatus,
+	checkStatusRequirements,
+} = require('../utils/utils')
 
 // Функция создания пользователя с токенами и реферальным кодом
 const createUser = async (telegramId, username, firstName, lastName) => {
@@ -13,6 +18,7 @@ const createUser = async (telegramId, username, firstName, lastName) => {
 		automining: false,
 		autominingExpiresAt: null,
 		transactions: [],
+		status: 0,
 	})
 
 	// Получаем все существующие задачи
@@ -114,6 +120,42 @@ const updateUserTokens = async (telegramId, amount, isPlus = true) => {
 	}
 }
 
+const setStatusForUser = async (telegramId, status) => {
+	const user = await User.findOne({ where: { telegramId } })
+
+	if (!user) {
+		throw new Error('Пользователь не найден')
+	}
+
+	if (user.status > status) {
+		console.warn(
+			`👀Ваш статус ${defineUserStatus(
+				user.status
+			)} выше чем ${defineUserStatus(status)}. Отмена...`
+		)
+		return
+	}
+
+	if (user.status === status) {
+		console.warn(`👀Ваш статус уже ${defineUserStatus(status)}. Отмена...`)
+		return
+	}
+
+	// if (!checkStatusRequirements(user, status)) {
+	// 	throw new Error(
+	// 		`Недостаточно токенов для получения статуса ${defineUserStatus(status)}`
+	// 	)
+	// }
+
+	user.status = status
+	await user.save()
+
+	console.log(
+		`Статус пользователя ${telegramId} обновлен до ${defineUserStatus(status)}`
+	)
+	return user
+}
+
 const enableMiningForUser = async (telegramId, days) => {
 	const user = await User.findOne({ where: { telegramId } })
 
@@ -139,14 +181,16 @@ const enableMiningForUser = async (telegramId, days) => {
 	console.log(`Майнинг для ${telegramId} продлён до ${expiresAt}`)
 	return user
 }
-const MINING_AWARD = 1000
 
 const checkAndAddPugoDaily = async () => {
 	const users = await User.findAll({ where: { automining: true } })
 
 	for (const user of users) {
 		if (user.autominingExpiresAt && new Date() < user.autominingExpiresAt) {
-			await updateUserTokens(Number(user.telegramId), MINING_AWARD)
+			await updateUserTokens(
+				Number(user.telegramId),
+				defineMiningAwardByStatus(user.status)
+			)
 		} else {
 			user.automining = false
 			user.autominingExpiresAt = null
@@ -185,4 +229,5 @@ module.exports = {
 	enableMiningForUser,
 	addTransaction,
 	checkAndAddPugoDaily,
+	setStatusForUser,
 }

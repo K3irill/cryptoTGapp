@@ -37,7 +37,7 @@ interface CaseModalProps {
 	text?: string
 	btnText?: string
 	imgSrc?: string
-	caseType: 'coins' | 'days' | 'ships'
+	caseType: 'coins' | 'days' | 'ships' | 'privileges'
 	casePrice?: number
 }
 
@@ -88,7 +88,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 					100000: 0.1,
 				},
 				days: {
-					3: 90,
+					5: 90,
 					7: 60,
 					21: 30,
 					30: 10,
@@ -100,6 +100,12 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 					Ship3: 20,
 					Ship4: 20,
 					Ship5: 20,
+				},
+				privileges: {
+					1: 90,
+					2: 35,
+					3: 15,
+					4: 1,
 				},
 			}
 
@@ -152,6 +158,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 			coins: '/coin-c.png',
 			days: `/store/cases/${prizeResult}.svg`,
 			ships: '/ship-icon.png',
+			privileges: `/store/privileges/${prizeResult}.png`,
 		}
 		return images[caseType] || '/coin-c.png'
 	}, [prizeResult, caseType])
@@ -163,6 +170,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 			coins: `${prizeResult} BIFS Coins`,
 			days: `${prizeResult} Дней авто-майнинга`,
 			ships: `Ship ${prizeResult.replace('Ship', '')}`,
+			privileges: `Привилегия ${prizeResult}`,
 		}
 
 		return names[caseType] || prizeResult
@@ -204,14 +212,30 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 					casePrice={casePrice}
 				/>
 				<CaseButtonWrapper>
-					<MulticolouredButton
-						theme={hasEnoughTokens && caseType !== 'days' ? '' : 'red'}
-						onClick={
-							hasEnoughTokens ? handleOpenRoulette : () => setShowBuyModal(true)
-						}
-					>
-						{`${buttonText} ЗА ${casePrice} BIFS`}
-					</MulticolouredButton>
+					{caseType === 'privileges' && user.status === 4 ? (
+						<h3>У вас уже максимальный статус</h3>
+					) : (
+						<MulticolouredButton
+							theme={
+								caseType === 'coins'
+									? ''
+									: caseType === 'days'
+									? 'yellow'
+									: caseType === 'privileges'
+									? 'green'
+									: !hasEnoughTokens
+									? 'red'
+									: ''
+							}
+							onClick={
+								hasEnoughTokens
+									? handleOpenRoulette
+									: () => setShowBuyModal(true)
+							}
+						>
+							{`${buttonText} ЗА ${casePrice} BIFS`}
+						</MulticolouredButton>
+					)}
 				</CaseButtonWrapper>
 
 				{showResult && (

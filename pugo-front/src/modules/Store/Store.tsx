@@ -96,6 +96,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 									<CaseTitle>AUTOMINING</CaseTitle>
 								</CaseCard>
 							</SwiperSlide>
+
 							<SwiperSlide>
 								<CaseCard
 									disabled
@@ -137,7 +138,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 						</Swiper>
 					</StoreSliderRow>
 					<StoreSliderRow>
-						<StoreSliderTitle>Наборы карточек</StoreSliderTitle>
+						<StoreSliderTitle>Особые Наборы</StoreSliderTitle>
 
 						<Swiper
 							spaceBetween={5}
@@ -146,6 +147,21 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 							navigation
 							modules={[Navigation]}
 						>
+							<SwiperSlide>
+								<CaseCard
+									shadowColor='#f9090987'
+									onClick={() =>
+										handleCaseClick(
+											'privileges',
+											'PRIVILEGES',
+											'/store/cards/card-2.png',
+											100000
+										)
+									}
+								>
+									<img src='/store/cards/card-2.png' alt='' />
+								</CaseCard>
+							</SwiperSlide>
 							<SwiperSlide>
 								{' '}
 								<CaseCard

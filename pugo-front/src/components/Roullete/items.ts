@@ -104,11 +104,11 @@ export default {
 	},
 
 	// Призы для кейса с днями автомайнинга
-	'3': {
-		image: '/store/cases/3.svg',
+	'5': {
+		image: '/store/cases/5.svg',
 		price: 'Days',
 		rarity: 'common',
-		weapon: '3 Дней Автомайнинга',
+		weapon: '5 Дней Автомайнинга',
 	},
 	'7': {
 		image: '/store/cases/7.svg',
@@ -120,7 +120,7 @@ export default {
 		image: '/store/cases/21.svg',
 		price: 'Days',
 		rarity: 'rare',
-		weapon: '21 Дней Автомайнинга',
+		weapon: '21 День Автомайнинга',
 	},
 	'30': {
 		image: '/store/cases/30.svg',
@@ -134,6 +134,31 @@ export default {
 		rarity: 'legendary',
 		weapon: '45 Дней Автомайнинга',
 	},
+	'1': {
+		image: '/store/privileges/1.png',
+		price: 'status',
+		rarity: 'uncommon',
+		weapon: 'Quantum Interceptor',
+	},
+	'2': {
+		image: '/store/privileges/2.png',
+		price: 'status',
+		rarity: 'rare',
+		weapon: 'Quantum Interceptor',
+	},
+	'3': {
+		image: '/store/privileges/3.png',
+		price: 'status',
+		rarity: 'mythic',
+		weapon: 'Quantum Interceptor',
+	},
+	'4': {
+		image: '/store/privileges/4.png',
+		price: 'status',
+		rarity: 'legendary',
+		weapon: 'Quantum Interceptor',
+	},
+
 	// Призы для кейса с кораблями
 	Ship1: {
 		image: '/path/to/ship1-image.png',

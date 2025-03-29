@@ -16,6 +16,7 @@ export interface UserState {
 	automining: boolean | null
 	autominingExpiresAt: Date | null
 	transactions: Array<number> | null
+	status: number | null
 }
 
 const initialState: UserState = {
@@ -34,6 +35,7 @@ const initialState: UserState = {
 	automining: null,
 	autominingExpiresAt: null,
 	transactions: null,
+	status: null,
 }
 
 const saveStateToLocalStorage = (state: UserState) => {

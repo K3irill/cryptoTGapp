@@ -3,6 +3,7 @@ import {
 	bluePurpleTextGradient,
 	pinkBlueGradientBackground,
 	yellowGradientBackground,
+	greenGradientBackground,
 } from '@/styles/mixins'
 import styled from 'styled-components'
 
@@ -26,6 +27,9 @@ export const CaseModalStyled = styled.div<{ theme: string }>`
 			: p.theme === 'days'
 			? `background: url(/backgrounds/stars.png), url(/backgrounds/yellow-panet.png),
 		${yellowGradientBackground};`
+			: p.theme === 'privileges'
+			? `background: url(/backgrounds/stars.png), url(/backgrounds/green-panet.png),
+		${greenGradientBackground};`
 			: ''};
 
 	background-size: cover;

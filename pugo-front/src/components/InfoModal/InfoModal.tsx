@@ -1,37 +1,48 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import {
-	CloseButtonWrapper,
-	Content,
-	PugImage,
-	SocialLinks,
-	Divider,
-} from './styled'
-import MulticolouredButton from '../UI/MulticolouredButton/MulticolouredButton'
+import { CloseButtonWrapper, Content, SocialLinks, Divider } from './styled'
 import CloseButton from '../UI/CloseButton/CloseButton'
-import { handleAutomining } from '@/utils/sendBotMessage'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Link from 'next/link'
+import { statusConfig } from '@/assets/constants/statusConfig'
+import {
+	Button,
+	Chip,
+	Paper,
+	List,
+	ListItem,
+	ListItemIcon,
+} from '@mui/material'
 
 const modalStyle = {
 	position: 'absolute',
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
-	width: 320,
-	maxHeight: '70vh',
+	width: { xs: '90%', sm: '80%', md: '700px' },
+	maxHeight: '90vh',
 	overflowY: 'auto',
-	background: `linear-gradient(120.56deg, #1D2948 -2.28%, #141D33 21.31%, #0F1628 33.91%, #050A16 92.75%)`,
-	backgroundSize: 'cover',
-	backgroundPosition: 'center',
-	boxShadow: 24,
-	p: 2,
+	background: `linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)`,
+	boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.36)',
+	backdropFilter: 'blur(10px)',
+	border: '1px solid rgba(255, 255, 255, 0.1)',
+	p: { xs: 2, md: 4 },
 	color: 'white',
-	borderRadius: '10px',
+	borderRadius: '16px',
+	'&::-webkit-scrollbar': {
+		width: '8px',
+	},
+	'&::-webkit-scrollbar-thumb': {
+		backgroundColor: 'rgba(0, 191, 255, 0.5)',
+		borderRadius: '4px',
+	},
 }
+
 interface BasicModalProps {
 	isVisible: boolean
 	onClose: () => void
@@ -43,479 +54,782 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 }) => {
 	const user = useSelector((state: RootState) => state.user)
 
+	const SectionHeader = ({
+		children,
+		id,
+		icon,
+	}: {
+		children: React.ReactNode
+		id?: string
+		icon?: React.ReactNode
+	}) => (
+		<Typography
+			id={id}
+			variant='h5'
+			component='h2'
+			sx={{
+				color: 'primary.main',
+				fontWeight: 'bold',
+				mt: 4,
+				mb: 2,
+				display: 'flex',
+				alignItems: 'center',
+				gap: 1,
+				'&:before': {
+					content: '""',
+					flex: 1,
+					height: '1px',
+					background: 'linear-gradient(to right, transparent, #00BFFF)',
+					mr: 2,
+				},
+				'&:after': {
+					content: '""',
+					flex: 1,
+					height: '1px',
+					background: 'linear-gradient(to left, transparent, #00BFFF)',
+					ml: 2,
+				},
+			}}
+		>
+			{icon && <span style={{ display: 'flex' }}>{icon}</span>}
+			{children}
+		</Typography>
+	)
+
 	return (
 		<Modal
 			open={isVisible}
 			onClose={onClose}
-			aria-labelledby='modal-modal-title'
-			aria-describedby='modal-modal-description'
+			aria-labelledby='info-modal-title'
+			aria-describedby='info-modal-description'
 		>
 			<Box sx={modalStyle}>
 				<CloseButtonWrapper>
-					<CloseButton onClick={onClose} title='X' />
+					<CloseButton onClick={onClose} title='✕' />
 				</CloseButtonWrapper>
+
 				<Content>
 					<Typography
-						id='modal-modal-title'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#FFD700', fontWeight: 'bold', mb: 2 }}
+						variant='h4'
+						component='h1'
+						sx={{
+							color: 'gold',
+							fontWeight: 'bold',
+							mb: 3,
+							textAlign: 'center',
+							textShadow: '0 0 10px rgba(255, 215, 0, 0.5)',
+							position: 'relative',
+							'&:after': {
+								content: '""',
+								position: 'absolute',
+								bottom: -10,
+								left: '25%',
+								width: '50%',
+								height: '2px',
+								background:
+									'linear-gradient(to right, transparent, gold, transparent)',
+							},
+						}}
 					>
-						Общая информация о приложении
+						🚀 Руководство по экосистеме BIFS
 					</Typography>
-					{/* Добавим Содержание */}
-					<Typography
-						variant='h6'
-						sx={{ color: '#f200ff', fontWeight: 'bold', mb: 2 }}
+
+					{/* Оглавление */}
+					<Paper
+						elevation={3}
+						sx={{
+							p: 2,
+							mb: 4,
+							background: 'rgba(0, 0, 0, 0.2)',
+							borderLeft: '4px solid #00BFFF',
+						}}
 					>
-						Содержание:
+						<Typography variant='h6' sx={{ color: '#f200ff', mb: 1 }}>
+							<strong>📋 Содержание</strong>
+						</Typography>
+						<List dense sx={{ py: 0 }}>
+							{[
+								{
+									id: 'tokens',
+									text: 'Как заработать токены',
+								},
+								{
+									id: 'value',
+									text: 'Ценность токенов',
+								},
+								{
+									id: 'privileges',
+									text: 'Статусы и привилегии',
+								},
+								{
+									id: 'invite',
+									text: 'Реферальная программа',
+								},
+								{
+									id: 'ads',
+									text: 'Вознаграждения за рекламу',
+								},
+								{
+									id: 'goals',
+									text: 'Наши цели',
+								},
+								{
+									id: 'bot',
+									text: 'О боте BIF',
+								},
+							].map(item => (
+								<ListItem key={item.id} sx={{ py: 0.5, px: 0 }}>
+									<ListItemIcon sx={{ minWidth: 30, color: '#f200ff' }}>
+										{item.icon}
+									</ListItemIcon>
+									<Link
+										href={`#${item.id}`}
+										style={{ color: '#00BFFF', textDecoration: 'none' }}
+									>
+										<Typography variant='body2'>{item.text}</Typography>
+									</Link>
+								</ListItem>
+							))}
+						</List>
+					</Paper>
+
+					{/* Важное уведомление */}
+					<SectionHeader id='tokens' icon='⚠️'>
+						Важная информация
+					</SectionHeader>
+					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
+						Наше приложение находится в активной разработке. Некоторые функции
+						могут быть недоступны, так как мы работаем над:
 					</Typography>
-					<ul
-						style={{ color: '#FFFFFF', listStyleType: 'none', paddingLeft: 0 }}
-					>
-						<li>
-							<a
-								href='#tokens'
-								style={{ color: '#f200ff', textDecoration: 'underline' }}
-							>
-								Как получить токены
-							</a>
-						</li>
-						<li>
-							<a
-								href='#value'
-								style={{ color: '#f200ff', textDecoration: 'underline' }}
-							>
-								Какую ценность они несут
-							</a>
-						</li>
-						<li>
-							<a
-								href='#invite'
-								style={{ color: '#f200ff', textDecoration: 'underline' }}
-							>
-								Про приглашение друзей
-							</a>
-						</li>
-						<li>
-							<a
-								href='#ads'
-								style={{ color: '#f200ff', textDecoration: 'underline' }}
-							>
-								Про рекламу
-							</a>
-						</li>
-						<li>
-							<a
-								href='#goals'
-								style={{ color: '#f200ff', textDecoration: 'underline' }}
-							>
-								Наши цели
-							</a>
-						</li>
-						<li>
-							<a
-								href='#bot'
-								style={{ color: '#f200ff', textDecoration: 'underline' }}
-							>
-								O Боте BIF
-							</a>
-						</li>
-						<li>
-							<a
-								href='#socials'
-								style={{ color: '#f200ff', textDecoration: 'underline' }}
-							>
-								Социальные сети
-							</a>
-						</li>
+					<ul style={{ color: '#FFFFFF', paddingLeft: 20, marginBottom: 16 }}>
+						<li>Улучшением пользовательского опыта</li>
+						<li>Добавлением новых способов заработка</li>
+						<li>Повышением безопасности</li>
 					</ul>
-					<Divider />
-					<Typography
-						id='tokens'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#00BFFF', fontWeight: 'bold', mt: 2 }}
-					>
-						Важно
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Как вы могли заметить, на данный момент не все страницы и функции
-						доступны, поскольку они находятся в стадии разработки и доработки.
-						Мы только начали запуск нашего приложения, и оно продолжает
-						эволюционировать. Мы активно работаем над улучшениями и исправлением
-						недочетов, чтобы предоставить вам лучший опыт. У нас есть множество
-						идей для развития BIFS, и мы с нетерпением ждем, чтобы поделиться
-						ими с вами!
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						С вашей стороны мы ждем понимания, поддержки и активного
-						распространения информации о нас. Чем больше людей узнает о нашем
-						проекте, тем больше ценность он приобретет, и тем быстрее мы сможем
-						двигаться вперед и развивать BIFS!
-					</Typography>
-					<Divider />
-					<Typography
-						id='tokens'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#00BFFF', fontWeight: 'bold', mt: 2 }}
-					>
-						Как получить токены
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Вы можете получать токены, выполняя задания, играя в игры, приглашая
-						друзей и{' '}
-						<a
-							href='#ads'
-							style={{ color: '#f200ff', textDecoration: 'underline' }}
-						>
-							рекламируя
-						</a>{' '}
-						нас. Каждое действие приносит вам вознаграждение в токенах BIFS. И
-						это только начало!
-					</Typography>
-					<Divider />
-
-					<Typography
-						id='value'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#00BFFF', fontWeight: 'bold', mt: 2 }}
-					>
-						Какую ценность они несут
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Токены BIFS можно использовать для покупки улучшений, бустов и
-						эксклюзивных возможностей в игре. В будущем вы сможете обменивать их
-						на реальные активы.
-					</Typography>
-					<Divider />
-
-					<Typography
-						id='invite'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#00BFFF', fontWeight: 'bold', mt: 2 }}
-					>
-						Про приглашение друзей
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Приглашайте друзей и получайте дополнительные токены за каждого
-						приглашённого. Ваши друзья тоже получат бонусы за регистрацию!
-					</Typography>
-					<Divider />
-
-					<Typography
-						id='ads'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#f700ff', fontWeight: 'bold', mt: 2 }}
-					>
-						Рекламируйте нас и получайте вознаграждения!
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Мы ценим вашу поддержку и готовы вознаграждать вас за продвижение
-						нашего проекта! Вот как это работает:
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>1. Создавайте контент:</strong>{' '}
-						Пишите посты, снимайте видео (TikTok, Shorts), делайте мемы или даже
-						расклеивайте листовки — всё, что привлекает внимание к нашему
-						проекту.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							2. Получайте просмотры:
-						</strong>{' '}
-						Чем больше людей увидят ваш контент, тем больше токенов вы получите.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>3. Отправьте отчёт:</strong>{' '}
-						Перейдите в нашего бота, напишите <strong>/earn</strong>, выберите
-						Получить вознаграждение и прикрепите:
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#0eb5de', pl: 2 }}
-					>
-						- Ссылку на ваш контент. - Скриншот с количеством просмотров.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Мы проверим вашу активность и начислим токены в течение 24 часов.
-						Чем креативнее ваш контент, тем больше вы заработаете!
-					</Typography>
-					<Divider />
-					{/* Блок 5: Наши цели */}
-					<Typography
-						id='goals'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#f700ff', fontWeight: 'bold', mt: 2 }}
-					>
-						Наши цели
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Мы стремимся стать одним из ведущих проектов в мире криптовалют. Вот
-						наши ключевые цели:
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							1. Листинг на крупных биржах:
-						</strong>{' '}
-						Мы на 100% уверены, что токен BIFS будет представлен на ведущих
-						платформах, таких как BLUM, STON.fi DEX, BYBIT и Binance. Это
-						откроет новые возможности для торговли и инвестиций.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							2. Развитие экосистемы:
-						</strong>{' '}
-						Мы активно работаем над созданием новых функций и возможностей
-						внутри проекта. Это включает в себя:
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF', pl: 2 }}
-					>
-						- Добавление новых игр и заданий для заработка токенов. - Внедрение
-						системы стейкинга, чтобы вы могли получать пассивный доход. -
-						Создание NFT-коллекций, которые можно будет использовать в играх и
-						экосистеме.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							3. Глобальное сообщество:
-						</strong>{' '}
-						Мы хотим объединить людей со всего мира вокруг нашего проекта. Для
-						этого мы:
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF', pl: 2 }}
-					>
-						- Проводим регулярные конкурсы и мероприятия с ценными призами. -
-						Поддерживаем активных участников через реферальную программу и
-						бонусы. - Создаём платформу для общения и обмена идеями.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							4. Удобство и доступность:
-						</strong>{' '}
-						Мы стремимся сделать криптовалюту простой и понятной для каждого.
-						Для этого мы:
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF', pl: 2 }}
-					>
-						- Разрабатываем удобный интерфейс для всех платформ. - Предоставляем
-						подробные обучающие материалы. - Поддерживаем пользователей через
-						круглосуточную службу поддержки.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Мы уверенно движемся к этим целям и приглашаем вас стать частью
-						нашего успеха!
-					</Typography>
-					<Divider />
-
-					{/* Блок: О боте BIF */}
-					<Typography
-						id='bot'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#f700ff', fontWeight: 'bold', mt: 2 }}
-					>
-						О боте BIF
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Наш Telegram-бот — это ваш помощник в мире BIFS. С его помощью вы
-						можете зарабатывать токены, приглашать друзей, управлять аккаунтом и
-						получать поддержку. Вот основные возможности:
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>1. Заработок токенов:</strong>{' '}
-						Выполняйте задания, такие как создание контента (посты, видео,
-						мемы), и получайте токены. Для этого отправьте боту ссылку на
-						контент и скриншот с количеством просмотров через команду.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							2. Реферальная программа:
-						</strong>{' '}
-						Приглашайте друзей и получайте бонусные токены за каждого
-						приглашённого. Используйте команду{' '}
-						<strong style={{ color: '#d309bb' }}>/invite</strong>, чтобы
-						получить уникальную реферальную ссылку.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>3. Автомайнинг:</strong>{' '}
-						Активируйте автомайнинг токенов на 7, 21 или 30 дней через команду
-						<strong style={{ color: '#d309bb' }}>/mining</strong>. Бот будет
-						ежедневно начислять токены и уведомлять о статусе.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>4. Покупка токенов:</strong>{' '}
-						Покупайте токены BIFS напрямую через бота. Используйте команду{' '}
-						<strong style={{ color: '#d309bb' }}>/store</strong>, чтобы выбрать
-						количество токенов и получить реквизиты для оплаты.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							5. Техническая поддержка:
-						</strong>{' '}
-						Если у вас возникли вопросы или проблемы, напишите в поддержку через
-						команду <strong style={{ color: '#d309bb' }}>/support</strong>. Бот
-						предоставит ответы на часто задаваемые вопросы или свяжет с
-						оператором.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							6. Управление аккаунтом:
-						</strong>{' '}
-						Просматривайте баланс токенов, историю транзакций{' '}
-						<strong style={{ color: '#d309bb' }}>/balance</strong>.
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						<strong style={{ color: '#12b317' }}>
-							7. Информация о проекте:
-						</strong>{' '}
-						Узнавайте актуальные новости, обновления и цели проекта через
-						команду с помощью нашего бота{' '}
-						<a href='https://t.me/BIFSCryptoBot'>
-							<strong style={{ color: '#9312b3' }}>@BIFSCryptoBot</strong>
-						</a>{' '}
-						или на официальном сайте{' '}
-						<a href='https://t.me/BIFSCryptoBot'>
-							<strong style={{ color: '#1260b3' }}>www.bifs.ru.</strong>
-						</a>{' '}
-					</Typography>
-					<Typography
-						id='modal-modal-description'
-						sx={{ mt: 1, color: '#FFFFFF' }}
-					>
-						Мы стремимся сделать взаимодействие с BIFS максимально удобным и
-						выгодным для вас. Присоединяйтесь к нашему боту и начните
-						зарабатывать уже сегодня!
-					</Typography>
-					<Divider />
-
-					<Typography
-						id='socials'
-						variant='h6'
-						component='h2'
-						sx={{ color: '#FFD700', fontWeight: 'bold', mt: 2 }}
-					>
-						Мы в социальных сетях
+					<Typography sx={{ color: '#FFFFFF', fontStyle: 'italic' }}>
+						Благодарим за терпение и поддержку, пока мы вместе строим будущее
+						BIFS!
 					</Typography>
 
-					<SocialLinks>
-						<Link
-							href='https://t.me/your_telegram'
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							<Typography
-								sx={{ color: '#00BFFF', textDecoration: 'underline' }}
+					{/* Как заработать токены */}
+					<SectionHeader id='tokens' icon='💰'>
+						Как заработать токены
+					</SectionHeader>
+					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
+						Пополняйте баланс BIFS несколькими способами:
+					</Typography>
+					<Box
+						sx={{
+							display: 'grid',
+							gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+							gap: 2,
+							mb: 3,
+						}}
+					>
+						{[
+							{
+								title: 'Ежедневный майнинг',
+								desc: 'Пассивный доход от автомайнинга',
+								emoji: '⛏️',
+							},
+							{
+								title: 'Рефералы',
+								desc: 'Заработок с приглашенных друзей',
+								emoji: '👥',
+							},
+							{
+								title: 'Создание контента',
+								desc: 'Вознаграждение за продвижение BIFS',
+								emoji: '🎬',
+							},
+							{
+								title: 'Задания в приложении',
+								desc: 'Выполняйте миссии за токены',
+								emoji: '✅',
+							},
+							{
+								title: 'Открывайте кейсы',
+								desc: 'Вы можете выиграть BIFS открывая кейсы!',
+								emoji: '📦',
+							},
+						].map(item => (
+							<Paper
+								key={item.title}
+								sx={{
+									p: 2,
+									background: 'rgba(0, 191, 255, 0.1)',
+									border: '1px solid rgba(0, 191, 255, 0.3)',
+									borderRadius: '8px',
+								}}
 							>
-								Telegram
-							</Typography>
-						</Link>
-						<Link
-							href='https://twitter.com/your_twitter'
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							<Typography
-								sx={{ color: '#00BFFF', textDecoration: 'underline' }}
+								<Typography sx={{ color: '#00BFFF', fontWeight: 'bold' }}>
+									{item.emoji} {item.title}
+								</Typography>
+								<Typography variant='body2' sx={{ color: '#AAA' }}>
+									{item.desc}
+								</Typography>
+							</Paper>
+						))}
+					</Box>
+
+					{/* Ценность токенов */}
+					<SectionHeader id='value' icon='💎'>
+						Ценность токенов
+					</SectionHeader>
+					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
+						Токены BIFS дают доступ к эксклюзивным возможностям экосистемы:
+					</Typography>
+					<Box
+						component='ul'
+						sx={{
+							color: '#FFFFFF',
+							pl: 2,
+							'& li': { mb: 1 },
+						}}
+					>
+						<li>
+							<strong>Премиум-функции:</strong> Расширенные возможности
+							приложения
+						</li>
+						<li>
+							<strong>Управление:</strong> Участие в принятии решений по проекту
+						</li>
+						<li>
+							<strong>Биржевая торговля:</strong> Листинг на платформах в
+							будущем
+						</li>
+						<li>
+							<strong>Доступ к NFT:</strong> Получение цифровых коллекционных
+							предметов
+						</li>
+					</Box>
+
+					{/* Статусы и привилегии */}
+					<SectionHeader id='privileges' icon='🏆'>
+						Уровни статусов
+					</SectionHeader>
+					<Typography
+						sx={{
+							color: '#FFFFFF',
+							mb: 3,
+							textAlign: 'center',
+							fontStyle: 'italic',
+						}}
+					>
+						Повышайте статус для максимального заработка во всех активностях
+					</Typography>
+
+					<Box
+						sx={{
+							display: 'grid',
+							gridTemplateColumns: {
+								xs: '1fr',
+								sm: 'repeat(2, 1fr)',
+								md: 'repeat(3, 1fr)',
+							},
+							gap: 3,
+							mb: 4,
+						}}
+					>
+						{Object.entries(statusConfig).map(([key, status]) => (
+							<Paper
+								key={key}
+								elevation={4}
+								sx={{
+									p: 2,
+									borderRadius: '12px',
+									background:
+										key === '0'
+											? 'linear-gradient(135deg, #2a2a3d 0%, #1e1e2d 100%)'
+											: 'linear-gradient(135deg, #1a2a6c 0%, #0f4c81 100%)',
+									border: '1px solid',
+									borderColor: key === '0' ? '#444' : '#00BFFF',
+									boxShadow:
+										key === '0'
+											? '0 4px 10px rgba(0, 0, 0, 0.2)'
+											: '0 4px 20px rgba(0, 191, 255, 0.3)',
+									transition: 'all 0.3s ease',
+									'&:hover': {
+										transform: 'translateY(-5px)',
+										boxShadow:
+											key === '0'
+												? '0 6px 15px rgba(0, 0, 0, 0.3)'
+												: '0 6px 25px rgba(0, 191, 255, 0.4)',
+									},
+								}}
 							>
-								Twitter
-							</Typography>
-						</Link>
-						<Link
-							href='https://discord.gg/your_discord'
-							target='_blank'
-							rel='noopener noreferrer'
+								<Box
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										mb: 2,
+										justifyContent: 'space-between',
+									}}
+								>
+									<Typography
+										variant='h6'
+										sx={{
+											color: key === '0' ? '#AAA' : '#FFF',
+											fontWeight: 'bold',
+											textShadow:
+												key === '0' ? 'none' : '0 0 8px rgba(0, 191, 255, 0.7)',
+										}}
+									>
+										{status.name} {key === '1' && '🌟'}
+										{key === '2' && '💎'} {key === '3' && '👑'}{' '}
+										{key === '4' && '🔥'}
+									</Typography>
+									{key !== '0' && (
+										<Chip
+											label={`${status.requirements.minTokens.toLocaleString()}+`}
+											size='small'
+											color='primary'
+											sx={{
+												fontWeight: 'bold',
+												bgcolor: 'rgba(0, 191, 255, 0.2)',
+											}}
+										/>
+									)}
+								</Box>
+
+								<Divider
+									sx={{
+										my: 1,
+										bgcolor: key === '0' ? '#444' : 'rgba(0, 191, 255, 0.5)',
+										height: '1px',
+									}}
+								/>
+
+								<Box sx={{ mt: 2 }}>
+									<Box
+										sx={{
+											display: 'flex',
+											justifyContent: 'space-between',
+											alignItems: 'center',
+											mb: 2,
+										}}
+									>
+										<Box sx={{ display: 'flex', alignItems: 'center' }}>
+											<Typography variant='body2' sx={{ color: '#AAA' }}>
+												⛏️ Майнинг:
+											</Typography>
+										</Box>
+										<Typography
+											sx={{
+												color: '#FFF',
+												fontWeight: 'bold',
+												fontSize: '1.1rem',
+											}}
+										>
+											{status.miningAward.toLocaleString()}
+											<Typography
+												component='span'
+												sx={{
+													color: '#AAA',
+													fontSize: '0.7rem',
+													ml: 0.5,
+												}}
+											>
+												/день
+											</Typography>
+										</Typography>
+									</Box>
+
+									<Box
+										sx={{
+											display: 'flex',
+											justifyContent: 'space-between',
+											alignItems: 'center',
+											mb: 2,
+										}}
+									>
+										<Box sx={{ display: 'flex', alignItems: 'center' }}>
+											<Typography variant='body2' sx={{ color: '#AAA' }}>
+												👥 Рефералы:
+											</Typography>
+										</Box>
+										<Typography
+											sx={{
+												color: '#FFF',
+												fontWeight: 'bold',
+												fontSize: '1.1rem',
+											}}
+										>
+											{status.referralAward.toLocaleString()}
+											<Typography
+												component='span'
+												sx={{
+													color: '#AAA',
+													fontSize: '0.7rem',
+													ml: 0.5,
+												}}
+											>
+												/приглашение
+											</Typography>
+										</Typography>
+									</Box>
+
+									{key !== '0' && (
+										<Button
+											fullWidth
+											variant='contained'
+											size='small'
+											sx={{
+												mt: 2,
+												bgcolor: 'rgba(0, 191, 255, 0.2)',
+												color: '#00BFFF',
+												border: '1px solid #00BFFF',
+												fontWeight: 'bold',
+												'&:hover': {
+													bgcolor: 'rgba(0, 191, 255, 0.4)',
+												},
+											}}
+										>
+											Повысить до {status.name}
+										</Button>
+									)}
+								</Box>
+							</Paper>
+						))}
+					</Box>
+
+					{/* Реферальная программа */}
+					<SectionHeader id='invite' icon='👥'>
+						Реферальная программа
+					</SectionHeader>
+					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
+						Приглашайте друзей и зарабатывайте вместе:
+					</Typography>
+					<Box
+						sx={{
+							p: 2,
+							mb: 3,
+							background: 'rgba(0, 191, 255, 0.1)',
+							borderRadius: '8px',
+							border: '1px dashed #00BFFF',
+						}}
+					>
+						<Typography sx={{ color: '#00BFFF', fontStyle: 'italic' }}>
+							Приглашайте друзей и получайте <strong>бонусные токены</strong>,
+							когда они:
+						</Typography>
+						<Box
+							component='ul'
+							sx={{
+								color: '#FFFFFF',
+								pl: 2,
+								mt: 1,
+								'& li': { mb: 1 },
+							}}
 						>
-							<Typography
-								sx={{ color: '#00BFFF', textDecoration: 'underline' }}
+							<li>Завершают регистрацию</li>
+							<li>Активируют автомайнинг</li>
+							<li>Достигают новых статусов</li>
+						</Box>
+						<Typography
+							sx={{
+								color: '#FFFFFF',
+								mt: 1,
+								textAlign: 'center',
+								fontWeight: 'bold',
+							}}
+						>
+							Используйте команду{' '}
+							<span style={{ color: '#f200ff' }}>/invite</span> в боте
+						</Typography>
+					</Box>
+
+					{/* Вознаграждения за рекламу */}
+					<SectionHeader id='ads' icon='📢'>
+						Программа для создателей контента
+					</SectionHeader>
+					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
+						Зарабатывайте токены, продвигая BIFS через:
+					</Typography>
+					<Box
+						sx={{
+							display: 'grid',
+							gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+							gap: 2,
+							mb: 3,
+						}}
+					>
+						{[
+							{
+								title: 'Соцсети',
+								desc: 'Посты в Twitter, Telegram и др.',
+								reward: '100-1,000 токенов',
+							},
+							{
+								title: 'Видео',
+								desc: 'Обзоры на YouTube/TikTok',
+								reward: '500-5,000 токенов',
+							},
+							{
+								title: 'Статьи',
+								desc: 'Блог-посты и руководства',
+								reward: '1,000-10,000 токенов',
+							},
+							{
+								title: 'Сообщество',
+								desc: 'Активная модерация групп',
+								reward: 'Ежемесячный бонус',
+							},
+						].map(item => (
+							<Paper
+								key={item.title}
+								sx={{
+									p: 2,
+									background: 'rgba(0, 191, 255, 0.05)',
+									border: '1px solid rgba(0, 191, 255, 0.2)',
+									borderRadius: '8px',
+								}}
 							>
-								Discord
-							</Typography>
-						</Link>
-					</SocialLinks>
+								<Typography sx={{ color: '#00BFFF', fontWeight: 'bold' }}>
+									{item.title}
+								</Typography>
+								<Typography variant='body2' sx={{ color: '#AAA', mb: 1 }}>
+									{item.desc}
+								</Typography>
+								<Typography variant='body2' sx={{ color: '#f200ff' }}>
+									Награда: {item.reward}
+								</Typography>
+							</Paper>
+						))}
+					</Box>
+					<Typography
+						sx={{
+							color: '#FFFFFF',
+							fontStyle: 'italic',
+							textAlign: 'center',
+							mb: 3,
+						}}
+					>
+						Отправляйте контент через команду{' '}
+						<span style={{ color: '#f200ff' }}>/earn</span>
+					</Typography>
+
+					{/* Наши цели */}
+					<SectionHeader id='goals' icon='🌌'>
+						Видение проекта
+					</SectionHeader>
+					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
+						Наша дорожная карта включает амбициозные этапы:
+					</Typography>
+					<Box
+						sx={{
+							background: 'rgba(0, 0, 0, 0.3)',
+							p: 2,
+							borderRadius: '8px',
+							mb: 3,
+						}}
+					>
+						{[
+							{
+								title: 'Q2 2025',
+								items: [
+									'Релиз мобильного тг приложения',
+									'Запуск майнинг-платформы',
+									'Базовая реферальная система',
+								],
+							},
+							{
+								title: 'Q3 2025',
+								items: [
+									'Листинг на BLUM',
+									'Первые аирдропы',
+									'Стейкинг токенов',
+									'Первый листинг на бирже',
+								],
+							},
+							{
+								title: 'Q4 2025',
+								items: [
+									'Интеграция NFT',
+									'Продвинутые DeFi-функции',
+									'Листинг на крупных биржах',
+								],
+							},
+						].map(quarter => (
+							<Box key={quarter.title} sx={{ mb: 2 }}>
+								<Typography
+									sx={{
+										color: '#00BFFF',
+										fontWeight: 'bold',
+										mb: 1,
+									}}
+								>
+									{quarter.title}
+								</Typography>
+								<Box
+									component='ul'
+									sx={{
+										color: '#FFFFFF',
+										pl: 2,
+										'& li': {
+											mb: 0.5,
+											position: 'relative',
+											pl: '20px',
+											'&:before': {
+												content: '"»"',
+												position: 'absolute',
+												left: 0,
+												color: '#00BFFF',
+											},
+										},
+									}}
+								>
+									{quarter.items.map((item, i) => (
+										<li key={i}>{item}</li>
+									))}
+								</Box>
+							</Box>
+						))}
+					</Box>
+
+					{/* О боте BIF */}
+					<SectionHeader id='bot' icon='🤖'>
+						Возможности бота BIF
+					</SectionHeader>
+					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
+						Ваш персональный помощник для всех активностей BIFS:
+					</Typography>
+					<Box
+						sx={{
+							display: 'grid',
+							gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+							gap: 2,
+							mb: 3,
+						}}
+					>
+						{[
+							{
+								command: '/balance',
+								desc: 'Проверка баланса и истории',
+								color: '#00BFFF',
+							},
+							{
+								command: '/mining',
+								desc: 'Управление автомайнингом',
+								color: '#00BFFF',
+							},
+							{
+								command: '/invite',
+								desc: 'Создание реферальных ссылок',
+								color: '#f200ff',
+							},
+							{
+								command: '/earn',
+								desc: 'Отправка контента для наград',
+								color: '#f200ff',
+							},
+							{
+								command: '/store',
+								desc: 'Покупка токенов и статусов',
+								color: '#FFD700',
+							},
+							{
+								command: '/support',
+								desc: 'Помощь от нашей команды',
+								color: '#FFD700',
+							},
+						].map(feature => (
+							<Paper
+								key={feature.command}
+								sx={{
+									p: 2,
+									background: 'rgba(0, 0, 0, 0.2)',
+									borderLeft: `3px solid ${feature.color}`,
+									borderRadius: '4px',
+								}}
+							>
+								<Typography
+									sx={{
+										color: feature.color,
+										fontWeight: 'bold',
+										mb: 0.5,
+									}}
+								>
+									{feature.command}
+								</Typography>
+								<Typography variant='body2' sx={{ color: '#AAA' }}>
+									{feature.desc}
+								</Typography>
+							</Paper>
+						))}
+					</Box>
+
+					{/* Социальные сети */}
+					<SectionHeader id='socials' icon='🌐'>
+						Наши сообщества
+					</SectionHeader>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							gap: 3,
+							mt: 3,
+							mb: 2,
+							flexWrap: 'wrap',
+						}}
+					>
+						{[
+							{
+								name: 'Telegram',
+								url: 'https://t.me/BIFSCryptoBot',
+								icon: '📢',
+							},
+							{
+								name: 'Twitter',
+								url: 'https://twitter.com',
+								icon: '🐦',
+							},
+							{
+								name: 'Discord',
+								url: 'https://discord.gg',
+								icon: '💬',
+							},
+							{
+								name: 'Сайт',
+								url: 'https://bifs.ru',
+								icon: '🌐',
+							},
+						].map(social => (
+							<Link
+								key={social.name}
+								href={social.url}
+								target='_blank'
+								rel='noopener noreferrer'
+								style={{ textDecoration: 'none' }}
+							>
+								<Button
+									variant='outlined'
+									startIcon={<span>{social.icon}</span>}
+									sx={{
+										color: '#00BFFF',
+										borderColor: '#00BFFF',
+										'&:hover': {
+											bgcolor: 'rgba(0, 191, 255, 0.1)',
+											borderColor: '#00BFFF',
+										},
+									}}
+								>
+									{social.name}
+								</Button>
+							</Link>
+						))}
+					</Box>
+
+					<Typography
+						sx={{
+							color: '#AAA',
+							textAlign: 'center',
+							mt: 4,
+							fontSize: '0.8rem',
+						}}
+					>
+						Экосистема BIFS v1.0 · © 2025 Все права защищены
+					</Typography>
 				</Content>
 			</Box>
 		</Modal>

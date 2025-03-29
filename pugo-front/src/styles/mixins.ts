@@ -288,7 +288,7 @@ export const blueGradientBackground = css`
 			)
 			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
 		#eef9ff;
-	box-shadow: 0px 10px 60px rgba(41, 142, 174, 0.8);
+	box-shadow: 0px 10px 60px rgba(41, 143, 174, 0.541);
 `
 export const redGradientBackground = css`
 	background: radial-gradient(
@@ -363,6 +363,31 @@ radial-gradient(
 			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
 		#030303;
 `
+
+export const greenGradientBackground = css`
+ radial-gradient(
+			45.91% 85.94% at 55.4% 14.06%,
+			rgba(255, 255, 255, 0.4) 0%,
+			rgba(255, 255, 255, 0.032) 100%
+		),
+		radial-gradient(
+				66.76% 121.06% at 22.73% 20.31%,
+				rgba(226, 241, 45, 0.2) 18.63%,
+				rgba(226, 241, 45, 0.186) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(
+				92.56% 151.44% at 33.52% -15.63%,
+				#e0e342 0%,
+				rgba(35, 173, 140, 0.58) 85.15%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		radial-gradient(35.8% 316.2% at 82.39% 55.47%, #41ff48 0%, #00bcb1 100%)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#030303;
+
+`
+
 export const pinkBlueGradientBackground = css`
 	 radial-gradient(
 				42.85% 184.29% at 15.34% 39.06%,

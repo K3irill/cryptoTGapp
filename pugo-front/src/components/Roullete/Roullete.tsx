@@ -8,6 +8,7 @@ import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 import {
 	useActivateMiningMutation,
+	useSetUserStatusMutation,
 	useUpdateTokensMutation,
 } from '@/store/services/api/userApi'
 
@@ -32,7 +33,7 @@ const PRIZE_TYPES = {
 		100000: 0.1,
 	},
 	days: {
-		3: 90,
+		5: 90,
 		7: 60,
 		21: 30,
 		30: 10,
@@ -44,6 +45,12 @@ const PRIZE_TYPES = {
 		Ship3: 20,
 		Ship4: 20,
 		Ship5: 20,
+	},
+	privileges: {
+		1: 90,
+		2: 35,
+		3: 15,
+		4: 1,
 	},
 }
 
@@ -68,7 +75,7 @@ const getRandomPrize = (chances: Record<string, number>) => {
 }
 
 interface RouletteProps {
-	caseType: 'coins' | 'days' | 'ships'
+	caseType: 'coins' | 'days' | 'ships' | 'privileges'
 	onDrop: (result: string) => void
 	isSpinning: boolean
 	onAnimationEnd?: () => void
@@ -95,6 +102,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 	const { id } = useSelector((state: RootState) => state.user)
 	const [updateTokens] = useUpdateTokensMutation()
 	const [activateMining] = useActivateMiningMutation()
+	const [setUserStatus] = useSetUserStatusMutation()
 
 	// Initialize preview items
 	useEffect(() => {
@@ -136,7 +144,23 @@ export const Roulette: React.FC<RouletteProps> = ({
 			throw error
 		}
 	}
+	const setUserStatusOnServer = async (status: number) => {
+		const roundedStatus = Math.round(Number(status))
 
+		try {
+			const response = await setUserStatus({
+				telegramId: Number(id),
+				status: roundedStatus,
+			}).unwrap()
+
+			if (!response.success) {
+				throw new Error(response.error || 'Failed to set status')
+			}
+		} catch (error) {
+			console.error('Setting status error:', error)
+			throw error
+		}
+	}
 	const easeOut = useCallback((t: number) => {
 		return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
 	}, [])
@@ -168,6 +192,16 @@ export const Roulette: React.FC<RouletteProps> = ({
 					}
 					await updateTokensOnServer(casePrice, false)
 					await activateUserMiningOnServer(daysWon)
+				} else if (caseType === 'privileges') {
+					const statusWon = parseInt(result, 10)
+
+					if (isNaN(statusWon)) {
+						throw new Error('Invalid privileges amount')
+					}
+
+					onDrop(result)
+					await updateTokensOnServer(casePrice, false)
+					await setUserStatusOnServer(statusWon)
 				}
 
 				onDrop(result)
@@ -308,7 +342,9 @@ export const Roulette: React.FC<RouletteProps> = ({
 				<div
 					style={{
 						background:
-							caseType === 'coins'
+							caseType === 'privileges'
+								? `radial-gradient(#00000000 50%, rgba(43, 169, 91, 0.799))`
+								: caseType === 'coins'
 								? `radial-gradient(transparent 50%, rgb(61, 116, 164))`
 								: caseType === 'days'
 								? `radial-gradient(transparent 50%, rgba(169, 123, 43, 0.751))`

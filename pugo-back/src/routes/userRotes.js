@@ -6,7 +6,9 @@ const { User } = require('../models')
 const {
 	updateUserTokens,
 	enableMiningForUser,
+	setStatusForUser,
 } = require('../services/userService')
+const { defineUserStatus } = require('../utils/utils')
 const router = express.Router()
 
 // Получить информацию о пользователе
@@ -51,5 +53,18 @@ router.post('/activate-automining', async (req, res) => {
 		res.status(400).json({ success: false, error: error.message })
 	}
 })
+router.post('/set-status', async (req, res) => {
+	const { telegramId, status } = req.body
 
+	try {
+		const user = await setStatusForUser(telegramId, status)
+		res.json({
+			success: true,
+			statusValue: user.status,
+			statusText: defineUserStatus(user.status),
+		})
+	} catch (error) {
+		res.status(400).json({ success: false, error: error.message })
+	}
+})
 module.exports = router

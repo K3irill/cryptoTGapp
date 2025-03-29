@@ -27,9 +27,10 @@ import { REQUEST_LINK } from '../../../constant'
 import { Ref } from './components/Ref/Ref'
 import { Toaster, toast } from 'react-hot-toast'
 import Label from '@/components/Label/Label'
+import { defineReferralAwardByStatus } from '@/utils/utils'
 
 export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
-	const { referralCode, referrals } = useSelector(
+	const { referralCode, referrals, status } = useSelector(
 		(state: RootState) => state.user
 	)
 
@@ -70,8 +71,9 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 								<OptionTextBlock>
 									<OptionTitle>За приглашение одно друга</OptionTitle>
 									<OptionTitle>
-										+ до 50 <Label isInline size='18px' title='BIFS' /> для тебя
-										и твоего друга
+										{status ? defineReferralAwardByStatus(status) : 50}{' '}
+										<Label isInline size='18px' title='BIFS' /> для тебя и 50{' '}
+										<Label isInline size='18px' title='BIFS' /> твоего друга
 									</OptionTitle>
 								</OptionTextBlock>
 							</OptionItem>
@@ -81,12 +83,8 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 								</OptionImg>
 								<OptionTextBlock>
 									<OptionTitle>
-										За приглашение одно друга с<br></br>{' '}
-										<span> Telegram Premium</span>
-									</OptionTitle>
-									<OptionTitle>
-										+ до 75 <Label isInline size='18px' title='BIFS' /> для тебя
-										и твоего друга
+										Повышай свой статус чтоб получать больше{' '}
+										<Label isInline size='18px' title='BIFS' /> за рефералов!
 									</OptionTitle>
 								</OptionTextBlock>
 							</OptionItem>
