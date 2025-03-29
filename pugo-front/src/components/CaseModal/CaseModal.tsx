@@ -28,6 +28,7 @@ import {
 	useActivateMiningMutation,
 	useUpdateTokensMutation,
 } from '@/store/services/api/userApi'
+import { handleBuyTokens } from '@/utils/sendBotMessage'
 
 interface CaseModalProps {
 	isVisible: boolean
@@ -57,7 +58,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const [prizeResult, setPrizeResult] = useState('')
 	const [isOpen, setIsOpen] = useState(false)
 	const [caseItems, setCaseItems] = useState<string[]>([])
-	const { id, tokens } = useSelector((state: RootState) => state.user)
+	const user = useSelector((state: RootState) => state.user)
 	const [isProcessing, setIsProcessing] = useState(false)
 
 	const handleBuyModalClose = () => {
@@ -167,7 +168,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		return names[caseType] || prizeResult
 	}, [caseType, prizeResult])
 
-	const hasEnoughTokens = tokens && tokens >= casePrice
+	const hasEnoughTokens = user.tokens && user.tokens >= casePrice
 	const buttonText = !hasEnoughTokens
 		? 'НЕ ХВАТАЕТ BIFS'
 		: isSpinning
@@ -257,9 +258,10 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 			</Content>
 			<BasicModal
 				title='Не хватает монет BIFS'
-				text='Вы можете заработать монеты в играх, приглашая друзей, рекламируя нас или приобрести в Маркете'
+				text='Вы можете заработать монеты в играх, приглашая друзей, рекламируя нас или приобрести за Звезды'
 				btnText='Приобрести'
 				isVisible={showBuyModal}
+				onButtonClick={() => handleBuyTokens(500, 2000, user)}
 				onClose={handleBuyModalClose}
 			/>
 		</CaseModalStyled>

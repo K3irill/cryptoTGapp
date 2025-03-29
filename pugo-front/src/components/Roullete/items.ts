@@ -105,32 +105,32 @@ export default {
 
 	// Призы для кейса с днями автомайнинга
 	'3': {
-		image: '/store/cases/DAYS.svg',
-		price: 3,
+		image: '/store/cases/3.svg',
+		price: 'Days',
 		rarity: 'common',
 		weapon: '3 Дней Автомайнинга',
 	},
 	'7': {
-		image: '/store/cases/DAYS.svg',
-		price: 7,
+		image: '/store/cases/7.svg',
+		price: 'Days',
 		rarity: 'uncommon',
 		weapon: '7 Дней Автомайнинга',
 	},
 	'21': {
-		image: '/store/cases/DAYS.svg',
-		price: 21,
+		image: '/store/cases/21.svg',
+		price: 'Days',
 		rarity: 'rare',
 		weapon: '21 Дней Автомайнинга',
 	},
 	'30': {
-		image: '/store/cases/DAYS.svg',
-		price: 30,
+		image: '/store/cases/30.svg',
+		price: 'Days',
 		rarity: 'epic',
 		weapon: '30 Дней Автомайнинга',
 	},
 	'45': {
-		image: '/store/cases/DAYS.svg',
-		price: 45,
+		image: '/store/cases/45.svg',
+		price: 'Days',
 		rarity: 'legendary',
 		weapon: '45 Дней Автомайнинга',
 	},
