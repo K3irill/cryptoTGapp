@@ -130,10 +130,25 @@ module.exports = bot => {
 			bot.sendMessage(chatId, 'Произошла ошибка при регистрации.')
 		}
 	})
-	bot.onText(/\/invite/, async msg => {
-		const telegramId = msg.from.id
-		const username = msg.from.username || null
+	bot.onText(/\/mining/, async msg => {
+		const chatId = msg.chat.id
 
+		const options = {
+			reply_markup: {
+				inline_keyboard: [
+					[
+						{
+							text: '⌚Остатки автомайнинга⌚',
+							callback_data: 'rest_mining',
+						},
+					],
+					[{ text: '🫰Приобрести🫰', callback_data: 'automining' }],
+				],
+			},
+		}
+		bot.sendMessage(chatId, 'Выберите опцию:', options)
+	})
+	bot.onText(/\/invite/, async msg => {
 		const chatId = msg.chat.id
 
 		const options = {
@@ -151,6 +166,77 @@ module.exports = bot => {
 		}
 		bot.sendMessage(chatId, 'Выберите опцию:', options)
 	})
+	bot.onText(/\/support/, async msg => {
+		const chatId = msg.chat.id
+		const user = msg.from
+
+		try {
+			// Формируем информативное сообщение
+			const supportMessage = `
+🛠 <b>Центр поддержки</b> 🛠
+
+Привет${user?.first_name ? `, ${user.first_name}` : ''}! 
+
+Если у вас возникли вопросы, проблемы или нужна помощь, 
+наша служба поддержки готова помочь!
+
+📌 <b>Способы связи:</b>
+👉 Менеджер поддержки: @feel_so_empty
+👉 Официальный чат: https://t.me/BIFSCryptoBot
+👉 Email: support@bifs.com
+
+⏱ <b>Часы работы:</b>
+Пн-Пт: 9:00-22:00 (МСК)
+Сб-Вс: ответы в течение 24 часов
+
+📋 <b>Для быстрой помощи укажите:</b>
+1. Ваш ID: <code>${user?.id || 'неизвестен'}</code>
+2. Суть проблемы
+3. Скриншоты (если есть)
+        `
+
+			// Отправка сообщения с поддержкой
+			await bot.sendMessage(chatId, supportMessage, {
+				parse_mode: 'HTML',
+				disable_web_page_preview: true,
+				reply_markup: {
+					inline_keyboard: [
+						[
+							{
+								text: '📨 Написать в поддержку',
+								url: 'https://t.me/feel_so_empty',
+							},
+							{
+								text: '❌ Закрыть',
+								callback_data: 'delete_message',
+							},
+						],
+					],
+				},
+			})
+
+			// Логируем обращение
+			console.log(`Пользователь ${user?.id} запросил поддержку`)
+		} catch (error) {
+			console.error('Ошибка в команде /support:', error)
+
+			// Отправка простого сообщения в случае ошибки
+			await bot.sendMessage(
+				chatId,
+				'⚠️ Произошла ошибка. Пожалуйста, напишите напрямую @feel_so_empty'
+			)
+		}
+	})
+
+	bot.on('callback_query', async query => {
+		if (query.data === 'delete_message') {
+			try {
+				await bot.deleteMessage(query.message.chat.id, query.message.message_id)
+			} catch (error) {
+				console.error('Ошибка при удалении сообщения:', error)
+			}
+		}
+	})
 	bot.on('message', async msg => {
 		const chatId = msg.chat.id
 		const telegramId = msg.from.id
@@ -167,6 +253,7 @@ module.exports = bot => {
 			'/tasks',
 			'/invite',
 			'/store',
+			'/mining',
 		]
 
 		// Проверяем, начинается ли сообщение с "bif-отчет"
@@ -185,7 +272,7 @@ Chat ID: ${chatId}
 			// Функция для проверки размера файла
 			const checkFileSize = async fileId => {
 				const file = await bot.getFile(fileId)
-				return file.file_size <= 2 * 1024 * 1024 // 2 МБ в байтах
+				return file.file_size <= 15 * 1024 * 1024 // 2 МБ в байтах
 			}
 
 			// Если есть документ, проверяем его размер
@@ -483,6 +570,141 @@ Chat ID: ${chatId}
 				options
 			)
 		}
+		if (query.data === 'mining') {
+			const chatId = query.message.chat.id
+			const user = query.from
+			const messageId = query.message.message_id
+
+			try {
+				// Получаем информацию о пользователе из базы данных
+				const userData = await getUserByTelegramId(user.id)
+
+				// Формируем текст сообщения с информацией о майнинге
+				const miningStatus = userData?.automining
+					? `⛏ <b>Ваш автомайнинг активен</b>\n\n` +
+					  `💰 Доход: 1000 BIFS/день\n` +
+					  `⏳ Осталось: ${formatRemainingTime(
+							userData.autominingExpiresAt
+					  )}\n\n` +
+					  `Вы можете продлить период майнинга или проверить статистику.`
+					: `🔋 <b>Автомайнинг не активирован</b>\n\n` +
+					  `Активируйте автомайнинг для пассивного заработка 1000 BIFS ежедневно!\n\n`
+
+				const options = {
+					reply_markup: {
+						inline_keyboard: [
+							[
+								{
+									text: userData?.automining
+										? '💎 Продлить майнинг'
+										: '🫰 Активировать майнинг',
+									callback_data: 'automining',
+								},
+							],
+							[
+								{
+									text: '❓ Как работает майнинг',
+									callback_data: 'mining_info',
+								},
+							],
+							[
+								{
+									text: '🔙 Вернуться',
+									callback_data: 'more_info',
+								},
+							],
+						],
+					},
+					parse_mode: 'HTML',
+				}
+
+				// Отправляем новое сообщение с меню
+				await bot.sendMessage(
+					chatId,
+					`🔷 <b>Меню автомайнинга</b> 🔷\n\n${miningStatus}\n\nВыберите действие:`,
+					options
+				)
+
+				// Логирование действия
+				console.log(
+					`[Mining Menu] User ${user.id} (${
+						user.username || 'no username'
+					}) opened mining menu`
+				)
+			} catch (error) {
+				console.error('[Mining Menu Error]', error)
+
+				await bot.sendMessage(
+					chatId,
+					'⚠️ Произошла ошибка при загрузке меню. Пожалуйста, попробуйте позже.',
+					{
+						reply_to_message_id: messageId,
+						disable_notification: true,
+					}
+				)
+			}
+		} else if (query.data === 'mining_info') {
+			const infoText = `
+  ℹ️ <b>Как работает автомайнинг?</b>
+  
+  ⏰ <b>Время начислений:</b>
+  Начисления происходят 1 раз в сутки в <b>00:00 по московскому времени</b>
+  
+  💸 <b>Процесс работы:</b>
+  1. Активируете майнинг на время(за Телеграм Stars или выбиваете в кейсах)
+  2. Каждый день в полночь получаете 1000 BIFS
+  3. Через время майнинг автоматически прекращается
+  
+  📈 <b>Пример расчёта:</b>
+  • Активация: 700 Stars
+  • Доход за 7 дней: 7000 BIFS (1000×7)
+  
+  🔁 <b>Продление:</b>
+  Можно продлевать неограниченное количество раз
+  Каждое продление добавляет купленное кол-во дней майнинга
+  
+  ⚠️ <b>Важно:</b>
+  Если не продлить вовремя - майнинг прекращается
+  Накопленные BIFS остаются на вашем балансе
+  `
+
+			await bot.editMessageText(infoText, {
+				chat_id: query.message.chat.id,
+				message_id: query.message.message_id,
+				parse_mode: 'HTML',
+				reply_markup: {
+					inline_keyboard: [
+						[{ text: '🫰 Активировать майнинг', callback_data: 'automining' }],
+						[
+							{
+								text: '🔙 Вернуться',
+								callback_data: 'mining',
+							},
+						],
+					],
+				},
+			})
+		}
+
+		// Вспомогательная функция для форматирования времени
+		function formatRemainingTime(expiryDate) {
+			if (!expiryDate) return 'неизвестно'
+
+			const now = new Date()
+			const expiry = new Date(expiryDate)
+			const diff = expiry.getTime() - now.getTime()
+
+			if (diff <= 0) return 'завершен'
+
+			const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+			const hours = Math.floor(
+				(diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+			)
+			const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+
+			return `${days}д ${hours}ч ${minutes}м`
+		}
+
 		if (query.data === 'more_info') {
 			// Сообщение с кнопками для разделов
 			const options = {
@@ -500,7 +722,7 @@ Chat ID: ${chatId}
 								callback_data: 'pay',
 							},
 							{
-								text: '🤝 Приглашение друзей',
+								text: 'Приглашение друзей 🤝',
 								callback_data: 'invite_info',
 							},
 						],
@@ -511,8 +733,8 @@ Chat ID: ${chatId}
 								callback_data: 'tasks',
 							},
 							{
-								text: '📃 Основные команды',
-								callback_data: 'commands',
+								text: 'Автомайнинг 💎',
+								callback_data: 'mining',
 							},
 						],
 
@@ -528,7 +750,7 @@ Chat ID: ${chatId}
 								callback_data: 'tokens_info',
 							},
 							{
-								text: 'Ценность токенов 💎',
+								text: 'Ценность токенов 💰',
 								callback_data: 'value_info',
 							},
 						],
@@ -541,6 +763,16 @@ Chat ID: ${chatId}
 							{
 								text: 'О боте BIF 🤖',
 								callback_data: 'bot_info',
+							},
+						],
+						[
+							{
+								text: '📃 Основные команды',
+								callback_data: 'commands',
+							},
+							{
+								text: '🆘 Поддержка',
+								callback_data: 'support',
 							},
 						],
 						[
@@ -935,7 +1167,83 @@ Chat ID: ${chatId}
 				reply_markup: options.reply_markup,
 			})
 		} else if (query.data === 'support') {
-			bot.sendMessage(chatId, '📩 Свяжитесь с нашим менеджером: @feel_so_empty')
+			const chatId = query.message.chat.id
+			const user = query.from
+			const messageId = query.message.message_id
+
+			try {
+				// Формируем информативное сообщение
+				const supportMessage = `
+  🛠 <b>Центр поддержки</b> 🛠
+  
+  Привет${user?.first_name ? `, ${user.first_name}` : ''}! 
+  
+  Если у вас возникли вопросы, проблемы или нужна помощь, 
+  наша служба поддержки готова помочь!
+  
+  📌 <b>Способы связи:</b>
+  👉 Менеджер поддержки: @feel_so_empty
+  👉 Официальный чат: https://t.me/BIFSCryptoBot
+  👉 Email: support@bifs.com
+  
+  ⏱ <b>Часы работы:</b>
+  Пн-Пт: 9:00-22:00 (МСК)
+  Сб-Вс: ответы в течение 24 часов
+  
+  📋 <b>Для быстрой помощи укажите:</b>
+  1. Ваш ID: <code>${user?.id || 'неизвестен'}</code>
+  2. Суть проблемы
+  3. Скриншоты (если есть)
+          `
+
+				// Отправка сообщения с поддержкой (редактируем существующее сообщение)
+				await bot.editMessageText(supportMessage, {
+					chat_id: chatId,
+					message_id: messageId,
+					parse_mode: 'HTML',
+					disable_web_page_preview: true,
+					reply_markup: {
+						inline_keyboard: [
+							[
+								{
+									text: '📨 Написать в поддержку',
+									url: 'https://t.me/feel_so_empty',
+								},
+
+								{
+									text: '🔙 На главную',
+									callback_data: 'more_info',
+								},
+							],
+						],
+					},
+				})
+
+				// Логируем обращение
+				console.log(
+					`Пользователь ${user?.id} (${
+						user?.username || 'без username'
+					}) запросил поддержку`
+				)
+			} catch (error) {
+				console.error('Ошибка в обработке запроса поддержки:', error)
+
+				try {
+					// Пытаемся отправить новое сообщение об ошибке
+					await bot.sendMessage(
+						chatId,
+						'⚠️ Произошла ошибка. Пожалуйста, напишите напрямую @feel_so_empty\n\n' +
+							'Код ошибки: ' +
+							(error instanceof Error ? error.message : 'unknown'),
+						{
+							reply_to_message_id: messageId,
+							disable_notification: true,
+						}
+					)
+				} catch (sendError) {
+					console.error('Не удалось отправить сообщение об ошибке:', sendError)
+				}
+			}
 		} else if (query.data === 'completed_task') {
 			try {
 				let user = await getUserByTelegramId(query.from.id)
@@ -1077,6 +1385,73 @@ Chat ID: ${chatId}
 				console.error(error)
 				bot.sendMessage(chatId, 'Произошла ошибка при выполнении запроса.')
 			}
+		} else if (query.data === 'rest_mining') {
+			try {
+				let user = await getUserByTelegramId(query.from.id)
+				if (user && user.autominingExpiresAt) {
+					const now = new Date()
+					const expiry = new Date(user.autominingExpiresAt)
+					const diffTime = expiry.getTime() - now.getTime()
+
+					if (diffTime <= 0) {
+						bot.sendMessage(
+							chatId,
+							`⏳ Ваш автомайнинг завершен. Подключите его снова!`
+						)
+					} else {
+						const days = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+						const hours = Math.floor(
+							(diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+						)
+						const minutes = Math.floor(
+							(diffTime % (1000 * 60 * 60)) / (1000 * 60)
+						)
+
+						// Функция для склонения слов
+						const pluralize = (num, words) => {
+							const cases = [2, 0, 1, 1, 1, 2]
+							return words[
+								num % 100 > 4 && num % 100 < 20
+									? 2
+									: cases[Math.min(num % 10, 5)]
+							]
+						}
+
+						const daysText = pluralize(days, ['день', 'дня', 'дней'])
+						const hoursText = pluralize(hours, ['час', 'часа', 'часов'])
+						const minutesText = pluralize(minutes, [
+							'минута',
+							'минуты',
+							'минут',
+						])
+
+						const endDate = expiry.toLocaleDateString('ru-RU', {
+							day: 'numeric',
+							month: 'long',
+							year: 'numeric',
+							hour: '2-digit',
+							minute: '2-digit',
+						})
+
+						bot.sendMessage(
+							chatId,
+							`⏳ Осталось времени майнинга:\n\n` +
+								`🕒 ${days} ${daysText}, ${hours} ${hoursText}, ${minutes} ${minutesText}\n\n` +
+								`📅 Завершится: ${endDate}`
+						)
+					}
+				} else {
+					bot.sendMessage(
+						chatId,
+						`🔍 ${
+							user?.username || 'Пользователь'
+						}, у вас не подключен автомайнинг!`
+					)
+				}
+			} catch (error) {
+				console.error(error)
+				bot.sendMessage(chatId, '⚠️ Произошла ошибка при проверке майнинга.')
+			}
 		} else if (query.data === 'my_ref_people') {
 			try {
 				const user = await getUserByTelegramId(query.from.id)
@@ -1113,12 +1488,13 @@ Chat ID: ${chatId}
   📜 <b>Основные команды:</b>
   
   🚀 <b>/start</b> — Начать работу с ботом.
-  🛠 <b>/help</b> — Получить помощь и список доступных команд.
   🛒 <b>/store</b> — Перейти в магазин для покупки токенов и услуг.
   💰 <b>/balance</b> — Проверить текущий баланс токенов.
   📋 <b>/tasks</b> — Просмотреть список доступных заданий.
   🤝 <b>/invite</b> — Пригласить друзей и получить бонусы.
-  
+  💎 <b>/mining</b> — Информация о автомайнинге.
+  🆘 <b>/support</b> — Обратиться в техподдержку.
+
   💡 <b>Используйте эти команды, чтобы управлять своим аккаунтом и зарабатывать токены!</b>
       `
 

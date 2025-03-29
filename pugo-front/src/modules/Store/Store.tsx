@@ -119,7 +119,17 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 								</CaseCard>
 							</SwiperSlide>
 							<SwiperSlide>
-								<CaseCard shadowColor='#045885' onClick={() => () => null}>
+								<CaseCard
+									disabled
+									shadowColor='#045885'
+									onClick={() => () => null}
+								>
+									{' '}
+									<Lock
+										style={{ width: '70%', top: '0%', filter: 'none' }}
+										src='/icons/lock.svg'
+										alt='locked'
+									/>
 									<img src='/store/secret.png' alt='' />
 									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
 								</CaseCard>
@@ -160,13 +170,29 @@ export const Store: FunctionComponent<StoreProps> = ({ data, children }) => {
 								</CaseCard>
 							</SwiperSlide>
 							<SwiperSlide>
-								<CaseCard shadowColor='#045885' onClick={() => null}>
+								<CaseCard disabled shadowColor='#045885' onClick={() => null}>
+									{' '}
+									<Lock
+										style={{ width: '70%', top: '0%', filter: 'none' }}
+										src='/icons/lock.svg'
+										alt='locked'
+									/>
 									<img src='/store/secret.png' alt='' />
 									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
 								</CaseCard>
 							</SwiperSlide>
 							<SwiperSlide>
-								<CaseCard shadowColor='#045885' onClick={() => () => null}>
+								<CaseCard
+									disabled
+									shadowColor='#045885'
+									onClick={() => () => null}
+								>
+									{' '}
+									<Lock
+										style={{ width: '70%', top: '0%', filter: 'none' }}
+										src='/icons/lock.svg'
+										alt='locked'
+									/>
 									<img src='/store/secret.png' alt='' />
 									<CaseTitle>ЗАТЕРЯЛОСЬ В КОСМОСЕ</CaseTitle>
 								</CaseCard>

@@ -410,16 +410,18 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 						sx={{ mt: 1, color: '#FFFFFF' }}
 					>
 						<strong style={{ color: '#12b317' }}>3. Автомайнинг:</strong>{' '}
-						Активируйте автомайнинг токенов на 7, 21 или 30 дней через команду.
-						Бот будет ежедневно начислять токены и уведомлять о статусе.
+						Активируйте автомайнинг токенов на 7, 21 или 30 дней через команду
+						<strong style={{ color: '#d309bb' }}>/mining</strong>. Бот будет
+						ежедневно начислять токены и уведомлять о статусе.
 					</Typography>
 					<Typography
 						id='modal-modal-description'
 						sx={{ mt: 1, color: '#FFFFFF' }}
 					>
 						<strong style={{ color: '#12b317' }}>4. Покупка токенов:</strong>{' '}
-						Покупайте токены BIFS напрямую через бота. Используйте команду,
-						чтобы выбрать количество токенов и получить реквизиты для оплаты.
+						Покупайте токены BIFS напрямую через бота. Используйте команду{' '}
+						<strong style={{ color: '#d309bb' }}>/store</strong>, чтобы выбрать
+						количество токенов и получить реквизиты для оплаты.
 					</Typography>
 					<Typography
 						id='modal-modal-description'
@@ -429,8 +431,9 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							5. Техническая поддержка:
 						</strong>{' '}
 						Если у вас возникли вопросы или проблемы, напишите в поддержку через
-						команду. Бот предоставит ответы на часто задаваемые вопросы или
-						свяжет с оператором.
+						команду <strong style={{ color: '#d309bb' }}>/support</strong>. Бот
+						предоставит ответы на часто задаваемые вопросы или свяжет с
+						оператором.
 					</Typography>
 					<Typography
 						id='modal-modal-description'
@@ -439,8 +442,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 						<strong style={{ color: '#12b317' }}>
 							6. Управление аккаунтом:
 						</strong>{' '}
-						Просматривайте баланс токенов, историю транзакций и статус
-						автомайнинга через команду{' '}
+						Просматривайте баланс токенов, историю транзакций{' '}
 						<strong style={{ color: '#d309bb' }}>/balance</strong>.
 					</Typography>
 					<Typography
@@ -451,7 +453,14 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							7. Информация о проекте:
 						</strong>{' '}
 						Узнавайте актуальные новости, обновления и цели проекта через
-						команду <strong style={{ color: '#d309bb' }}>/info</strong>.
+						команду с помощью нашего бота{' '}
+						<a href='https://t.me/BIFSCryptoBot'>
+							<strong style={{ color: '#9312b3' }}>@BIFSCryptoBot</strong>
+						</a>{' '}
+						или на официальном сайте{' '}
+						<a href='https://t.me/BIFSCryptoBot'>
+							<strong style={{ color: '#1260b3' }}>www.bifs.ru.</strong>
+						</a>{' '}
 					</Typography>
 					<Typography
 						id='modal-modal-description'

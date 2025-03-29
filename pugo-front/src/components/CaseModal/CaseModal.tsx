@@ -46,7 +46,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	onClose,
 	title = 'CASE',
 	text = 'BIFS COINS',
-	btnText = 'ОТКРЫТЬ ЗА',
+	btnText = 'ОТКРЫТЬ',
 	imgSrc = '/store/cases/case-1.png',
 	caseType,
 	casePrice = 500,

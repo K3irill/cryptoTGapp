@@ -54,10 +54,9 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 					})
 				)
 
-				// Инициализация флага isFirstTime, если он ещё не установлен
 				const isFirstTime = localStorage.getItem('isFirstTime')
 				if (isFirstTime === null) {
-					localStorage.setItem('isFirstTime', 'true') // Устанавливаем флаг для нового пользователя
+					localStorage.setItem('isFirstTime', 'true')
 				}
 
 				const urlParams = new URLSearchParams(window.location.search)
