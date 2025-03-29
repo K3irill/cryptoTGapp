@@ -59,48 +59,11 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const [caseItems, setCaseItems] = useState<string[]>([])
 	const { id, tokens } = useSelector((state: RootState) => state.user)
 	const [isProcessing, setIsProcessing] = useState(false)
-	const [updateTokens] = useUpdateTokensMutation()
-	const [activateMining] = useActivateMiningMutation()
+
 	const handleBuyModalClose = () => {
 		setShowBuyModal(false)
 	}
 
-	const updateTokensOnServer = async (
-		delta: number,
-		isPlus: boolean = true
-	) => {
-		const roundedDelta = Math.round(Number(delta))
-		try {
-			const response = await updateTokens({
-				telegramId: Number(id),
-				amount: roundedDelta,
-				isPlus: isPlus,
-			}).unwrap()
-			// if (response.success) {
-			// } else {
-			// }
-		} catch (error) {
-			console.error('Update tokens error:', error)
-		}
-	}
-	const activateUserMiningOnServer = async (days: number) => {
-		const roundedDays = Math.round(Number(days))
-		try {
-			const response = await activateMining({
-				telegramId: Number(id),
-				days: roundedDays,
-			}).unwrap()
-
-			if (response.success) {
-				console.log(`Активирован майнинг на ${roundedDays} дней`)
-			} else {
-				throw new Error(response.error || 'Failed to activate mining')
-			}
-		} catch (error) {
-			console.error('Mining activation error:', error)
-			throw error
-		}
-	}
 	useEffect(() => {
 		const generateCaseItems = () => {
 			const chances = {
@@ -186,7 +149,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const getPrizeImage = useCallback(() => {
 		const images = {
 			coins: '/coin-c.png',
-			days: `/store/cases/${prizeResult}.svg`,
+			days: `/store/cases/DAYS.svg`,
 			ships: '/ship-icon.png',
 		}
 		return images[caseType] || '/coin-c.png'
