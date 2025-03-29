@@ -1,35 +1,34 @@
 import React, { FunctionComponent } from 'react'
 import {
-	FrensStyled,
-	FrensBlock,
-	Headline,
-	Title,
 	SubTitle,
-	DescriptionBlock,
-	OptionItem,
-	OptionTitle,
-	OptionTextBlock,
-	OptionImg,
-	ButtonBlock,
-	ReferralsBlock,
-	TextStyled,
-	ReferralsInfo,
-	ReferralsHeading,
+	FrensContainer,
+	Header,
+	MainTitle,
+	BenefitsContainer,
+	BenefitItem,
+	BenefitIcon,
+	BenefitText,
+	BenefitTitle,
+	BenefitDescription,
+	ReferralButton,
+	ReferralsSection,
+	ReferralsHeader,
+	ReferralsTitle,
+	ReferralsList,
+	EmptyState,
 } from './styled'
 import { FrensProps } from './Frens.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import { Container } from '@/styles/styled'
-import PugoLabel from '@/components/PugoLabel/PugoLabel'
-import { REQUEST_LINK } from '../../../constant'
+
 import { Ref } from './components/Ref/Ref'
 import { Toaster, toast } from 'react-hot-toast'
-import Label from '@/components/Label/Label'
+
 import { defineReferralAwardByStatus } from '@/utils/utils'
 
-export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
+export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 	const { referralCode, referrals, status } = useSelector(
 		(state: RootState) => state.user
 	)
@@ -43,7 +42,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 				navigator.clipboard
 					.writeText(referralLink)
 					.then(() => {
-						toast.success('Реферальный код скопирован!')
+						toast.success('Реферальная ссылка скопирована!')
 					})
 					.catch(error => {
 						console.error('Ошибка при копировании ссылки: ', error)
@@ -54,84 +53,101 @@ export const Frens: FunctionComponent<FrensProps> = ({ data, children }) => {
 	}
 
 	return (
-		<>
-			<FrensStyled>
-				<TopPageInfo data={data.top_section} />
-				<Container>
-					<FrensBlock>
-						<Headline>
-							<Title>Приглашайте друзей</Title>
-							<SubTitle>Вы и ваш друг получите токены</SubTitle>
-						</Headline>
-						<DescriptionBlock>
-							<OptionItem>
-								<OptionImg>
-									<Image src='/icons/gift.svg' width={50} height={50} alt='' />
-								</OptionImg>
-								<OptionTextBlock>
-									<OptionTitle>За приглашение одно друга</OptionTitle>
-									<OptionTitle>
-										{status ? defineReferralAwardByStatus(status) : 50}{' '}
-										<Label isInline size='18px' title='BIFS' /> для тебя и 50{' '}
-										<Label isInline size='18px' title='BIFS' /> твоего друга
-									</OptionTitle>
-								</OptionTextBlock>
-							</OptionItem>
-							<OptionItem>
-								<OptionImg>
-									<Image src='/icons/gift.svg' width={50} height={50} alt='' />
-								</OptionImg>
-								<OptionTextBlock>
-									<OptionTitle>
-										Повышай свой статус чтоб получать больше{' '}
-										<Label isInline size='18px' title='BIFS' /> за рефералов!
-									</OptionTitle>
-								</OptionTextBlock>
-							</OptionItem>
-						</DescriptionBlock>
-						<ButtonBlock>
-							<PugoLabel
-								onClick={handleCopyReferralLink}
-								height='30px'
-								radius='5px'
-								fontSize='12px'
-								title={
-									referralCode
-										? 'КОПИРОВАТЬ РЕФ ССЫЛКУ'
-										: 'Загружаем вашу реф ссылку...'
-								}
-							/>
-						</ButtonBlock>
-						<Headline>
-							<SubTitle>Ваши рефералы:</SubTitle>
-						</Headline>
-						<ReferralsBlock>
-							<ReferralsHeading>
-								{referrals && referrals?.length > 0 && (
-									<>
-										<TextStyled>Имя</TextStyled>
-										<TextStyled>Токены</TextStyled>
-									</>
-								)}
-							</ReferralsHeading>
-							<ReferralsInfo>
-								{referrals && referrals?.length > 0 ? (
-									referrals?.map(ref => <Ref key={ref} ref={ref} />)
-								) : (
-									<TextStyled style={{ textAlign: 'center' }}>
-										У вас пока нет рефералов. Скорее приглашайте и получайте
-										бонусы!
-									</TextStyled>
-								)}
-							</ReferralsInfo>
-						</ReferralsBlock>
-					</FrensBlock>
-					{children}
-				</Container>
-			</FrensStyled>
+		<FrensContainer
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 0.5 }}
+		>
+			<TopPageInfo data={data.top_section} />
 
-			{/* Добавляем Toaster для уведомлений */}
-			<Toaster />
-		</>
+			<Header
+				initial={{ y: -20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ duration: 0.5 }}
+			>
+				<MainTitle>Приглашайте друзей</MainTitle>
+				<SubTitle>Получайте токены за каждого приглашенного друга</SubTitle>
+			</Header>
+
+			<BenefitsContainer
+				initial={{ y: 20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ delay: 0.1, duration: 0.5 }}
+			>
+				<BenefitItem
+					whileHover={{ scale: 1.02 }}
+					transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+				>
+					<BenefitIcon>
+						<Image src='/icons/gift.svg' width={32} height={32} alt='Бонус' />
+					</BenefitIcon>
+					<BenefitText>
+						<BenefitTitle>Бонус за приглашение</BenefitTitle>
+						<BenefitDescription>
+							Вы получите{' '}
+							<span>
+								{status ? defineReferralAwardByStatus(status) : 50} BIFS
+							</span>
+							, а ваш друг получит <span>50 BIFS</span>
+						</BenefitDescription>
+					</BenefitText>
+				</BenefitItem>
+
+				<BenefitItem
+					whileHover={{ scale: 1.02 }}
+					transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+				>
+					<BenefitIcon>
+						<Image
+							src='/icons/gold-star.svg'
+							width={26}
+							height={26}
+							alt='Статус'
+						/>
+					</BenefitIcon>
+					<BenefitText>
+						<BenefitTitle>Повышайте статус</BenefitTitle>
+						<BenefitDescription>
+							Увеличивайте награды за рефералов, повышая свой статус в системе
+						</BenefitDescription>
+					</BenefitText>
+				</BenefitItem>
+			</BenefitsContainer>
+
+			<ReferralButton
+				onClick={handleCopyReferralLink}
+				whileHover={{ scale: 1.02 }}
+				whileTap={{ scale: 0.98 }}
+			>
+				{referralCode ? 'СКОПИРОВАТЬ РЕФЕРАЛЬНУЮ ССЫЛКУ' : 'Загрузка ссылки...'}
+			</ReferralButton>
+
+			<ReferralsSection
+				initial={{ y: 20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ delay: 0.2, duration: 0.5 }}
+			>
+				<ReferralsHeader>
+					<ReferralsTitle>Ваши рефералы</ReferralsTitle>
+				</ReferralsHeader>
+
+				<ReferralsList>
+					{referrals && referrals.length > 0 ? (
+						referrals.map((ref, index) => <Ref key={ref} ref={ref} />)
+					) : (
+						<EmptyState
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ delay: 0.3 }}
+						>
+							У вас пока нет рефералов. Скорее приглашайте друзей и получайте
+							бонусы!
+						</EmptyState>
+					)}
+				</ReferralsList>
+			</ReferralsSection>
+
+			<Toaster position='top-center' />
+		</FrensContainer>
 	)
 }

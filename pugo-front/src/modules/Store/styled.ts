@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
-import { COLORS } from '@/styles/colors'
+
 import { purpleTextGradient, blueTextGradient } from '@/styles/mixins'
 import { Swiper } from 'swiper/react'
 
