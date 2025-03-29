@@ -150,7 +150,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const getPrizeImage = useCallback(() => {
 		const images = {
 			coins: '/coin-c.png',
-			days: `/store/cases/DAYS.svg`,
+			days: `/store/cases/${prizeResult}.svg`,
 			ships: '/ship-icon.png',
 		}
 		return images[caseType] || '/coin-c.png'
