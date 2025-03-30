@@ -152,7 +152,7 @@ export const StarProductCard = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
-	${mainBlockBackground};
+	background: rgba(30, 30, 46, 0.6);
 	border: 1px solid rgba(255, 255, 255, 0.05);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	transition: all 0.3s ease;

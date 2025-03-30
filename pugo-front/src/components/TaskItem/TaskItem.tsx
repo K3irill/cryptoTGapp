@@ -1,11 +1,12 @@
 import {
 	TaskItemContainer,
-	IconWrapper,
-	Description,
-	Reward,
-	Status,
+	TaskIcon,
+	TaskContent,
+	TaskTitle,
+	TaskReward,
+	TaskStatus,
+	TaskButton,
 } from './styled'
-import PugoLabel from '../PugoLabel/PugoLabel'
 import { FunctionComponent } from 'react'
 import { TasksApi } from '@/types/types'
 import Image from 'next/image'
@@ -23,6 +24,7 @@ interface TaskItemProps {
 const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const [completeTask] = useCompleteTaskMutation()
 	const [completeTgTask, { isLoading, error }] = useCompleteTgTaskMutation()
+
 	const handleCompleteTask = async () => {
 		try {
 			if (props.UserTask.status === 'available') {
@@ -34,6 +36,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			console.error('Ошибка при завершении задачи:', err)
 		}
 	}
+
 	const handleCompleteTgTask = async () => {
 		try {
 			if (props.UserTask.status === 'available') {
@@ -45,17 +48,25 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			console.error('Ошибка при завершении задачи:', err)
 		}
 	}
+
 	return (
-		<TaskItemContainer>
-			<IconWrapper>
-				<Image src={props.icon} width={25} height={25} alt='' />
-			</IconWrapper>
-			<Description>{props.description}</Description>
-			<Status>
-				<Reward>
-					{Math.floor(+props.reward)} <Label size='12px' title='BIFS' />
-				</Reward>
-				<PugoLabel
+		<TaskItemContainer
+			transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+		>
+			<TaskIcon>
+				<Image src={props.icon} width={32} height={32} alt='' />
+			</TaskIcon>
+
+			<TaskContent>
+				<TaskTitle>{props.description}</TaskTitle>
+			</TaskContent>
+
+			<TaskStatus>
+				<TaskReward>
+					<p>{Math.floor(+props.reward)} </p>
+					<Label size='14px' title='BIFS' />
+				</TaskReward>
+				<TaskButton
 					onClick={
 						props.UserTask.status === 'available'
 							? props.chatId
@@ -63,27 +74,18 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 								: handleCompleteTask
 							: undefined
 					}
-					theme={
-						isLoading && props.chatId
-							? 'pending'
-							: props.UserTask.status === 'available'
-							? 'available'
-							: props.UserTask.status === 'pending'
-							? 'pending'
-							: 'received'
-					}
-					radius='5px'
-					title={
-						isLoading && props.chatId
-							? 'Проверяем...'
-							: props.UserTask.status === 'available'
-							? 'Выполнить'
-							: props.UserTask.status === 'pending'
-							? 'Проверка'
-							: 'Выполнено'
-					}
-				/>
-			</Status>
+					status={isLoading && props.chatId ? 'pending' : props.UserTask.status}
+					disabled={props.UserTask.status !== 'available'}
+				>
+					{isLoading && props.chatId
+						? 'Проверяем...'
+						: props.UserTask.status === 'available'
+						? 'Выполнить'
+						: props.UserTask.status === 'pending'
+						? 'Проверка'
+						: 'Выполнено'}
+				</TaskButton>
+			</TaskStatus>
 		</TaskItemContainer>
 	)
 }

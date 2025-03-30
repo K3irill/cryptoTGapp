@@ -14,7 +14,7 @@ interface LabelStyledProps {
 	isInline?: boolean
 }
 
-export const LabelStyled = styled.div<LabelStyledProps>`
+export const LabelStyled = styled.p<LabelStyledProps>`
 	${p => p.isInline && 'display: inline;'}
 
 	font-family: var(--font-iceberg);

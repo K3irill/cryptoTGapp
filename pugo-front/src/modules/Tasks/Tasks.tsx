@@ -1,26 +1,32 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import {
-	AvailableTasks,
-	TasksBlock,
-	TasksStyled,
-	TextStyled,
-	CompletedTasks,
-	Column,
-	AccordionTop,
+	TasksContainer,
+	TasksHeader,
+	MainTitle,
+	SubTitle,
+	TasksContent,
+	TasksSection,
+	SectionHeader,
+	SectionTitle,
+	SectionToggle,
+	TasksList,
+	EmptyState,
+	TaskItemWrapper,
+	InstructionBlock,
+	InstructionSteps,
+	InstructionStep,
+	InstructionArrow,
 } from './styled'
 import { TasksProps } from './Tasks.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
-import Image from 'next/image'
-import { InstructionBlock } from './components/InstructionBlock/InstructionBlock'
 import { useGetUserTasksQuery } from '@/store/services/api/tasksApi'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { TasksApi } from '@/types/types'
 import TaskItem from '@/components/TaskItem/TaskItem'
-import { Container, Headline } from '@/styles/styled'
-import { TopBorderStyled } from '../Bank/styled'
 import Loader from '@/components/Loader/Loader'
 import Error from '@/components/Error/Error'
+import { motion } from 'framer-motion'
 
 export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 	const [isCompletedOpen, setIsCompletedOpen] = useState<boolean>(true)
@@ -47,74 +53,119 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 
 	if (isLoading)
 		return (
-			<TasksStyled>
+			<TasksContainer>
 				<Loader />
-			</TasksStyled>
+			</TasksContainer>
 		)
 	if (error)
 		return (
-			<TasksStyled>
+			<TasksContainer>
 				<Error />
-			</TasksStyled>
+			</TasksContainer>
 		)
 
 	return (
-		<TasksStyled>
+		<TasksContainer
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 0.5 }}
+		>
 			<TopPageInfo data={data.top_section} />
-			<Container>
-				<TopBorderStyled src='./grey-top-border.svg' alt='border' />
 
-				<InstructionBlock />
-				<TasksBlock>
-					<CompletedTasks>
-						<AccordionTop
-							isOpen={isCompletedOpen}
-							onClick={() => setIsCompletedOpen(prev => !prev)}
-						>
-							<Headline theme='whity' size={20}>
-								Выполненные задания
-							</Headline>
-							<Image src='/icons/accordion.svg' width={15} height={15} alt='' />
-						</AccordionTop>
+			<TasksHeader>
+				<MainTitle>Задания</MainTitle>
+				<SubTitle>Выполняйте задания и получайте BIFS</SubTitle>
+			</TasksHeader>
 
-						<Column withOpacity isOpen={isCompletedOpen}>
-							{completedTasks.length > 0 ? (
-								completedTasks.map(task => (
-									<TaskItem key={task.id} props={task} userId={id} />
-								))
-							) : (
-								<Headline theme='silver' size={12}>
-									выполненных заданий пока нет
-								</Headline>
-							)}
-						</Column>
-					</CompletedTasks>
-					<AvailableTasks>
-						<AccordionTop
-							isOpen={isAvailableOpen}
-							onClick={() => setIsAvailableOpen(prev => !prev)}
-						>
-							<Headline theme='whity' size={20}>
-								Доступные задания
-							</Headline>
-							<Image src='/icons/accordion.svg' width={15} height={15} alt='' />
-						</AccordionTop>
+			<InstructionBlock
+				initial={{ y: 20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ delay: 0.1, duration: 0.5 }}
+			>
+				<h3>Как это работает?</h3>
+				<InstructionSteps>
+					<InstructionStep whileHover={{ scale: 1.05 }}>
+						<img src='/instruction-card-1.svg' alt='Шаг 1' />
+					</InstructionStep>
+					<InstructionArrow src='/icons/arrow-to-right.svg' />
+					<InstructionStep whileHover={{ scale: 1.05 }}>
+						<img src='/coin-c.png' alt='Шаг 2' />
+					</InstructionStep>
+					<InstructionArrow src='/icons/arrow-to-right.svg' />
+					<InstructionStep whileHover={{ scale: 1.05 }}>
+						<img src='/icons/dollar.png' alt='Шаг 3' />
+					</InstructionStep>
+				</InstructionSteps>
+			</InstructionBlock>
 
-						<Column isOpen={isAvailableOpen}>
-							{availableTasks.length > 0 ? (
-								availableTasks.map(task => (
-									<TaskItem key={task.id} props={task} userId={id} />
-								))
-							) : (
-								<Headline theme='silver' size={12}>
-									доступных заданий пока нет
-								</Headline>
-							)}
-						</Column>
-					</AvailableTasks>
-				</TasksBlock>
-				{children}
-			</Container>
-		</TasksStyled>
+			<TasksContent>
+				<TasksSection
+					initial={{ y: 20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ delay: 0.2, duration: 0.5 }}
+				>
+					<SectionHeader onClick={() => setIsAvailableOpen(!isAvailableOpen)}>
+						<SectionTitle>Доступные задания</SectionTitle>
+						<SectionToggle isOpen={isAvailableOpen}>
+							<img src='/icons/accordion.svg' alt='toggle' />
+						</SectionToggle>
+					</SectionHeader>
+
+					<TasksList isOpen={isAvailableOpen}>
+						{availableTasks.length > 0 ? (
+							availableTasks.map((task, index) => (
+								<TaskItemWrapper
+									key={task.id}
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ delay: 0.1 * index }}
+								>
+									<TaskItem props={task} userId={id} />
+								</TaskItemWrapper>
+							))
+						) : (
+							<EmptyState>
+								<img src='/icons/empty-box.svg' alt='Нет заданий' />
+								<p>Нет доступных заданий</p>
+							</EmptyState>
+						)}
+					</TasksList>
+				</TasksSection>
+
+				<TasksSection
+					initial={{ y: 20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ delay: 0.3, duration: 0.5 }}
+				>
+					<SectionHeader onClick={() => setIsCompletedOpen(!isCompletedOpen)}>
+						<SectionTitle>Выполненные задания</SectionTitle>
+						<SectionToggle isOpen={isCompletedOpen}>
+							<img src='/icons/accordion.svg' alt='toggle' />
+						</SectionToggle>
+					</SectionHeader>
+
+					<TasksList isOpen={isCompletedOpen}>
+						{completedTasks.length > 0 ? (
+							completedTasks.map((task, index) => (
+								<TaskItemWrapper
+									key={task.id}
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ delay: 0.1 * index }}
+								>
+									<TaskItem props={task} userId={id} />
+								</TaskItemWrapper>
+							))
+						) : (
+							<EmptyState>
+								<img src='/icons/empty-box.svg' alt='Нет заданий' />
+								<p>Вы еще не выполнили ни одного задания</p>
+							</EmptyState>
+						)}
+					</TasksList>
+				</TasksSection>
+			</TasksContent>
+			{children}
+		</TasksContainer>
 	)
 }
