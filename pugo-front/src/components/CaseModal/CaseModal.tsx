@@ -199,7 +199,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 					casePrice={casePrice}
 				/>
 				<CaseButtonWrapper>
-					{caseType === 'privileges' && user.status === 4 ? (
+					{caseType === 'privileges' && user.status === 10 ? (
 						<h3>У вас уже максимальный статус</h3>
 					) : (
 						<MulticolouredButton
