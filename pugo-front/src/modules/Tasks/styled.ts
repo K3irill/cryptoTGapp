@@ -13,12 +13,11 @@ export const TasksContainer = styled(motion.div)`
 	flex-direction: column;
 	gap: 24px;
 	padding: 20px;
-	max-height: calc(100vh - 170px);
+	height: calc(100vh - 170px);
 	overflow-y: auto;
 	scrollbar-width: none;
 	position: relative;
-	z-index: 2;
-
+	z-index: 5;
 	&::-webkit-scrollbar {
 		display: none;
 	}

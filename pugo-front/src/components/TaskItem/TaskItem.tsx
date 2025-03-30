@@ -18,6 +18,7 @@ import {
 	useCompleteTgTaskMutation,
 } from '@/store/services/api/tasksApi'
 import Label from '../Label/Label'
+import { useRouter } from 'next/router'
 
 interface TaskItemProps {
 	props: TasksApi
@@ -26,25 +27,29 @@ interface TaskItemProps {
 
 const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const [completeTask] = useCompleteTaskMutation()
-	const [completeTgTask, { isLoading, error }] = useCompleteTgTaskMutation()
+	const [completeTgTask, { isLoading }] = useCompleteTgTaskMutation()
+	const router = useRouter()
 
-	const handleCompleteTask = async () => {
+	const handleTaskAction = async () => {
 		try {
-			if (props.UserTask.status === 'available') {
-				await completeTask({ userId, taskId: props.id }).unwrap()
-			}
-			window.Telegram.WebApp.openLink(props.link)
-			window.location.reload()
-		} catch (err) {
-			console.error('Ошибка при завершении задачи:', err)
-		}
-	}
+			if (props.UserTask.status !== 'available') return
 
-	const handleCompleteTgTask = async () => {
-		try {
-			if (props.UserTask.status === 'available') {
+			// Обработка разных типов задач
+			if (props.chatId) {
+				// Telegram-задачи
 				window.Telegram.WebApp.openLink(props.link)
 				await completeTgTask({ userId, taskId: props.id }).unwrap()
+			} else if (props.type === 'game_achievement') {
+				// Игровые достижения - просто переход
+				router.push(props.link)
+				return // Не завершаем задачу, она завершится при достижении результата
+			} else {
+				// Стандартные задачи
+				await completeTask({ userId, taskId: props.id }).unwrap()
+			}
+
+			// Обновляем страницу только для неигровых задач
+			if (props.type !== 'game_achievement') {
 				window.location.reload()
 			}
 		} catch (err) {
@@ -52,7 +57,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 		}
 	}
 
-	// Рассчитываем прогресс для задач с targetValue
+	// Расчет прогресса
 	const showProgress = props.targetValue && props.achievementType
 	const progress = props.UserTask?.currentProgress || 0
 	const target = props.targetValue || 1
@@ -91,27 +96,23 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 					<Label size='14px' title='BIFS' />
 				</TaskReward>
 				<TaskButton
-					onClick={
-						props.UserTask.status === 'available'
-							? props.chatId
-								? handleCompleteTgTask
-								: handleCompleteTask
-							: undefined
-					}
+					onClick={handleTaskAction}
 					status={isLoading && props.chatId ? 'pending' : props.UserTask.status}
 					disabled={props.UserTask.status !== 'available'}
 				>
-					{isLoading && props.chatId
-						? 'Проверяем...'
-						: props.UserTask.status === 'available'
-						? 'Выполнить'
-						: props.UserTask.status === 'pending'
-						? 'Проверка'
-						: 'Выполнено'}
+					{getButtonText()}
 				</TaskButton>
 			</TaskStatus>
 		</TaskItemContainer>
 	)
+
+	function getButtonText() {
+		if (isLoading && props.chatId) return 'Проверяем...'
+		if (props.UserTask.status !== 'available') {
+			return props.UserTask.status === 'pending' ? 'Проверка' : 'Выполнено'
+		}
+		return props.type === 'game_achievement' ? 'Перейти' : 'Выполнить'
+	}
 }
 
 export default TaskItem

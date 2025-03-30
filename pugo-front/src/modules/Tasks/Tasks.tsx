@@ -73,7 +73,6 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 			<TopPageInfo data={data.top_section} />
 
 			<TasksHeader>
-				<MainTitle>Задания</MainTitle>
 				<SubTitle>Выполняйте задания и получайте BIFS</SubTitle>
 			</TasksHeader>
 
