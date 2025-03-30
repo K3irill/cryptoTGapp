@@ -49,7 +49,24 @@ const User = sequelize.define(
 		},
 		status: {
 			type: DataTypes.INTEGER,
+			defaultValue: 0,
 			allowNull: false,
+		},
+		caseAmount: {
+			type: DataTypes.BIGINT,
+			defaultValue: 0,
+		},
+		spacePugRecord: {
+			type: DataTypes.BIGINT,
+			defaultValue: 0,
+		},
+		cards: {
+			type: DataTypes.ARRAY(DataTypes.JSONB),
+			defaultValue: [],
+		},
+		ships: {
+			type: DataTypes.ARRAY(DataTypes.JSONB),
+			defaultValue: [],
 		},
 	},
 	{
