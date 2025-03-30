@@ -18,6 +18,11 @@ import {
 	ListItem,
 	ListItemIcon,
 } from '@mui/material'
+import { darkenColor, lightenColor } from '@/utils/utils'
+import {
+	useSetUserStatusMutation,
+	useUpdateTokensMutation,
+} from '@/store/services/api/userApi'
 
 const modalStyle = {
 	position: 'absolute',
@@ -53,7 +58,54 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 	onClose,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
+	const [setUserStatus] = useSetUserStatusMutation()
+	const [updateTokens] = useUpdateTokensMutation()
 
+	const setUserStatusOnServer = async (status: number) => {
+		const roundedStatus = Math.round(Number(status))
+
+		try {
+			const response = await setUserStatus({
+				telegramId: Number(user.id),
+				status: roundedStatus,
+			}).unwrap()
+
+			if (!response.success) {
+				throw new Error(response.error || 'Failed to set status')
+			}
+		} catch (error) {
+			console.error('Setting status error:', error)
+			throw error
+		}
+	}
+	const updateTokensOnServer = async (
+		delta: number,
+		isPlus: boolean = true
+	) => {
+		const roundedDelta = Math.round(Number(delta))
+		try {
+			await updateTokens({
+				telegramId: Number(user.id),
+				amount: roundedDelta,
+				isPlus: isPlus,
+			}).unwrap()
+		} catch (error) {
+			console.error('Update tokens error:', error)
+			throw error
+		}
+	}
+
+	const handleBuyStatus = async (status, cost) => {
+		if (status <= user.status) {
+			return
+		}
+
+		if (user.tokens >= cost) {
+			await updateTokensOnServer(cost, false)
+			await setUserStatusOnServer(status)
+		} else {
+		}
+	}
 	const SectionHeader = ({
 		children,
 		id,
@@ -305,6 +357,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 					</Box>
 
 					{/* Статусы и привилегии */}
+					{/* Статусы и привилегии */}
 					<SectionHeader id='privileges' icon='🏆'>
 						Уровни статусов
 					</SectionHeader>
@@ -326,172 +379,257 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 								xs: '1fr',
 								sm: 'repeat(2, 1fr)',
 								md: 'repeat(3, 1fr)',
+								lg: 'repeat(4, 1fr)',
 							},
 							gap: 3,
 							mb: 4,
 						}}
 					>
-						{Object.entries(statusConfig).map(([key, status]) => (
-							<Paper
-								key={key}
-								elevation={4}
-								sx={{
-									p: 2,
-									borderRadius: '12px',
-									background:
-										key === '0'
-											? 'linear-gradient(135deg, #2a2a3d 0%, #1e1e2d 100%)'
-											: 'linear-gradient(135deg, #1a2a6c 0%, #0f4c81 100%)',
-									border: '1px solid',
-									borderColor: key === '0' ? '#444' : '#00BFFF',
-									boxShadow:
-										key === '0'
-											? '0 4px 10px rgba(0, 0, 0, 0.2)'
-											: '0 4px 20px rgba(0, 191, 255, 0.3)',
-									transition: 'all 0.3s ease',
-									'&:hover': {
-										transform: 'translateY(-5px)',
-										boxShadow:
-											key === '0'
-												? '0 6px 15px rgba(0, 0, 0, 0.3)'
-												: '0 6px 25px rgba(0, 191, 255, 0.4)',
-									},
-								}}
-							>
-								<Box
+						{Object.entries(statusConfig).map(([key, status]) => {
+							const statusKey = parseInt(key)
+							const isSpecialStatus = statusKey >= 8 // Для KING, LEGEND, GOD
+							const hasGlow = status.glow
+
+							return (
+								<Paper
+									key={key}
+									elevation={4}
 									sx={{
-										display: 'flex',
-										alignItems: 'center',
-										mb: 2,
-										justifyContent: 'space-between',
+										p: 2,
+										borderRadius: '12px',
+										background: `
+            linear-gradient(
+              135deg, 
+              ${darkenColor(status.color, 0.3)} 0%, 
+              ${status.color} 100%
+            )`,
+										border: '1px solid',
+										borderColor: lightenColor(status.color, 0.2),
+										boxShadow: hasGlow
+											? `0 4px 20px ${status.glowColor}`
+											: '0 4px 10px rgba(0, 0, 0, 0.2)',
+										transition: 'all 0.3s ease',
+										position: 'relative',
+										overflow: 'hidden',
+										'&:hover': {
+											transform: 'translateY(-5px)',
+											boxShadow: hasGlow
+												? `0 6px 25px ${status.glowColor}`
+												: '0 6px 15px rgba(0, 0, 0, 0.3)',
+										},
+										...(hasGlow && {
+											'&::before': {
+												content: '""',
+												position: 'absolute',
+												top: '-50%',
+												left: '-50%',
+												width: '200%',
+												height: '200%',
+												background: `
+                radial-gradient(
+                  circle at center, 
+                  ${status.glowColor}80 0%, 
+                  transparent 70%
+                )`,
+												animation: 'rotate 10s linear infinite',
+												zIndex: 0,
+											},
+										}),
 									}}
 								>
-									<Typography
-										variant='h6'
-										sx={{
-											color: key === '0' ? '#AAA' : '#FFF',
-											fontWeight: 'bold',
-											textShadow:
-												key === '0' ? 'none' : '0 0 8px rgba(0, 191, 255, 0.7)',
-										}}
-									>
-										{status.name} {key === '1' && '🌟'}
-										{key === '2' && '💎'} {key === '3' && '👑'}{' '}
-										{key === '4' && '🔥'}
-									</Typography>
-									{key !== '0' && (
-										<Chip
-											label={`${status.requirements.minTokens.toLocaleString()}+`}
-											size='small'
-											color='primary'
+									<Box sx={{ position: 'relative', zIndex: 1 }}>
+										<Box
 											sx={{
-												fontWeight: 'bold',
-												bgcolor: 'rgba(0, 191, 255, 0.2)',
+												display: 'flex',
+												alignItems: 'center',
+												mb: 2,
+												justifyContent: 'space-between',
+											}}
+										>
+											<Typography
+												variant='h6'
+												sx={{
+													color: status.textColor,
+													fontWeight: 'bold',
+													textShadow: hasGlow
+														? `0 0 8px ${status.glowColor}`
+														: 'none',
+												}}
+											>
+												{status.name}
+												{statusKey === 1 && '🌟'}
+												{statusKey === 3 && '💎'}
+												{statusKey === 5 && '⚡'}
+												{statusKey === 7 && '💥'}
+												{statusKey === 8 && '👑'}
+												{statusKey === 9 && '🔥'}
+												{statusKey === 10 && '☠️'}
+											</Typography>
+											<Chip
+												label={`${status.requirements.minTokens.toLocaleString()}+`}
+												size='small'
+												sx={{
+													fontWeight: 'bold',
+													bgcolor: 'rgba(255, 255, 255, 0.2)',
+													color: status.textColor,
+													border: `1px solid ${lightenColor(
+														status.color,
+														0.3
+													)}`,
+												}}
+											/>
+										</Box>
+
+										<Divider
+											sx={{
+												my: 1,
+												bgcolor: lightenColor(status.color, 0.3),
+												height: '1px',
 											}}
 										/>
-									)}
-								</Box>
 
-								<Divider
-									sx={{
-										my: 1,
-										bgcolor: key === '0' ? '#444' : 'rgba(0, 191, 255, 0.5)',
-										height: '1px',
-									}}
-								/>
-
-								<Box sx={{ mt: 2 }}>
-									<Box
-										sx={{
-											display: 'flex',
-											justifyContent: 'space-between',
-											alignItems: 'center',
-											mb: 2,
-										}}
-									>
-										<Box sx={{ display: 'flex', alignItems: 'center' }}>
-											<Typography variant='body2' sx={{ color: '#AAA' }}>
-												⛏️ Майнинг:
-											</Typography>
-										</Box>
-										<Typography
-											sx={{
-												color: '#FFF',
-												fontWeight: 'bold',
-												fontSize: '1.1rem',
-											}}
-										>
-											{status.miningAward.toLocaleString()}
-											<Typography
-												component='span'
+										<Box sx={{ mt: 2 }}>
+											<Box
 												sx={{
-													color: '#AAA',
-													fontSize: '0.7rem',
-													ml: 0.5,
+													display: 'flex',
+													justifyContent: 'space-between',
+													alignItems: 'center',
+													mb: 2,
 												}}
 											>
-												/день
-											</Typography>
-										</Typography>
-									</Box>
+												<Box sx={{ display: 'flex', alignItems: 'center' }}>
+													<Typography
+														variant='body2'
+														sx={{ color: status.textColor, opacity: 0.8 }}
+													>
+														⛏️ Майнинг:
+													</Typography>
+												</Box>
+												<Typography
+													sx={{
+														color: status.textColor,
+														fontWeight: 'bold',
+														fontSize: '1.1rem',
+													}}
+												>
+													{status.miningAward.toLocaleString()}
+													<Typography
+														component='span'
+														sx={{
+															color: status.textColor,
+															opacity: 0.7,
+															fontSize: '0.7rem',
+															ml: 0.5,
+														}}
+													>
+														/день
+													</Typography>
+												</Typography>
+											</Box>
 
-									<Box
-										sx={{
-											display: 'flex',
-											justifyContent: 'space-between',
-											alignItems: 'center',
-											mb: 2,
-										}}
-									>
-										<Box sx={{ display: 'flex', alignItems: 'center' }}>
-											<Typography variant='body2' sx={{ color: '#AAA' }}>
-												👥 Рефералы:
-											</Typography>
-										</Box>
-										<Typography
-											sx={{
-												color: '#FFF',
-												fontWeight: 'bold',
-												fontSize: '1.1rem',
-											}}
-										>
-											{status.referralAward.toLocaleString()}
-											<Typography
-												component='span'
+											<Box
 												sx={{
-													color: '#AAA',
-													fontSize: '0.7rem',
-													ml: 0.5,
+													display: 'flex',
+													justifyContent: 'space-between',
+													alignItems: 'center',
+													mb: 2,
 												}}
 											>
-												/приглашение
-											</Typography>
-										</Typography>
-									</Box>
+												<Box sx={{ display: 'flex', alignItems: 'center' }}>
+													<Typography
+														variant='body2'
+														sx={{ color: status.textColor, opacity: 0.8 }}
+													>
+														👥 Рефералы:
+													</Typography>
+												</Box>
+												<Typography
+													sx={{
+														color: status.textColor,
+														fontWeight: 'bold',
+														fontSize: '1.1rem',
+													}}
+												>
+													{status.referralAward.toLocaleString()}
+													<Typography
+														component='span'
+														sx={{
+															color: status.textColor,
+															opacity: 0.7,
+															fontSize: '0.7rem',
+															ml: 0.5,
+														}}
+													>
+														/приглашение
+													</Typography>
+												</Typography>
+											</Box>
 
-									{key !== '0' && (
-										<Button
-											fullWidth
-											variant='contained'
-											size='small'
-											sx={{
-												mt: 2,
-												bgcolor: 'rgba(0, 191, 255, 0.2)',
-												color: '#00BFFF',
-												border: '1px solid #00BFFF',
-												fontWeight: 'bold',
-												'&:hover': {
-													bgcolor: 'rgba(0, 191, 255, 0.4)',
-												},
-											}}
-										>
-											Повысить до {status.name}
-										</Button>
-									)}
-								</Box>
-							</Paper>
-						))}
+											{statusKey > 1 && (
+												<Button
+													fullWidth
+													variant='contained'
+													size='small'
+													disabled={
+														statusKey <= user.status ||
+														user.tokens < status.requirements.minTokens
+													}
+													onClick={() =>
+														handleBuyStatus(
+															statusKey,
+															status.requirements.minTokens
+														)
+													}
+													sx={{
+														mt: 2,
+														bgcolor: 'rgba(255, 255, 255, 0.15)',
+														color: status.textColor,
+														border: `1px solid ${lightenColor(
+															status.color,
+															0.3
+														)}`,
+														fontWeight: 'bold',
+														'&:hover': {
+															bgcolor:
+																statusKey <= user.status ||
+																user.tokens < status.requirements.minTokens
+																	? 'rgba(255, 255, 255, 0.15)' // Отключаем hover, если кнопка disabled
+																	: 'rgba(255, 255, 255, 0.25)',
+														},
+														'&.Mui-disabled': {
+															color: `${status.textColor} !important`,
+															opacity: 0.7,
+															borderColor: `${lightenColor(
+																status.color,
+																0.1
+															)} !important`,
+														},
+													}}
+												>
+													{statusKey > user.status
+														? user.tokens >= status.requirements.minTokens
+															? `Повысить до ${status.name}`
+															: 'Недостаточно токенов'
+														: `Получено`}
+												</Button>
+											)}
+										</Box>
+									</Box>
+								</Paper>
+							)
+						})}
 					</Box>
+
+					<style jsx global>{`
+						@keyframes rotate {
+							from {
+								transform: rotate(0deg);
+							}
+							to {
+								transform: rotate(360deg);
+							}
+						}
+					`}</style>
 
 					{/* Реферальная программа */}
 					<SectionHeader id='invite' icon='👥'>

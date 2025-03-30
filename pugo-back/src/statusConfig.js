@@ -1,48 +1,89 @@
 const statusConfig = {
-	0: {
-		name: 'COMMON',
-		miningAward: 1000,
-		referralAward: 50,
-		requirements: {
-			minTokens: 0,
-			// другие требования для статуса
-		},
-	},
 	1: {
-		name: 'VIP',
-		miningAward: 2000,
-		referralAward: 100,
-		requirements: {
-			minTokens: 5000,
-			// другие требования для статуса VIP
-		},
+		name: 'NOOB',
+		miningAward: 500,
+		referralAward: 25,
+		requirements: { minTokens: 0 },
+		color: '#A0A0A0',
+		textColor: '#FFFFFF',
 	},
 	2: {
+		name: 'ADVANCED',
+		miningAward: 1000,
+		referralAward: 50,
+		requirements: { minTokens: 5000 },
+		color: '#4CAF50',
+		textColor: '#FFFFFF',
+	},
+	3: {
+		name: 'VIP',
+		miningAward: 1500,
+		referralAward: 75,
+		requirements: { minTokens: 15000 },
+		color: '#2196F3',
+		textColor: '#FFFFFF',
+	},
+	4: {
+		name: 'PRO',
+		miningAward: 2000,
+		referralAward: 100,
+		requirements: { minTokens: 25000 },
+		color: '#9C27B0',
+		textColor: '#FFFFFF',
+	},
+	5: {
 		name: 'ELITE',
 		miningAward: 3000,
 		referralAward: 150,
-		requirements: {
-			minTokens: 15000,
-			// другие требования
-		},
+		requirements: { minTokens: 50000 },
+		color: '#FF5722',
+		textColor: '#FFFFFF',
 	},
-	3: {
+	6: {
+		name: 'PREMIUM',
+		miningAward: 3500,
+		referralAward: 200,
+		requirements: { minTokens: 75000 },
+		color: '#E91E63',
+		textColor: '#FFFFFF',
+	},
+	7: {
 		name: 'BOSS',
 		miningAward: 4000,
-		referralAward: 200,
-		requirements: {
-			minTokens: 30000,
-			// другие требования
-		},
+		referralAward: 275,
+		requirements: { minTokens: 100000 },
+		color: '#FFC107',
+		textColor: '#000000',
 	},
-	4: {
-		name: 'GOD',
+	8: {
+		name: 'KING',
 		miningAward: 5000,
-		referralAward: 250,
-		requirements: {
-			minTokens: 50000,
-			// другие требования
-		},
+		referralAward: 325,
+		requirements: { minTokens: 175000 },
+		color: '#3F51B5',
+		textColor: '#FFFFFF',
+		glowColor: '#182fb0',
+		glow: true,
+	},
+	9: {
+		name: 'LEGEND',
+		miningAward: 7500,
+		referralAward: 400,
+		requirements: { minTokens: 250000 },
+		color: '#ff0000',
+		textColor: '#FFFFFF',
+		glowColor: '#c00e0ef3',
+		glow: true,
+	},
+	10: {
+		name: 'GOD',
+		miningAward: 10000,
+		referralAward: 500,
+		requirements: { minTokens: 500000 },
+		color: '#000000',
+		textColor: '#ffbb00',
+		glowColor: '#ffbb00',
+		glow: true,
 	},
 }
 

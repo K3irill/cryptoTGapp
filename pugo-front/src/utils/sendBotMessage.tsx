@@ -1,4 +1,4 @@
-import { Container, Headline, Notify } from '@/styles/styled'
+import { Container, Headline, NotifyContent } from '@/styles/styled'
 
 import { REQUEST_LINK } from '../../constant'
 import { Toaster, toast } from 'react-hot-toast'
@@ -44,12 +44,32 @@ export const handleBuyTokens = async (
 
 		const data = await response.json()
 
-		toast(t => (
-			<Notify>
-				Бот отправил вам сообщение об оплате, откройте
-				<a href='https://t.me/BIFSCryptoBot'>чат с ботом</a>😊
-			</Notify>
-		))
+		toast(
+			<NotifyContent>
+				<span>Бот отправил вам сообщение об оплате, откройте</span>{' '}
+				<a
+					href='https://t.me/BIFSCryptoBot'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					чат с ботом
+				</a>
+				😊
+			</NotifyContent>,
+			{
+				style: {
+					background: `url(grey-paper-texture_1253-25.png),
+          linear-gradient(
+            178.41deg,
+            rgba(47, 75, 110, 1) 1.72%,
+            rgba(40, 65, 101, 1) 67.48%
+          )`,
+					border: '1px solid rgba(255, 255, 255, 0.05)',
+					color: 'white',
+					zIndex: 2147483647,
+				},
+			}
+		)
 		window.open('https://t.me/BIFSCryptoBot', '_blank')
 	} catch (error) {
 		console.error('Error triggering bot action:', error)
@@ -69,12 +89,32 @@ export const handleAutomining = async (user: UserState) => {
 
 		const data = await response.json()
 
-		toast(t => (
-			<Notify>
-				Бот отправил вам сообщение об оплате, откройте
-				<a href='https://t.me/BIFSCryptoBot'>чат с ботом</a>😊
-			</Notify>
-		))
+		toast(
+			<NotifyContent>
+				<span>Бот отправил вам сообщение об оплате, откройте</span>{' '}
+				<a
+					href='https://t.me/BIFSCryptoBot'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					чат с ботом
+				</a>
+				😊
+			</NotifyContent>,
+			{
+				style: {
+					background: `url(grey-paper-texture_1253-25.png),
+          linear-gradient(
+            178.41deg,
+            rgba(47, 75, 110, 1) 1.72%,
+            rgba(40, 65, 101, 1) 67.48%
+          )`,
+					border: '1px solid rgba(255, 255, 255, 0.05)',
+					color: 'white',
+					zIndex: 2147483647,
+				},
+			}
+		)
 		window.open('https://t.me/BIFSCryptoBot', '_blank')
 	} catch (error) {
 		console.error('Error triggering bot action:', error)

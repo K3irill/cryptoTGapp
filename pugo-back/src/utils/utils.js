@@ -1,25 +1,36 @@
 const statusConfig = require('../statusConfig')
 
+const validateStatus = statusValue => {
+	const statusNum = Number(statusValue)
+	return Math.max(1, Math.min(statusNum, 10))
+}
+
 const defineUserStatus = statusValue => {
-	return statusConfig[statusValue]?.name || statusConfig[0].name
+	const validStatus = validateStatus(statusValue)
+	return statusConfig[validStatus]?.name || statusConfig[1].name
 }
 
 const defineMiningAwardByStatus = statusValue => {
-	return statusConfig[statusValue]?.miningAward || statusConfig[0].miningAward
+	const validStatus = validateStatus(statusValue)
+	return statusConfig[validStatus]?.miningAward || statusConfig[1].miningAward
 }
 
 const defineReferralAwardByStatus = statusValue => {
+	const validStatus = validateStatus(statusValue)
 	return (
-		statusConfig[statusValue]?.referralAward || statusConfig[0].referralAward
+		statusConfig[validStatus]?.referralAward || statusConfig[1].referralAward
 	)
 }
 
 const checkStatusRequirements = (user, targetStatus) => {
-	const targetConfig = statusConfig[targetStatus]
+	const validStatus = validateStatus(targetStatus)
+	const targetConfig = statusConfig[validStatus]
+
 	if (!targetConfig) return false
 
-	return user.tokens >= targetConfig.requirements.minTokens
-	// можно добавить другие проверки
+	const hasEnoughTokens = user.tokens >= targetConfig.requirements.minTokens
+
+	return hasEnoughTokens
 }
 
 module.exports = {
@@ -28,4 +39,5 @@ module.exports = {
 	defineReferralAwardByStatus,
 	checkStatusRequirements,
 	statusConfig,
+	validateStatus,
 }

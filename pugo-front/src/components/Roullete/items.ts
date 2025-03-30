@@ -1,5 +1,4 @@
 export default {
-	// Призы для кейса с монетами
 	'50': {
 		image: '/coin-c.png',
 		price: 50,
@@ -93,7 +92,7 @@ export default {
 	'80000': {
 		image: '/coin-c.png',
 		price: 80000,
-		rarity: 'impossible ',
+		rarity: 'impossible',
 		weapon: '80,000 BIFS Coins',
 	},
 	'100000': {
@@ -104,90 +103,91 @@ export default {
 	},
 
 	// Призы для кейса с днями автомайнинга
-	'5': {
-		image: '/store/cases/5.svg',
+	'days-3': {
+		image: '/store/cases/3.svg',
 		price: 'Days',
 		rarity: 'common',
-		weapon: '5 Дней Автомайнинга',
+		weapon: '3 Дня Автомайнинга',
 	},
-	'7': {
+	'days-7': {
 		image: '/store/cases/7.svg',
 		price: 'Days',
 		rarity: 'uncommon',
 		weapon: '7 Дней Автомайнинга',
 	},
-	'21': {
+	'days-21': {
 		image: '/store/cases/21.svg',
 		price: 'Days',
 		rarity: 'rare',
 		weapon: '21 День Автомайнинга',
 	},
-	'30': {
+	'days-30': {
 		image: '/store/cases/30.svg',
 		price: 'Days',
 		rarity: 'epic',
 		weapon: '30 Дней Автомайнинга',
 	},
-	'45': {
+	'days-45': {
 		image: '/store/cases/45.svg',
 		price: 'Days',
 		rarity: 'legendary',
 		weapon: '45 Дней Автомайнинга',
 	},
-	'1': {
-		image: '/store/privileges/1.png',
+
+	// Призы для кейса с привилегиями (статусами)
+
+	'privilege-2': {
+		image: '/store/privileges/2.svg',
 		price: 'status',
 		rarity: 'uncommon',
-		weapon: 'Quantum Interceptor',
+		weapon: 'COMMON Status',
 	},
-	'2': {
-		image: '/store/privileges/2.png',
+	'privilege-3': {
+		image: '/store/privileges/3.svg',
 		price: 'status',
 		rarity: 'rare',
-		weapon: 'Quantum Interceptor',
+		weapon: 'ADVANCED Status',
 	},
-	'3': {
-		image: '/store/privileges/3.png',
+	'privilege-4': {
+		image: '/store/privileges/4.svg',
+		price: 'status',
+		rarity: 'epic',
+		weapon: 'VIP Status',
+	},
+	'privilege-5': {
+		image: '/store/privileges/5.svg',
+		price: 'status',
+		rarity: 'legendary',
+		weapon: 'ELITE Status',
+	},
+	'privilege-6': {
+		image: '/store/privileges/6.svg',
 		price: 'status',
 		rarity: 'mythic',
-		weapon: 'Quantum Interceptor',
+		weapon: 'PREMIUM Status',
 	},
-	'4': {
-		image: '/store/privileges/4.png',
+	'privilege-7': {
+		image: '/store/privileges/7.svg',
 		price: 'status',
 		rarity: 'legendary',
-		weapon: 'Quantum Interceptor',
+		weapon: 'BOSS Status',
 	},
-
-	// Призы для кейса с кораблями
-	Ship1: {
-		image: '/path/to/ship1-image.png',
-		price: 5.0,
-		rarity: 'legendary',
-		weapon: 'Starfighter Alpha',
+	'privilege-8': {
+		image: '/store/privileges/8.svg',
+		price: 'status',
+		rarity: 'ultimate',
+		weapon: 'KING Status',
 	},
-	Ship2: {
-		image: '/path/to/ship2-image.png',
-		price: 5.0,
-		rarity: 'legendary',
-		weapon: 'Galaxy Cruiser',
+	'privilege-9': {
+		image: '/store/privileges/9.svg',
+		price: 'status',
+		rarity: 'impossible',
+		weapon: 'LEGEND Status',
 	},
-	Ship3: {
-		image: '/path/to/ship3-image.png',
-		price: 5.0,
-		rarity: 'legendary',
-		weapon: 'Nebula Explorer',
-	},
-	Ship4: {
-		image: '/path/to/ship4-image.png',
-		price: 5.0,
-		rarity: 'legendary',
-		weapon: 'Cosmic Destroyer',
-	},
-	Ship5: {
-		image: '/path/to/ship5-image.png',
-		price: 5.0,
-		rarity: 'legendary',
-		weapon: 'Quantum Interceptor',
+	'privilege-10': {
+		image: '/store/privileges/10.svg',
+		price: 'status',
+		rarity: 'godlike',
+		weapon: 'GOD Status',
 	},
 }

@@ -18,7 +18,7 @@ const createUser = async (telegramId, username, firstName, lastName) => {
 		automining: false,
 		autominingExpiresAt: null,
 		transactions: [],
-		status: 0,
+		status: 1,
 	})
 
 	// Получаем все существующие задачи

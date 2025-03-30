@@ -18,7 +18,7 @@ import {
 
 export const ExchangeContainer = styled(motion.div)`
 	position: relative;
-	z-index: 2;
+	z-index: 4;
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
@@ -26,6 +26,7 @@ export const ExchangeContainer = styled(motion.div)`
 	max-height: calc(100vh - 170px);
 	overflow-y: auto;
 	scrollbar-width: none;
+
 	&::-webkit-scrollbar {
 		display: none;
 	}

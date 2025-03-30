@@ -33,7 +33,7 @@ const PRIZE_TYPES = {
 		100000: 0.1,
 	},
 	days: {
-		5: 90,
+		3: 90,
 		7: 60,
 		21: 30,
 		30: 10,
@@ -47,11 +47,88 @@ const PRIZE_TYPES = {
 		Ship5: 20,
 	},
 	privileges: {
-		1: 90,
-		2: 35,
-		3: 15,
-		4: 1,
+		2: 35, // COMMON
+		3: 30, // ADVANCED
+		4: 25, // VIP
+		5: 20, // ELITE
+		6: 15, // PREMIUM
+		7: 10, // BOSS
+		8: 5, // KING
+		9: 2, // LEGEND
+		10: 1, // GOD
 	},
+}
+
+// Вспомогательные функции для работы с призами
+const getRarity = (value: number) => {
+	if (value >= 50000) return 'godlike'
+	if (value >= 20000) return 'ultimate'
+	if (value >= 10000) return 'legendary'
+	if (value >= 5000) return 'epic'
+	if (value >= 1000) return 'rare'
+	return 'common'
+}
+
+const getStatusRarity = (status: number) => {
+	if (status >= 8) return 'godlike'
+	if (status >= 6) return 'ultimate'
+	if (status >= 4) return 'legendary'
+	return 'rare'
+}
+
+const getStatusName = (status: number) => {
+	const names = {
+		2: 'COMMON',
+		3: 'ADVANCED',
+		4: 'VIP',
+		5: 'ELITE',
+		6: 'PREMIUM',
+		7: 'BOSS',
+		8: 'KING',
+		9: 'LEGEND',
+		10: 'GOD',
+	}
+	return names[status] || 'UNKNOWN'
+}
+
+// Объект с описанием всех призов
+export const prizeItems = {
+	// Призы для монет
+	...Object.fromEntries(
+		Object.entries(PRIZE_TYPES.coins).map(([value]) => [
+			value,
+			{
+				image: '/coin-c.png',
+				price: parseInt(value),
+				rarity: getRarity(parseInt(value)),
+				name: `${parseInt(value).toLocaleString()} BIFS Coins`,
+			},
+		])
+	),
+	// Призы для дней
+	...Object.fromEntries(
+		Object.entries(PRIZE_TYPES.days).map(([days]) => [
+			days,
+			{
+				image: `/store/cases/${days}.svg`,
+				price: 'Days',
+				rarity: getRarity(parseInt(days) * 1000),
+				name: `${days} Дней Автомайнинга`,
+			},
+		])
+	),
+	// Призы для статусов
+	...Object.fromEntries(
+		Object.entries(PRIZE_TYPES.privileges).map(([status]) => [
+			status,
+			{
+				image: `/store/privileges/${status}.png`,
+				price: 'Status',
+				rarity: getStatusRarity(parseInt(status)),
+				name: `${getStatusName(parseInt(status))} Status`,
+			},
+		])
+	),
 }
 
 const calculateProbabilities = (chances: Record<string, number>) => {
@@ -65,13 +142,24 @@ const calculateProbabilities = (chances: Record<string, number>) => {
 	return { ranges, total }
 }
 
-const getRandomPrize = (chances: Record<string, number>) => {
+const getRandomPrize = (chances: Record<string, number>, caseType: string) => {
 	const { ranges, total } = calculateProbabilities(chances)
 	const random = Math.random() * total
 	const prize = ranges.find(
 		range => random >= range.start && random < range.end
 	)
-	return prize ? prize.name : ranges[ranges.length - 1].name
+
+	if (!prize) return ranges[ranges.length - 1].name
+
+	// Добавляем префиксы в зависимости от типа кейса
+	switch (caseType) {
+		case 'privileges':
+			return `privilege-${prize.name}`
+		case 'days':
+			return `days-${prize.name}`
+		default:
+			return prize.name
+	}
 }
 
 interface RouletteProps {
@@ -107,7 +195,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 	// Initialize preview items
 	useEffect(() => {
 		const chances = PRIZE_TYPES[caseType]
-		const getRandomItem = () => getRandomPrize(chances)
+		const getRandomItem = () => getRandomPrize(chances, caseType)
 		setPreviewItems(Array(10).fill(null).map(getRandomItem))
 	}, [caseType])
 
@@ -144,6 +232,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 			throw error
 		}
 	}
+
 	const setUserStatusOnServer = async (status: number) => {
 		const roundedStatus = Math.round(Number(status))
 
@@ -161,6 +250,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 			throw error
 		}
 	}
+
 	const easeOut = useCallback((t: number) => {
 		return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
 	}, [])
@@ -186,27 +276,28 @@ export const Roulette: React.FC<RouletteProps> = ({
 
 					await updateTokensOnServer(delta, isWin)
 				} else if (caseType === 'days') {
-					const daysWon = parseInt(result, 10)
+					const daysWon = parseInt(result.replace('days-', ''), 10)
 					if (isNaN(daysWon)) {
 						throw new Error('Invalid days amount')
 					}
 					await updateTokensOnServer(casePrice, false)
 					await activateUserMiningOnServer(daysWon)
 				} else if (caseType === 'privileges') {
-					const statusWon = parseInt(result, 10)
+					const statusWon = parseInt(result.replace('privilege-', ''), 10)
 
 					if (isNaN(statusWon)) {
 						throw new Error('Invalid privileges amount')
 					}
-
 					onDrop(result)
 					await updateTokensOnServer(casePrice, false)
-					await setUserStatusOnServer(statusWon)
+					setTimeout(async () => {
+						await setUserStatusOnServer(statusWon)
+					}, 7000)
 				}
 
 				onDrop(result)
 			} catch (error) {
-				console.error('Ошибка при обработке выигрыша:', error)
+				console.error('Prize handling error:', error)
 				throw error
 			}
 		},
@@ -264,9 +355,9 @@ export const Roulette: React.FC<RouletteProps> = ({
 
 			const generateItems = () => {
 				const chances = PRIZE_TYPES[caseType]
-				const getRandomItem = () => getRandomPrize(chances)
+				const getRandomItem = () => getRandomPrize(chances, caseType)
 
-				const result = getRandomItem()
+				const result = getRandomPrize(chances, caseType)
 				resultRef.current = result
 
 				handlePrizeResult(result).catch(console.error)
@@ -364,3 +455,5 @@ export const Roulette: React.FC<RouletteProps> = ({
 		</div>
 	)
 }
+
+export default Roulette

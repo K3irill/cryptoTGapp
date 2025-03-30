@@ -78,7 +78,6 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 
 	const handleBuyClick = (stars: number, pugo: number) => {
 		handleBuyTokens(stars, pugo, user)
-		toast('Перейдите в бота для продолжение покупки!')
 	}
 
 	return (
@@ -199,7 +198,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 			</StarsSection>
 
 			{children}
-			<Toaster position='bottom-right' />
+			<Toaster position='top-left' />
 		</ExchangeContainer>
 	)
 }

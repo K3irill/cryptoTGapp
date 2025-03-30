@@ -15,15 +15,18 @@ export const SvgIconStyled = styled.img`
 	max-width: 50px;
 	max-height: 50px;
 `
-export const Notify = styled.div`
-	display: flex;
-	gap: 5px;
-
+export const NotifyContent = styled.div`
 	a {
 		font-size: 16px;
 		font-weight: 900;
+		color: #8ab4f8;
+		text-decoration: underline;
+		&:hover {
+			color: #a8c7fa;
+		}
 	}
 `
+
 export const Headline = styled.div<{
 	size?: number
 	theme?: 'blue' | 'purple' | 'silver' | 'whity' | 'goldV1'

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import React, { useState, useCallback, useEffect } from 'react'
 import { Roulette } from '../Roullete/Roullete'
 import {
@@ -29,6 +31,7 @@ import {
 	useUpdateTokensMutation,
 } from '@/store/services/api/userApi'
 import { handleBuyTokens } from '@/utils/sendBotMessage'
+import items from '../Roullete/items'
 
 interface CaseModalProps {
 	isVisible: boolean
@@ -61,55 +64,39 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const user = useSelector((state: RootState) => state.user)
 	const [isProcessing, setIsProcessing] = useState(false)
 
+	const getPrizeResult = (value: string) => {
+		if (caseType === 'coins') {
+			// Для монет - просто число
+			return value.match(/^\d+$/) ? parseInt(value, 10) : 0
+		}
+		if (caseType === 'days') {
+			// Для дней - извлекаем число после 'days-'
+			const match = value.match(/^days-(\d+)$/)
+			return match ? parseInt(match[1], 10) : 0
+		}
+		if (caseType === 'privileges') {
+			// Для привилегий - извлекаем число после 'privilege-'
+			const match = value.match(/^privilege-(\d+)$/)
+			return match ? parseInt(match[1], 10) : 0
+		}
+		return 0 // или другое значение по умолчанию
+	}
 	const handleBuyModalClose = () => {
 		setShowBuyModal(false)
 	}
-
+	const filteredItems = items =>
+		Object.entries(items).filter(([key, value]) => {
+			if (caseType === 'coins') return key.match(/^\d+$/)
+			if (caseType === 'days') return key.startsWith('days-')
+			if (caseType === 'privileges') return key.startsWith('privilege-')
+			return false
+		})
 	useEffect(() => {
 		const generateCaseItems = () => {
-			const chances = {
-				coins: {
-					50: 400,
-					150: 350,
-					250: 300,
-					500: 250,
-					1000: 150,
-					1500: 100,
-					2000: 50,
-					4000: 30,
-					6000: 20,
-					8000: 10,
-					10000: 2,
-					15000: 1,
-					20000: 1,
-					40000: 0.8,
-					60000: 0.5,
-					80000: 0.3,
-					100000: 0.1,
-				},
-				days: {
-					5: 90,
-					7: 60,
-					21: 30,
-					30: 10,
-					45: 1,
-				},
-				ships: {
-					Ship1: 20,
-					Ship2: 20,
-					Ship3: 20,
-					Ship4: 20,
-					Ship5: 20,
-				},
-				privileges: {
-					1: 90,
-					2: 35,
-					3: 15,
-					4: 1,
-				},
-			}
+			// Фильтруем предметы по типу кейса
+			const filteredItemsArr = filteredItems(items)
 
-			setCaseItems(Object.keys(chances[caseType]))
+			setCaseItems(filteredItemsArr.map(([key]) => key))
 		}
 
 		generateCaseItems()
@@ -156,9 +143,9 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	const getPrizeImage = useCallback(() => {
 		const images = {
 			coins: '/coin-c.png',
-			days: `/store/cases/${prizeResult}.svg`,
+			days: `/store/cases/${getPrizeResult(prizeResult)}.svg`,
 			ships: '/ship-icon.png',
-			privileges: `/store/privileges/${prizeResult}.png`,
+			privileges: `/store/privileges/${getPrizeResult(prizeResult)}.svg`,
 		}
 		return images[caseType] || '/coin-c.png'
 	}, [prizeResult, caseType])
@@ -167,10 +154,10 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		if (!prizeResult) return ''
 
 		const names = {
-			coins: `${prizeResult} BIFS Coins`,
-			days: `${prizeResult} Дней авто-майнинга`,
+			coins: `${getPrizeResult(prizeResult)} BIFS Coins`,
+			days: `${getPrizeResult(prizeResult)} Дней авто-майнинга`,
 			ships: `Ship ${prizeResult.replace('Ship', '')}`,
-			privileges: `Привилегия ${prizeResult}`,
+			privileges: `Привилегия ${getPrizeResult(prizeResult)}`,
 		}
 
 		return names[caseType] || prizeResult
