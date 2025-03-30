@@ -136,6 +136,10 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 								autominingExpiresAt: data.userInfo.autominingExpiresAt || null,
 								transactions: data.userInfo.automining || null,
 								status: data.userInfo.status || null,
+								caseAmount: data.userInfo.caseAmount || null,
+								spacePugRecord: data.userInfo.spacePugRecord || null,
+								cards: data.userInfo.cards || null,
+								ships: data.userInfo.ships || null,
 							})
 						)
 					}

@@ -1,5 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export interface BifCardType {
+	value: number
+	name: string
+	textValue: string
+}
+export interface BifShipType {
+	name: string
+	value: number
+	health: number
+	speed: number
+	baseAmount: number
+	abilityCollectCoins: number
+}
+
 export interface UserState {
 	id: string | null
 	username: string | null
@@ -17,6 +31,10 @@ export interface UserState {
 	autominingExpiresAt: Date | null
 	transactions: Array<number> | null
 	status: number | null
+	caseAmount: number | null
+	spacePugRecord: number | null
+	cards: BifCardType[] | null
+	ships: BifShipType[] | null
 }
 
 const initialState: UserState = {
@@ -36,6 +54,10 @@ const initialState: UserState = {
 	autominingExpiresAt: null,
 	transactions: null,
 	status: null,
+	caseAmount: null,
+	spacePugRecord: null,
+	cards: null,
+	ships: null,
 }
 
 const saveStateToLocalStorage = (state: UserState) => {

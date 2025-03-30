@@ -6,6 +6,7 @@ const {
 } = require('../services/userService')
 const generateReferralCode = require('../utils/generateReferralCode')
 const { User } = require('../models')
+const { defineReferralAwardByStatus } = require('../utils/utils')
 const router = express.Router()
 
 router.post('/telegram-register', async (req, res) => {
