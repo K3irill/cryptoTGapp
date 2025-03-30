@@ -77,11 +77,8 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 	}
 
 	const handleBuyClick = (stars: number, pugo: number) => {
-		toast.promise(handleBuyTokens(stars, pugo, user), {
-			loading: 'Обработка покупки...',
-			success: `Успешно куплено ${pugo} BIFS!`,
-			error: 'Ошибка при покупке',
-		})
+		handleBuyTokens(stars, pugo, user)
+		toast('Перейдите в бота для продолжение покупки!')
 	}
 
 	return (

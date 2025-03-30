@@ -71,19 +71,25 @@ const createUserIfNeeded = async ({
 }
 
 const updateUserTokens = async (telegramId, amount, isPlus = true) => {
-	if (typeof telegramId !== 'number' || Number.isNaN(telegramId)) {
+	const numAmount = Number(amount)
+	const numTelegramId = Number(telegramId)
+	if (typeof numTelegramId !== 'number' || Number.isNaN(numTelegramId)) {
 		throw new Error('Invalid telegramId! Must be a valid number.')
 	}
 
-	if (typeof amount !== 'number' || Number.isNaN(amount) || amount <= 0) {
+	if (
+		typeof numAmount !== 'number' ||
+		Number.isNaN(numAmount) ||
+		numAmount <= 0
+	) {
 		throw new Error('Amount must be a valid positive number.')
 	}
 
 	try {
-		const user = await User.findOne({ where: { telegramId } })
+		const user = await User.findOne({ where: { telegramId: numTelegramId } })
 
 		if (!user) {
-			throw new Error(`User with telegramId ${telegramId} not found`)
+			throw new Error(`User with telegramId ${numTelegramId} not found`)
 		}
 
 		const currentTokens = parseFloat(user.tokens)
@@ -91,7 +97,9 @@ const updateUserTokens = async (telegramId, amount, isPlus = true) => {
 			throw new Error('Invalid current tokens value in database')
 		}
 
-		const newTokens = isPlus ? currentTokens + amount : currentTokens - amount
+		const newTokens = isPlus
+			? currentTokens + numAmount
+			: currentTokens - numAmount
 
 		if (newTokens < 0) {
 			throw new Error('Insufficient tokens for this operation')
@@ -102,9 +110,9 @@ const updateUserTokens = async (telegramId, amount, isPlus = true) => {
 		await user.save()
 
 		console.log(
-			`🤑 Updated user tokens - TelegramID: ${telegramId}, Operation: ${
+			`🤑 Updated user tokens - TelegramID: ${numTelegramId}, Operation: ${
 				isPlus ? '+' : '-'
-			}${amount}, New balance: ${newTokens}`
+			}${numAmount}, New balance: ${newTokens}`
 		)
 
 		return {
