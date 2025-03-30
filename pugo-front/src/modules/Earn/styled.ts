@@ -1,82 +1,129 @@
 import { COLORS } from '@/styles/colors'
 import {
-	extraBlockBackground,
-	goldenTextGradient,
-	goldenTextGradientV2,
-	mainBlockBackground,
+	blueTextGradient,
 	purpleTextGradient,
+	silverMainTextGradient,
 } from '@/styles/mixins'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
-export const EarnStyled = styled.div`
+export const GamesContainer = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
-	gap: 12px;
-	overflow-y: auto;
+	gap: 24px;
+	padding: 20px;
 	max-height: calc(100vh - 170px);
-	padding-bottom: 8px;
+	overflow-y: auto;
+	scrollbar-width: none;
 	position: relative;
-	z-index: 2;
-	::-webkit-scrollbar {
+	z-index: 3;
+
+	&::-webkit-scrollbar {
 		display: none;
 	}
-
-	scrollbar-width: none;
-	scrollbar-color: transparent transparent;
 `
 
-export const TextStyled = styled.h2`
-	font-weight: bold;
-	font-size: 12px;
-	color: ${COLORS.grey};
+export const Header = styled(motion.div)`
+	text-align: center;
+	margin-bottom: 24px;
 `
 
-export const EarnBlock = styled.div`
-	margin-top: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-	flex-wrap: wrap;
+export const MainTitle = styled(motion.h1)`
+	font-size: 32px;
+	font-weight: 800;
+	margin-bottom: 8px;
+	${silverMainTextGradient};
+	line-height: 1.2;
 `
-export const GameCard = styled.a<{ background?: string; disabled?: boolean }>`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+
+export const SubTitle = styled(motion.p)`
+	font-size: 16px;
+	color: ${COLORS.ice};
+`
+
+export const GamesGrid = styled.div`
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 20px;
 	width: 100%;
-	height: 100px;
-	border-radius: 6px;
-	gap: 6px;
-	padding: 10px;
-	cursor: pointer;
-	${p => p.background && `background: url(${p.background}) no-repeat;`}
-	background-size: 100%;
-	box-shadow: inset 0px 0px 5px #ffffff;
+`
+
+export const GameCard = styled(motion.div).attrs<{ $available: boolean }>(
+	props => ({
+		whileHover: props.$available ? { y: -5 } : {},
+	})
+)<{ $available: boolean }>`
+	background: rgba(30, 30, 46, 0.7);
+	backdrop-filter: blur(10px);
+	border-radius: 16px;
+	overflow: hidden;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	cursor: ${p => (p.$available ? 'pointer' : 'not-allowed')};
+	transition: all 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 
 	${p =>
-		p.disabled &&
-		`background-position: center;
-    filter: saturate(0.2)  brightness(0.2);
-    pointer-events: none;
-    cursor: not-allowed;
-      `}
+		!p.$available &&
+		`
+    opacity: 0.7;
+    filter: grayscale(70%);
+  `}
 `
 
-export const GCardImageWrapper = styled.div<{ radius?: string }>`
+export const GameImage = styled.div<{ $src: string }>`
+	position: relative;
+	width: 100%;
+	height: 160px;
+	background: url(${p => p.$src}) center/cover no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`
+
+export const GameContent = styled.div`
+	padding: 16px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+`
+
+export const GameTitle = styled.h3`
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 8px;
+	${purpleTextGradient};
+`
+
+export const GameDescription = styled.p`
+	font-size: 14px;
+	color: ${COLORS.ice};
+	margin-bottom: 0;
+`
+
+export const LockOverlay = styled.div`
 	position: absolute;
-	object-fit: cover;
-	img {
-		width: 100%;
-		${p => p.radius && `border-radius: ${p.radius}; `}
-	}
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `
 
-export const GCardTitle = styled.div`
-	${purpleTextGradient}
-	text-align: center;
-	font-size: 32px;
-	text-shadow: 0px 0px 10px #ffffff;
-	line-height: 46px;
-	font-weight: 900;
+export const ComingSoonBadge = styled.span`
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: ${COLORS.ice};
+	color: white;
+	padding: 4px 8px;
+	border-radius: 12px;
+	font-size: 12px;
+	font-weight: 600;
+	${blueTextGradient};
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 `

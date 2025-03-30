@@ -1,54 +1,112 @@
 import React, { FunctionComponent, useState } from 'react'
 import {
-	EarnBlock,
-	EarnStyled,
+	GamesContainer,
+	Header,
+	MainTitle,
+	SubTitle,
+	GamesGrid,
 	GameCard,
-	GCardImageWrapper,
-	GCardTitle,
+	GameImage,
+	GameContent,
+	GameTitle,
+	GameDescription,
+	LockOverlay,
+	ComingSoonBadge,
 } from './styled'
 import { EarnProps } from './Earn.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import { Container } from '@/styles/styled'
-import { TopBorderStyled } from '../Bank/styled'
-import Image from 'next/image'
-
 import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 
-export const Earn: FunctionComponent<EarnProps> = ({ data, children }) => {
-	const { id } = useSelector((state: RootState) => state.user)
+export const Earn: FunctionComponent<EarnProps> = ({ data }) => {
 	const router = useRouter()
 
-	const handleCardClick = () => {
-		router.push('/game/spacepug')
+	const games = [
+		{
+			id: 'spacepug',
+			title: 'Space Pug',
+			description: 'Помогите пуглику собрать токены BIFS в космосе',
+			image: '/games/space-pug.jpg',
+			available: true,
+		},
+		{
+			id: 'miner',
+			title: 'BIFS Miner',
+			description: 'Добывайте токены в увлекательной мини-игре',
+			image: '/games/miner-preview.jpg',
+			available: false,
+		},
+		{
+			id: 'quiz',
+			title: 'Crypto Quiz',
+			description: 'Проверьте свои знания о криптовалютах',
+			image: '/games/quiz-preview.jpg',
+			available: false,
+		},
+	]
+
+	const handleCardClick = (gameId: string, isAvailable: boolean) => {
+		if (isAvailable) {
+			router.push(`/game/${gameId}`)
+		}
 	}
 
 	return (
-		<EarnStyled>
+		<GamesContainer
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 0.5 }}
+		>
 			<TopPageInfo data={data.top_section} />
-			<Container>
-				<TopBorderStyled src='./grey-top-border.svg' alt='border' />
-				<EarnBlock>
-					{/* Карточка с игрой "Space Pug" */}
+
+			<Header
+				initial={{ y: -20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ duration: 0.5 }}
+			>
+				<MainTitle>Игры и развлечения</MainTitle>
+				<SubTitle>Зарабатывайте токены, играя в увлекательные игры</SubTitle>
+			</Header>
+
+			<GamesGrid>
+				{games.map((game, index) => (
 					<GameCard
-						background='/backgrounds/rocket.png'
-						onClick={handleCardClick}
+						key={game.id}
+						$available={game.available}
+						onClick={() => handleCardClick(game.id, game.available)}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: index * 0.1, duration: 0.5 }}
+						whileHover={
+							game.available
+								? { y: -5, boxShadow: '0 10px 20px rgba(0, 191, 255, 0.3)' }
+								: {}
+						}
+						whileTap={game.available ? { scale: 0.98 } : {}}
 					>
-						<GCardTitle>Space Pug</GCardTitle>
+						<GameImage $src={game.image}>
+							{!game.available && (
+								<LockOverlay>
+									<img
+										src='/icons/lock.svg'
+										alt='locked'
+										width={40}
+										height={40}
+									/>
+								</LockOverlay>
+							)}
+							{!game.available && <ComingSoonBadge>СКОРО</ComingSoonBadge>}
+						</GameImage>
+
+						<GameContent>
+							<GameTitle>{game.title}</GameTitle>
+							<GameDescription>{game.description}</GameDescription>
+						</GameContent>
 					</GameCard>
-					<GameCard
-						disabled
-						background='/backgrounds/lock-3.jpg'
-						onClick={handleCardClick}
-					></GameCard>
-					<GameCard
-						disabled
-						background='/backgrounds/lock-3.jpg'
-						onClick={handleCardClick}
-					></GameCard>
-				</EarnBlock>
-			</Container>
-		</EarnStyled>
+				))}
+			</GamesGrid>
+		</GamesContainer>
 	)
 }
