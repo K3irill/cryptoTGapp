@@ -11,6 +11,10 @@ import {
 	useSetUserStatusMutation,
 	useUpdateTokensMutation,
 } from '@/store/services/api/userApi'
+import {
+	useCaseOpenedMutation,
+	useCompleteTgTaskMutation,
+} from '@/store/services/api/tasksApi'
 
 const PRIZE_TYPES = {
 	coins: {
@@ -191,14 +195,24 @@ export const Roulette: React.FC<RouletteProps> = ({
 	const [updateTokens] = useUpdateTokensMutation()
 	const [activateMining] = useActivateMiningMutation()
 	const [setUserStatus] = useSetUserStatusMutation()
-
+	const [caseOpened, { isLoading, error }] = useCaseOpenedMutation()
 	// Initialize preview items
 	useEffect(() => {
 		const chances = PRIZE_TYPES[caseType]
 		const getRandomItem = () => getRandomPrize(chances, caseType)
 		setPreviewItems(Array(10).fill(null).map(getRandomItem))
 	}, [caseType])
-
+	const updateCaseOpenedOnServer = async () => {
+		try {
+			await caseOpened({
+				userId: id,
+				amount: Number(1),
+			}).unwrap()
+		} catch (error) {
+			console.error('Update caseOpened error:', error)
+			throw error
+		}
+	}
 	const updateTokensOnServer = async (
 		delta: number,
 		isPlus: boolean = true
@@ -210,6 +224,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 				amount: roundedDelta,
 				isPlus: isPlus,
 			}).unwrap()
+			await updateCaseOpenedOnServer()
 		} catch (error) {
 			console.error('Update tokens error:', error)
 			throw error
@@ -280,6 +295,7 @@ export const Roulette: React.FC<RouletteProps> = ({
 					if (isNaN(daysWon)) {
 						throw new Error('Invalid days amount')
 					}
+
 					await updateTokensOnServer(casePrice, false)
 					await activateUserMiningOnServer(daysWon)
 				} else if (caseType === 'privileges') {

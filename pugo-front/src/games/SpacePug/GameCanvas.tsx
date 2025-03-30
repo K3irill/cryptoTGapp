@@ -19,6 +19,7 @@ import { updateTokens } from '@/store/slices/userSlice'
 import { RootState } from '@/store/store'
 import FlashAsteroid from './components/FlashAsteroid'
 import { useUpdateTokensMutation } from '@/store/services/api/userApi'
+import { useSpacePugCompletedMutation } from '@/store/services/api/tasksApi'
 
 const GameCanvas = () => {
 	const dispatch = useDispatch()
@@ -37,13 +38,25 @@ const GameCanvas = () => {
 	const [gameTime, setGameTime] = useState(0)
 	const [updateTokens, { isLoadingUpdatingTokens, errorUpdatingTokens }] =
 		useUpdateTokensMutation()
+	const [spacePugCompleted, { isLoadingSpacePugScore, errorSpacePugScore }] =
+		useSpacePugCompletedMutation()
 
 	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
 	const { id, tokens, automining } = useSelector(
 		(state: RootState) => state.user
 	)
-
+	const updateSpacePugScoreServer = async (score: number) => {
+		try {
+			await spacePugCompleted({
+				userId: id,
+				score: Number(score),
+			}).unwrap()
+		} catch (error) {
+			console.error('UpdateSpacePugScoreServer error:', error)
+			throw error
+		}
+	}
 	const updateTokensOnServer = async (delta: number) => {
 		const roundedDelta = Math.round(Number(delta))
 		try {
@@ -222,6 +235,7 @@ const GameCanvas = () => {
 	useEffect(() => {
 		if (state.lives <= 0) {
 			updateTokensOnServer(state.score)
+			updateSpacePugScoreServer(state.score)
 			setIsGameOver(true)
 			setShowModal(true)
 		}

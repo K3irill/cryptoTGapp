@@ -85,9 +85,21 @@ export interface TasksApi {
 	updatedAt: Date
 	link: string
 	chatId: string | null
+	type?: 'game_achievement' | 'subscription' | 'default'
+	achievementType?: 'open_cases' | 'space_pug_score' | 'referrals_count' | null
+	targetValue?: number | null
+	period?: 'once' | 'daily' | 'weekly' | 'monthly'
+	isActive?: boolean
+
 	UserTask: {
-		status: string
+		status: 'available' | 'pending' | 'completed'
+		currentProgress?: number
+		completedAt?: Date | null
 	}
+
+	progress?: number
+	isCompleted?: boolean
+	completedAt?: Date | null
 }
 // export interface ExchangeTypes {}
 

@@ -44,6 +44,28 @@ export const TaskTitle = styled.h3`
 	color: ${COLORS.ice};
 	line-height: 1.4;
 `
+export const ProgressBar = styled.div`
+	width: 100%;
+	height: 6px;
+	background-color: #e0e0e0;
+	border-radius: 3px;
+	margin-top: 4px;
+	overflow: hidden;
+`
+
+export const ProgressFill = styled.div<{ width: string }>`
+	height: 100%;
+	background-color: #4caf50;
+	width: ${props => props.width};
+	transition: width 0.3s ease;
+`
+
+export const ProgressText = styled.span`
+	font-size: 12px;
+	color: #666;
+	display: block;
+	text-align: right;
+`
 export const TaskReward = styled.div`
 	display: inline-flex;
 	align-items: center;

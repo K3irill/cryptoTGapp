@@ -7,7 +7,7 @@ import {
 	InstructionStyled,
 } from './styled'
 import Image from 'next/image'
-import { TextStyled } from '../../styled'
+
 import { Headline } from '@/styles/styled'
 import Label from '@/components/Label/Label'
 

@@ -10,7 +10,7 @@ type StatusProps = {
 export const StatusBadge = styled.div<StatusProps>`
 	position: absolute;
 	bottom: -5px;
-	left: 50%;
+	left: 47%;
 	transform: translateX(-50%);
 	min-width: 55px;
 	height: 20px;

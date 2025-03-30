@@ -39,6 +39,37 @@ export const taskApi = createApi({
 				method: 'POST',
 			}),
 		}),
+		caseOpened: builder.mutation<
+			CompleteTaskResponse,
+			{ userId: string | null; amount: number }
+		>({
+			query: ({ userId, amount }) => ({
+				url: `/task/case-opened`,
+				method: 'POST',
+				body: { userId, amount },
+			}),
+		}),
+		spacePugCompleted: builder.mutation<
+			{
+				success: boolean
+				currentScore: number
+				personalRecord: number
+				achievements: Array<{
+					taskId: number
+					targetScore: number
+					rewardGiven: boolean
+					rewardAmount: number
+				}>
+				tasks: TasksApi[]
+			},
+			{ userId: string | null; score: number }
+		>({
+			query: ({ userId, score }) => ({
+				url: '/task/space-pug-completed',
+				method: 'POST',
+				body: { userId, score },
+			}),
+		}),
 	}),
 })
 
@@ -46,4 +77,6 @@ export const {
 	useGetUserTasksQuery,
 	useCompleteTaskMutation,
 	useCompleteTgTaskMutation,
+	useCaseOpenedMutation,
+	useSpacePugCompletedMutation,
 } = taskApi

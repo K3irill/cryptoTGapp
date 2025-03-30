@@ -6,6 +6,9 @@ import {
 	TaskReward,
 	TaskStatus,
 	TaskButton,
+	ProgressBar,
+	ProgressFill,
+	ProgressText,
 } from './styled'
 import { FunctionComponent } from 'react'
 import { TasksApi } from '@/types/types'
@@ -49,16 +52,37 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 		}
 	}
 
+	// Рассчитываем прогресс для задач с targetValue
+	const showProgress = props.targetValue && props.achievementType
+	const progress = props.UserTask?.currentProgress || 0
+	const target = props.targetValue || 1
+	const progressPercent = Math.min(Math.round((progress / target) * 100), 100)
+
 	return (
 		<TaskItemContainer
 			transition={{ type: 'spring', stiffness: 400, damping: 10 }}
 		>
 			<TaskIcon>
-				<Image src={props.icon} width={32} height={32} alt='' />
+				{props.icon.includes('http') ? (
+					<Image src={props.icon} width={32} height={32} alt='' />
+				) : (
+					props.icon
+				)}
 			</TaskIcon>
 
 			<TaskContent>
 				<TaskTitle>{props.description}</TaskTitle>
+
+				{showProgress && (
+					<div style={{ width: '100%', marginTop: '8px' }}>
+						<ProgressText>
+							{progress} / {target} ({progressPercent}%)
+						</ProgressText>
+						<ProgressBar>
+							<ProgressFill width={`${progressPercent}%`} />
+						</ProgressBar>
+					</div>
+				)}
 			</TaskContent>
 
 			<TaskStatus>

@@ -29,6 +29,50 @@ const Task = sequelize.define(
 			type: DataTypes.DECIMAL(10, 2),
 			allowNull: false,
 		},
+		type: {
+			type: DataTypes.ENUM(
+				'subscription',
+				'game_achievement',
+				'referral',
+				'financial',
+				'daily',
+				'social',
+				'collection',
+				'combo',
+				'event',
+				'hardcore'
+			),
+			defaultValue: 'game_achievement',
+		},
+		achievementType: {
+			type: DataTypes.ENUM(
+				'open_cases',
+				'space_pug_score',
+				'referrals_count',
+				'deposit_amount',
+				'deposit_count',
+				'login_streak',
+				'social_action',
+				'collect_cards',
+				'collect_ships',
+				'combo',
+				'event',
+				'hardcore'
+			),
+			allowNull: true,
+		},
+		targetValue: {
+			type: DataTypes.INTEGER,
+			allowNull: true,
+		},
+		period: {
+			type: DataTypes.ENUM('once', 'daily', 'weekly', 'monthly'),
+			defaultValue: 'once',
+		},
+		isActive: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true,
+		},
 	},
 	{
 		timestamps: true,

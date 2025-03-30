@@ -25,6 +25,14 @@ const UserTask = sequelize.define(
 			type: DataTypes.ENUM('available', 'pending', 'completed'),
 			defaultValue: 'available',
 		},
+		currentProgress: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0,
+		},
+		completedAt: {
+			type: DataTypes.DATE,
+			allowNull: true,
+		},
 	},
 	{
 		timestamps: true,
