@@ -106,7 +106,7 @@ export const CoinName = styled.div<{ unit?: string }>`
 	font-weight: 600;
 	letter-spacing: 7.1px;
 	line-height: 62px;
-
+	text-align: center;
 	${bluePurpleTextGradient}
 
 	@media (max-height: 931px) {

@@ -95,9 +95,7 @@ const getStatusName = (status: number) => {
 	return names[status] || 'UNKNOWN'
 }
 
-// Объект с описанием всех призов
 export const prizeItems = {
-	// Призы для монет
 	...Object.fromEntries(
 		Object.entries(PRIZE_TYPES.coins).map(([value]) => [
 			value,
@@ -109,7 +107,6 @@ export const prizeItems = {
 			},
 		])
 	),
-	// Призы для дней
 	...Object.fromEntries(
 		Object.entries(PRIZE_TYPES.days).map(([days]) => [
 			days,
@@ -121,7 +118,7 @@ export const prizeItems = {
 			},
 		])
 	),
-	// Призы для статусов
+
 	...Object.fromEntries(
 		Object.entries(PRIZE_TYPES.privileges).map(([status]) => [
 			status,
@@ -155,7 +152,6 @@ const getRandomPrize = (chances: Record<string, number>, caseType: string) => {
 
 	if (!prize) return ranges[ranges.length - 1].name
 
-	// Добавляем префиксы в зависимости от типа кейса
 	switch (caseType) {
 		case 'privileges':
 			return `privilege-${prize.name}`

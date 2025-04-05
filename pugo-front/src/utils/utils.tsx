@@ -2,7 +2,6 @@
 /* eslint-disable prefer-const */
 // @ts-nocheck
 import { statusConfig } from '@/assets/constants/statusConfig'
-
 // Тип для статуса (1-10)
 type StatusValue = keyof typeof statusConfig
 

@@ -134,7 +134,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 					</CoinCountInfoWrapper>
 					<Coin />
 					<ActivityWrapper>
-						<CoinName>Boniface</CoinName>
+						<CoinName>BIFSCOIN</CoinName>
 						<AutoMining>
 							<AutoMiningText>Авто-Майнинг</AutoMiningText>
 							<FormControlLabel
