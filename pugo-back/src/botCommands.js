@@ -9,6 +9,7 @@ const {
 } = require('./services/userService')
 const User = require('./models/User')
 const { getUserTasks } = require('./services/taskService')
+const { defineMiningAwardByStatus } = require('./utils/utils')
 const YOUR_CHAT_IDES = [
 	process.env.MY_CHATID,
 	process.env.BRO_CHATID,
@@ -43,7 +44,9 @@ module.exports = bot => {
 		try {
 			let user = await getUserByTelegramId(telegramId)
 
-			// Краткое описание приложения и его возможностей
+
+   
+
 			const welcomeMessageNewUser = `
 ✨ <b>Добро пожаловать в BIFS!</b> ✨
 
@@ -61,7 +64,7 @@ module.exports = bot => {
 
 Мы рады снова видеть вас в BIFS! Продолжайте зарабатывать токены, играть и приглашать друзей, чтобы получить ещё больше бонусов.
 
-Ваш текущий баланс: ${user.tokens} токенов.
+${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} токенов.` : ''}
 
 Нажмите "Начать", чтобы продолжить, или "Больше информации", чтобы узнать подробности.
         `
@@ -84,23 +87,23 @@ module.exports = bot => {
 				},
 			}
 
-			if (!user) {
-				// Регистрация нового пользователя
-				user = await createUser(telegramId, username)
-				bot.sendMessage(chatId, welcomeMessageNewUser, {
-					parse_mode: 'HTML',
-					reply_markup: options.reply_markup,
-				})
-			} else {
-				// Приветствие зарегистрированного пользователя
-				if (user.automining) {
-					await checkAndAddPugoDaily(telegramId)
-				}
-				bot.sendMessage(chatId, welcomeMessageRegisteredUser, {
-					parse_mode: 'HTML',
-					reply_markup: options.reply_markup,
-				})
-			}
+      if (!user) {
+        // Регистрация нового пользователя
+        user = await createUser(telegramId, username)
+        bot.sendMessage(chatId, welcomeMessageNewUser, {
+          parse_mode: 'HTML',
+          reply_markup: options.reply_markup,
+        })
+      } else {
+        // Приветствие зарегистрированного пользователя
+        if (user.automining) {
+          await checkAndAddPugoDaily(telegramId)
+        }
+        bot.sendMessage(chatId, welcomeMessageRegisteredUser, {
+          parse_mode: 'HTML',
+          reply_markup: options.reply_markup,
+        })
+      }
 		} catch (error) {
 			console.error(error)
 			bot.sendMessage(
@@ -181,9 +184,9 @@ module.exports = bot => {
 наша служба поддержки готова помочь!
 
 📌 <b>Способы связи:</b>
-👉 Менеджер поддержки: @feel_so_empty
+👉 Менеджер поддержки: @bifs_manager
 👉 Официальный чат: https://t.me/BIFSCryptoBot
-👉 Email: support@bifs.com
+👉 Email: bifs.helper@gmail.com
 
 ⏱ <b>Часы работы:</b>
 Пн-Пт: 9:00-22:00 (МСК)
@@ -204,7 +207,7 @@ module.exports = bot => {
 						[
 							{
 								text: '📨 Написать в поддержку',
-								url: 'https://t.me/feel_so_empty',
+								url: 'https://t.me/bifs_manager',
 							},
 							{
 								text: '❌ Закрыть',
@@ -223,7 +226,7 @@ module.exports = bot => {
 			// Отправка простого сообщения в случае ошибки
 			await bot.sendMessage(
 				chatId,
-				'⚠️ Произошла ошибка. Пожалуйста, напишите напрямую @feel_so_empty'
+				'⚠️ Произошла ошибка. Пожалуйста, напишите напрямую @bifs_manager'
 			)
 		}
 	})
@@ -582,13 +585,13 @@ Chat ID: ${chatId}
 				// Формируем текст сообщения с информацией о майнинге
 				const miningStatus = userData?.automining
 					? `⛏ <b>Ваш автомайнинг активен</b>\n\n` +
-					  `💰 Доход: 1000 BIFS/день\n` +
+					  `💰 Доход: ${defineMiningAwardByStatus(userData.status)} BIFS/день\n` +
 					  `⏳ Осталось: ${formatRemainingTime(
 							userData.autominingExpiresAt
 					  )}\n\n` +
 					  `Вы можете продлить период майнинга или проверить статистику.`
 					: `🔋 <b>Автомайнинг не активирован</b>\n\n` +
-					  `Активируйте автомайнинг для пассивного заработка 1000 BIFS ежедневно!\n\n`
+					  `Активируйте автомайнинг для пассивного заработка от 1000 BIFS ежедневно!\n\n`
 
 				const options = {
 					reply_markup: {
@@ -1182,9 +1185,9 @@ Chat ID: ${chatId}
   наша служба поддержки готова помочь!
   
   📌 <b>Способы связи:</b>
-  👉 Менеджер поддержки: @feel_so_empty
+  👉 Менеджер поддержки: @bifs_manager
   👉 Официальный чат: https://t.me/BIFSCryptoBot
-  👉 Email: support@bifs.com
+  👉 Email: bifs.helper@gmail.com
   
   ⏱ <b>Часы работы:</b>
   Пн-Пт: 9:00-22:00 (МСК)
@@ -1207,7 +1210,7 @@ Chat ID: ${chatId}
 							[
 								{
 									text: '📨 Написать в поддержку',
-									url: 'https://t.me/feel_so_empty',
+									url: 'https://t.me/bifs_manager',
 								},
 
 								{
@@ -1232,7 +1235,7 @@ Chat ID: ${chatId}
 					// Пытаемся отправить новое сообщение об ошибке
 					await bot.sendMessage(
 						chatId,
-						'⚠️ Произошла ошибка. Пожалуйста, напишите напрямую @feel_so_empty\n\n' +
+						'⚠️ Произошла ошибка. Пожалуйста, напишите напрямую @bifs_manager\n\n' +
 							'Код ошибки: ' +
 							(error instanceof Error ? error.message : 'unknown'),
 						{
@@ -1523,23 +1526,23 @@ Chat ID: ${chatId}
 						[
 							{
 								text: '1️⃣ Телеграм-канал',
-								url: 'https://t.me/bifs_official',
+								url: 'https://t.me/BIFScryptoSpace',
 							},
 							{
-								text: '2️⃣ Instagram',
-								url: 'https://instagram.com/',
+								text: '2️⃣ Сайт',
+								url: 'https://bifscoin.ru/',
 							},
 						],
-						[
-							{
-								text: '3️⃣ YouTube',
-								url: 'https://youtube.com/',
-							},
-							{
-								text: '4️⃣ X(Twitter)',
-								url: 'https://x.com/',
-							},
-						],
+						// [
+						// 	{
+						// 		text: '3️⃣ YouTube',
+						// 		url: 'https://youtube.com/',
+						// 	},
+						// 	{
+						// 		text: '4️⃣ X(Twitter)',
+						// 		url: 'https://x.com/',
+						// 	},
+						// ],
 						[
 							{
 								text: '🔙 Вернуться',

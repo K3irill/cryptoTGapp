@@ -29,7 +29,7 @@ const MainLayout: FunctionComponent<MainLayoutsProps> = ({
 		<>
 			<Head>
 				<title>BIFS</title>
-				<meta name='description' content='STELLARIS coin' />
+				<meta name='description' content='bifscoin телеграм приложение!' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>

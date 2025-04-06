@@ -43,7 +43,7 @@ const GameCanvas = () => {
 
 	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
-	const { id, tokens, automining } = useSelector(
+	const { id, tokens, automining, spacePugRecord } = useSelector(
 		(state: RootState) => state.user
 	)
 	const updateSpacePugScoreServer = async (score: number) => {
@@ -353,6 +353,7 @@ const GameCanvas = () => {
 				/>
 			))}
 			<GameUi>
+        <p>Рекорд: {spacePugRecord || 0}</p>
 				<p>Счёт: {state.score}</p>
 				<p>Жизни: {state.lives}</p>
 				<p>Время: {gameTime} сек</p>

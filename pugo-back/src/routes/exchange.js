@@ -5,7 +5,7 @@ const { getUser } = require('../controllers/userController')
 const router = express.Router()
 
 const sendMessage = async (chatId, text) => {
-	const token = 'YOUR_BOT_TOKEN' // Replace with your bot token
+	const token = process.env.BOT_TOKEN // Replace with your bot token
 	const url = `https://api.telegram.org/bot${token}/sendMessage`
 
 	try {

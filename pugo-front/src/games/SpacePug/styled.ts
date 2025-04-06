@@ -10,6 +10,7 @@ export const ControlsStyled = styled.div`
 `
 
 export const ControlsWrapper = styled.div`
+  opacity: 0.75;
 	${ControlsStyled};
 	display: flex;
 	a,

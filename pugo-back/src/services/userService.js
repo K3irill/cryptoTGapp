@@ -41,7 +41,7 @@ const getUserByTelegramId = async telegramId => {
 	console.log(`🔍 Ищу пользователя в БД: telegramId=${telegramId}`)
 	const user = await User.findOne({ where: { telegramId } })
 	console.log(`🔍 Результат поиска: ${user ? 'Найден' : 'Не найден'}`)
-	return user
+	return user ? user : null
 }
 
 const createUserIfNeeded = async ({

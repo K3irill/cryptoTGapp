@@ -46,6 +46,9 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			} else {
 				// Стандартные задачи
 				await completeTask({ userId, taskId: props.id }).unwrap()
+        window.open(props.link, '_blank');
+
+
 			}
 
 			// Обновляем страницу только для неигровых задач
@@ -68,7 +71,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			transition={{ type: 'spring', stiffness: 400, damping: 10 }}
 		>
 			<TaskIcon>
-				{props.icon.includes('http') ? (
+				{props.icon.includes('http') || props.icon.includes('svg') || props.icon.includes('png') ? (
 					<Image src={props.icon} width={32} height={32} alt='' />
 				) : (
 					props.icon

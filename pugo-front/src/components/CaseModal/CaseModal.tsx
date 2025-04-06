@@ -49,7 +49,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	onClose,
 	title = 'CASE',
 	text = 'BIFS COINS',
-	btnText = 'ОТКРЫТЬ',
+	btnText = 'ОТКРЫТЬ ЗА',
 	imgSrc = '/store/cases/case-1.png',
 	caseType,
 	casePrice = 500,
@@ -165,7 +165,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 
 	const hasEnoughTokens = user.tokens && user.tokens >= casePrice
 	const buttonText = !hasEnoughTokens
-		? 'НЕ ХВАТАЕТ BIFS'
+		? 'НЕ ХВАТАЕТ'
 		: isSpinning
 		? 'ОТКРЫВАЕМ...'
 		: showResult
@@ -220,7 +220,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 									: () => setShowBuyModal(true)
 							}
 						>
-							{`${buttonText} ЗА ${casePrice} BIFS`}
+							{`${buttonText}  ${casePrice} BIFS`}
 						</MulticolouredButton>
 					)}
 				</CaseButtonWrapper>
@@ -268,7 +268,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 				)}
 			</Content>
 			<BasicModal
-				title='Не хватает монет BIFS'
+				title='Не хватает BIFS монет'
 				text='Вы можете заработать монеты в играх, приглашая друзей, рекламируя нас или приобрести за Звезды'
 				btnText='Приобрести'
 				isVisible={showBuyModal}

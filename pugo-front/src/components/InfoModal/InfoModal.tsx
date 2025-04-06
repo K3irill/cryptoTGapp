@@ -913,25 +913,26 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 					>
 						{[
 							{
-								name: 'Telegram',
-								url: 'https://t.me/BIFSCryptoBot',
+								name: 'Telegram Канал',
+								url: 'https://t.me/BIFScryptoSpace',
 								icon: '📢',
 							},
-							{
-								name: 'Twitter',
-								url: 'https://twitter.com',
-								icon: '🐦',
-							},
-							{
-								name: 'Discord',
-								url: 'https://discord.gg',
-								icon: '💬',
-							},
-							{
-								name: 'Сайт',
-								url: 'https://bifs.ru',
-								icon: '🌐',
-							},
+              {
+                name: 'Сайт',
+                url: 'https://bifscoin.ru',
+                icon: '🌐',
+              },
+							// {
+							// 	name: 'Twitter',
+							// 	url: 'https://twitter.com',
+							// 	icon: '🐦',
+							// },
+							// {
+							// 	name: 'Discord',
+							// 	url: 'https://discord.gg',
+							// 	icon: '💬',
+							// },
+              
 						].map(social => (
 							<Link
 								key={social.name}
