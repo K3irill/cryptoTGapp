@@ -10,6 +10,7 @@ const {
 const User = require('./models/User')
 const { getUserTasks } = require('./services/taskService')
 const { defineMiningAwardByStatus } = require('./utils/utils')
+const { products, autominingProducts } = require('./storeContent')
 const YOUR_CHAT_IDES = [
 	process.env.MY_CHATID,
 	process.env.BRO_CHATID,
@@ -69,7 +70,7 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 Нажмите "Начать", чтобы продолжить, или "Больше информации", чтобы узнать подробности.
         `
 
-			// Кнопки
+		
 			const options = {
 				reply_markup: {
 					inline_keyboard: [
@@ -88,14 +89,14 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 			}
 
       if (!user) {
-        // Регистрация нового пользователя
+
         user = await createUser(telegramId, username)
         bot.sendMessage(chatId, welcomeMessageNewUser, {
           parse_mode: 'HTML',
           reply_markup: options.reply_markup,
         })
       } else {
-        // Приветствие зарегистрированного пользователя
+ 
         if (user.automining) {
           await checkAndAddPugoDaily(telegramId)
         }
@@ -174,7 +175,7 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 		const user = msg.from
 
 		try {
-			// Формируем информативное сообщение
+			
 			const supportMessage = `
 🛠 <b>Центр поддержки</b> 🛠
 
@@ -198,7 +199,7 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 3. Скриншоты (если есть)
         `
 
-			// Отправка сообщения с поддержкой
+
 			await bot.sendMessage(chatId, supportMessage, {
 				parse_mode: 'HTML',
 				disable_web_page_preview: true,
@@ -218,12 +219,12 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 				},
 			})
 
-			// Логируем обращение
+
 			console.log(`Пользователь ${user?.id} запросил поддержку`)
 		} catch (error) {
 			console.error('Ошибка в команде /support:', error)
 
-			// Отправка простого сообщения в случае ошибки
+
 			await bot.sendMessage(
 				chatId,
 				'⚠️ Произошла ошибка. Пожалуйста, напишите напрямую @bifs_manager'
@@ -244,11 +245,11 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 		const chatId = msg.chat.id
 		const telegramId = msg.from.id
 		const username = msg.from.username || 'Не указан'
-		const text = msg.text || msg.caption || '' // Текст сообщения или подпись к фото
+		const text = msg.text || msg.caption || '' 
 		const document = msg.document
 		const photo = msg.photo
 
-		// Список известных команд
+		
 		const knownCommands = [
 			'/start',
 			'/help',
@@ -259,12 +260,12 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 			'/mining',
 		]
 
-		// Проверяем, начинается ли сообщение с "bif-отчет"
+		
 		if (text.toLowerCase().startsWith('bif-отчет')) {
-			// Убираем ключевое слово "bif-отчет" из текста отчета
+			
 			const reportText = text.replace(/^bif-отчет\s*/i, '').trim()
 
-			// Составляем базовый отчет
+		
 			let fullReportText = `Отчет от пользователя:
 Username: ${username}
 Telegram ID: ${telegramId}
@@ -272,13 +273,13 @@ Chat ID: ${chatId}
 Дата: ${new Date().toLocaleString()}
 Текст отчета: ${reportText || 'Без текста'}`
 
-			// Функция для проверки размера файла
+			
 			const checkFileSize = async fileId => {
 				const file = await bot.getFile(fileId)
-				return file.file_size <= 15 * 1024 * 1024 // 2 МБ в байтах
+				return file.file_size <= 15 * 1024 * 1024 
 			}
 
-			// Если есть документ, проверяем его размер
+	
 			let documentLink = ''
 			if (document) {
 				const fileId = document.file_id
@@ -292,14 +293,14 @@ Chat ID: ${chatId}
 						chatId,
 						'Документ слишком большой. Пожалуйста, отправьте файл размером до 2 МБ.'
 					)
-					return // Прерываем обработку, если размер слишком большой
+					return
 				}
 			}
 
-			// Если есть фото, проверяем его размер
+		
 			let photoLink = ''
 			if (photo) {
-				const fileId = photo[photo.length - 1].file_id // Последнее фото (самое большое)
+				const fileId = photo[photo.length - 1].file_id 
 				const isValidSize = await checkFileSize(fileId)
 
 				if (isValidSize) {
@@ -310,16 +311,16 @@ Chat ID: ${chatId}
 						chatId,
 						'Фото слишком большое. Пожалуйста, отправьте изображение размером до 2 МБ.'
 					)
-					return // Прерываем обработку, если размер слишком большой
+					return 
 				}
 			}
 
-			// Добавляем ссылки на документ и фото в отчет
+		
 			if (documentLink || photoLink) {
 				fullReportText += `\n\n${documentLink}\n\n${photoLink}`
 			}
 
-			// Отправляем отчет всем пользователям из списка YOUR_CHAT_IDES
+
 			YOUR_CHAT_IDES.forEach(chatId => {
 				bot
 					.sendMessage(chatId, fullReportText)
@@ -334,15 +335,15 @@ Chat ID: ${chatId}
 					})
 			})
 
-			// Уведомляем пользователя
+
 			bot.sendMessage(chatId, 'Ваш отчет успешно отправлен! Спасибо!')
 		}
-		// Если сообщение не начинается с "bif-отчет" и не является известной командой
+
 		else if (!knownCommands.includes(text.toLowerCase())) {
 			bot.sendMessage(chatId, 'Напишите команду /help, чтобы узнать больше.')
 		}
 	})
-	// Когда пользователь пишет команду /help
+
 	bot.onText(/\/help/, async msg => {
 		const chatId = msg.chat.id
 
@@ -386,40 +387,9 @@ Chat ID: ${chatId}
 		bot.sendMessage(chatId, 'Давайте перейдем в магазин!', options)
 	})
 
-	const products = {
-		50: { stars: 50, pugo: 150, description: '150 BIFS' },
-		150: { stars: 150, pugo: 500, description: '500 BIFS' },
-		500: { stars: 500, pugo: 2000, description: '2000 BIFS' },
-		1000: {
-			stars: 1000,
-			pugo: 5000,
-			description: '5000 BIFS',
-		},
-		2500: {
-			stars: 2500,
-			pugo: 15000,
-			description: '15000 BIFS',
-		},
-	}
+	
 
-	// Продукты для автомайнинга
-	const autominingProducts = {
-		7: {
-			stars: 777,
-			days: 7,
-			description: '7 дней автомайнинга',
-		},
-		21: {
-			stars: 1500,
-			days: 21,
-			description: '21 день автомайнинга',
-		},
-		40: {
-			stars: 2222,
-			days: 40,
-			description: '40 дней автомайнинга',
-		},
-	}
+	
 
 	bot.on('callback_query', async query => {
 		const chatId = query.message.chat.id
@@ -449,7 +419,7 @@ Chat ID: ${chatId}
 			}
 
 			const welcomeImageUrl =
-				'https://i.postimg.cc/qv7mZsN5/a8e6e245-3e60-4a46-8325-30b14cc50bf7.jpg' // URL изображения
+				'https://i.postimg.cc/qv7mZsN5/a8e6e245-3e60-4a46-8325-30b14cc50bf7.jpg' 
 
 			const messageText = `
   ✨ <b>Магазин:</b> ✨
@@ -525,7 +495,7 @@ Chat ID: ${chatId}
 		}
 
 		if (query.data === 'tokens') {
-			// Создаем кнопки для продуктов
+
 			const productButtons = Object.keys(products).map(productKey => [
 				{
 					text: `${products[productKey].pugo} BIFS за ${products[productKey].stars} Stars`,
@@ -533,7 +503,7 @@ Chat ID: ${chatId}
 				},
 			])
 
-			// Добавляем кнопку "Вернуться" в отдельный ряд
+
 			const returnButton = [
 				{
 					text: '🔙 Вернуться',
@@ -541,14 +511,14 @@ Chat ID: ${chatId}
 				},
 			]
 
-			// Объединяем кнопки продуктов и кнопку "Вернуться"
+
 			const options = {
 				reply_markup: {
 					inline_keyboard: [...productButtons, returnButton],
 				},
 			}
 
-			// Отправляем сообщение с кнопками
+	
 			bot.sendMessage(
 				chatId,
 				'Выберите количество токенов для покупки:',

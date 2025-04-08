@@ -84,7 +84,7 @@ export const handleAutomining = async (user: UserState) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ telegramId: user.id, days: 7, stars: 777 }),
+			body: JSON.stringify({ telegramId: user.id, days: 7, stars: 500 }),
 		})
 
 		const data = await response.json()

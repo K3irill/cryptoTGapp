@@ -25,7 +25,7 @@ import {
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { handleAutomining, handleBuyTokens } from '@/utils/sendBotMessage'
-import { products } from './exchange.content'
+
 
 import ShinyButton from '@/components/UI/ShinyButton/ShinyButton'
 import { toast, Toaster } from 'react-hot-toast'
@@ -33,6 +33,7 @@ import Label from '@/components/Label/Label'
 import type { ExchangeProps } from './Exchange.d'
 import { defineMiningAwardByStatus } from '@/utils/utils'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
+import { products } from '@/assets/constants/storeContent'
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
 	children,

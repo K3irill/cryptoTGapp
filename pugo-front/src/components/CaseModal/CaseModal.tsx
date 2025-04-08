@@ -200,7 +200,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 				/>
 				<CaseButtonWrapper>
 					{caseType === 'privileges' && user.status === 10 ? (
-						<h3>У вас уже максимальный статус</h3>
+						<h3>У вас уже GOD статус, выше только STAR LORD</h3>
 					) : (
 						<MulticolouredButton
 							theme={

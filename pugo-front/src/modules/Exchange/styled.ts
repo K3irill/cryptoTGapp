@@ -1,18 +1,12 @@
-import React, { FunctionComponent, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import { handleAutomining, handleBuyTokens } from '@/utils/sendBotMessage'
-import { products } from './exchange.content'
-import { Toaster, toast } from 'react-hot-toast'
 import { COLORS } from '@/styles/colors'
-import { goldenShine } from '@/styles/effects'
+
 import {
 	goldenTextGradient,
 	blueTextGradient,
 	mainBlockBackground,
-	purpleBackground,
+
 	blueGradientBackground,
 } from '@/styles/mixins'
 

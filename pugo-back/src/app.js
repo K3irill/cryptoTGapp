@@ -21,8 +21,15 @@ dotenv.config()
 
 const app = express()
 
+
+const corsOptions = {
+  origin: ['https://api.bifscoin-api.ru', 'https://app.bifscoin-api.ru', 'https://bifscoin-api.ru'], 
+  methods: ['GET', 'POST'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+}
+
 // Middleware
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json())
 
 // Подключение роутов
