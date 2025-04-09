@@ -10,7 +10,7 @@ export const ControlsStyled = styled.div`
 `
 
 export const ControlsWrapper = styled.div`
-  opacity: 0.75;
+	opacity: 0.75;
 	${ControlsStyled};
 	display: flex;
 	a,
@@ -43,7 +43,7 @@ export const GameCanvasStyled = styled.div`
 	width: 100%;
 	height: 100vh;
 	overflow: hidden;
-	background: url('/backgrounds/space-stars.gif');
+	// background: url('/backgrounds/space-stars.gif');
 `
 
 const rotate = keyframes`

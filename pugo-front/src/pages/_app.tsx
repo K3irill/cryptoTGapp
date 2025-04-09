@@ -20,6 +20,111 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 	const user = useSelector((state: RootState) => state.user)
 
 	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			// Создаём элемент для звёздного неба
+			const bgAnimation = document.createElement('div')
+			bgAnimation.className = 'bg-animation'
+			document.body.appendChild(bgAnimation)
+
+			// Функция для создания звёздного слоя
+			function createStarLayer(
+				id: string,
+				size: number,
+				count: number,
+				duration: number,
+				color: string
+			) {
+				const layer = document.createElement('div')
+				layer.id = id
+				layer.style.width = `${size}px`
+				layer.style.height = `${size}px`
+				layer.style.background = 'transparent'
+				layer.style.position = 'absolute'
+				layer.style.top = '0'
+				layer.style.left = '0'
+
+				// Генерируем box-shadow для звёзд
+				let boxShadow = ''
+				for (let i = 0; i < count; i++) {
+					const x = Math.random() * window.innerWidth
+					const y = Math.random() * window.innerHeight * 2 // Удваиваем высоту для бесшовной анимации
+					boxShadow += `${x}px ${y}px ${color}`
+					if (i < count - 1) boxShadow += ', '
+				}
+
+				layer.style.boxShadow = boxShadow
+
+				// Анимация
+				layer.style.animation = `animStar ${duration}s linear infinite`
+
+				// Создаём псевдоэлемент для бесконечного цикла
+				const after = document.createElement('div')
+				after.style.content = '" "'
+				after.style.position = 'absolute'
+				after.style.top = `${window.innerHeight * 2}px`
+				after.style.width = `${size}px`
+				after.style.height = `${size}px`
+				after.style.background = 'transparent'
+				after.style.boxShadow = boxShadow
+
+				layer.appendChild(after)
+				bgAnimation.appendChild(layer)
+			}
+
+			// Создаём несколько слоёв звёзд с разными параметрами
+			createStarLayer('stars', 1, 200, 50, '#CED8E1')
+			createStarLayer('stars2', 2, 100, 100, '#CED8E1')
+			createStarLayer('stars3', 3, 50, 150, '#CED8E1')
+			createStarLayer('stars4', 1, 300, 600, '#CED8E1')
+
+			// Добавляем стили анимации
+			const style = document.createElement('style')
+			style.textContent = `
+        @keyframes animStar {
+            from { transform: translateY(-${window.innerHeight * 2}px); } 
+              to { transform: translateY(0px); }
+        }
+        
+        .bg-animation {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+        }
+      `
+			document.head.appendChild(style)
+
+			// Обновляем звёзды при изменении размера окна
+			const updateStarsOnResize = () => {
+				bgAnimation.innerHTML = '' // Очищаем текущие слои
+				createStarLayer('stars', 1, 200, 50, '#CED8E1')
+				createStarLayer('stars2', 2, 100, 100, '#CED8E1')
+				createStarLayer('stars3', 3, 50, 150, '#CED8E1')
+				createStarLayer('stars4', 1, 300, 600, '#CED8E1')
+
+				// Обновляем анимацию с новым размером окна
+				if (style) {
+					style.textContent = `
+            @keyframes animStar {
+              from { transform: translateY(-${window.innerHeight * 2}px); } 
+              to { transform: translateY(0px); }
+            }
+          `
+				}
+			}
+
+			window.addEventListener('resize', updateStarsOnResize)
+
+			// Убираем слушателя при размонтировании компонента
+			return () => {
+				window.removeEventListener('resize', updateStarsOnResize)
+			}
+		}
+	}, [])
+
+	useEffect(() => {
 		const loadStateFromLocalStorage = () => {
 			try {
 				const serializedState = localStorage.getItem('userState')

@@ -17,6 +17,7 @@ export const NoobSliderStyled = styled.div`
 	align-items: center;
 	gap: 12px;
 `
+
 export const NoobSlide = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -28,32 +29,6 @@ export const NoobSlide = styled.div`
 	height: 100vh;
 	color: white;
 	background-position: cover;
-	background: url('/backgrounds/space-stars.gif'),
-		radial-gradient(
-				42.85% 184.29% at 15.34% 39.06%,
-				rgba(131, 113, 243, 0.2) 0%,
-				rgba(69, 156, 236, 0) 100%
-			)
-			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
-		radial-gradient(
-				130.16% 129.69% at 63.64% -12.5%,
-				rgba(133, 40, 251, 0.3) 0%,
-				rgba(86, 84, 74, 0.036) 100%
-			)
-			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
-		radial-gradient(
-				80.68% 51.24% at 19.32% 40.62%,
-				rgba(24, 100, 183, 0.3) 0%,
-				rgba(23, 61, 102, 0.264) 100%
-			)
-			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
-		radial-gradient(
-				28.98% 110.94% at 43.75% -31.25%,
-				rgba(24, 17, 24, 0.53) 21.25%,
-				#000000 100%
-			)
-			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
-		rgba(3, 3, 3, 0.3);
 `
 export const SlideTitle = styled.div`
 	font-weight: 800;
