@@ -19,111 +19,119 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user)
 
-	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			// Создаём элемент для звёздного неба
-			const bgAnimation = document.createElement('div')
-			bgAnimation.className = 'bg-animation'
-			document.body.appendChild(bgAnimation)
 
-			// Функция для создания звёздного слоя
-			function createStarLayer(
-				id: string,
-				size: number,
-				count: number,
-				duration: number,
-				color: string
-			) {
-				const layer = document.createElement('div')
-				layer.id = id
-				layer.style.width = `${size}px`
-				layer.style.height = `${size}px`
-				layer.style.background = 'transparent'
-				layer.style.position = 'absolute'
-				layer.style.top = '0'
-				layer.style.left = '0'
 
-				// Генерируем box-shadow для звёзд
-				let boxShadow = ''
-				for (let i = 0; i < count; i++) {
-					const x = Math.random() * window.innerWidth
-					const y = Math.random() * window.innerHeight * 2 // Удваиваем высоту для бесшовной анимации
-					boxShadow += `${x}px ${y}px ${color}`
-					if (i < count - 1) boxShadow += ', '
-				}
-
-				layer.style.boxShadow = boxShadow
-
-				// Анимация
-				layer.style.animation = `animStar ${duration}s linear infinite`
-
-				// Создаём псевдоэлемент для бесконечного цикла
-				const after = document.createElement('div')
-				after.style.content = '" "'
-				after.style.position = 'absolute'
-				after.style.top = `${window.innerHeight * 2}px`
-				after.style.width = `${size}px`
-				after.style.height = `${size}px`
-				after.style.background = 'transparent'
-				after.style.boxShadow = boxShadow
-
-				layer.appendChild(after)
-				bgAnimation.appendChild(layer)
-			}
-
-			// Создаём несколько слоёв звёзд с разными параметрами
-			createStarLayer('stars', 1, 200, 50, '#CED8E1')
-			createStarLayer('stars2', 2, 100, 100, '#CED8E1')
-			createStarLayer('stars3', 3, 50, 150, '#CED8E1')
-			createStarLayer('stars4', 1, 300, 600, '#CED8E1')
-
-			// Добавляем стили анимации
-			const style = document.createElement('style')
-			style.textContent = `
-        @keyframes animStar {
-            from { transform: translateY(-${window.innerHeight * 2}px); } 
-              to { transform: translateY(0px); }
-        }
-        
-        .bg-animation {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-        }
-      `
-			document.head.appendChild(style)
-
-			// Обновляем звёзды при изменении размера окна
-			const updateStarsOnResize = () => {
-				bgAnimation.innerHTML = '' // Очищаем текущие слои
-				createStarLayer('stars', 1, 200, 50, '#CED8E1')
-				createStarLayer('stars2', 2, 100, 100, '#CED8E1')
-				createStarLayer('stars3', 3, 50, 150, '#CED8E1')
-				createStarLayer('stars4', 1, 300, 600, '#CED8E1')
-
-				// Обновляем анимацию с новым размером окна
-				if (style) {
-					style.textContent = `
-            @keyframes animStar {
-              from { transform: translateY(-${window.innerHeight * 2}px); } 
-              to { transform: translateY(0px); }
-            }
-          `
-				}
-			}
-
-			window.addEventListener('resize', updateStarsOnResize)
-
-			// Убираем слушателя при размонтировании компонента
-			return () => {
-				window.removeEventListener('resize', updateStarsOnResize)
-			}
-		}
-	}, [])
-
+  const createStarLayer = (
+    id: string,
+    size: number,
+    count: number,
+    duration: number,
+    color: string
+  ) => {
+    const layer = document.createElement('div');
+    layer.id = id;
+    layer.style.position = 'absolute';
+    layer.style.top = '0';
+    layer.style.left = '0';
+    layer.style.width = '100%';
+    layer.style.height = `${window.innerHeight * 2}px`; // для анимации от -2x до 0
+    layer.style.overflow = 'hidden';
+  
+    for (let i = 0; i < count; i++) {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight * 2;
+  
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.position = 'absolute';
+      star.style.left = `${x}px`;
+      star.style.top = `${y}px`;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.background = color;
+      star.style.borderRadius = '50%';
+      star.style.opacity = `${Math.random() * 0.8 + 0.2}`; // немного рандомной прозрачности
+  
+      layer.appendChild(star);
+    }
+  
+    // Анимация слоя
+    layer.style.animation = `animStarLayer-${id} ${duration}s linear infinite`;
+  
+    // Создаём CSS keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes animStarLayer-${id} {
+        from { transform: translateY(-${window.innerHeight}px); }
+        to { transform: translateY(0); }
+      }
+    `;
+    document.head.appendChild(style);
+  
+    return layer;
+  };
+  
+  const useStarryBackground = () => {
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        // Создаём контейнер для анимации
+        const bgAnimation = document.createElement('div');
+        bgAnimation.className = 'bg-animation';
+        document.body.appendChild(bgAnimation);
+  
+        // Параметры слоёв звёзд
+        const starParams = [
+          { id: 'stars', size: 1, count: 100, duration: 50, color: '#CED8E1' },
+          { id: 'stars2', size: 2, count: 50, duration: 100, color: '#CED8E1' },
+          { id: 'stars3', size: 3, count: 25, duration: 150, color: '#CED8E1' },
+          { id: 'stars4', size: 1, count: 150, duration: 600, color: '#CED8E1' }
+        ];
+  
+        // Генерация слоёв
+        starParams.forEach(params => {
+          const layer = createStarLayer(params.id, params.size, params.count, params.duration, params.color);
+          bgAnimation.appendChild(layer);
+        });
+  
+        // Стили контейнера
+        const style = document.createElement('style');
+        style.textContent = `
+          .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+          }
+        `;
+        document.head.appendChild(style);
+  
+        // Обработка resize
+        let resizeTimeout: ReturnType<typeof setTimeout>;
+        const updateStarsOnResize = () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            bgAnimation.innerHTML = '';
+            starParams.forEach(params => {
+              const layer = createStarLayer(params.id, params.size, params.count, params.duration, params.color);
+              bgAnimation.appendChild(layer);
+            });
+          }, 300);
+        };
+  
+        window.addEventListener('resize', updateStarsOnResize);
+  
+        // Очистка
+        return () => {
+          window.removeEventListener('resize', updateStarsOnResize);
+          document.body.removeChild(bgAnimation);
+        };
+      }
+    }, []);
+  };
+  useStarryBackground();
 	useEffect(() => {
 		const loadStateFromLocalStorage = () => {
 			try {
@@ -152,7 +160,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 				dispatch(
 					setUser({
 						id: String(user.id),
-						username: user.username || null,
+						username: user.username  || user.first_name || String(user.id) || null,
 						firstName: user.first_name || null,
 						lastName: user.last_name || null,
 						photoUrl: user.photo_url || null,
@@ -175,7 +183,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 						},
 						body: JSON.stringify({
 							telegramId: user.id,
-							username: user.username || null,
+              username: user.username  || user.first_name || String(user.id) || null,
 							firstName: user.first_name,
 							lastName: user.last_name,
 						}),
@@ -203,7 +211,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					telegramId: window.Telegram.WebApp.initDataUnsafe.user?.id,
-					username: window.Telegram.WebApp.initDataUnsafe.user?.username,
+					username: window.Telegram.WebApp.initDataUnsafe.user?.username || window.Telegram.WebApp.initDataUnsafe.user?.first_name || window.Telegram.WebApp.initDataUnsafe.user?.id,
 					firstName: window.Telegram.WebApp.initDataUnsafe.user?.first_name,
 					lastName: window.Telegram.WebApp.initDataUnsafe.user?.last_name,
 				}),

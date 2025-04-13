@@ -32,6 +32,7 @@ const checkStatusRequirements = (user, targetStatus) => {
 
 	return hasEnoughTokens
 }
+const formattedUsername = (username, telegramId) => isNaN(+username) ? username : `Пуглик номер ${telegramId}`;
 
 module.exports = {
 	defineUserStatus,
@@ -40,4 +41,5 @@ module.exports = {
 	checkStatusRequirements,
 	statusConfig,
 	validateStatus,
+  formattedUsername
 }

@@ -10,8 +10,10 @@ const { defineReferralAwardByStatus } = require('../utils/utils')
 const router = express.Router()
 
 router.post('/telegram-register', async (req, res) => {
-	const { telegramId, username, firstName, lastName } = req.body
-
+	let { telegramId, username, firstName, lastName } = req.body
+  if (!username) {
+    username = telegramId
+  }
 	try {
 		const user = await createUserIfNeeded({
 			telegramId,
@@ -30,7 +32,9 @@ router.post('/telegram-register', async (req, res) => {
 router.post('/ref/:referralCode', async (req, res) => {
 	const { referralCode } = req.params
 	const { telegramId, username, firstName, lastName } = req.body
-
+  if (!username) {
+    username = telegramId
+  }
 	try {
 		const referrer = await User.findOne({ where: { referralCode } })
 

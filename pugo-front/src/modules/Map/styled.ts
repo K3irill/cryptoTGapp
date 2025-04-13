@@ -41,4 +41,5 @@ export const MapBlock = styled.div`
 `
 export const MapSvg = styled.img`
 	position: relative;
+  width: 100%;
 `

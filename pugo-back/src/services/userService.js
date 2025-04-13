@@ -7,18 +7,21 @@ const {
 } = require('../utils/utils')
 
 // Функция создания пользователя с токенами и реферальным кодом
-const createUser = async (telegramId, username, firstName, lastName) => {
+const createUser = async (telegramId, username = telegramId, firstName, lastName) => {
+  if (!username) {
+    username = telegramId
+  }
 	const user = await User.create({
 		telegramId,
 		username,
 		firstName,
 		lastName,
-		tokens: 1,
+		tokens: 500,
 		referralCode: generateReferralCode(),
 		automining: false,
 		autominingExpiresAt: null,
 		transactions: [],
-		status: 1,
+		status: 3,
 	})
 
 	// Получаем все существующие задачи
@@ -50,6 +53,9 @@ const createUserIfNeeded = async ({
 	firstName,
 	lastName,
 }) => {
+  if (!username) {
+    username = telegramId
+  }
 	const existingUser = await getUserByTelegramId(telegramId)
 
 	if (existingUser) {

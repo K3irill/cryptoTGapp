@@ -9,7 +9,7 @@ const {
 } = require('./services/userService')
 const User = require('./models/User')
 const { getUserTasks } = require('./services/taskService')
-const { defineMiningAwardByStatus } = require('./utils/utils')
+const { defineMiningAwardByStatus, formattedUsername } = require('./utils/utils')
 const { products, autominingProducts } = require('./storeContent')
 const YOUR_CHAT_IDES = [
 	process.env.MY_CHATID,
@@ -61,7 +61,7 @@ module.exports = bot => {
         `
 
 			const welcomeMessageRegisteredUser = `
-🌟 <b>С возвращением, ${username}!</b> 🌟
+🌟 <b>С возвращением, ${formattedUsername(username, telegramId)}!</b> 🌟
 
 Мы рады снова видеть вас в BIFS! Продолжайте зарабатывать токены, играть и приглашать друзей, чтобы получить ещё больше бонусов.
 
@@ -122,11 +122,11 @@ ${user && user.tokens ? `Ваш текущий баланс: ${user.tokens} то
 			let user = await getUserByTelegramId(telegramId)
 
 			if (user.tokens) {
-				bot.sendMessage(chatId, `${username}! У вас ${user.tokens} BIFS.`)
+				bot.sendMessage(chatId, `${formattedUsername(user.username, user.telegramId)}! У вас ${user.tokens} BIFS.`)
 			} else {
 				bot.sendMessage(
 					chatId,
-					`Извините, ${user.username}! Произошла ошибка при проверке баланса`
+					`Извините, ${formattedUsername(user.username, user.telegramId)}! Произошла ошибка при проверке баланса`
 				)
 			}
 		} catch (error) {
@@ -1001,7 +1001,7 @@ Chat ID: ${chatId}
 				reply_markup: options.reply_markup,
 			})
 		} else if (query.data === 'goals_info') {
-			const welcomeImageUrl = 'https://i.postimg.cc/05GjV3Kc/3.png' // URL изображения
+			const welcomeImageUrl = 'https://i.postimg.cc/k5QtJWCh/3.png' // URL изображения
 
 			const messageText = `
   ✨ <b>Наши цели:</b> ✨
@@ -1351,7 +1351,7 @@ Chat ID: ${chatId}
 				} else {
 					bot.sendMessage(
 						chatId,
-						`Извините, ${user.username}! Произошла ошибка при проверке реферального кода`
+						`Извините, ${formattedUsername(user.username, user.telegramId)}! Произошла ошибка при проверке реферального кода`
 					)
 				}
 			} catch (error) {
