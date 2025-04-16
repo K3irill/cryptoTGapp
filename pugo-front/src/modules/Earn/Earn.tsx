@@ -25,18 +25,18 @@ export const Earn: FunctionComponent<EarnProps> = ({ data }) => {
 
 	const games = [
 		{
+			id: 'miner',
+			title: 'Crystal Miner',
+			description: 'Добывайте кристалы в увлекательной мини-игре',
+			image: '/games/crystal-preview.jpg',
+			available: true,
+		},
+		{
 			id: 'spacepug',
 			title: 'Space Pug',
 			description: 'Помогите пуглику собрать токены BIFS в космосе',
 			image: '/games/space-pug.jpg',
 			available: true,
-		},
-		{
-			id: 'miner',
-			title: 'BIFS Miner',
-			description: 'Добывайте токены в увлекательной мини-игре',
-			image: '/games/miner-preview.jpg',
-			available: false,
 		},
 		{
 			id: 'quiz',
