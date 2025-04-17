@@ -27,6 +27,7 @@ import { REQUEST_LINK } from '../../../constant'
 import IOSSwitch from '@/components/IOSSwitch/IOSSwitch'
 import { BasicModal } from '@/components/CenterModal/CenterModal'
 import toast, { Toaster } from 'react-hot-toast'
+import GamesSlider from '@/components/GamesSlider/GamesSlider'
 
 export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 	const { id, tokens, automining } = useSelector(
@@ -115,6 +116,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
             title='TRADE'
           />
           <Button href='https://t.me/pugo_official' theme='fill' title='NEWS' /> */}
+					<GamesSlider />
 				</BannerStyled>
 				<CoinSection>
 					<CoinCountInfoWrapper>
@@ -149,6 +151,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 							/>
 						</AutoMining>
 					</ActivityWrapper>
+
 					{children}
 				</CoinSection>
 

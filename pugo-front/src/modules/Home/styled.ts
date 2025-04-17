@@ -10,18 +10,16 @@ export const HomeStyled = styled.div`
 	max-height: calc(100vh - 170px);
 `
 export const BannerStyled = styled.div`
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 10px;
+	display: flex;
+
 	padding: 0 8px;
-	margin-top: 10px;
 `
 export const ActivityWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	gap: 15px;
-	margin-bottom: 100px;
+	margin-bottom: 10px;
 `
 export const AutoMining = styled.div`
 	display: flex;
