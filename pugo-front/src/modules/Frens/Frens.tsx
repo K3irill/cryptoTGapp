@@ -88,7 +88,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 							<span>
 								{status ? defineReferralAwardByStatus(status) : 50} BIFS
 							</span>
-							, а ваш друг получит <span>50 BIFS</span>
+							, а ваш друг получит <span>500 BIFS</span>
 						</BenefitDescription>
 					</BenefitText>
 				</BenefitItem>
