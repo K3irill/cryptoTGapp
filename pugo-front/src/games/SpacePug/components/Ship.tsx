@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { ShipStyled } from '../styled'
 
-const Ship = ({ onMove, position }) => {
+const Ship = ({ onMove, position, ref }) => {
 	const [tiltClass, setTiltClass] = useState('')
 
 	useEffect(() => {
@@ -30,7 +30,7 @@ const Ship = ({ onMove, position }) => {
 		}
 
 		const handleKeyUp = () => {
-			setTiltClass('') // Сбрасываем наклон при отпускании клавиши
+			setTiltClass('')
 		}
 
 		window.addEventListener('keydown', handleKeyDown)
@@ -44,6 +44,7 @@ const Ship = ({ onMove, position }) => {
 
 	return (
 		<ShipStyled
+			ref={ref}
 			className={tiltClass}
 			style={{ left: position.x, top: position.y }}
 		/>

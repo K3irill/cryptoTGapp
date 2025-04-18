@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CoinStyled } from '../styled'
+import { SpacePugGameContext } from '../SpacePugContext'
 
 const Coin = ({ onCollide, initialPosition, isGameOver, shipPosition }) => {
 	const [position, setPosition] = useState(initialPosition)
+	const spacePugContext = useContext(SpacePugGameContext)
+	if (!spacePugContext) {
+		throw new Error('AppContext must be used within an AppProvider')
+	}
 
 	useEffect(() => {
 		if (!isGameOver) {
@@ -14,9 +19,9 @@ const Coin = ({ onCollide, initialPosition, isGameOver, shipPosition }) => {
 
 					if (
 						newY + 40 >= shipPosition.y &&
-						prev.y <= shipPosition.y + 50 &&
+						prev.y <= shipPosition.y + spacePugContext.shipHeight &&
 						prev.x + 40 >= shipPosition.x &&
-						prev.x <= shipPosition.x + 50
+						prev.x <= shipPosition.x + spacePugContext.shipWidth
 					) {
 						onCollide()
 						return { x: Math.random() * window.innerWidth, y: -50 }

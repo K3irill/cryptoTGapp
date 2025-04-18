@@ -1,13 +1,24 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import Ship from './components/Ship'
 import Asteroid from './components/Asteroid'
 import Coin from './components/Coin'
 import HealthPack from './components/HealthPack'
 import Controls from './components/Controls'
 import { Game, MAX_FLASH_ASTEROIDS } from './gameLogic'
-import { GameCanvasStyled, GameUi, UiButtonsWrapper } from './styled'
+import {
+	CenterUi,
+	GameCanvasStyled,
+	GameOverlay,
+	GameUi,
+	LevelText,
+	RestartButtonsWrapper,
+	ScoreText,
+	StopBtn,
+	TimeText,
+	UiButtonsWrapper,
+} from './styled'
 import MulticolouredButton from '@/components/UI/MulticolouredButton/MulticolouredButton'
 import { ButtonBackStyled } from '@/components/TopPageInfo/styled'
 import { useRouter } from 'next/router'
@@ -20,17 +31,29 @@ import { RootState } from '@/store/store'
 import FlashAsteroid from './components/FlashAsteroid'
 import { useUpdateTokensMutation } from '@/store/services/api/userApi'
 import { useSpacePugCompletedMutation } from '@/store/services/api/tasksApi'
+import SizePack from './components/SizePack'
+import { SpacePugGameContext } from './SpacePugContext'
+import SizeSmallPack from './components/SizeSmallPack'
 
 const GameCanvas = () => {
 	const dispatch = useDispatch()
+	const spacePugContext = useContext(SpacePugGameContext)
+	if (!spacePugContext) {
+		throw new Error('AppContext must be used within an AppProvider')
+	}
+
 	const [game] = useState(new Game())
 	const [state, setState] = useState(game.getState())
 	const [shipPosition, setShipPosition] = useState({ x: 0, y: 0 })
 	const [asteroids, setAsteroids] = useState([])
 	const [flashAsteroids, setFlashAsteroids] = useState([])
 	const [coins, setCoins] = useState([])
-
+	const shipRef = useRef(null)
 	const [healthPacks, setHealthPacks] = useState([])
+	const [smallSizeActionTimer, setSmallSizeActionTimer] = useState(0)
+	const [bigSizeActionTimer, setBigSizeActionTimer] = useState(0)
+	const [sizeSmallPacks, setSizeSmallPacks] = useState([])
+	const [sizePacks, setSizePacks] = useState([])
 	const [megaBombs, setMegaBombs] = useState([])
 	const [isGameOver, setIsGameOver] = useState(false)
 	const [isShiftPressed, setIsShiftPressed] = useState(false)
@@ -43,6 +66,7 @@ const GameCanvas = () => {
 
 	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
+	const [showStopModal, setShowStopModal] = useState<boolean>(false)
 	const { id, tokens, automining, spacePugRecord } = useSelector(
 		(state: RootState) => state.user
 	)
@@ -207,6 +231,50 @@ const GameCanvas = () => {
 
 	useEffect(() => {
 		if (!isGameOver) {
+			const sizePackInterval = setInterval(() => {
+				setSizePacks(prev => {
+					if (prev.length < 1) {
+						return [
+							...prev,
+							{
+								id: `${Date.now()}-${Math.random()}`,
+								x: Math.random() * window.innerWidth,
+								y: -50,
+							},
+						]
+					}
+					return prev
+				})
+			}, 45000)
+
+			return () => clearInterval(sizePackInterval)
+		}
+	}, [isGameOver])
+
+	useEffect(() => {
+		if (!isGameOver) {
+			const sizeSmallPackInterval = setInterval(() => {
+				setSizeSmallPacks(prev => {
+					if (prev.length < 1) {
+						return [
+							...prev,
+							{
+								id: `${Date.now()}-${Math.random()}`,
+								x: Math.random() * window.innerWidth,
+								y: -50,
+							},
+						]
+					}
+					return prev
+				})
+			}, 30000)
+
+			return () => clearInterval(sizeSmallPackInterval)
+		}
+	}, [isGameOver])
+
+	useEffect(() => {
+		if (!isGameOver) {
 			const megaBombsInterval = setInterval(() => {
 				setMegaBombs(prev => [
 					...prev,
@@ -288,6 +356,61 @@ const GameCanvas = () => {
 		}
 	}
 
+	function changeShipSize(w, h) {
+		spacePugContext?.setShipWidth(w)
+		spacePugContext?.setShipHeight(h)
+		if (shipRef) {
+			shipRef.current.style.height = h + 'px'
+			shipRef.current.style.width = w + 'px'
+		}
+	}
+
+	useEffect(() => {
+		if (bigSizeActionTimer > 0) {
+			const bigSizeTimerInterval = setInterval(() => {
+				setBigSizeActionTimer(prev => prev - 1)
+			}, 1000)
+
+			return () => clearInterval(bigSizeTimerInterval)
+		} else {
+			changeShipSize(50, 50)
+		}
+	}, [bigSizeActionTimer])
+
+	useEffect(() => {
+		if (smallSizeActionTimer > 0) {
+			const smallSizeTimerInterval = setInterval(() => {
+				setSmallSizeActionTimer(prev => prev - 1)
+			}, 1000)
+
+			return () => clearInterval(smallSizeTimerInterval)
+		} else {
+			changeShipSize(50, 50)
+		}
+	}, [smallSizeActionTimer])
+
+	const handleSizePackCollect = sizePackId => {
+		if (!isGameOver) {
+			setSmallSizeActionTimer(0)
+			setBigSizeActionTimer(10)
+			changeShipSize(80, 80)
+
+			setSizePacks(prev => prev.filter(sizePack => sizePack.id !== sizePackId))
+		}
+	}
+
+	const handleSizeSmallPackCollect = sizeSmallPackId => {
+		if (!isGameOver) {
+			setBigSizeActionTimer(0)
+			setSmallSizeActionTimer(10)
+			changeShipSize(25, 25)
+
+			setSizeSmallPacks(prev =>
+				prev.filter(sizePack => sizePack.id !== sizeSmallPackId)
+			)
+		}
+	}
+
 	const restartGame = () => {
 		setIsGameOver(false)
 		setGameTime(0)
@@ -298,13 +421,23 @@ const GameCanvas = () => {
 		setHealthPacks([])
 		setMegaBombs([])
 		setFlashAsteroids([])
+		setBigSizeActionTimer(0)
+		setSmallSizeActionTimer(0)
+		setSizePacks([])
+		setSizeSmallPacks([])
 	}
+
 	const handleModalClose = () => {
 		setShowModal(false)
 	}
+
+	const handleModalStopClose = () => {
+		setIsGameOver(true)
+		setShowStopModal(false)
+	}
 	return (
 		<GameCanvasStyled>
-			<Ship onMove={handleMove} position={shipPosition} />
+			<Ship ref={shipRef} onMove={handleMove} position={shipPosition} />
 			{flashAsteroids.map(asteroid => (
 				<FlashAsteroid
 					key={asteroid.id}
@@ -343,6 +476,25 @@ const GameCanvas = () => {
 					shipPosition={shipPosition}
 				/>
 			))}
+			{sizePacks.map(sizePack => (
+				<SizePack
+					key={sizePack.id}
+					onCollect={() => handleSizePackCollect(sizePack.id)}
+					initialPosition={{ x: sizePack.x, y: sizePack.y }}
+					isGameOver={isGameOver}
+					shipPosition={shipPosition}
+				/>
+			))}
+
+			{sizeSmallPacks.map(sizePack => (
+				<SizeSmallPack
+					key={sizePack.id}
+					onCollect={() => handleSizeSmallPackCollect(sizePack.id)}
+					initialPosition={{ x: sizePack.x, y: sizePack.y }}
+					isGameOver={isGameOver}
+					shipPosition={shipPosition}
+				/>
+			))}
 			{megaBombs.map(megaBomb => (
 				<MegaBombs
 					key={megaBomb.id}
@@ -352,30 +504,57 @@ const GameCanvas = () => {
 					shipPosition={shipPosition}
 				/>
 			))}
-			<GameUi>
-        <p>Рекорд: {spacePugRecord || 0}</p>
-				<p>Счёт: {state.score}</p>
-				<p>Жизни: {state.lives}</p>
-				<p>Время: {gameTime} сек</p>
-				{isGameOver && (
-					<UiButtonsWrapper>
+			<GameUi style={{ zIndex: 2 }}>
+				<p>Record: {spacePugRecord || 0}</p>
+				<ScoreText>BIFS: {state.score}</ScoreText>
+				<LevelText>HP: {state.lives}</LevelText>
+				<TimeText>Time: {gameTime} s</TimeText>
+			</GameUi>
+			{(smallSizeActionTimer || bigSizeActionTimer) && (
+				<CenterUi>
+					{smallSizeActionTimer > 0 && (
+						<TimeText>Уменьшение: {smallSizeActionTimer} сек</TimeText>
+					)}
+					{bigSizeActionTimer > 0 && (
+						<TimeText>Увеличение: {bigSizeActionTimer} сек</TimeText>
+					)}
+				</CenterUi>
+			)}
+
+			{isGameOver && !showModal && (
+				<GameOverlay>
+					<RestartButtonsWrapper>
 						<MulticolouredButton theme='blue' onClick={restartGame}>
 							Играть
 						</MulticolouredButton>
 						<MulticolouredButton
-							theme='blue'
+							theme='red'
 							onClick={() => router.push('/earn')}
 						>
 							Выйти
 						</MulticolouredButton>
-					</UiButtonsWrapper>
-				)}
-			</GameUi>
+					</RestartButtonsWrapper>
+				</GameOverlay>
+			)}
+			{!isGameOver && (
+				<StopBtn onClick={() => setShowStopModal(true)}>STOP</StopBtn>
+			)}
+
 			<Controls
 				onMove={handleMove}
 				onSpeedUp={handleSpeedUp}
 				onSpeedDown={handleSpeedDown}
 			/>
+			<BasicModal
+				btnText='ДА'
+				title='Вы уверены, что хотите завершить игру?'
+				text='Все добытые монеты будут потеряны!'
+				isVisible={showStopModal}
+				onButtonClick={handleModalStopClose}
+				onClose={() => setShowStopModal(false)}
+				background='url(/pugs/eating.jpg)'
+			/>
+
 			<BasicModal
 				btnText='ОК'
 				title='Игра окончена'

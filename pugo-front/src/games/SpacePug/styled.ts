@@ -34,7 +34,16 @@ const rotate = keyframes`
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 `
-
+const fadeIn = keyframes`
+	0% {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+`
 const danger = keyframes`
   0%, 100% { transform: rotate(0); }
   50% { transform: rotate(360deg); }
@@ -74,8 +83,8 @@ export const GameCanvasStyled = styled.div`
 
 export const GameUi = styled.div`
 	position: absolute;
-	top: 20px;
-	left: 20px;
+	top: 10px;
+	left: 10px;
 	color: white;
 	font-family: 'Arial', sans-serif;
 	font-weight: 800;
@@ -83,34 +92,61 @@ export const GameUi = styled.div`
 	z-index: 10;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 4px;
 	background: rgba(0, 0, 0, 0.5);
 	padding: 12px;
 	border-radius: 8px;
 `
+export const CenterUi = styled.div`
+	z-index: 10;
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	text-shadow: 1px 1px 3px rgba(23, 111, 82, 0.8);
+`
+
+export const StopBtn = styled.button`
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 50px;
+	z-index: 10;
+	height: 50px;
+	border-radius: 50%;
+	font-weight: bold;
+	border: 2px solid #616161;
+	background: linear-gradient(135deg, #ff4081, #ff4081);
+`
 
 export const ScoreText = styled.p`
 	margin: 0;
-	font-size: 24px;
+	font-size: 16px;
 	font-weight: bold;
 	color: #ffeb3b;
 `
 
 export const TimeText = styled.p`
 	margin: 0;
-	font-size: 18px;
+	font-size: 14px;
 	color: #b2ebf2;
 `
 
 export const LevelText = styled.p`
 	margin: 0;
-	font-size: 18px;
+	font-size: 14px;
 	color: #8bc34a;
+`
+
+export const MissedBifs = styled.p`
+	margin: 0;
+	font-size: 14px;
+	color: #c56139;
 `
 
 export const ComboText = styled.p`
 	margin: 0;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
 	color: #ff9800;
 	animation: ${pulse} 0.5s infinite;
@@ -140,6 +176,7 @@ export const ControlsWrapper = styled(ControlsStyled)`
 		flex-grow: 0;
 		align-self: end;
 		padding: 15px 35px;
+		border-radius: 25px;
 
 		img {
 			width: 25px;
@@ -178,25 +215,42 @@ export const RestartButtonsWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	width: 150px;
 	align-items: center;
 `
 
 // Игровые объекты
 interface AnimatedObjectProps {
 	type: 'bifs' | 'mops' | 'bug' | 'hunter' | 'fake' | 'crash'
+	width: number
+	height: number
 }
 
 export const AnimatedObject = styled.div<AnimatedObjectProps>`
 	${baseObjectStyles}
+	position: absolute;
+	transform: translate(-50%, -50%);
 	transition: transform 0.1s ease;
-	pointer-events: auto;
 	z-index: 5;
+
+	.hitbox {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: ${({ width }) => width + 40}px;
+		height: ${({ height }) => height + 40}px;
+		cursor: pointer;
+		pointer-events: auto;
+	}
 
 	img {
 		width: 100%;
 		height: 100%;
 		user-select: none;
 		-webkit-user-drag: none;
+		pointer-events: none; // клик сквозь картинку
+
 		${({ type }) => {
 			switch (type) {
 				case 'bifs':
@@ -204,13 +258,11 @@ export const AnimatedObject = styled.div<AnimatedObjectProps>`
 						animation: ${blink('#15417a94')} 1s ease-in-out infinite,
 							${pulse} 1s ease-in-out infinite;
 					`
-
 				case 'mops':
 					return css`
 						animation: ${blink('#43157a94')} 1s ease-in-out infinite,
 							${pulse} 1s ease-in-out infinite;
 					`
-
 				case 'bug':
 				case 'fake':
 					return css`
@@ -263,6 +315,86 @@ export const HealthPackStyled = styled.div`
 	animation: ${blink('green')} 1s infinite;
 `
 
+const neonFlow = keyframes`
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+`
+
+export const SizePackStyled = styled.div`
+	line-height: 1;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2px;
+	width: 60px;
+	height: 60px;
+	pointer-events: none;
+
+	span {
+		font-size: 12px;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		background: linear-gradient(
+			270deg,
+			#f8d03f,
+			#ff3cac,
+			#784ba0,
+			#2b86c5,
+			#f8d03f
+		);
+		background-size: 600% 600%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: ${neonFlow} 4s ease infinite;
+		text-shadow: 0 0 2px rgba(18, 222, 55, 0.8), 0 0 5px rgba(70, 155, 42, 0.5),
+			0 0 10px rgba(94, 175, 36, 0.4);
+	}
+`
+
+export const SizeSmallPackStyled = styled.div`
+	line-height: 1;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2px;
+	width: 60px;
+	height: 60px;
+	pointer-events: none;
+
+	span {
+		font-size: 10px;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		background: linear-gradient(
+			270deg,
+			#ff6600,
+			#ff3cac,
+			#784ba0,
+			#2b86c5,
+			#f8d03f
+		);
+		background-size: 600% 600%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: ${neonFlow} 4s ease infinite;
+		text-shadow: 0 0 2px rgba(169, 62, 33, 0.8), 0 0 5px rgba(201, 57, 32, 0.5),
+			0 0 10px r#ea773566;
+	}
+`
+
 export const MegaHealthPackStyled = styled.div`
 	${baseObjectStyles}
 	width: 30px;
@@ -279,14 +411,30 @@ export const MegaBombsStyled = styled.div`
 	animation: ${blink('#ff0101')} 1s infinite;
 `
 
+const flamePulse = keyframes`
+	0% {
+		transform: translateX(-50%) scaleY(1) scaleX(1);
+		opacity: 0.9;
+	}
+	50% {
+		transform: translateX(-50%) scaleY(1.4) scaleX(0.7);
+		opacity: 0.6;
+	}
+	100% {
+		transform: translateX(-50%) scaleY(1) scaleX(1);
+		opacity: 1;
+	}
+`
+
 export const ShipStyled = styled.div`
 	${baseObjectStyles}
-	bottom: 20px;
-	left: 50%;
+	position: absolute;
 	width: 50px;
 	height: 50px;
 	background-image: url('/photos/ship.png');
+	background-size: cover;
 	transition: transform 0.2s ease;
+	z-index: 10;
 
 	&.tilt-left {
 		transform: rotate(-20deg);
@@ -299,6 +447,31 @@ export const ShipStyled = styled.div`
 	}
 	&.tilt-down {
 		transform: rotate(0deg) translateY(5px);
+	}
+
+	filter: drop-shadow(0 0 5px #300d65aa) drop-shadow(0 0 10px #251453b3);
+
+	/* 🔥 Улучшенное пламя */
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -9px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 12px;
+		height: 9px;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.6) 0%,
+			rgba(255, 200, 0, 0.9) 30%,
+			rgba(255, 80, 0, 0.8) 60%,
+			rgba(255, 0, 0, 0) 100%
+		);
+		border-radius: 50% 50% 40% 40%;
+		animation: ${flamePulse} 0.15s infinite ease-in-out;
+		filter: blur(1px);
+		pointer-events: none;
+		z-index: -1;
 	}
 `
 

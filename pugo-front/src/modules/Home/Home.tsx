@@ -156,7 +156,15 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 				</CoinSection>
 
 				{/* Модальное окно */}
-				<BasicModal isVisible={showModal} onClose={handleModalClose} />
+
+				<BasicModal
+					btnText='Приобрести'
+					title='Авто-майнинг недоступен'
+					text='Чтобы использовать авто-майнинг, необходимо приобрести эту функцию.'
+					isVisible={showModal}
+					onClose={handleModalClose}
+					imgSrc='/pugs/stop-pug.png'
+				/>
 				<Toaster />
 				{children}
 			</HomeStyled>

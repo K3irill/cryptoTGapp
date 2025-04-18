@@ -10,23 +10,6 @@ import { handleAutomining } from '@/utils/sendBotMessage'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 
-const modalStyle = {
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: 320,
-	background: `url(/backgrounds/space.png)`,
-	backgroundSize: 'cover',
-	backgroundPosition: 'center',
-	// border: '2px solid #000',
-	boxShadow: 24,
-	p: 4,
-	color: 'white',
-	borderRadius: '10px',
-	overflow: 'hidden',
-}
-
 interface BasicModalProps {
 	isVisible: boolean
 	onClose: () => void
@@ -35,6 +18,7 @@ interface BasicModalProps {
 	btnText?: string
 	onButtonClick?: () => void
 	imgSrc?: string
+	background?: string
 }
 
 export const BasicModal: React.FC<BasicModalProps> = ({
@@ -45,12 +29,34 @@ export const BasicModal: React.FC<BasicModalProps> = ({
 	btnText,
 	onButtonClick,
 	imgSrc,
+	background,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
+
+	const modalStyle = {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: 320,
+		background: background || `url(/backgrounds/space.png)`,
+		backgroundSize: 'cover',
+		backgroundPosition: 'center',
+		// border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+		color: 'white',
+		borderRadius: '10px',
+		overflow: 'hidden',
+	}
+
 	return (
 		<Modal
 			open={isVisible}
-			onClose={onClose}
+			onClose={(event, reason) => {
+				if (reason === 'backdropClick') return
+				onClose()
+			}}
 			aria-labelledby='modal-modal-title'
 			aria-describedby='modal-modal-description'
 		>
@@ -61,21 +67,19 @@ export const BasicModal: React.FC<BasicModalProps> = ({
 
 				<Content>
 					<Typography id='modal-modal-title' variant='h6' component='h2'>
-						{title ? title : 'Авто-майнинг недоступен'}
+						{title && title}
 					</Typography>
 					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
-						{text
-							? text
-							: 'Чтобы использовать авто-майнинг, необходимо приобрести эту функцию.'}
+						{text && text}
 					</Typography>
 					<MulticolouredButton
-						title={btnText ? btnText : 'КУПИТЬ'}
+						title={btnText && btnText}
 						onClick={
 							onButtonClick ? onButtonClick : () => handleAutomining(user)
 						}
 					/>
 				</Content>
-				<PugImage src={imgSrc ? imgSrc : '/pugs/stop-pug.png'} />
+				<PugImage src={imgSrc && imgSrc} />
 			</Box>
 		</Modal>
 	)

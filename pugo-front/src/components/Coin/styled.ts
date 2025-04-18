@@ -10,8 +10,8 @@ export const CoinStyled = styled.div<{
 	border-radius: 50%;
 	top: 5px;
 	right: -2px;
-	width: 326px;
-	height: 326px;
+	width: 280px;
+	height: 280px;
 	z-index: 3;
 	transition: transform 0.3s ease-out, scale 0.1s ease-in-out;
 	transform: perspective(500px) rotateX(${props => props.$rotateX}deg)
@@ -45,13 +45,13 @@ export const CoinStyled = styled.div<{
 	}
 
 	@media (max-height: 931px) {
-		width: 286px;
-		height: 286px;
+		width: 260px;
+		height: 260px;
 	}
 
 	@media (max-height: 861px) {
-		width: 226px;
-		height: 226px;
+		width: 200px;
+		height: 200px;
 	}
 `
 

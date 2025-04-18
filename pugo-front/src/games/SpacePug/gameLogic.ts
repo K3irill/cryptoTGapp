@@ -7,7 +7,7 @@ export class Game {
 	}
 
 	increaseScore() {
-		this.score += 50
+		this.score += 25
 	}
 	gameOver() {
 		this.lives = 0

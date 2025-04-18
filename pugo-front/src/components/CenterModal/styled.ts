@@ -8,6 +8,11 @@ export const Content = styled.div`
 	& a {
 		margin-top: 15px;
 	}
+
+	h2,
+	p {
+		text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+	}
 `
 export const CloseButtonWrapper = styled.div`
 	display: flex;

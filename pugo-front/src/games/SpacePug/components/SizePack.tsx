@@ -1,21 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import React, { useContext, useEffect, useState } from 'react'
-import {
-	AsteroidStyled,
-	ExplosionStyled,
-	FlashAsteroidStyled,
-	ShockwaveStyled,
-} from '../styled'
+import { SizePackStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
-const FlashAsteroid = ({
-	speed,
-	onCollide,
-	initialPosition,
-	isGameOver,
-	shipPosition,
-}) => {
+const SizePack = ({ onCollect, initialPosition, isGameOver, shipPosition }) => {
 	const [position, setPosition] = useState(initialPosition)
 	const spacePugContext = useContext(SpacePugGameContext)
 	if (!spacePugContext) {
@@ -26,17 +15,16 @@ const FlashAsteroid = ({
 		if (!isGameOver) {
 			const move = setInterval(() => {
 				setPosition(prev => {
-					const newY = prev.y + speed
+					const newY = prev.y + 2
 
 					if (
-						newY + 20 >= shipPosition.y &&
+						newY + 30 >= shipPosition.y &&
 						prev.y <= shipPosition.y + spacePugContext.shipHeight &&
-						prev.x + 20 >= shipPosition.x &&
+						prev.x + 30 >= shipPosition.x &&
 						prev.x <= shipPosition.x + spacePugContext.shipWidth
 					) {
-						onCollide()
-
-						return prev
+						onCollect()
+						return { x: Math.random() * window.innerWidth, y: -50 }
 					}
 
 					if (newY > window.innerHeight) {
@@ -49,9 +37,13 @@ const FlashAsteroid = ({
 
 			return () => clearInterval(move)
 		}
-	}, [speed, onCollide, isGameOver, shipPosition])
+	}, [isGameOver, shipPosition, onCollect])
 
-	return <FlashAsteroidStyled style={{ left: position.x, top: position.y }} />
+	return (
+		<SizePackStyled style={{ left: position.x, top: position.y }}>
+			<span>BIG</span> <span>SIZE</span>
+		</SizePackStyled>
+	)
 }
 
-export default FlashAsteroid
+export default SizePack

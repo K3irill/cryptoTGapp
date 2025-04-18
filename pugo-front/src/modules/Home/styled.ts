@@ -28,6 +28,12 @@ export const AutoMining = styled.div`
 	gap: 15px;
 	position: relative;
 	z-index: 2;
+
+	label {
+		* {
+			margin: 0;
+		}
+	}
 `
 export const AutoMiningText = styled.div`
 	color: #ffffff;
@@ -38,7 +44,7 @@ export const CoinSection = styled.div`
 	display: flex;
 	width: 100%;
 	justify-content: center;
-	gap: 50px;
+	gap: 35px;
 	align-items: center;
 	flex-direction: column;
 	flex: 1 0;

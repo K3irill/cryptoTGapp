@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AsteroidStyled, ExplosionStyled, ShockwaveStyled } from '../styled'
+import { SpacePugGameContext } from '../SpacePugContext'
 
 const Asteroid = ({
 	speed,
@@ -11,6 +12,10 @@ const Asteroid = ({
 	shipPosition,
 }) => {
 	const [position, setPosition] = useState(initialPosition)
+	const spacePugContext = useContext(SpacePugGameContext)
+	if (!spacePugContext) {
+		throw new Error('AppContext must be used within an AppProvider')
+	}
 
 	useEffect(() => {
 		if (!isGameOver) {
@@ -20,9 +25,9 @@ const Asteroid = ({
 
 					if (
 						newY + 20 >= shipPosition.y &&
-						prev.y <= shipPosition.y + 50 &&
+						prev.y <= shipPosition.y + spacePugContext.shipHeight &&
 						prev.x + 20 >= shipPosition.x &&
-						prev.x <= shipPosition.x + 50
+						prev.x <= shipPosition.x + spacePugContext.shipWidth
 					) {
 						onCollide()
 

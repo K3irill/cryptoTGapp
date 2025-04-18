@@ -8,7 +8,7 @@ const SliderContainer = styled.div`
 	position: relative;
 	width: 100%;
 	height: 100px;
-	border-radius: 20px;
+	border-radius: 10px;
 	overflow: hidden;
 	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 `
@@ -17,7 +17,7 @@ const Slide = styled(motion.div)<{ bg: string }>`
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: url(${props => props.bg}) top/cover no-repeat;
+	background: url(${props => props.bg}) center / cover no-repeat;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -181,7 +181,7 @@ const GamesSlider = () => {
 		const timer = setInterval(() => {
 			setDirection(1)
 			setCurrent(prev => (prev + 1) % games.length)
-		}, 4000)
+		}, 8000)
 		return () => clearInterval(timer)
 	}, [])
 
@@ -217,8 +217,8 @@ const GamesSlider = () => {
 		return (
 			<PlayButtonWrapper
 				href={href}
-				initial={{ scale: 0.9, opacity: 0 }}
-				animate={{ scale: 1, opacity: 1 }}
+				initial={{ scale: 0.9 }}
+				animate={{ scale: 1 }}
 				transition={{ delay: 0.4, duration: 0.3 }}
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}

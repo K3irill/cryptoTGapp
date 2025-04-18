@@ -446,8 +446,4 @@ export const redOrangeTextGradient = css`
 			)
 			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
 		#fff500;
-	box-shadow: -20px -20px 50px rgba(211, 70, 70, 0.4),
-		0px 20px 60px rgba(232, 205, 110, 0.2),
-		0px 10px 60px rgba(193, 111, 15, 0.8),
-		inset 0px 0px 20px rgba(255, 255, 255, 0.3);
 `

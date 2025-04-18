@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { HealthPackStyled } from '../styled'
+import { SpacePugGameContext } from '../SpacePugContext'
 
 const HealthPack = ({
 	onCollect,
@@ -10,6 +11,10 @@ const HealthPack = ({
 	shipPosition,
 }) => {
 	const [position, setPosition] = useState(initialPosition)
+	const spacePugContext = useContext(SpacePugGameContext)
+	if (!spacePugContext) {
+		throw new Error('AppContext must be used within an AppProvider')
+	}
 
 	useEffect(() => {
 		if (!isGameOver) {
@@ -20,9 +25,9 @@ const HealthPack = ({
 					// Проверка столкновения с кораблём
 					if (
 						newY + 30 >= shipPosition.y &&
-						prev.y <= shipPosition.y + 50 &&
+						prev.y <= shipPosition.y + spacePugContext.shipHeight &&
 						prev.x + 30 >= shipPosition.x &&
-						prev.x <= shipPosition.x + 50
+						prev.x <= shipPosition.x + spacePugContext.shipWidth
 					) {
 						onCollect()
 						return { x: Math.random() * window.innerWidth, y: -50 }
