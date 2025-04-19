@@ -178,13 +178,18 @@ const GameCanvas = () => {
 
 	useEffect(() => {
 		let lastFrameTime = performance.now()
+		let lastSecondTime = Math.floor(lastFrameTime / 1000)
+		let accumulatedTime = 0
 
 		const loop = (now: number) => {
 			const delta = now - lastFrameTime
 			lastFrameTime = now
+			accumulatedTime += delta
 
 			// Обновляем таймер игры каждую секунду
-			if (Math.floor(now / 1000) !== Math.floor(lastFrameTime / 1000)) {
+			const currentSecond = Math.floor(now / 1000)
+			if (currentSecond !== lastSecondTime) {
+				lastSecondTime = currentSecond
 				setGameTime(prev => prev + 1)
 				gameDispatch({ type: 'INCREASE_SCORE', payload: 1 })
 			}
