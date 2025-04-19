@@ -5,6 +5,7 @@ import { SizeSmallPackStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
 const SizeSmallPack = ({
+	speed,
 	onCollect,
 	initialPosition,
 	isGameOver,
@@ -20,7 +21,7 @@ const SizeSmallPack = ({
 		if (!isGameOver) {
 			const move = setInterval(() => {
 				setPosition(prev => {
-					const newY = prev.y + 2
+					const newY = prev.y + speed
 
 					if (
 						newY + 30 >= shipPosition.y &&

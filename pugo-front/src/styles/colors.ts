@@ -1,9 +1,12 @@
+import { pink } from '@mui/material/colors'
+
 export const COLORS = {
 	yellow: '#FDC910',
 	gold: '#F0C777',
 	grey: '#CED8E1',
 	blue: '#5298FB',
 	ice: '#CDF1FF',
+	pink: '#FF6F91',
 	whity: '#CED8E1',
 }
 export const BACKGROUNDS = {

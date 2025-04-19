@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import React, { useContext, useEffect, useState } from 'react'
-import {
-	HealthPackStyled,
-	MegaBombsStyled,
-	MegaHealthPackStyled,
-} from '../styled'
+import { NitroPackStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
-const MegaBombs = ({
+const NitroPack = ({
 	speed,
 	onCollect,
 	initialPosition,
@@ -27,11 +23,10 @@ const MegaBombs = ({
 				setPosition(prev => {
 					const newY = prev.y + speed
 
-					// Проверка столкновения с кораблём
 					if (
-						newY + 20 >= shipPosition.y &&
+						newY + 30 >= shipPosition.y &&
 						prev.y <= shipPosition.y + spacePugContext.shipHeight &&
-						prev.x + 20 >= shipPosition.x &&
+						prev.x + 30 >= shipPosition.x &&
 						prev.x <= shipPosition.x + spacePugContext.shipWidth
 					) {
 						onCollect()
@@ -50,7 +45,11 @@ const MegaBombs = ({
 		}
 	}, [isGameOver, shipPosition, onCollect])
 
-	return <MegaBombsStyled style={{ left: position.x, top: position.y }} />
+	return (
+		<NitroPackStyled
+			style={{ left: position.x, top: position.y }}
+		></NitroPackStyled>
+	)
 }
 
-export default MegaBombs
+export default NitroPack

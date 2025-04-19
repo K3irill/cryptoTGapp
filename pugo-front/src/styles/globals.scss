@@ -37,7 +37,13 @@ body {
 
 footer {
 }
-
+a,
+button,
+input,
+textarea {
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
 body {
 	font-family: var(--font-bai-jamjuree);
 	color: var(--primary-color);

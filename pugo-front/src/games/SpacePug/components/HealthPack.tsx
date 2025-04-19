@@ -5,6 +5,7 @@ import { HealthPackStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
 const HealthPack = ({
+	speed,
 	onCollect,
 	initialPosition,
 	isGameOver,
@@ -20,7 +21,7 @@ const HealthPack = ({
 		if (!isGameOver) {
 			const move = setInterval(() => {
 				setPosition(prev => {
-					const newY = prev.y + 2
+					const newY = prev.y + speed
 
 					// Проверка столкновения с кораблём
 					if (

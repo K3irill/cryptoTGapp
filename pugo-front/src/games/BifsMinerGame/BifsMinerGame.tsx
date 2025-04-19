@@ -15,12 +15,21 @@ import {
 	RestartButtonsWrapper,
 	StopBtn,
 	MissedBifs,
+	BtnGroup,
+	ExitBtn,
+	ExitButton,
+	InfoBtn,
+	InfoButton,
+	RestartBtn,
+	RestartButton,
 } from '../SpacePug/styled'
 import MulticolouredButton from '@/components/UI/MulticolouredButton/MulticolouredButton'
 import { BasicModal } from '@/components/CenterModal/CenterModal'
 import { useUpdateTokensMutation } from '@/store/services/api/userApi'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import { ButtonGroup } from '@mui/material'
+import BifsMinerGuideModal from '@/components/BifsMinerGuideModal/BifsMinerGuideModal'
 
 // Типы объектов игры
 type GameObjectType =
@@ -52,7 +61,7 @@ const OBJECT_CONFIG = {
 		size: { width: 60, height: 60 },
 		baseVelocity: 135, // Уменьшена скорость
 		weight: 100,
-		score: 5, // Уменьшено вознаграждение
+		score: 3, // Уменьшено вознаграждение
 		spawnOffset: -80,
 	},
 	mops: {
@@ -60,7 +69,7 @@ const OBJECT_CONFIG = {
 		size: { width: 70, height: 70 },
 		baseVelocity: 100, // Уменьшена скорость
 		weight: 10,
-		score: 25, // Уменьшено вознаграждение вдвое
+		score: 15, // Уменьшено вознаграждение вдвое
 		spawnOffset: -100,
 	},
 	bug: {
@@ -116,8 +125,10 @@ const BifsMinerGame = () => {
 	const [showModal, setShowModal] = useState(false)
 	const [showStopModal, setShowStopModal] = useState(false)
 	const [combo, setCombo] = useState(0)
+	const [comboActive, setComboActive] = useState(false)
 	const [comboTimeout, setComboTimeout] = useState<NodeJS.Timeout | null>(null)
 	const [level, setLevel] = useState(1)
+	const [showInfoModal, setShowInfoModal] = useState(false)
 	const [missedBifs, setMissedBifs] = useState(0)
 	const [missedAvailableBifs, setMissedAvailableBifs] = useState(30)
 	const { id, tokens, automining, spacePugRecord } = useSelector(
@@ -241,7 +252,7 @@ const BifsMinerGame = () => {
 
 	// Обновление уровня игры
 	useEffect(() => {
-		const newLevel = Math.min(Math.floor(score / 250) + 1, 10)
+		const newLevel = Math.min(Math.floor(score / 350) + 1, 10)
 		if (newLevel !== level) {
 			setLevel(newLevel)
 		}
@@ -305,27 +316,32 @@ const BifsMinerGame = () => {
 
 	// Обработчик комбо
 	const comboTimerRef = useRef<NodeJS.Timeout | null>(null)
+	const comboBuffTimerRef = useRef<NodeJS.Timeout | null>(null)
 
 	const handleCombo = useCallback(() => {
 		setCombo(prev => {
 			const newCombo = prev + 1
 
-			// Можно тут же начислить бонус, если надо
-			if (newCombo >= 10) {
-				setScore(s => s + Math.floor(newCombo * 0.5))
-			}
-
-			// Сбрасываем предыдущий таймер
+			// сбрасываем комбо через 2.5 сек
 			if (comboTimerRef.current) clearTimeout(comboTimerRef.current)
-
-			// Устанавливаем новый
 			comboTimerRef.current = setTimeout(() => {
 				setCombo(0)
-			}, 2500) // увеличили таймаут
+				setComboActive(false)
+			}, 2500)
+
+			// Включаем бафф, если набрано достаточно
+			if (newCombo >= 5 && !comboActive) {
+				setComboActive(true)
+
+				if (comboBuffTimerRef.current) clearTimeout(comboBuffTimerRef.current)
+				comboBuffTimerRef.current = setTimeout(() => {
+					setComboActive(false)
+				}, 7000) // бафф 7 сек
+			}
 
 			return newCombo
 		})
-	}, [])
+	}, [comboActive])
 
 	// Обработчик клика по объектам с улучшенным определением попадания
 	const handleObjectClick = (e: React.MouseEvent, obj: GameObject) => {
@@ -371,9 +387,12 @@ const BifsMinerGame = () => {
 		}
 
 		if ('score' in config) {
-			const scoreMultiplier = Math.max(0.3, 1 - level * 0.05)
+			const baseScore = config.score
+			const multiplier = comboActive ? 1.5 : 1
+			const levelPenalty = Math.max(0.3, 1 - level * 0.05)
+
 			setScore(prev =>
-				Math.max(0, prev + Math.floor(config.score * scoreMultiplier))
+				Math.max(0, prev + Math.floor(baseScore * multiplier * levelPenalty))
 			)
 		} else if ('effect' in config) {
 			if (obj.type === 'crash') {
@@ -500,12 +519,17 @@ const BifsMinerGame = () => {
 				<ScoreText>BIFS: {score}</ScoreText>
 				<TimeText>Время: {gameTime} сек</TimeText>
 				<LevelText>Уровень: {level}</LevelText>
-				<MissedBifs>
+				<MissedBifs missedBifs={missedBifs}>
 					Пропущено: {missedBifs} из {missedAvailableBifs}
 				</MissedBifs>
-				{combo >= 3 && <ComboText>Комбо: {combo}x!</ComboText>}
+				{comboActive && (
+					<ComboText style={{ color: '#FFD700' }}>🔥 Комбо-режим!</ComboText>
+				)}
+				{combo >= 2 && !comboActive && <ComboText>Комбо: {combo}x</ComboText>}
 			</GameUi>
-			<StopBtn onClick={() => setShowStopModal(true)}>STOP</StopBtn>
+			{isGameActive && !showModal && (
+				<StopBtn onClick={() => setShowStopModal(true)}>STOP</StopBtn>
+			)}
 
 			<BasicModal
 				btnText='ДА'
@@ -516,7 +540,10 @@ const BifsMinerGame = () => {
 				onClose={() => setShowStopModal(false)}
 				background='url(/pugs/eating.jpg)'
 			/>
-
+			<BifsMinerGuideModal
+				isVisible={showInfoModal}
+				onClose={() => setShowInfoModal(false)}
+			/>
 			<BasicModal
 				btnText='ОК'
 				title='Игра окончена'
@@ -529,17 +556,31 @@ const BifsMinerGame = () => {
 
 			{!isGameActive && !showModal && (
 				<GameOverlay>
-					<RestartButtonsWrapper>
-						<MulticolouredButton theme='blue' onClick={restartGame}>
-							Играть
-						</MulticolouredButton>
-						<MulticolouredButton
-							theme='red'
+					<BtnGroup>
+						<RestartBtn
+							onClick={restartGame}
+							whileHover={{ scale: 1.03 }}
+							whileTap={{ scale: 0.98 }}
+						>
+							Играть снова
+						</RestartBtn>
+
+						<InfoBtn
+							onClick={() => setShowInfoModal(true)}
+							whileHover={{ scale: 1.03 }}
+							whileTap={{ scale: 0.98 }}
+						>
+							Об игре
+						</InfoBtn>
+
+						<ExitBtn
 							onClick={() => router.push('/earn')}
+							whileHover={{ scale: 1.03 }}
+							whileTap={{ scale: 0.98 }}
 						>
 							Выйти
-						</MulticolouredButton>
-					</RestartButtonsWrapper>
+						</ExitBtn>
+					</BtnGroup>
 				</GameOverlay>
 			)}
 		</GameCanvasStyled>

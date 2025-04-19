@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { ShipStyled } from '../styled'
 
-const Ship = ({ onMove, position, ref }) => {
+const Ship = ({ onMove, position, ref, speedBoost }) => {
 	const [tiltClass, setTiltClass] = useState('')
 
 	useEffect(() => {
@@ -44,6 +44,7 @@ const Ship = ({ onMove, position, ref }) => {
 
 	return (
 		<ShipStyled
+			speedBoost={speedBoost}
 			ref={ref}
 			className={tiltClass}
 			style={{ left: position.x, top: position.y }}

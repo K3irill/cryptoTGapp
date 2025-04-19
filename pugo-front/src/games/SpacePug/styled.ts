@@ -1,4 +1,11 @@
-import { pinkOrangeGradientBackground } from '@/styles/mixins'
+import { COLORS } from '@/styles/colors'
+import {
+	goldenTextGradientV2,
+	mainBlockBackground,
+	pinkOrangeGradientBackground,
+	purpleTextGradient,
+} from '@/styles/mixins'
+import { motion } from 'framer-motion'
 import styled, { keyframes, css } from 'styled-components'
 
 // Анимации
@@ -81,75 +88,232 @@ export const GameCanvasStyled = styled.div`
 	overflow: hidden;
 `
 
-export const GameUi = styled.div`
-	position: absolute;
+export const GameUi = styled(motion.div)`
+	position: fixed;
 	top: 10px;
 	left: 10px;
-	color: white;
-	font-family: 'Arial', sans-serif;
-	font-weight: 800;
-	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-	z-index: 10;
+	padding: 16px;
+	border-radius: 16px;
+	background: rgba(18, 18, 30, 0.8);
+	backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
-	background: rgba(0, 0, 0, 0.5);
-	padding: 12px;
-	border-radius: 8px;
+	gap: 8px;
+	z-index: 100;
+	${mainBlockBackground};
+
+	p {
+		margin: 0;
+		font-size: 16px;
+	}
 `
 export const CenterUi = styled.div`
 	z-index: 10;
 	position: absolute;
+	text-align: center;
 	top: 10px;
 	left: 50%;
 	transform: translateX(-50%);
 	text-shadow: 1px 1px 3px rgba(23, 111, 82, 0.8);
 `
 
-export const StopBtn = styled.button`
-	position: absolute;
-	right: 10px;
+// Общие стили для всех кнопок
+export const ButtonBase = styled(motion.button)`
+	position: relative;
+	padding: 14px 28px;
+	border-radius: 12px;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	z-index: 100;
+	transition: all 0.3s ease;
+	backdrop-filter: blur(4px);
+	border: 1px solid;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+			rgba(255, 255, 255, 0.1),
+			rgba(255, 255, 255, 0)
+		);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	&:hover {
+		transform: translateY(-2px);
+		&::before {
+			opacity: 1;
+		}
+	}
+
+	&:active {
+		transform: translateY(0);
+	}
+`
+
+// Анимация пульсации для акцентных кнопок
+const pulseBtn = keyframes`
+  0% { box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 191, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 191, 255, 0); }
+`
+
+// STOP кнопка (ваш улучшенный стиль)
+export const StopBtn = styled(ButtonBase)`
+	position: fixed;
 	top: 10px;
-	width: 50px;
-	z-index: 10;
-	height: 50px;
-	border-radius: 50%;
-	font-weight: bold;
-	border: 2px solid #616161;
-	background: linear-gradient(135deg, #ff4081, #ff4081);
+	right: 10px;
+	padding: 12px 24px;
+	background: rgba(255, 59, 48, 0.15);
+	border-color: rgba(255, 59, 48, 0.4);
+	color: #ff3b30;
+	box-shadow: 0 2px 8px rgba(255, 59, 48, 0.2);
+
+	&:hover {
+		background: rgba(255, 59, 48, 0.25);
+		box-shadow: 0 4px 16px rgba(255, 59, 48, 0.3);
+	}
+`
+
+// Кнопка рестарта
+export const RestartBtn = styled(ButtonBase)`
+	background: rgba(0, 191, 255, 0.15);
+	border-color: rgba(0, 191, 255, 0.4);
+	color: #00bfff;
+	box-shadow: 0 2px 8px rgba(0, 191, 255, 0.2);
+	animation: ${pulseBtn} 2s infinite;
+
+	&:hover {
+		background: rgba(0, 191, 255, 0.25);
+		box-shadow: 0 4px 16px rgba(0, 191, 255, 0.3);
+	}
+`
+
+// Кнопка выхода
+export const ExitBtn = styled(ButtonBase)`
+	background: rgba(138, 43, 226, 0.15);
+	border-color: rgba(138, 43, 226, 0.4);
+	color: #8a2be2;
+	box-shadow: 0 2px 8px rgba(138, 43, 226, 0.2);
+
+	&:hover {
+		background: rgba(138, 43, 226, 0.25);
+		box-shadow: 0 4px 16px rgba(138, 43, 226, 0.3);
+	}
+`
+
+// Кнопка информации
+export const InfoBtn = styled(ButtonBase)`
+	background: rgba(88, 207, 19, 0.15);
+	border-color: rgba(88, 207, 19, 0.4);
+	color: #58cf13;
+	box-shadow: 0 2px 8px rgba(88, 207, 19, 0.2);
+
+	&:hover {
+		background: rgba(88, 207, 19, 0.25);
+		box-shadow: 0 4px 16px rgba(88, 207, 19, 0.3);
+	}
+`
+
+// Контейнер для кнопок
+export const BtnGroup = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 100%;
+	max-width: 280px;
+	margin: 0 auto;
+	padding: 20px;
 `
 
 export const ScoreText = styled.p`
 	margin: 0;
 	font-size: 16px;
 	font-weight: bold;
-	color: #ffeb3b;
+	${purpleTextGradient}
+`
+export const LiveText = styled.p<{ lives?: number }>`
+	margin: 0;
+	font-size: 16px;
+	font-weight: bold;
+	${({ lives }) =>
+		lives && lives < 4
+			? css`
+					color: #ff0000;
+			  `
+			: css`
+					color: #00ff00;
+			  `}
+`
+
+export const RecordText = styled.p`
+	margin: 0;
+	font-size: 16px;
+	font-weight: bold;
+	${goldenTextGradientV2}
 `
 
 export const TimeText = styled.p`
 	margin: 0;
 	font-size: 14px;
-	color: #b2ebf2;
+	color: ${COLORS.ice};
+	text-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+`
+export const SpeedText = styled.p`
+	margin: 0;
+	font-size: 14px;
+	color: #fff700;
+	text-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
 `
 
 export const LevelText = styled.p`
 	margin: 0;
 	font-size: 14px;
-	color: #8bc34a;
-`
-
-export const MissedBifs = styled.p`
-	margin: 0;
-	font-size: 14px;
-	color: #c56139;
+	color: ${COLORS.ice};
+	text-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
 `
 
 export const ComboText = styled.p`
 	margin: 0;
 	font-size: 16px;
 	font-weight: bold;
-	color: #ff9800;
+	${goldenTextGradientV2}
 	animation: ${pulse} 0.5s infinite;
+`
+
+export const MissedBifs = styled.p<{ missedBifs: number }>`
+	margin: 0;
+	font-size: 14px;
+
+	${({ missedBifs = 0 }) => {
+		if (missedBifs > 20) {
+			return css`
+				color: #cf1313c3;
+				text-shadow: 0 0 8px rgba(207, 19, 19, 0.5);
+			`
+		}
+		if (missedBifs > 10) {
+			return css`
+				color: #cf8a13c3;
+				text-shadow: 0 0 8px rgba(207, 138, 19, 0.5);
+			`
+		}
+		return css`
+			color: #58cf13c3;
+			text-shadow: 0 0 8px rgba(88, 207, 19, 0.5);
+		`
+	}}
 `
 
 export const UiButtonsWrapper = styled.div`
@@ -169,54 +333,34 @@ export const ControlsStyled = styled.div`
 	opacity: 0.75;
 `
 
-export const ControlsWrapper = styled(ControlsStyled)`
-	a,
-	button {
-		${pinkOrangeGradientBackground};
-		flex-grow: 0;
-		align-self: end;
-		padding: 15px 35px;
-		border-radius: 25px;
-
-		img {
-			width: 25px;
-			height: 25px;
-		}
-	}
-`
-
-export const ContorlsTopBottom = styled.div`
+export const RestartButtonsWrapper = styled(motion.div)`
+	position: fixed;
+	bottom: 40px;
+	left: 50%;
+	transform: translateX(-50%);
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
-
-	a,
-	button {
-		flex: 1 1;
-		align-self: center;
-		width: 100%;
-	}
+	gap: 16px;
+	align-items: center;
+	z-index: 100;
+	width: 80%;
+	max-width: 300px;
 `
 
-export const GameOverlay = styled.div`
-	position: absolute;
+export const GameOverlay = styled(motion.div)`
+	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	right: 0;
+	bottom: 0;
 	background: rgba(0, 0, 0, 0.7);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 20;
-`
-
-export const RestartButtonsWrapper = styled.div`
+	backdrop-filter: blur(8px);
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
-	width: 150px;
+	justify-content: center;
 	align-items: center;
+	z-index: 99;
+	padding: 20px;
 `
 
 // Игровые объекты
@@ -327,6 +471,14 @@ const neonFlow = keyframes`
 	}
 `
 
+export const NitroPackStyled = styled.div`
+	${baseObjectStyles}
+	width: 40px;
+	height: 40px;
+	background-image: url('/photos/lightning.svg');
+	animation: ${blink('#ffe100d4')} 1s infinite;
+`
+
 export const SizePackStyled = styled.div`
 	line-height: 1;
 	position: absolute;
@@ -410,7 +562,34 @@ export const MegaBombsStyled = styled.div`
 	background-image: url('/photos/bomb.png');
 	animation: ${blink('#ff0101')} 1s infinite;
 `
+const shimmer = keyframes`
+	0% {
+		box-shadow: 0 0 10px #6201ff, 0 0 20px #6201ff;
+	}
+	50% {
+		box-shadow: 0 0 15px #9a5cff, 0 0 30px #b88cff;
+	}
+	100% {
+		box-shadow: 0 0 10px #6201ff, 0 0 20px #6201ff;
+	}
+`
+export const CoinBagStyled = styled.div`
+	${baseObjectStyles}
+	width: 40px;
+	height: 55px;
+	background-image: url('/photos/bag-coins.png');
+	animation: ${blink('#5601ff')} 1s infinite;
+`
 
+export const BlackHolesStyled = styled.div`
+	${baseObjectStyles}
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	background: radial-gradient(circle at center, #000 30%, #6201ff 100%);
+	animation: ${rotate} 4s linear infinite, ${shimmer} 2s ease-in-out infinite;
+	border: 2px solid rgba(255, 255, 255, 0.1);
+`
 const flamePulse = keyframes`
 	0% {
 		transform: translateX(-50%) scaleY(1) scaleX(1);
@@ -426,7 +605,7 @@ const flamePulse = keyframes`
 	}
 `
 
-export const ShipStyled = styled.div`
+export const ShipStyled = styled.div<{ speedBoost?: boolean }>`
 	${baseObjectStyles}
 	position: absolute;
 	width: 50px;
@@ -455,11 +634,11 @@ export const ShipStyled = styled.div`
 	&::after {
 		content: '';
 		position: absolute;
-		bottom: -9px;
+		bottom: ${p => (p.speedBoost ? '-35px' : '-9px')};
 		left: 50%;
 		transform: translateX(-50%);
 		width: 12px;
-		height: 9px;
+		height: ${p => (p.speedBoost ? '30px' : '9px')};
 		background: linear-gradient(
 			180deg,
 			rgba(255, 255, 255, 0.6) 0%,

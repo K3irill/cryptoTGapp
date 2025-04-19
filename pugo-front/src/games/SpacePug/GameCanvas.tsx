@@ -1,20 +1,30 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+import { useReducer } from 'react'
+import { gameReducer, initialGameState } from './gameLogic'
+
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import Ship from './components/Ship'
 import Asteroid from './components/Asteroid'
 import Coin from './components/Coin'
 import HealthPack from './components/HealthPack'
 import Controls from './components/Controls'
-import { Game, MAX_FLASH_ASTEROIDS } from './gameLogic'
+
 import {
+	BtnGroup,
 	CenterUi,
+	ExitBtn,
 	GameCanvasStyled,
 	GameOverlay,
 	GameUi,
+	InfoBtn,
 	LevelText,
+	LiveText,
+	RecordText,
+	RestartBtn,
 	RestartButtonsWrapper,
 	ScoreText,
+	SpeedText,
 	StopBtn,
 	TimeText,
 	UiButtonsWrapper,
@@ -34,6 +44,10 @@ import { useSpacePugCompletedMutation } from '@/store/services/api/tasksApi'
 import SizePack from './components/SizePack'
 import { SpacePugGameContext } from './SpacePugContext'
 import SizeSmallPack from './components/SizeSmallPack'
+import NitroPack from './components/Nitro'
+import { GameGuideModal } from '@/components/GameInfoModal/GameInfoModal'
+import BlackHole from './components/BlackHole'
+import CoinBag from './components/CoinBag'
 
 const GameCanvas = () => {
 	const dispatch = useDispatch()
@@ -42,16 +56,21 @@ const GameCanvas = () => {
 		throw new Error('AppContext must be used within an AppProvider')
 	}
 
-	const [game] = useState(new Game())
-	const [state, setState] = useState(game.getState())
+	const [state, gameDispatch] = useReducer(gameReducer, initialGameState)
+
 	const [shipPosition, setShipPosition] = useState({ x: 0, y: 0 })
 	const [asteroids, setAsteroids] = useState([])
+	const [nitroPacks, setNitroPacks] = useState([])
 	const [flashAsteroids, setFlashAsteroids] = useState([])
 	const [coins, setCoins] = useState([])
+	const [showGuideModal, setShowGuideModal] = useState(false)
 	const shipRef = useRef(null)
 	const [healthPacks, setHealthPacks] = useState([])
+	const [coinsBag, setCoinsBag] = useState([])
+	const [blackHoles, setBlackHoles] = useState([])
 	const [smallSizeActionTimer, setSmallSizeActionTimer] = useState(0)
 	const [bigSizeActionTimer, setBigSizeActionTimer] = useState(0)
+	const [nitroActionTimer, setNitroActionTimer] = useState(0)
 	const [sizeSmallPacks, setSizeSmallPacks] = useState([])
 	const [sizePacks, setSizePacks] = useState([])
 	const [megaBombs, setMegaBombs] = useState([])
@@ -63,6 +82,9 @@ const GameCanvas = () => {
 		useUpdateTokensMutation()
 	const [spacePugCompleted, { isLoadingSpacePugScore, errorSpacePugScore }] =
 		useSpacePugCompletedMutation()
+	const [collectedObjects, setCollectedObjects] = useState<Set<string>>(
+		new Set()
+	)
 
 	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
@@ -102,28 +124,6 @@ const GameCanvas = () => {
 				x: window.innerWidth / 2,
 				y: window.innerHeight / 2,
 			})
-		}
-	}, [])
-
-	useEffect(() => {
-		const handleKeyDown = e => {
-			if (e.key === 'Shift') {
-				setIsShiftPressed(true)
-			}
-		}
-
-		const handleKeyUp = e => {
-			if (e.key === 'Shift') {
-				setIsShiftPressed(false)
-			}
-		}
-
-		window.addEventListener('keydown', handleKeyDown)
-		window.addEventListener('keyup', handleKeyUp)
-
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown)
-			window.removeEventListener('keyup', handleKeyUp)
 		}
 	}, [])
 
@@ -180,7 +180,7 @@ const GameCanvas = () => {
 	}, [isGameOver])
 
 	useEffect(() => {
-		if (!isGameOver && flashAsteroids.length < MAX_FLASH_ASTEROIDS) {
+		if (!isGameOver && flashAsteroids.length < 3) {
 			const interval = setInterval(() => {
 				setFlashAsteroids(prev => [
 					...prev,
@@ -190,7 +190,7 @@ const GameCanvas = () => {
 						y: -50,
 					},
 				])
-			}, 60000)
+			}, 45000)
 			return () => clearInterval(interval)
 		}
 	}, [isGameOver, flashAsteroids.length])
@@ -226,6 +226,49 @@ const GameCanvas = () => {
 			}, 20000)
 
 			return () => clearInterval(healthPackInterval)
+		}
+	}, [isGameOver])
+
+	useEffect(() => {
+		if (!isGameOver) {
+			const interval = setInterval(() => {
+				setBlackHoles(prev => {
+					if (prev.length < 1) {
+						return [
+							{
+								id: `${Date.now()}-${Math.random()}`,
+								x: Math.random() * window.innerWidth,
+								y: -50,
+							},
+						]
+					}
+					return prev
+				})
+			}, 40000)
+
+			return () => clearInterval(interval)
+		}
+	}, [isGameOver])
+
+	// Мешки с монетами
+	useEffect(() => {
+		if (!isGameOver) {
+			const interval = setInterval(() => {
+				setCoinsBag(prev => {
+					if (prev.length < 1) {
+						return [
+							{
+								id: `${Date.now()}-${Math.random()}`,
+								x: Math.random() * window.innerWidth,
+								y: -50,
+							},
+						]
+					}
+					return prev
+				})
+			}, 50000)
+
+			return () => clearInterval(interval)
 		}
 	}, [isGameOver])
 
@@ -275,6 +318,28 @@ const GameCanvas = () => {
 
 	useEffect(() => {
 		if (!isGameOver) {
+			const nitroPackInterval = setInterval(() => {
+				setNitroPacks(prev => {
+					if (prev.length < 1) {
+						return [
+							...prev,
+							{
+								id: `${Date.now()}-${Math.random()}`,
+								x: Math.random() * window.innerWidth,
+								y: -50,
+							},
+						]
+					}
+					return prev
+				})
+			}, 15000)
+
+			return () => clearInterval(nitroPackInterval)
+		}
+	}, [isGameOver])
+
+	useEffect(() => {
+		if (!isGameOver) {
 			const megaBombsInterval = setInterval(() => {
 				setMegaBombs(prev => [
 					...prev,
@@ -294,6 +359,7 @@ const GameCanvas = () => {
 		if (!isGameOver) {
 			const timerInterval = setInterval(() => {
 				setGameTime(prev => prev + 1)
+				gameDispatch({ type: 'INCREASE_SCORE', payload: 1 })
 			}, 1000)
 
 			return () => clearInterval(timerInterval)
@@ -310,46 +376,59 @@ const GameCanvas = () => {
 	}, [state.lives])
 
 	const handleCollide = asteroidId => {
-		if (!isGameOver) {
-			game.decreaseLives()
-			setState(game.getState())
+		if (!isGameOver && !collectedObjects.has(asteroidId)) {
+			setCollectedObjects(prev => new Set(prev).add(asteroidId))
+			gameDispatch({ type: 'DECREASE_LIVES', payload: 1 })
 			setAsteroids(prev => prev.filter(asteroid => asteroid.id !== asteroidId))
 		}
 	}
-	const handleFlashCollide = asteroidId => {
-		if (!isGameOver) {
-			game.decreaseLives(3)
-			setState(game.getState())
-			setFlashAsteroids(prev => [
-				...prev,
-				{
-					id: `${Date.now()}-${Math.random()}`,
-					x: Math.random() * window.innerWidth,
-					y: -50,
-				},
-			])
+
+	const handleFlashCollide = cometId => {
+		if (!isGameOver && !collectedObjects.has(cometId)) {
+			setCollectedObjects(prev => new Set(prev).add(cometId))
+			gameDispatch({
+				type: 'DECREASE_LIVES',
+				payload: Math.floor(state.lives * 0.9),
+			})
+
+			setFlashAsteroids(prev => prev.filter(comet => comet.id !== cometId))
+		}
+	}
+
+	const handleBlackHoleCollide = (id: string) => {
+		if (!isGameOver && !collectedObjects.has(id)) {
+			setCollectedObjects(prev => new Set(prev).add(id))
+			gameDispatch({ type: 'DECREASE_SCORE', payload: state.score / 2 })
+			setBlackHoles(prev => prev.filter(bh => bh.id !== id))
+		}
+	}
+
+	const handleCoinsBagCollect = (id: string) => {
+		if (!isGameOver && !collectedObjects.has(id)) {
+			setCollectedObjects(prev => new Set(prev).add(id))
+			gameDispatch({ type: 'INCREASE_SCORE', payload: 150 })
+			setCoinsBag(prev => prev.filter(cb => cb.id !== id))
 		}
 	}
 
 	const handleMegaBombsCollide = megaBombsId => {
 		if (!isGameOver) {
-			game.gameOver()
-			setState(game.getState())
+			gameDispatch({ type: 'GAME_OVER' })
 			setMegaBombs(prev => prev.filter(megaBomb => megaBomb.id !== megaBombsId))
 		}
 	}
 	const handleCollect = coinId => {
-		if (!isGameOver) {
-			game.increaseScore()
-			setState(game.getState())
+		if (!isGameOver && !collectedObjects.has(coinId)) {
+			setCollectedObjects(prev => new Set(prev).add(coinId))
+			gameDispatch({ type: 'INCREASE_SCORE' })
 			setCoins(prev => prev.filter(coin => coin.id !== coinId))
 		}
 	}
 
 	const handleHealthPackCollect = healthPackId => {
-		if (!isGameOver) {
-			game.increaseLives(2)
-			setState(game.getState())
+		if (!isGameOver && !collectedObjects.has(healthPackId)) {
+			setCollectedObjects(prev => new Set(prev).add(healthPackId))
+			gameDispatch({ type: 'INCREASE_LIVES', payload: 2 })
 			setHealthPacks(prev =>
 				prev.filter(healthPack => healthPack.id !== healthPackId)
 			)
@@ -362,6 +441,29 @@ const GameCanvas = () => {
 		if (shipRef) {
 			shipRef.current.style.height = h + 'px'
 			shipRef.current.style.width = w + 'px'
+		}
+	}
+
+	useEffect(() => {
+		if (nitroActionTimer > 0) {
+			const nitroActionTimerInterval = setInterval(() => {
+				setNitroActionTimer(prev => prev - 1)
+			}, 1000)
+
+			return () => clearInterval(nitroActionTimerInterval)
+		} else {
+			setIsShiftPressed(false)
+		}
+	}, [nitroActionTimer])
+
+	const handleNitroPackCollect = nitroPackId => {
+		if (!isGameOver) {
+			setNitroActionTimer(15)
+			setIsShiftPressed(true)
+
+			setNitroPacks(prev =>
+				prev.filter(nitroPack => nitroPack.id !== nitroPackId)
+			)
 		}
 	}
 
@@ -414,8 +516,7 @@ const GameCanvas = () => {
 	const restartGame = () => {
 		setIsGameOver(false)
 		setGameTime(0)
-		game.reset()
-		setState(game.getState())
+		gameDispatch({ type: 'RESET' })
 		setAsteroids([])
 		setCoins([])
 		setHealthPacks([])
@@ -424,7 +525,12 @@ const GameCanvas = () => {
 		setBigSizeActionTimer(0)
 		setSmallSizeActionTimer(0)
 		setSizePacks([])
+		setNitroActionTimer(0)
+		setNitroPacks([])
+		setIsShiftPressed(false)
 		setSizeSmallPacks([])
+		setBlackHoles([])
+		setCoinsBag([])
 	}
 
 	const handleModalClose = () => {
@@ -437,29 +543,70 @@ const GameCanvas = () => {
 	}
 	return (
 		<GameCanvasStyled>
-			<Ship ref={shipRef} onMove={handleMove} position={shipPosition} />
+			<Ship
+				speedBoost={isShiftPressed}
+				ref={shipRef}
+				onMove={handleMove}
+				position={shipPosition}
+			/>
 			{flashAsteroids.map(asteroid => (
 				<FlashAsteroid
 					key={asteroid.id}
-					speed={6}
+					speed={isShiftPressed ? 6 * 1.5 : 6}
 					onCollide={() => handleFlashCollide(asteroid.id)}
 					initialPosition={{ x: asteroid.x, y: asteroid.y }}
 					isGameOver={isGameOver}
 					shipPosition={shipPosition}
 				/>
 			))}
+
+			{blackHoles.map(bh => (
+				<BlackHole
+					key={bh.id}
+					speed={isShiftPressed ? 2 * 1.5 : 2}
+					onCollide={() => handleBlackHoleCollide(bh.id)}
+					initialPosition={{ x: bh.x, y: bh.y }}
+					isGameOver={isGameOver}
+					shipPosition={shipPosition}
+				/>
+			))}
+
+			{coinsBag.map(cb => (
+				<CoinBag
+					key={cb.id}
+					speed={isShiftPressed ? 2 * 1.5 : 2}
+					onCollect={() => handleCoinsBagCollect(cb.id)}
+					initialPosition={{ x: cb.x, y: cb.y }}
+					isGameOver={isGameOver}
+					shipPosition={shipPosition}
+				/>
+			))}
+
 			{asteroids.map(asteroid => (
 				<Asteroid
 					key={asteroid.id}
-					speed={2}
+					speed={isShiftPressed ? 2 * 1.5 : 2}
 					onCollide={() => handleCollide(asteroid.id)}
 					initialPosition={{ x: asteroid.x, y: asteroid.y }}
 					isGameOver={isGameOver}
 					shipPosition={shipPosition}
 				/>
 			))}
+
+			{nitroPacks.map(nitroID => (
+				<NitroPack
+					key={nitroID.id}
+					speed={isShiftPressed ? 2 * 1.5 : 2}
+					onCollect={() => handleNitroPackCollect(nitroID.id)}
+					initialPosition={{ x: nitroID.x, y: nitroID.y }}
+					isGameOver={isGameOver}
+					shipPosition={shipPosition}
+				/>
+			))}
+
 			{coins.map(coin => (
 				<Coin
+					speed={isShiftPressed ? 2 * 1.5 : 2}
 					key={coin.id}
 					onCollide={() => handleCollect(coin.id)}
 					initialPosition={{ x: coin.x, y: coin.y }}
@@ -469,6 +616,7 @@ const GameCanvas = () => {
 			))}
 			{healthPacks.map(healthPack => (
 				<HealthPack
+					speed={isShiftPressed ? 2 * 1.5 : 2}
 					key={healthPack.id}
 					onCollect={() => handleHealthPackCollect(healthPack.id)}
 					initialPosition={{ x: healthPack.x, y: healthPack.y }}
@@ -478,6 +626,7 @@ const GameCanvas = () => {
 			))}
 			{sizePacks.map(sizePack => (
 				<SizePack
+					speed={isShiftPressed ? 2 * 1.5 : 2}
 					key={sizePack.id}
 					onCollect={() => handleSizePackCollect(sizePack.id)}
 					initialPosition={{ x: sizePack.x, y: sizePack.y }}
@@ -488,6 +637,7 @@ const GameCanvas = () => {
 
 			{sizeSmallPacks.map(sizePack => (
 				<SizeSmallPack
+					speed={isShiftPressed ? 2 * 1.5 : 2}
 					key={sizePack.id}
 					onCollect={() => handleSizeSmallPackCollect(sizePack.id)}
 					initialPosition={{ x: sizePack.x, y: sizePack.y }}
@@ -497,6 +647,7 @@ const GameCanvas = () => {
 			))}
 			{megaBombs.map(megaBomb => (
 				<MegaBombs
+					speed={isShiftPressed ? 2 * 1.5 : 2}
 					key={megaBomb.id}
 					onCollect={() => handleMegaBombsCollide(megaBomb.id)}
 					initialPosition={{ x: megaBomb.x, y: megaBomb.y }}
@@ -505,12 +656,12 @@ const GameCanvas = () => {
 				/>
 			))}
 			<GameUi style={{ zIndex: 2 }}>
-				<p>Record: {spacePugRecord || 0}</p>
+				<RecordText>Record: {spacePugRecord || 0}</RecordText>
 				<ScoreText>BIFS: {state.score}</ScoreText>
-				<LevelText>HP: {state.lives}</LevelText>
+				<LiveText lives={state.lives}>HP: {state.lives}</LiveText>
 				<TimeText>Time: {gameTime} s</TimeText>
 			</GameUi>
-			{(smallSizeActionTimer || bigSizeActionTimer) && (
+			{(smallSizeActionTimer || bigSizeActionTimer || nitroActionTimer) && (
 				<CenterUi>
 					{smallSizeActionTimer > 0 && (
 						<TimeText>Уменьшение: {smallSizeActionTimer} сек</TimeText>
@@ -518,22 +669,40 @@ const GameCanvas = () => {
 					{bigSizeActionTimer > 0 && (
 						<TimeText>Увеличение: {bigSizeActionTimer} сек</TimeText>
 					)}
+
+					{nitroActionTimer > 0 && (
+						<SpeedText>Ускорение: {nitroActionTimer} сек</SpeedText>
+					)}
 				</CenterUi>
 			)}
 
 			{isGameOver && !showModal && (
 				<GameOverlay>
-					<RestartButtonsWrapper>
-						<MulticolouredButton theme='blue' onClick={restartGame}>
-							Играть
-						</MulticolouredButton>
-						<MulticolouredButton
-							theme='red'
+					<BtnGroup>
+						<RestartBtn
+							onClick={restartGame}
+							whileHover={{ scale: 1.03 }}
+							whileTap={{ scale: 0.98 }}
+						>
+							Играть снова
+						</RestartBtn>
+
+						<InfoBtn
+							onClick={() => setShowGuideModal(true)}
+							whileHover={{ scale: 1.03 }}
+							whileTap={{ scale: 0.98 }}
+						>
+							Об игре
+						</InfoBtn>
+
+						<ExitBtn
 							onClick={() => router.push('/earn')}
+							whileHover={{ scale: 1.03 }}
+							whileTap={{ scale: 0.98 }}
 						>
 							Выйти
-						</MulticolouredButton>
-					</RestartButtonsWrapper>
+						</ExitBtn>
+					</BtnGroup>
 				</GameOverlay>
 			)}
 			{!isGameOver && (
@@ -544,6 +713,7 @@ const GameCanvas = () => {
 				onMove={handleMove}
 				onSpeedUp={handleSpeedUp}
 				onSpeedDown={handleSpeedDown}
+				activeKeys={activeKeys}
 			/>
 			<BasicModal
 				btnText='ДА'
@@ -563,6 +733,10 @@ const GameCanvas = () => {
 				onButtonClick={handleModalClose}
 				onClose={handleModalClose}
 				imgSrc='/pugs/upset-pug.png'
+			/>
+			<GameGuideModal
+				isVisible={showGuideModal}
+				onClose={() => setShowGuideModal(false)}
 			/>
 		</GameCanvasStyled>
 	)

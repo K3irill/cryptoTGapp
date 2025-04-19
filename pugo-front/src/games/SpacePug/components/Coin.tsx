@@ -4,7 +4,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CoinStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
-const Coin = ({ onCollide, initialPosition, isGameOver, shipPosition }) => {
+const Coin = ({
+	speed,
+	onCollide,
+	initialPosition,
+	isGameOver,
+	shipPosition,
+}) => {
 	const [position, setPosition] = useState(initialPosition)
 	const spacePugContext = useContext(SpacePugGameContext)
 	if (!spacePugContext) {
@@ -15,7 +21,7 @@ const Coin = ({ onCollide, initialPosition, isGameOver, shipPosition }) => {
 		if (!isGameOver) {
 			const move = setInterval(() => {
 				setPosition(prev => {
-					const newY = prev.y + 2
+					const newY = prev.y + speed
 
 					if (
 						newY + 40 >= shipPosition.y &&

@@ -1,4 +1,7 @@
-import { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
+import { COLORS } from '@/styles/colors'
+import { motion } from 'framer-motion'
+
 //золотой градиент для фона
 export const goldenBackground = css`
 	background: linear-gradient(
@@ -446,4 +449,62 @@ export const redOrangeTextGradient = css`
 			)
 			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
 		#fff500;
+`
+
+// Анимация свечения
+const glow = keyframes`
+  0% { box-shadow: 0 0 5px rgba(0, 191, 255, 0.7); }
+  50% { box-shadow: 0 0 20px rgba(0, 191, 255, 0.9); }
+  100% { box-shadow: 0 0 5px rgba(0, 191, 255, 0.7); }
+`
+
+// Анимация градиента
+const gradientFlow = keyframes`
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+`
+
+// Базовый стиль кнопки
+const BaseButton = styled.button`
+	position: relative;
+	padding: 14px 28px;
+	border: none;
+	border-radius: 12px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	overflow: hidden;
+	transition: all 0.3s ease;
+	z-index: 1;
+	min-width: 200px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+			135deg,
+			rgba(0, 191, 255, 0.3) 0%,
+			rgba(138, 43, 226, 0.3) 50%,
+			rgba(255, 0, 255, 0.3) 100%
+		);
+		z-index: -1;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	&:hover::before {
+		opacity: 1;
+	}
+
+	&:active {
+		transform: scale(0.98);
+	}
 `

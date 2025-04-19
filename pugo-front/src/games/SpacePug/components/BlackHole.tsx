@@ -1,16 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import React, { useContext, useEffect, useState } from 'react'
-import {
-	HealthPackStyled,
-	MegaBombsStyled,
-	MegaHealthPackStyled,
-} from '../styled'
+import { BlackHolesStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
-const MegaBombs = ({
+const BlackHole = ({
 	speed,
-	onCollect,
+	onCollide,
 	initialPosition,
 	isGameOver,
 	shipPosition,
@@ -29,12 +25,12 @@ const MegaBombs = ({
 
 					// Проверка столкновения с кораблём
 					if (
-						newY + 20 >= shipPosition.y &&
+						newY + 75 >= shipPosition.y &&
 						prev.y <= shipPosition.y + spacePugContext.shipHeight &&
-						prev.x + 20 >= shipPosition.x &&
+						prev.x + 75 >= shipPosition.x &&
 						prev.x <= shipPosition.x + spacePugContext.shipWidth
 					) {
-						onCollect()
+						onCollide()
 						return { x: Math.random() * window.innerWidth, y: -50 }
 					}
 
@@ -48,9 +44,9 @@ const MegaBombs = ({
 
 			return () => clearInterval(move)
 		}
-	}, [isGameOver, shipPosition, onCollect])
+	}, [isGameOver, shipPosition, onCollide])
 
-	return <MegaBombsStyled style={{ left: position.x, top: position.y }} />
+	return <BlackHolesStyled style={{ left: position.x, top: position.y }} />
 }
 
-export default MegaBombs
+export default BlackHole
