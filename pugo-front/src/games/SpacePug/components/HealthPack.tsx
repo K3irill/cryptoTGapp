@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, memo } from 'react'
 import { HealthPackStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
@@ -49,4 +49,4 @@ const HealthPack = ({
 	return <HealthPackStyled style={{ left: position.x, top: position.y }} />
 }
 
-export default HealthPack
+export default memo(HealthPack)

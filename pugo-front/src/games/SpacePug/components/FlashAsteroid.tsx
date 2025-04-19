@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, memo } from 'react'
 import {
 	AsteroidStyled,
 	ExplosionStyled,
@@ -54,4 +54,4 @@ const FlashAsteroid = ({
 	return <FlashAsteroidStyled style={{ left: position.x, top: position.y }} />
 }
 
-export default FlashAsteroid
+export default memo(FlashAsteroid)

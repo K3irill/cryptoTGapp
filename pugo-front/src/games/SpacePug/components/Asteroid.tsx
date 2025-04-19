@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, memo } from 'react'
 import { AsteroidStyled, ExplosionStyled, ShockwaveStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
@@ -49,4 +49,4 @@ const Asteroid = ({
 	return <AsteroidStyled style={{ left: position.x, top: position.y }} />
 }
 
-export default Asteroid
+export default memo(Asteroid)

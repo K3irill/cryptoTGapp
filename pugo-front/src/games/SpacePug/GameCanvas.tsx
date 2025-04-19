@@ -161,210 +161,192 @@ const GameCanvas = () => {
 			return newSet
 		})
 	}
+	// Добавь в начало компонента
+	const gameLoop = useRef<number>()
+	const lastSpawnTimes = useRef({
+		asteroid: 0,
+		coin: 0,
+		healthPack: 0,
+		blackHole: 0,
+		coinsBag: 0,
+		flashAsteroid: 0,
+		nitroPack: 0,
+		megaBomb: 0,
+		sizePack: 0,
+		sizeSmallPack: 0,
+	})
 
 	useEffect(() => {
-		if (!isGameOver) {
-			const asteroidInterval = setInterval(() => {
+		let lastFrameTime = performance.now()
+
+		const loop = (now: number) => {
+			const delta = now - lastFrameTime
+			lastFrameTime = now
+
+			// Обновляем таймер игры каждую секунду
+			if (Math.floor(now / 1000) !== Math.floor(lastFrameTime / 1000)) {
+				setGameTime(prev => prev + 1)
+				gameDispatch({ type: 'INCREASE_SCORE', payload: 1 })
+			}
+
+			if (now - lastSpawnTimes.current.asteroid > 4000) {
+				lastSpawnTimes.current.asteroid = now
 				setAsteroids(prev => [
 					...prev,
 					{
-						id: `${Date.now()}-${Math.random()}`,
+						id: `${now}-${Math.random()}`,
 						x: Math.random() * window.innerWidth,
 						y: -50,
 					},
 				])
-			}, 4000)
+			}
 
-			return () => clearInterval(asteroidInterval)
-		}
-	}, [isGameOver])
-
-	useEffect(() => {
-		if (!isGameOver && flashAsteroids.length < 3) {
-			const interval = setInterval(() => {
-				setFlashAsteroids(prev => [
-					...prev,
-					{
-						id: `${Date.now()}-${Math.random()}`,
-						x: Math.random() * window.innerWidth,
-						y: -50,
-					},
-				])
-			}, 45000)
-			return () => clearInterval(interval)
-		}
-	}, [isGameOver, flashAsteroids.length])
-
-	useEffect(() => {
-		if (!isGameOver) {
-			const coinInterval = setInterval(() => {
+			if (now - lastSpawnTimes.current.coin > 5000) {
+				lastSpawnTimes.current.coin = now
 				setCoins(prev => [
 					...prev,
 					{
-						id: `${Date.now()}-${Math.random()}`,
+						id: `${now}-${Math.random()}`,
 						x: Math.random() * window.innerWidth,
 						y: -50,
 					},
 				])
-			}, 5000)
+			}
 
-			return () => clearInterval(coinInterval)
-		}
-	}, [isGameOver])
-
-	useEffect(() => {
-		if (!isGameOver) {
-			const healthPackInterval = setInterval(() => {
+			if (now - lastSpawnTimes.current.healthPack > 20000) {
+				lastSpawnTimes.current.healthPack = now
 				setHealthPacks(prev => [
 					...prev,
 					{
-						id: `${Date.now()}-${Math.random()}`,
+						id: `${now}-${Math.random()}`,
 						x: Math.random() * window.innerWidth,
 						y: -50,
 					},
 				])
-			}, 20000)
+			}
 
-			return () => clearInterval(healthPackInterval)
-		}
-	}, [isGameOver])
+			if (
+				now - lastSpawnTimes.current.blackHole > 40000 &&
+				blackHoles.length < 1
+			) {
+				lastSpawnTimes.current.blackHole = now
+				setBlackHoles(prev => [
+					...prev,
+					{
+						id: `${now}-${Math.random()}`,
+						x: Math.random() * window.innerWidth,
+						y: -50,
+					},
+				])
+			}
 
-	useEffect(() => {
-		if (!isGameOver) {
-			const interval = setInterval(() => {
-				setBlackHoles(prev => {
-					if (prev.length < 1) {
-						return [
-							{
-								id: `${Date.now()}-${Math.random()}`,
-								x: Math.random() * window.innerWidth,
-								y: -50,
-							},
-						]
-					}
-					return prev
-				})
-			}, 40000)
+			if (
+				now - lastSpawnTimes.current.coinsBag > 50000 &&
+				coinsBag.length < 1
+			) {
+				lastSpawnTimes.current.coinsBag = now
+				setCoinsBag(prev => [
+					...prev,
+					{
+						id: `${now}-${Math.random()}`,
+						x: Math.random() * window.innerWidth,
+						y: -50,
+					},
+				])
+			}
 
-			return () => clearInterval(interval)
-		}
-	}, [isGameOver])
+			if (
+				now - lastSpawnTimes.current.flashAsteroid > 45000 &&
+				flashAsteroids.length < 3
+			) {
+				lastSpawnTimes.current.flashAsteroid = now
+				setFlashAsteroids(prev => [
+					...prev,
+					{
+						id: `${now}-${Math.random()}`,
+						x: Math.random() * window.innerWidth,
+						y: -50,
+					},
+				])
+			}
 
-	// Мешки с монетами
-	useEffect(() => {
-		if (!isGameOver) {
-			const interval = setInterval(() => {
-				setCoinsBag(prev => {
-					if (prev.length < 1) {
-						return [
-							{
-								id: `${Date.now()}-${Math.random()}`,
-								x: Math.random() * window.innerWidth,
-								y: -50,
-							},
-						]
-					}
-					return prev
-				})
-			}, 50000)
+			if (
+				now - lastSpawnTimes.current.nitroPack > 15000 &&
+				nitroPacks.length < 1
+			) {
+				lastSpawnTimes.current.nitroPack = now
+				setNitroPacks(prev => [
+					...prev,
+					{
+						id: `${now}-${Math.random()}`,
+						x: Math.random() * window.innerWidth,
+						y: -50,
+					},
+				])
+			}
 
-			return () => clearInterval(interval)
-		}
-	}, [isGameOver])
-
-	useEffect(() => {
-		if (!isGameOver) {
-			const sizePackInterval = setInterval(() => {
-				setSizePacks(prev => {
-					if (prev.length < 1) {
-						return [
-							...prev,
-							{
-								id: `${Date.now()}-${Math.random()}`,
-								x: Math.random() * window.innerWidth,
-								y: -50,
-							},
-						]
-					}
-					return prev
-				})
-			}, 45000)
-
-			return () => clearInterval(sizePackInterval)
-		}
-	}, [isGameOver])
-
-	useEffect(() => {
-		if (!isGameOver) {
-			const sizeSmallPackInterval = setInterval(() => {
-				setSizeSmallPacks(prev => {
-					if (prev.length < 1) {
-						return [
-							...prev,
-							{
-								id: `${Date.now()}-${Math.random()}`,
-								x: Math.random() * window.innerWidth,
-								y: -50,
-							},
-						]
-					}
-					return prev
-				})
-			}, 30000)
-
-			return () => clearInterval(sizeSmallPackInterval)
-		}
-	}, [isGameOver])
-
-	useEffect(() => {
-		if (!isGameOver) {
-			const nitroPackInterval = setInterval(() => {
-				setNitroPacks(prev => {
-					if (prev.length < 1) {
-						return [
-							...prev,
-							{
-								id: `${Date.now()}-${Math.random()}`,
-								x: Math.random() * window.innerWidth,
-								y: -50,
-							},
-						]
-					}
-					return prev
-				})
-			}, 15000)
-
-			return () => clearInterval(nitroPackInterval)
-		}
-	}, [isGameOver])
-
-	useEffect(() => {
-		if (!isGameOver) {
-			const megaBombsInterval = setInterval(() => {
+			if (now - lastSpawnTimes.current.megaBomb > 30000) {
+				lastSpawnTimes.current.megaBomb = now
 				setMegaBombs(prev => [
 					...prev,
 					{
-						id: `${Date.now()}-${Math.random()}`,
+						id: `${now}-${Math.random()}`,
 						x: Math.random() * window.innerWidth,
 						y: -50,
 					},
 				])
-			}, 30000)
+			}
 
-			return () => clearInterval(megaBombsInterval)
+			if (
+				now - lastSpawnTimes.current.sizePack > 45000 &&
+				sizePacks.length < 1
+			) {
+				lastSpawnTimes.current.sizePack = now
+				setSizePacks(prev => [
+					...prev,
+					{
+						id: `${now}-${Math.random()}`,
+						x: Math.random() * window.innerWidth,
+						y: -50,
+					},
+				])
+			}
+
+			if (
+				now - lastSpawnTimes.current.sizeSmallPack > 30000 &&
+				sizeSmallPacks.length < 1
+			) {
+				lastSpawnTimes.current.sizeSmallPack = now
+				setSizeSmallPacks(prev => [
+					...prev,
+					{
+						id: `${now}-${Math.random()}`,
+						x: Math.random() * window.innerWidth,
+						y: -50,
+					},
+				])
+			}
+
+			// Рекурсивно запускаем
+			gameLoop.current = requestAnimationFrame(loop)
 		}
-	}, [isGameOver])
 
-	useEffect(() => {
 		if (!isGameOver) {
-			const timerInterval = setInterval(() => {
-				setGameTime(prev => prev + 1)
-				gameDispatch({ type: 'INCREASE_SCORE', payload: 1 })
-			}, 1000)
-
-			return () => clearInterval(timerInterval)
+			gameLoop.current = requestAnimationFrame(loop)
 		}
-	}, [isGameOver])
+
+		return () => {
+			if (gameLoop.current) cancelAnimationFrame(gameLoop.current)
+		}
+	}, [
+		isGameOver,
+		blackHoles.length,
+		coinsBag.length,
+		flashAsteroids.length,
+		nitroPacks.length,
+		sizePacks.length,
+		sizeSmallPacks.length,
+	])
 
 	useEffect(() => {
 		if (state.lives <= 0) {

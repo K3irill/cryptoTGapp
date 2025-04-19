@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, memo } from 'react'
 import { SizeSmallPackStyled } from '../styled'
 import { SpacePugGameContext } from '../SpacePugContext'
 
@@ -52,4 +52,4 @@ const SizeSmallPack = ({
 	)
 }
 
-export default SizeSmallPack
+export default memo(SizeSmallPack)

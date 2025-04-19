@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, memo } from 'react'
 import {
 	HealthPackStyled,
 	MegaBombsStyled,
@@ -53,4 +53,4 @@ const MegaBombs = ({
 	return <MegaBombsStyled style={{ left: position.x, top: position.y }} />
 }
 
-export default MegaBombs
+export default memo(MegaBombs)
