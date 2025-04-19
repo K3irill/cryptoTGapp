@@ -8,7 +8,7 @@ export const products = {
 		description: '100000 BIFS',
 	},
 	2500: {
-		stars: 1000,
+		stars: 2500,
 		pugo: 300000,
 		description: '300000 BIFS',
 	},
