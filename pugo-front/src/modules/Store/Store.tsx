@@ -59,7 +59,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 			type: 'coins',
 			title: 'BIFS COINS',
 			img: '/store/cases/case-1.png',
-			price: 1500,
+			price: 2500,
 			color: '#4f046c',
 			locked: false,
 		},
@@ -67,7 +67,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 			type: 'days',
 			title: 'AUTOMINING',
 			img: '/store/cases/case-3.png',
-			price: 5000,
+			price: 7500,
 			color: '#d1ce105c',
 			locked: false,
 		},
@@ -119,6 +119,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 
 	return (
 		<StoreContainer
+			overflow={showModal}
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.5 }}

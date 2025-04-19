@@ -4,13 +4,16 @@ import styled from 'styled-components'
 import { purpleTextGradient, blueTextGradient } from '@/styles/mixins'
 import { Swiper } from 'swiper/react'
 
-export const StoreContainer = styled(motion.div)`
+export const StoreContainer = styled(motion.div)<{ overflow?: boolean }>`
 	display: flex;
 	flex-direction: column;
+
 	gap: 24px;
+	overflow-x: hidden;
 	padding: 20px;
 	max-height: calc(100vh - 170px);
 	overflow-y: auto;
+
 	scrollbar-width: none;
 	position: relative;
 	z-index: 5;

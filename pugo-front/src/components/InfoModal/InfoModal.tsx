@@ -457,14 +457,18 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 												}}
 											>
 												{status.name}
-												{statusKey === 1 && '🌟'}
+												{statusKey === 1 && '🪨'}
+												{statusKey === 2 && '🐛'}
 												{statusKey === 3 && '💎'}
+												{statusKey === 4 && '⚔️'}
 												{statusKey === 5 && '⚡'}
+												{statusKey === 6 && '🦄'}
 												{statusKey === 7 && '💥'}
 												{statusKey === 8 && '👑'}
 												{statusKey === 9 && '🔥'}
-												{statusKey === 10 && '☠️'}
-                        {statusKey === 11 && '👾'}
+												{statusKey === 10 && '🐐'}
+												{statusKey === 11 && '👩‍🚀'}
+												{statusKey === 12 && '👾'}
 											</Typography>
 											<Chip
 												label={`${status.requirements.minTokens.toLocaleString()}+`}
@@ -695,17 +699,17 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							{
 								title: 'Соцсети',
 								desc: 'Посты в Twitter, Telegram и др.',
-								reward: '1000-10,000 токенов',
+								reward: '10000-100000 токенов',
 							},
 							{
 								title: 'Видео',
 								desc: 'Обзоры на YouTube/TikTok',
-								reward: '5000-100,000 токенов',
+								reward: '50000-1000000 токенов',
 							},
 							{
 								title: 'Статьи',
 								desc: 'Блог-посты и руководства',
-								reward: '1,000-25,000 токенов',
+								reward: '5,000-250000 токенов',
 							},
 							{
 								title: 'Сообщество',
@@ -766,7 +770,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 								title: 'Q2 2025',
 								items: [
 									'Веб-сайт',
-                  'Телаграм бот BIFS',
+									'Телаграм бот BIFS',
 									'Релиз мобильного Telegram-приложения с мини-игрой "Space Pug"',
 									'Базовая реферальная система',
 								],
@@ -778,7 +782,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 									'Первые аирдропы',
 									'Стейкинг токенов',
 									'Первый листинг на централизованной бирже',
-                 'Конкурс трейдеров с призами в BIFS'
+									'Конкурс трейдеров с призами в BIFS',
 								],
 							},
 							{
@@ -786,9 +790,9 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 								items: [
 									'NFT-коллекция "Космические мопсы"',
 									'Продвинутые DeFi-функции',
-                  'Турнирная система с розыгрышем эксклюзивных NFT',
+									'Турнирная система с розыгрышем эксклюзивных NFT',
 									'Листинг на крупных биржах',
-                   'Сюрпризный ивент "Тайна черной дыры"'
+									'Сюрпризный ивент "Тайна черной дыры"',
 								],
 							},
 						].map(quarter => (
@@ -920,11 +924,11 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 								url: 'https://t.me/BIFScryptoSpace',
 								icon: '📢',
 							},
-              {
-                name: 'Сайт',
-                url: 'https://bifscoin.ru',
-                icon: '🌐',
-              },
+							{
+								name: 'Сайт',
+								url: 'https://bifscoin.ru',
+								icon: '🌐',
+							},
 							// {
 							// 	name: 'Twitter',
 							// 	url: 'https://twitter.com',
@@ -935,7 +939,6 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							// 	url: 'https://discord.gg',
 							// 	icon: '💬',
 							// },
-              
 						].map(social => (
 							<Link
 								key={social.name}
@@ -970,7 +973,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							fontSize: '0.8rem',
 						}}
 					>
-						Экосистема BIFS v1.0 · © 2025 Все права защищены
+						Экосистема BIFS v1.1 · © 2025 Все права защищены
 					</Typography>
 				</Content>
 			</Box>

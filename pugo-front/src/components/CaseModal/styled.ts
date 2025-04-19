@@ -46,6 +46,7 @@ export const Content = styled.div`
 	z-index: 19;
 	overflow-y: scroll;
 	-ms-overflow-style: none;
+	overflow-x: hidden;
 	scrollbar-width: none;
 	padding-bottom: 25px;
 	height: 100%;
