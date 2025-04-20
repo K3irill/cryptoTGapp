@@ -551,9 +551,9 @@ const BifsMinerGame = () => {
 					Missed: {missedBifs} / {missedAvailableBifs}
 				</MissedBifs>
 				{comboActive && (
-					<ComboText style={{ color: '#FFD700' }}>🔥 Комбо-режим!</ComboText>
+					<ComboText style={{ color: '#FFD700' }}>🔥 Combo-mode!</ComboText>
 				)}
-				{combo >= 2 && !comboActive && <ComboText>Комбо: {combo}x</ComboText>}
+				{combo >= 2 && !comboActive && <ComboText>Combo: {combo}x</ComboText>}
 			</GameUi>
 
 			{isGameActive && !showModal && (
