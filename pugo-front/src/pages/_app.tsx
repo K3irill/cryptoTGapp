@@ -6,7 +6,7 @@ import { RootState, store } from '@/store/store'
 import { setUser } from '@/store/slices/userSlice'
 import Script from 'next/script'
 import { IS_DEV, REQUEST_LINK } from '../../constant'
-
+import { appWithTranslation } from 'next-i18next'
 type NextPageWithLayout = {
 	getLayout?: (page: ReactElement) => ReactNode
 } & AppProps['Component']
@@ -273,7 +273,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 	return <>{getLayout(<Component {...pageProps} />)}</>
 }
 
-export default function MyApp(props: MyAppProps) {
+function MyApp(props: MyAppProps) {
 	return (
 		<Provider store={store}>
 			<Script
@@ -284,3 +284,5 @@ export default function MyApp(props: MyAppProps) {
 		</Provider>
 	)
 }
+
+export default appWithTranslation(MyApp)
