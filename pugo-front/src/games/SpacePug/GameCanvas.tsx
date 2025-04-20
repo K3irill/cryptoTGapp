@@ -191,10 +191,12 @@ const GameCanvas = () => {
 			if (currentSecond !== lastSecondTime) {
 				lastSecondTime = currentSecond
 				setGameTime(prev => prev + 1)
-				gameDispatch({ type: 'INCREASE_SCORE', payload: 1 })
 			}
 
-			if (now - lastSpawnTimes.current.asteroid > 4000) {
+			if (
+				now - lastSpawnTimes.current.asteroid > 4000 &&
+				asteroids.length < 20
+			) {
 				lastSpawnTimes.current.asteroid = now
 				setAsteroids(prev => [
 					...prev,
@@ -206,7 +208,7 @@ const GameCanvas = () => {
 				])
 			}
 
-			if (now - lastSpawnTimes.current.coin > 5000) {
+			if (now - lastSpawnTimes.current.coin > 8000 && coins.length < 20) {
 				lastSpawnTimes.current.coin = now
 				setCoins(prev => [
 					...prev,
@@ -218,7 +220,10 @@ const GameCanvas = () => {
 				])
 			}
 
-			if (now - lastSpawnTimes.current.healthPack > 20000) {
+			if (
+				now - lastSpawnTimes.current.healthPack > 45000 &&
+				healthPacks.length < 20
+			) {
 				lastSpawnTimes.current.healthPack = now
 				setHealthPacks(prev => [
 					...prev,
@@ -231,7 +236,7 @@ const GameCanvas = () => {
 			}
 
 			if (
-				now - lastSpawnTimes.current.blackHole > 40000 &&
+				now - lastSpawnTimes.current.blackHole > 60000 &&
 				blackHoles.length < 1
 			) {
 				lastSpawnTimes.current.blackHole = now
@@ -261,8 +266,8 @@ const GameCanvas = () => {
 			}
 
 			if (
-				now - lastSpawnTimes.current.flashAsteroid > 45000 &&
-				flashAsteroids.length < 3
+				now - lastSpawnTimes.current.flashAsteroid > 150000 &&
+				flashAsteroids.length < 2
 			) {
 				lastSpawnTimes.current.flashAsteroid = now
 				setFlashAsteroids(prev => [
@@ -276,7 +281,7 @@ const GameCanvas = () => {
 			}
 
 			if (
-				now - lastSpawnTimes.current.nitroPack > 15000 &&
+				now - lastSpawnTimes.current.nitroPack > 85000 &&
 				nitroPacks.length < 1
 			) {
 				lastSpawnTimes.current.nitroPack = now
@@ -290,7 +295,10 @@ const GameCanvas = () => {
 				])
 			}
 
-			if (now - lastSpawnTimes.current.megaBomb > 30000) {
+			if (
+				now - lastSpawnTimes.current.megaBomb > 60000 &&
+				megaBombs.length < 4
+			) {
 				lastSpawnTimes.current.megaBomb = now
 				setMegaBombs(prev => [
 					...prev,
@@ -303,7 +311,7 @@ const GameCanvas = () => {
 			}
 
 			if (
-				now - lastSpawnTimes.current.sizePack > 45000 &&
+				now - lastSpawnTimes.current.sizePack > 95000 &&
 				sizePacks.length < 1
 			) {
 				lastSpawnTimes.current.sizePack = now
@@ -355,7 +363,7 @@ const GameCanvas = () => {
 
 	useEffect(() => {
 		if (state.lives <= 0) {
-			updateTokensOnServer(state.score)
+			updateTokensOnServer(state.score + gameTime)
 			updateSpacePugScoreServer(state.score)
 			setIsGameOver(true)
 			setShowModal(true)
@@ -518,6 +526,19 @@ const GameCanvas = () => {
 		setSizeSmallPacks([])
 		setBlackHoles([])
 		setCoinsBag([])
+
+		lastSpawnTimes.current = {
+			asteroid: performance.now(),
+			coin: performance.now(),
+			healthPack: performance.now(),
+			blackHole: performance.now(),
+			coinsBag: performance.now(),
+			flashAsteroid: performance.now(),
+			nitroPack: performance.now(),
+			megaBomb: performance.now(),
+			sizePack: performance.now(),
+			sizeSmallPack: performance.now(),
+		}
 	}
 
 	const handleModalClose = () => {
@@ -536,119 +557,134 @@ const GameCanvas = () => {
 				onMove={handleMove}
 				position={shipPosition}
 			/>
-			{flashAsteroids.map(asteroid => (
-				<FlashAsteroid
-					key={asteroid.id}
-					speed={isShiftPressed ? 6 * 1.5 : 6}
-					onCollide={() => handleFlashCollide(asteroid.id)}
-					initialPosition={{ x: asteroid.x, y: asteroid.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
+			{!showGuideModal &&
+				flashAsteroids.map(asteroid => (
+					<FlashAsteroid
+						key={asteroid.id}
+						speed={isShiftPressed ? 6 * 1.5 : 6}
+						onCollide={() => handleFlashCollide(asteroid.id)}
+						initialPosition={{ x: asteroid.x, y: asteroid.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
 
-			{blackHoles.map(bh => (
-				<BlackHole
-					key={bh.id}
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					onCollide={() => handleBlackHoleCollide(bh.id)}
-					initialPosition={{ x: bh.x, y: bh.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
+			{!showGuideModal &&
+				blackHoles.map(bh => (
+					<BlackHole
+						key={bh.id}
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						onCollide={() => handleBlackHoleCollide(bh.id)}
+						initialPosition={{ x: bh.x, y: bh.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
 
-			{coinsBag.map(cb => (
-				<CoinBag
-					key={cb.id}
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					onCollect={() => handleCoinsBagCollect(cb.id)}
-					initialPosition={{ x: cb.x, y: cb.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
+			{!showGuideModal &&
+				coinsBag.map(cb => (
+					<CoinBag
+						key={cb.id}
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						onCollect={() => handleCoinsBagCollect(cb.id)}
+						initialPosition={{ x: cb.x, y: cb.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
 
-			{asteroids.map(asteroid => (
-				<Asteroid
-					key={asteroid.id}
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					onCollide={() => handleCollide(asteroid.id)}
-					initialPosition={{ x: asteroid.x, y: asteroid.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
+			{!showGuideModal &&
+				asteroids.map(asteroid => (
+					<Asteroid
+						key={asteroid.id}
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						onCollide={() => handleCollide(asteroid.id)}
+						initialPosition={{ x: asteroid.x, y: asteroid.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
 
-			{nitroPacks.map(nitroID => (
-				<NitroPack
-					key={nitroID.id}
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					onCollect={() => handleNitroPackCollect(nitroID.id)}
-					initialPosition={{ x: nitroID.x, y: nitroID.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
+			{!showGuideModal &&
+				nitroPacks.map(nitroID => (
+					<NitroPack
+						key={nitroID.id}
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						onCollect={() => handleNitroPackCollect(nitroID.id)}
+						initialPosition={{ x: nitroID.x, y: nitroID.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
 
-			{coins.map(coin => (
-				<Coin
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					key={coin.id}
-					onCollide={() => handleCollect(coin.id)}
-					initialPosition={{ x: coin.x, y: coin.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
-			{healthPacks.map(healthPack => (
-				<HealthPack
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					key={healthPack.id}
-					onCollect={() => handleHealthPackCollect(healthPack.id)}
-					initialPosition={{ x: healthPack.x, y: healthPack.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
-			{sizePacks.map(sizePack => (
-				<SizePack
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					key={sizePack.id}
-					onCollect={() => handleSizePackCollect(sizePack.id)}
-					initialPosition={{ x: sizePack.x, y: sizePack.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
+			{!showGuideModal &&
+				coins.map(coin => (
+					<Coin
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						key={coin.id}
+						onCollide={() => handleCollect(coin.id)}
+						initialPosition={{ x: coin.x, y: coin.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
+			{!showGuideModal &&
+				healthPacks.map(healthPack => (
+					<HealthPack
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						key={healthPack.id}
+						onCollect={() => handleHealthPackCollect(healthPack.id)}
+						initialPosition={{ x: healthPack.x, y: healthPack.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
+			{!showGuideModal &&
+				sizePacks.map(sizePack => (
+					<SizePack
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						key={sizePack.id}
+						onCollect={() => handleSizePackCollect(sizePack.id)}
+						initialPosition={{ x: sizePack.x, y: sizePack.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
 
-			{sizeSmallPacks.map(sizePack => (
-				<SizeSmallPack
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					key={sizePack.id}
-					onCollect={() => handleSizeSmallPackCollect(sizePack.id)}
-					initialPosition={{ x: sizePack.x, y: sizePack.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
-			{megaBombs.map(megaBomb => (
-				<MegaBombs
-					speed={isShiftPressed ? 2 * 1.5 : 2}
-					key={megaBomb.id}
-					onCollect={() => handleMegaBombsCollide(megaBomb.id)}
-					initialPosition={{ x: megaBomb.x, y: megaBomb.y }}
-					isGameOver={isGameOver}
-					shipPosition={shipPosition}
-				/>
-			))}
-			<GameUi style={{ zIndex: 2 }}>
-				<RecordText>Record: {spacePugRecord || 0}</RecordText>
-				<ScoreText>BIFS: {state.score}</ScoreText>
-				<LiveText lives={state.lives}>HP: {state.lives}</LiveText>
-				<TimeText>Time: {gameTime} s</TimeText>
-			</GameUi>
-			{(smallSizeActionTimer || bigSizeActionTimer || nitroActionTimer) && (
+			{!showGuideModal &&
+				sizeSmallPacks.map(sizePack => (
+					<SizeSmallPack
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						key={sizePack.id}
+						onCollect={() => handleSizeSmallPackCollect(sizePack.id)}
+						initialPosition={{ x: sizePack.x, y: sizePack.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
+			{!showGuideModal &&
+				megaBombs.map(megaBomb => (
+					<MegaBombs
+						speed={isShiftPressed ? 2 * 1.5 : 2}
+						key={megaBomb.id}
+						onCollect={() => handleMegaBombsCollide(megaBomb.id)}
+						initialPosition={{ x: megaBomb.x, y: megaBomb.y }}
+						isGameOver={isGameOver}
+						shipPosition={shipPosition}
+					/>
+				))}
+			{!showGuideModal && (
+				<GameUi style={{ zIndex: 2 }}>
+					<RecordText>Record: {spacePugRecord || 0}</RecordText>
+					<ScoreText>BIFS: {state.score}</ScoreText>
+					<LiveText lives={state.lives}>HP: {state.lives}</LiveText>
+					<TimeText>Time: {gameTime} s</TimeText>
+				</GameUi>
+			)}
+
+			{((!showGuideModal && smallSizeActionTimer) ||
+				bigSizeActionTimer ||
+				nitroActionTimer) && (
 				<CenterUi>
 					{smallSizeActionTimer > 0 && (
 						<TimeText>Уменьшение: {smallSizeActionTimer} сек</TimeText>
@@ -663,7 +699,7 @@ const GameCanvas = () => {
 				</CenterUi>
 			)}
 
-			{isGameOver && !showModal && (
+			{!showGuideModal && isGameOver && !showModal && (
 				<GameOverlay>
 					<BtnGroup>
 						<RestartBtn
@@ -695,13 +731,15 @@ const GameCanvas = () => {
 			{!isGameOver && (
 				<StopBtn onClick={() => setShowStopModal(true)}>STOP</StopBtn>
 			)}
+			{!showGuideModal && (
+				<Controls
+					onMove={handleMove}
+					onSpeedUp={handleSpeedUp}
+					onSpeedDown={handleSpeedDown}
+					activeKeys={activeKeys}
+				/>
+			)}
 
-			<Controls
-				onMove={handleMove}
-				onSpeedUp={handleSpeedUp}
-				onSpeedDown={handleSpeedDown}
-				activeKeys={activeKeys}
-			/>
 			<BasicModal
 				btnText='ДА'
 				title='Вы уверены, что хотите завершить игру?'

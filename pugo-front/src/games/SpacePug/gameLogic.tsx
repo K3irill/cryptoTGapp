@@ -22,7 +22,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 		case 'INCREASE_SCORE':
 			return {
 				...state,
-				score: Math.round(state.score + (action.payload ?? 25)),
+				score: Math.round(state.score + (action.payload ?? 50)),
 			}
 		case 'DECREASE_SCORE':
 			return {
