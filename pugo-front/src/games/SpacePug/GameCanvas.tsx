@@ -78,6 +78,19 @@ const GameCanvas = () => {
 	const [isShiftPressed, setIsShiftPressed] = useState(false)
 	const [activeKeys, setActiveKeys] = useState(new Set())
 	const [gameTime, setGameTime] = useState(0)
+	const gameLoop = useRef<number>()
+	const lastSpawnTimes = useRef({
+		asteroid: 0,
+		coin: 0,
+		healthPack: 0,
+		blackHole: 0,
+		coinsBag: 0,
+		flashAsteroid: 0,
+		nitroPack: 0,
+		megaBomb: 0,
+		sizePack: 0,
+		sizeSmallPack: 0,
+	})
 	const [updateTokens, { isLoadingUpdatingTokens, errorUpdatingTokens }] =
 		useUpdateTokensMutation()
 	const [spacePugCompleted, { isLoadingSpacePugScore, errorSpacePugScore }] =
@@ -117,7 +130,9 @@ const GameCanvas = () => {
 			console.error('Update tokens error:', error)
 		}
 	}
-
+	useEffect(() => {
+		restartGame()
+	}, [])
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			setShipPosition({
@@ -162,19 +177,6 @@ const GameCanvas = () => {
 		})
 	}
 	// Добавь в начало компонента
-	const gameLoop = useRef<number>()
-	const lastSpawnTimes = useRef({
-		asteroid: 0,
-		coin: 0,
-		healthPack: 0,
-		blackHole: 0,
-		coinsBag: 0,
-		flashAsteroid: 0,
-		nitroPack: 0,
-		megaBomb: 0,
-		sizePack: 0,
-		sizeSmallPack: 0,
-	})
 
 	useEffect(() => {
 		let lastFrameTime = performance.now()
@@ -508,7 +510,7 @@ const GameCanvas = () => {
 		}
 	}
 
-	const restartGame = () => {
+	function restartGame() {
 		setIsGameOver(false)
 		setGameTime(0)
 		gameDispatch({ type: 'RESET' })
@@ -526,7 +528,7 @@ const GameCanvas = () => {
 		setSizeSmallPacks([])
 		setBlackHoles([])
 		setCoinsBag([])
-
+		if (gameLoop.current) cancelAnimationFrame(gameLoop.current)
 		lastSpawnTimes.current = {
 			asteroid: performance.now(),
 			coin: performance.now(),

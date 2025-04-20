@@ -249,7 +249,7 @@ const BifsMinerGame = () => {
 			velocity,
 			...config.size,
 			rotation: 0,
-			rotationSpeed: selectedType === 'crash' ? 0 : Math.random() * 4 - 2,
+			rotationSpeed: Math.random() * 4 - 2,
 			spawnedAt: now,
 		}
 
@@ -545,10 +545,10 @@ const BifsMinerGame = () => {
 
 			<GameUi style={{ zIndex: 2 }}>
 				<ScoreText>BIFS: {score}</ScoreText>
-				<TimeText>Время: {gameTime} сек</TimeText>
-				<LevelText>Уровень: {level}</LevelText>
+				<TimeText>Time: {gameTime} сек</TimeText>
+				<LevelText>Level: {level}</LevelText>
 				<MissedBifs missedBifs={missedBifs}>
-					Пропущено: {missedBifs} из {missedAvailableBifs}
+					Missed: {missedBifs} / {missedAvailableBifs}
 				</MissedBifs>
 				{comboActive && (
 					<ComboText style={{ color: '#FFD700' }}>🔥 Комбо-режим!</ComboText>

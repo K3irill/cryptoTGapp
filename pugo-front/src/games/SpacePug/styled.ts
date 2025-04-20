@@ -100,13 +100,13 @@ export const GameUi = styled(motion.div)`
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 2px;
 	z-index: 100;
 	${mainBlockBackground};
 
 	p {
 		margin: 0;
-		font-size: 16px;
+		line-height: 1.4;
 	}
 `
 export const CenterUi = styled.div`
@@ -239,13 +239,13 @@ export const BtnGroup = styled.div`
 
 export const ScoreText = styled.p`
 	margin: 0;
-	font-size: 16px;
+	font-size: 12px;
 	font-weight: bold;
 	${purpleTextGradient}
 `
 export const LiveText = styled.p<{ lives?: number }>`
 	margin: 0;
-	font-size: 16px;
+	font-size: 12px;
 	font-weight: bold;
 	${({ lives }) =>
 		lives && lives < 4
@@ -259,14 +259,14 @@ export const LiveText = styled.p<{ lives?: number }>`
 
 export const RecordText = styled.p`
 	margin: 0;
-	font-size: 16px;
+	font-size: 12px;
 	font-weight: bold;
 	${goldenTextGradientV2}
 `
 
 export const TimeText = styled.p`
 	margin: 0;
-	font-size: 14px;
+	font-size: 12px;
 	color: ${COLORS.ice};
 	text-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
 `
@@ -286,7 +286,7 @@ export const LevelText = styled.p`
 
 export const ComboText = styled.p`
 	margin: 0;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: bold;
 	${goldenTextGradientV2}
 	animation: ${pulse} 0.5s infinite;
@@ -294,7 +294,7 @@ export const ComboText = styled.p`
 
 export const MissedBifs = styled.p<{ missedBifs: number }>`
 	margin: 0;
-	font-size: 14px;
+	font-size: 12px;
 
 	${({ missedBifs = 0 }) => {
 		if (missedBifs > 20) {
