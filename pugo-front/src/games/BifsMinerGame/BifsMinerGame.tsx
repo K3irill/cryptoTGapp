@@ -249,7 +249,7 @@ const BifsMinerGame = () => {
 			velocity,
 			...config.size,
 			rotation: 0,
-			rotationSpeed: selectedType === 'crash' ? 0 : Math.random() * 4 - 2,
+			rotationSpeed: Math.random() * 4 - 2,
 			spawnedAt: now,
 		}
 
