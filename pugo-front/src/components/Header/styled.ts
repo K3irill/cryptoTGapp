@@ -3,6 +3,7 @@
 import { COLORS } from '@/styles/colors'
 import styled from 'styled-components'
 import { statusColors, statusConfig } from '@/assets/constants/statusConfig'
+import { motion } from 'framer-motion'
 type StatusProps = {
 	status: keyof typeof statusConfig
 }
@@ -139,7 +140,8 @@ export const Backlight = styled.img`
 	right: 3px;
 `
 
-export const OutButton = styled.button`
+export const OutButton = styled(motion.button)`
+	margin-left: 20px;
 	width: 56px;
 	height: 56px;
 	border-radius: 50%;

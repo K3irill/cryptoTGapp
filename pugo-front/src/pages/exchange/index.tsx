@@ -1,33 +1,35 @@
 import { CONTENT as STATIC_CONTENT } from '@/assets/constants/static_content'
 import { Exchange } from '@/modules/Exchange/Exchange'
 import MainLayout from '@/components/Layouts/MainLayouts'
-import { getContent } from '@/lib/getContent'
-
-import { ContentData } from '@/types/types'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import {
+	ContentData,
+	FooterContent,
+	HeaderContent,
+	PagesTypes,
+} from '@/types/types'
 import { GetStaticProps, NextPage } from 'next'
 
-interface ExchangePageProps {
-	content: ContentData
+const ExchangePage = () => {
+	const { t } = useTranslation('common')
+
+	const PAGES_CONTENT = t('pages', { returnObjects: true }) as PagesTypes
+	const HEADER_CONTENT = t('header', { returnObjects: true }) as HeaderContent
+	const FOOTER_CONTENT = t('footer', { returnObjects: true }) as FooterContent
+
+	return (
+		<MainLayout header={HEADER_CONTENT} footer={FOOTER_CONTENT}>
+			<Exchange data={PAGES_CONTENT.exchange} />
+		</MainLayout>
+	)
 }
 
-const ExchangePage: NextPage<ExchangePageProps> = ({ content }) => (
-	<MainLayout header={content.header} footer={content.footer}>
-		<Exchange data={content.pages.exchange} />
-	</MainLayout>
-)
-
-export const getStaticProps: GetStaticProps<ExchangePageProps> = async () => {
-	let content: ContentData
-
-	try {
-		content = (await getContent()) || STATIC_CONTENT
-	} catch (error) {
-		console.error('Error fetching content:', error)
-		content = STATIC_CONTENT as unknown as ContentData
-	}
-	console.log(content)
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	return {
-		props: { content },
+		props: {
+			...(await serverSideTranslations(locale || 'en', ['common'])),
+		},
 		revalidate: 60,
 	}
 }

@@ -3,33 +3,37 @@ import { Tasks } from '@/modules/Tasks/Tasks'
 import MainLayout from '@/components/Layouts/MainLayouts'
 import { getContent } from '@/lib/getContent'
 
-import { ContentData } from '@/types/types'
+import {
+	ContentData,
+	FooterContent,
+	HeaderContent,
+	PagesTypes,
+} from '@/types/types'
 import { GetStaticProps, NextPage } from 'next'
 
-interface TasksPageProps {
-	content: ContentData
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
+
+const TasksPage = () => {
+	const { t } = useTranslation('common')
+	const PAGES_CONTENT = t('pages', { returnObjects: true }) as PagesTypes
+	const HEADER_CONTENT = t('header', { returnObjects: true }) as HeaderContent
+	const FOOTER_CONTENT = t('footer', { returnObjects: true }) as FooterContent
+
+	return (
+		<>
+			<MainLayout header={HEADER_CONTENT} footer={FOOTER_CONTENT}>
+				<Tasks data={PAGES_CONTENT.tasks} />
+			</MainLayout>
+		</>
+	)
 }
 
-const TasksPage: NextPage<TasksPageProps> = ({ content }) => (
-	<MainLayout header={content.header} footer={content.footer}>
-		<Tasks data={content.pages.tasks} />
-	</MainLayout>
-)
-
-export const getStaticProps: GetStaticProps<TasksPageProps> = async () => {
-	let content: ContentData
-
-	try {
-		content = (await getContent()) || STATIC_CONTENT
-	} catch (error) {
-		console.error('Error fetching content:', error)
-		content = STATIC_CONTENT as unknown as ContentData
-	}
-	console.log(content)
-	return {
-		props: { content },
-		revalidate: 60,
-	}
-}
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: {
+		...(await serverSideTranslations(locale || 'en', ['common'])),
+	},
+	revalidate: 60,
+})
 
 export default TasksPage
