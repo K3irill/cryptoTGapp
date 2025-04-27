@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import BifsMinerGuideModal from '@/components/BifsMinerGuideModal/BifsMinerGuideModal'
 import { useTranslation } from 'next-i18next'
+import Loader from '@/components/Loader/Loader'
 
 type GameObjectType =
 	| 'bifs'
@@ -106,9 +107,6 @@ const OBJECT_CONFIG = {
 } as const
 
 const BifsMinerGame = () => {
-	const { t, ready } = useTranslation('common')
-	const gameTexts = t('content', { returnObjects: true }).games.bifsMiner
-
 	const router = useRouter()
 	const gameStartTime = useRef<number>(Date.now())
 	const lastSpawnTime = useRef<number>(0)
@@ -137,6 +135,7 @@ const BifsMinerGame = () => {
 
 	const { id } = useSelector((state: RootState) => state.user)
 	const [updateTokens] = useUpdateTokensMutation()
+	const { t, i18n, ready } = useTranslation('common')
 
 	// Memoized difficulty factor
 	const difficultyFactor = useMemo(() => {
@@ -459,6 +458,40 @@ const BifsMinerGame = () => {
 			if (comboBuffTimerRef.current) clearTimeout(comboBuffTimerRef.current)
 		}
 	}, [])
+
+	const [gameTexts, setGameTexts] = useState(null)
+	const [isLoading, setIsLoading] = useState(true)
+
+	const loadGameText = () => {
+		const loadedGameText =
+			t('content', { returnObjects: true }).games?.bifsMiner || ''
+		setGameTexts(loadedGameText)
+		setIsLoading(false)
+	}
+
+	useEffect(() => {
+		if (ready && gameTexts === null) {
+			loadGameText()
+		}
+	}, [ready, t, gameTexts])
+
+	useEffect(() => {
+		if (!gameTexts) {
+			const timeout = setTimeout(() => {
+				console.log('pushing')
+				router.push('/earn')
+			}, 500)
+
+			return () => clearTimeout(timeout)
+		} else {
+			console.log('all right')
+			console.log(ready)
+		}
+	}, [ready, gameTexts])
+
+	if (isLoading || !ready || !gameTexts) {
+		return <Loader />
+	}
 
 	return (
 		<GameCanvasStyled>

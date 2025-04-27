@@ -54,9 +54,13 @@ import { ContentData } from '@/types/types'
 
 const GameCanvas = () => {
 	const { t, ready } = useTranslation('common')
-
-	const spacePugContent = t('content', { returnObjects: true }).games.spacePug
-
+	const router = useRouter()
+	const spacePugContent = t('content', { returnObjects: true }).games?.spacePug
+	if (!spacePugContent) {
+		router.push(`/${router.locale}/earn`).then(() => {
+			window.location.reload()
+		})
+	}
 	const dispatch = useDispatch()
 	const spacePugContext = useContext(SpacePugGameContext)
 	if (!spacePugContext) {
@@ -106,7 +110,6 @@ const GameCanvas = () => {
 		new Set()
 	)
 
-	const router = useRouter()
 	const [showModal, setShowModal] = useState<boolean>(false)
 	const [showStopModal, setShowStopModal] = useState<boolean>(false)
 	const { id, tokens, automining, spacePugRecord } = useSelector(
@@ -558,6 +561,7 @@ const GameCanvas = () => {
 		setIsGameOver(true)
 		setShowStopModal(false)
 	}
+
 	return (
 		<GameCanvasStyled>
 			<Ship
