@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styled, { keyframes } from 'styled-components'
 import Button from '@/components/UI/Button/Button'
+import { GameSliderType } from '@/types/types'
 
 // Стили для нового слайдера
 const SliderContainer = styled.div`
@@ -158,29 +159,18 @@ const Dot = styled.div<{ active: boolean }>`
 	transition: all 0.3s ease;
 `
 
-const games = [
-	{
-		id: 'miner',
-		title: 'Crystal Miner',
-		description: 'Добывайте кристалы и получайте BIFS',
-		image: '/games/crystal-preview.jpg',
-	},
-	{
-		id: 'spacepug',
-		title: 'Space Pug',
-		description: 'Космические приключения мопса-астронавта',
-		image: '/games/space-pug.jpg',
-	},
-]
+interface GamesSliderInterface {
+	content: GameSliderType
+}
 
-const GamesSlider = () => {
+const GamesSlider = ({ content }: GamesSliderInterface) => {
 	const [current, setCurrent] = useState(0)
 	const [direction, setDirection] = useState(1)
 
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setDirection(1)
-			setCurrent(prev => (prev + 1) % games.length)
+			setCurrent(prev => (prev + 1) % content.games.length)
 		}, 8000)
 		return () => clearInterval(timer)
 	}, [])
@@ -227,11 +217,11 @@ const GamesSlider = () => {
 			</PlayButtonWrapper>
 		)
 	}
-
+	console.log(content.games[current].image)
 	return (
 		<SliderContainer>
 			<AnimatePresence custom={direction} initial={false}>
-				{games[current] && (
+				{content.games[current] && (
 					<Slide
 						key={current}
 						custom={direction}
@@ -239,7 +229,7 @@ const GamesSlider = () => {
 						initial='enter'
 						animate='center'
 						exit='exit'
-						bg={games[current].image}
+						bg={content.games[current].image}
 					>
 						<SlideContent
 							initial={{ opacity: 0, y: 40 }}
@@ -247,13 +237,13 @@ const GamesSlider = () => {
 							transition={{ delay: 0.3 }}
 						>
 							<SlideInfo>
-								<SlideTitle>{games[current].title}</SlideTitle>
+								<SlideTitle>{content.games[current].title}</SlideTitle>
 								<SlideDescription>
-									{games[current].description}
+									{content.games[current].description}
 								</SlideDescription>
 							</SlideInfo>
-							<PlayButton href={`/game/${games[current].id}`}>
-								Играть
+							<PlayButton href={`/game/${content.games[current].id}`}>
+								{content.button}
 							</PlayButton>
 						</SlideContent>
 					</Slide>
@@ -261,7 +251,7 @@ const GamesSlider = () => {
 			</AnimatePresence>
 
 			<Dots>
-				{games.map((_, i) => (
+				{content.games.map((_, i) => (
 					<Dot key={i} active={i === current} onClick={() => goToSlide(i)} />
 				))}
 			</Dots>

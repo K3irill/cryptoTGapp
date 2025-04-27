@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { NavElement } from './styled'
 import { NavCircleElementProps } from './NavCircleElement.d'
+import Link from 'next/link'
+import { useRouter } from 'next/router' // Импортируем хук useRouter
 
 export const NavCircleElement: FunctionComponent<NavCircleElementProps> = ({
 	children,
@@ -11,16 +13,19 @@ export const NavCircleElement: FunctionComponent<NavCircleElementProps> = ({
 	disabled,
 	isActive,
 }) => {
+	const { locale } = useRouter()
+
 	return (
-		<NavElement
-			background={background}
-			width={width}
-			height={height}
-			href={path}
-			disabled={disabled}
-			isActive={isActive}
-		>
-			{children}
-		</NavElement>
+		<Link href={path} passHref locale={locale}>
+			<NavElement
+				background={background}
+				width={width}
+				height={height}
+				disabled={disabled}
+				isActive={isActive}
+			>
+				{children}
+			</NavElement>
+		</Link>
 	)
 }

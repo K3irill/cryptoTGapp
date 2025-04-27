@@ -141,7 +141,7 @@ export const Backlight = styled.img`
 `
 
 export const OutButton = styled(motion.button)`
-	margin-left: 20px;
+	margin-left: 10px;
 	width: 56px;
 	height: 56px;
 	border-radius: 50%;

@@ -19,6 +19,8 @@ import {
 } from '@/store/services/api/tasksApi'
 import Label from '../Label/Label'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import Loader from '../Loader/Loader'
 
 interface TaskItemProps {
 	props: TasksApi
@@ -29,6 +31,13 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const [completeTask] = useCompleteTaskMutation()
 	const [completeTgTask, { isLoading }] = useCompleteTgTaskMutation()
 	const router = useRouter()
+	const { t, ready } = useTranslation('common')
+	if (!ready) return <Loader />
+
+	const language = router.locale || 'en'
+
+	const descriptionJson = JSON.parse(props.description)
+	const taskDescription = descriptionJson[language] || descriptionJson.en
 
 	const handleTaskAction = async () => {
 		try {
@@ -46,9 +55,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			} else {
 				// Стандартные задачи
 				await completeTask({ userId, taskId: props.id }).unwrap()
-        window.open(props.link, '_blank');
-
-
+				window.open(props.link, '_blank')
 			}
 
 			// Обновляем страницу только для неигровых задач
@@ -71,7 +78,9 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			transition={{ type: 'spring', stiffness: 400, damping: 10 }}
 		>
 			<TaskIcon>
-				{props.icon.includes('http') || props.icon.includes('svg') || props.icon.includes('png') ? (
+				{props.icon.includes('http') ||
+				props.icon.includes('svg') ||
+				props.icon.includes('png') ? (
 					<Image src={props.icon} width={32} height={32} alt='' />
 				) : (
 					props.icon
@@ -110,11 +119,16 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	)
 
 	function getButtonText() {
-		if (isLoading && props.chatId) return 'Проверяем...'
+		if (isLoading && props.chatId)
+			return t('content.pages.tasks.taskItem.button.checking')
 		if (props.UserTask.status !== 'available') {
-			return props.UserTask.status === 'pending' ? 'Проверка' : 'Выполнено'
+			return props.UserTask.status === 'pending'
+				? t('content.pages.tasks.taskItem.button.pending')
+				: t('content.pages.tasks.taskItem.button.completed')
 		}
-		return props.type === 'game_achievement' ? 'Перейти' : 'Выполнить'
+		return props.type === 'game_achievement'
+			? t('content.pages.tasks.taskItem.button.go')
+			: t('content.pages.tasks.taskItem.button.complete')
 	}
 }
 

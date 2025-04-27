@@ -1,10 +1,24 @@
-// next-i18next.config.js
+import path from 'path'
+
 export default {
 	i18n: {
 		defaultLocale: 'en',
-		locales: ['en', 'ru', 'pt', 'ua', 'cn', 'fn', 'de'],
+		locales: ['en', 'ru'],
+		localeDetection: true,
+	},
+	localePath: path.resolve('./public/locales'),
+	reloadOnPrerender: process.env.NODE_ENV === 'development',
+
+	debug: false,
+
+	serializeConfig: false,
+
+	interpolation: {
+		escapeValue: false,
 	},
 
-	localePath: './public/locales',
-	reloadOnPrerender: true,
+	partialBundledLanguages: true,
+
+	defaultNS: 'common',
+	ns: ['common'],
 }

@@ -6,7 +6,12 @@ import { RootState, store } from '@/store/store'
 import { setUser } from '@/store/slices/userSlice'
 import Script from 'next/script'
 import { IS_DEV, REQUEST_LINK } from '../../constant'
-import { appWithTranslation, i18n } from 'next-i18next'
+import {
+	appWithTranslation,
+	i18n,
+	UserConfig,
+	useTranslation,
+} from 'next-i18next'
 import nextI18NextConfig from '../../next-i18next.config.js'
 import { useRouter } from 'next/router'
 type NextPageWithLayout = {
@@ -21,6 +26,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user)
 	const router = useRouter()
+	const { i18n } = useTranslation()
 
 	useEffect(() => {
 		if (!!i18n) {
@@ -30,6 +36,19 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 			}
 		}
 	}, [i18n])
+
+	useEffect(() => {
+		const initializeLanguage = async () => {
+			const savedLanguage = localStorage.getItem('language')
+			const preferredLanguage = savedLanguage || router.locale || 'en'
+
+			if (preferredLanguage !== i18n.language) {
+				await i18n.changeLanguage(preferredLanguage)
+			}
+		}
+
+		initializeLanguage()
+	}, [router.locale, i18n])
 
 	const createStarLayer = (
 		id: string,
@@ -317,4 +336,4 @@ function MyApp(props: MyAppProps) {
 		</Provider>
 	)
 }
-export default appWithTranslation(MyApp, nextI18NextConfig)
+export default appWithTranslation(MyApp, nextI18NextConfig as UserConfig)

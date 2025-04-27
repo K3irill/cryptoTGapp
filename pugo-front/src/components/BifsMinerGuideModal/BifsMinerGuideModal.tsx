@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import { CloseButtonWrapper, Content } from './styled'
 import CloseButton from '../UI/CloseButton/CloseButton'
+import { useTranslation } from 'next-i18next'
 
 const modalStyle = {
 	position: 'absolute',
@@ -35,10 +36,14 @@ interface BifsMinerGuideModalProps {
 	onClose: () => void
 }
 
-export const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
+const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
 	isVisible,
 	onClose,
 }) => {
+	const { t, ready } = useTranslation('common')
+	const guide = t('content', { returnObjects: true }).games.bifsMiner
+		.crystalMinerGuide
+
 	const SectionHeader = ({ children }: { children: React.ReactNode }) => (
 		<Typography
 			variant='h5'
@@ -54,6 +59,9 @@ export const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
 			{children}
 		</Typography>
 	)
+
+	const objectIcons = ['💎', '🔮', '🪨', '🌀', '👁️', '♦️']
+	const mechanicIcons = ['🔥', '⏱️', '📉']
 
 	return (
 		<Modal open={isVisible} onClose={onClose}>
@@ -73,17 +81,13 @@ export const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
 							textAlign: 'center',
 						}}
 					>
-						🚀 CRYSTAL Miner: Как играть
+						{guide.title}
 					</Typography>
 
-					<SectionHeader>🎯 Цель игры</SectionHeader>
-					<Typography sx={{ mb: 2 }}>
-						Нажимай по падающим объектам, чтобы собирать кристаллы BIFS и
-						бонусы. Избегай ловушек и собирай как можно больше очков до
-						окончания игры.
-					</Typography>
+					<SectionHeader>{guide.sections.goal.title}</SectionHeader>
+					<Typography sx={{ mb: 2 }}>{guide.sections.goal.content}</Typography>
 
-					<SectionHeader>💎 Объекты</SectionHeader>
+					<SectionHeader>{guide.sections.objects.title}</SectionHeader>
 					<Box
 						sx={{
 							display: 'grid',
@@ -91,38 +95,7 @@ export const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
 							gap: 2,
 						}}
 					>
-						{[
-							{
-								icon: '💎',
-								name: 'BIFS кристалл',
-								desc: 'Даёт +3 очка. Основная цель!',
-							},
-							{
-								icon: '🔮',
-								name: 'Большой кристалл',
-								desc: 'Даёт больше очков.',
-							},
-							{
-								icon: '🪨',
-								name: 'Бело-красный кристалл',
-								desc: '-100 очков! Лучше не трогать.',
-							},
-							{
-								icon: '🌀',
-								name: 'Чёрная дыра',
-								desc: 'Уменьшает твой счёт в 2 раза.',
-							},
-							{
-								icon: '👁️',
-								name: 'Охотник',
-								desc: 'Увеличивает лимит ошибок на 10.',
-							},
-							{
-								icon: '♦️',
-								name: 'Красный отравленный кристалл',
-								desc: 'Игра заканчивается мгновенно!',
-							},
-						].map(item => (
+						{guide.sections.objects.items.map((item, index) => (
 							<Paper
 								key={item.name}
 								sx={{
@@ -133,7 +106,7 @@ export const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
 								}}
 							>
 								<Typography sx={{ fontWeight: 'bold', color: '#00bfff' }}>
-									{item.icon} {item.name}
+									{objectIcons[index]} {item.name}
 								</Typography>
 								<Typography variant='body2' sx={{ color: '#bbb' }}>
 									{item.desc}
@@ -142,45 +115,28 @@ export const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
 						))}
 					</Box>
 
-					<SectionHeader>⚙️ Механики</SectionHeader>
+					<SectionHeader>{guide.sections.mechanics.title}</SectionHeader>
 					<List dense sx={{ color: '#ddd', mb: 2 }}>
-						<ListItem>
-							<ListItemIcon>🔥</ListItemIcon>
-							<Typography>
-								Комбо-механика: 5 удачных кликов подряд активируют бафф на +50%
-								очков на 7 сек.
-							</Typography>
-						</ListItem>
-						<ListItem>
-							<ListItemIcon>⏱️</ListItemIcon>
-							<Typography>
-								Сложность увеличивается со временем и уровнем.
-							</Typography>
-						</ListItem>
-						<ListItem>
-							<ListItemIcon>📉</ListItemIcon>
-							<Typography>
-								Законченный лимит пропущенных кристаллов — игра закончится.
-							</Typography>
-						</ListItem>
+						{guide.sections.mechanics.items.map((item, index) => (
+							<ListItem key={index}>
+								<ListItemIcon>{mechanicIcons[index]}</ListItemIcon>
+								<Typography>{item}</Typography>
+							</ListItem>
+						))}
 					</List>
 
-					<SectionHeader>📊 Подсчёт очков</SectionHeader>
+					<SectionHeader>{guide.sections.scoring.title}</SectionHeader>
 					<Typography sx={{ mb: 1 }}>
-						Каждый объект приносит или отнимает очки. Используй комбо, чтобы
-						увеличить эффективность!
+						{guide.sections.scoring.content}
 					</Typography>
 
-					<SectionHeader>💡 Советы</SectionHeader>
+					<SectionHeader>{guide.sections.tips.title}</SectionHeader>
 					<Box component='ul' sx={{ pl: 3, color: '#ccc' }}>
-						<li>Старайся попадать точно — у каждого объекта есть хитбокс.</li>
-						<li>Используй комбо-режим по максимуму.</li>
-						<li>Охотник — полезен, не игнорируй его.</li>
-						<li>
-							Если видишь красный или бело-красный кристалл — лучше не
-							рисковать.
-						</li>
+						{guide.sections.tips.items.map((tip, index) => (
+							<li key={index}>{tip}</li>
+						))}
 					</Box>
+
 					<Typography
 						sx={{
 							color: '#AAA',
@@ -189,7 +145,7 @@ export const BifsMinerGuideModal: React.FC<BifsMinerGuideModalProps> = ({
 							fontSize: '0.8rem',
 						}}
 					>
-						Crystal Miner v1.1 · © 2025 BIFS Ecosystem
+						{guide.footer}
 					</Typography>
 				</Content>
 			</Box>

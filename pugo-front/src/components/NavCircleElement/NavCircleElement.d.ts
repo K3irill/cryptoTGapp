@@ -5,7 +5,7 @@ export enum NavCircleElement {
 
 export interface NavCircleElementProps {
 	children: React.ReactNode | string
-	path?: string
+	path: string
 	htmlTag?: NavCircleElement.LINK | NavCircleElement.BUTTON
 	width?: string
 	height?: string

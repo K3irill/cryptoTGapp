@@ -23,29 +23,11 @@ import { motion } from 'framer-motion'
 export const Earn: FunctionComponent<EarnProps> = ({ data }) => {
 	const router = useRouter()
 
-	const games = [
-		{
-			id: 'miner',
-			title: 'Crystal Miner',
-			description: 'Добывайте кристалы в увлекательной мини-игре',
-			image: '/games/crystal-preview.jpg',
-			available: true,
-		},
-		{
-			id: 'spacepug',
-			title: 'Space Pug',
-			description: 'Помогите пуглику собрать токены BIFS в космосе',
-			image: '/games/space-pug.jpg',
-			available: true,
-		},
-		{
-			id: 'quiz',
-			title: 'Crypto Quiz',
-			description: 'Проверьте свои знания о криптовалютах',
-			image: '/games/quiz-preview.jpg',
-			available: false,
-		},
-	]
+	const games = data.content.games.map(game => ({
+		...game,
+		image: `/games/${game.id}-preview.jpg`,
+		available: !game.comingSoon,
+	}))
 
 	const handleCardClick = (gameId: string, isAvailable: boolean) => {
 		if (isAvailable) {
@@ -66,8 +48,8 @@ export const Earn: FunctionComponent<EarnProps> = ({ data }) => {
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ duration: 0.5 }}
 			>
-				<MainTitle>Игры и развлечения</MainTitle>
-				<SubTitle>Зарабатывайте токены, играя в увлекательные игры</SubTitle>
+				<MainTitle>{data.content.header.mainTitle}</MainTitle>
+				<SubTitle>{data.content.header.subTitle}</SubTitle>
 			</Header>
 
 			<GamesGrid>
@@ -97,7 +79,9 @@ export const Earn: FunctionComponent<EarnProps> = ({ data }) => {
 									/>
 								</LockOverlay>
 							)}
-							{!game.available && <ComingSoonBadge>СКОРО</ComingSoonBadge>}
+							{game.comingSoon && (
+								<ComingSoonBadge>{game.comingSoon}</ComingSoonBadge>
+							)}
 						</GameImage>
 
 						<GameContent>

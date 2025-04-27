@@ -73,7 +73,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 			<TopPageInfo data={data.top_section} />
 
 			<TasksHeader>
-				<SubTitle>Выполняйте задания и получайте BIFS</SubTitle>
+				<SubTitle>{data.header.subtitle}</SubTitle>
 			</TasksHeader>
 
 			<InstructionBlock
@@ -81,7 +81,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ delay: 0.1, duration: 0.5 }}
 			>
-				<h3>Как это работает?</h3>
+				<h3>{data.instruction.title}</h3>
 				<InstructionSteps>
 					<InstructionStep whileHover={{ scale: 1.05 }}>
 						<img src='/instruction-card-1.svg' alt='Шаг 1' />
@@ -104,7 +104,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 					transition={{ delay: 0.2, duration: 0.5 }}
 				>
 					<SectionHeader onClick={() => setIsAvailableOpen(!isAvailableOpen)}>
-						<SectionTitle>Доступные задания</SectionTitle>
+						<SectionTitle>{data.sections.available.title}</SectionTitle>
 						<SectionToggle isOpen={isAvailableOpen}>
 							<img src='/icons/accordion.svg' alt='toggle' />
 						</SectionToggle>
@@ -124,8 +124,8 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 							))
 						) : (
 							<EmptyState>
-								<img src='/icons/empty-box.svg' alt='Нет заданий' />
-								<p>Нет доступных заданий</p>
+								<img src='/icons/empty-box.svg' alt='there are not tasks' />
+								<p>{data.sections.available.empty.text}</p>
 							</EmptyState>
 						)}
 					</TasksList>
@@ -137,7 +137,7 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 					transition={{ delay: 0.3, duration: 0.5 }}
 				>
 					<SectionHeader onClick={() => setIsCompletedOpen(!isCompletedOpen)}>
-						<SectionTitle>Выполненные задания</SectionTitle>
+						<SectionTitle>{data.sections.completed.title}</SectionTitle>
 						<SectionToggle isOpen={isCompletedOpen}>
 							<img src='/icons/accordion.svg' alt='toggle' />
 						</SectionToggle>
@@ -157,8 +157,8 @@ export const Tasks: FunctionComponent<TasksProps> = ({ data, children }) => {
 							))
 						) : (
 							<EmptyState>
-								<img src='/icons/empty-box.svg' alt='Нет заданий' />
-								<p>Вы еще не выполнили ни одного задания</p>
+								<img src='/icons/empty-box.svg' alt='there are not tasks' />
+								<p>{data.sections.completed.empty.text}</p>
 							</EmptyState>
 						)}
 					</TasksList>

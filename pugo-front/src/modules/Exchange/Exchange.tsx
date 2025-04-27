@@ -26,7 +26,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { handleAutomining, handleBuyTokens } from '@/utils/sendBotMessage'
 
-
 import ShinyButton from '@/components/UI/ShinyButton/ShinyButton'
 import { toast, Toaster } from 'react-hot-toast'
 import Label from '@/components/Label/Label'
@@ -34,6 +33,7 @@ import type { ExchangeProps } from './Exchange.d'
 import { defineMiningAwardByStatus } from '@/utils/utils'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
 import { products } from '@/assets/constants/storeContent'
+import { useTranslation } from 'next-i18next'
 export const Exchange: FunctionComponent<ExchangeProps> = ({
 	data,
 	children,
@@ -44,7 +44,7 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 		hours: 0,
 		minutes: 0,
 	})
-
+	const { t } = useTranslation('common')
 	useEffect(() => {
 		if (!user.autominingExpiresAt) return
 
@@ -78,46 +78,38 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 	}
 
 	const handleBuyClick = (stars: number, pugo: number) => {
-		handleBuyTokens(stars, pugo, user)
+		handleBuyTokens(stars, pugo, user, t)
 	}
 
 	return (
-		<ExchangeContainer
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			transition={{ duration: 0.5 }}
-		>
+		<ExchangeContainer>
 			<TopPageInfo data={data.top_section} />
-			<OverviewSection
-				initial={{ y: 20, opacity: 0 }}
-				animate={{ y: 0, opacity: 1 }}
-				transition={{ delay: 0.1, duration: 0.5 }}
-			>
+
+			<OverviewSection>
 				<BalanceColumn>
-					<BalanceTitle>Ваш баланс</BalanceTitle>
+					<BalanceTitle>{data.content.balance.title}</BalanceTitle>
 					<BalanceInfo>
 						<BalanceAmount>{user.tokens || '0'}</BalanceAmount>
-						<Label size='20px' title='BIFS' />
+						<Label size='20px' title={data.content.stars.tokensLabel} />
 					</BalanceInfo>
-					<DollarEquivalent>≈ $?.??</DollarEquivalent>
+					<DollarEquivalent>
+						{data.content.balance.dollarEquivalent}
+					</DollarEquivalent>
 				</BalanceColumn>
 
 				<MiningColumn>
 					{!user.automining ? (
 						<>
-							<MiningStatus>Автоматический майнинг</MiningStatus>
-							<MiningAnimation
-							// animate={{ rotate: 360 }}
-							// transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-							>
+							<MiningStatus>{data.content.mining.title}</MiningStatus>
+							<MiningAnimation>
 								<img src='/coin-c.png' alt='Mining in progress' />
 							</MiningAnimation>
 							<ShinyButton
-								onClick={() => handleAutomining(user)}
-								title='Активировать майнинг'
+								onClick={() => handleAutomining(user, t)}
+								title={data.content.mining.activateButton}
 								subtitle={`${
 									user.status ? defineMiningAwardByStatus(user.status) : 1000
-								} BIFS ежедневно`}
+								} ${data.content.mining.dailyReward}`}
 							/>
 						</>
 					) : (
@@ -125,24 +117,16 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 							<MiningAnimation>
 								<img src='/coin-c.png' alt='Mining in progress' />
 							</MiningAnimation>
-							<MiningTimer
-								initial={{ scale: 0.9 }}
-								animate={{ scale: 1 }}
-								transition={{
-									repeat: Infinity,
-									repeatType: 'reverse',
-									duration: 2,
-								}}
-							>
+							<MiningTimer>
 								{timeLeft.days > 0 ? (
 									<>
-										Майнинг активен: {timeLeft.days}{' '}
-										{getTimeWord(timeLeft.days, ['день', 'дня', 'дней'])}{' '}
+										{data.content.mining.active} {timeLeft.days}{' '}
+										{getTimeWord(timeLeft.days, data.content.timeUnits.days)}{' '}
 										{timeLeft.hours}{' '}
-										{getTimeWord(timeLeft.hours, ['час', 'часа', 'часов'])}
+										{getTimeWord(timeLeft.hours, data.content.timeUnits.hours)}
 									</>
 								) : (
-									'Майнинг не активен'
+									data.content.mining.inactive
 								)}
 							</MiningTimer>
 						</>
@@ -150,56 +134,34 @@ export const Exchange: FunctionComponent<ExchangeProps> = ({
 				</MiningColumn>
 			</OverviewSection>
 
-			<StarsSection
-				initial={{ y: 20, opacity: 0 }}
-				animate={{ y: 0, opacity: 1 }}
-				transition={{ delay: 0.2, duration: 0.5 }}
-			>
+			<StarsSection>
 				<StarsHeader>
-					<p>
-						Купить <Label size='38px' title='BIFS' />
-					</p>{' '}
-					<p> за Telegram Stars</p>
+					<p>{data.content.stars.title}</p>
+					<p>{data.content.stars.subtitle}</p>
 				</StarsHeader>
 
 				<StarsGrid>
-					{Object.entries(products).map(([key, product], index) => {
-						if (!product.for_admin || user.id === '1112303359') {
-							return (
-								<StarProductCard
-									key={key}
-									initial={{ y: 20, opacity: 0 }}
-									animate={{ y: 0, opacity: 1 }}
-									transition={{ delay: 0.3 + index * 0.05, duration: 0.5 }}
-									whileHover={{ scale: 1.03 }}
-								>
-									<StarProductInfo>
-										<StarCount>
-											<span className='count'>{product.stars}</span>
-											<span className='label'>Stars</span>
-										</StarCount>
-										<TokenCount>
-											<span className='count'>{product.pugo}</span>
-											<Label size='20px' title='BIFS' />
-										</TokenCount>
-									</StarProductInfo>
-									<StarProductButton
-										onClick={() => handleBuyClick(product.stars, product.pugo)}
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-									>
-										Купить
-									</StarProductButton>
-								</StarProductCard>
-							)
-						}
-						return null
-					})}
+					{Object.entries(products).map(([key, product], index) => (
+						<StarProductCard key={key}>
+							<StarProductInfo>
+								<StarCount>
+									<span className='count'>{product.stars}</span>
+									<span className='label'>{data.content.stars.starsLabel}</span>
+								</StarCount>
+								<TokenCount>
+									<span className='count'>{product.pugo}</span>
+									<Label size='20px' title={data.content.stars.tokensLabel} />
+								</TokenCount>
+							</StarProductInfo>
+							<StarProductButton
+								onClick={() => handleBuyClick(product.stars, product.pugo)}
+							>
+								{data.content.stars.buyButton}
+							</StarProductButton>
+						</StarProductCard>
+					))}
 				</StarsGrid>
 			</StarsSection>
-
-			{children}
-			<Toaster position='top-left' />
 		</ExchangeContainer>
 	)
 }

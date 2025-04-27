@@ -25,7 +25,7 @@ export const TransitionOverlay = styled(motion.div)`
 		rgba(98, 0, 234, 0.2) 0%,
 		rgba(22, 14, 45, 0.9) 70%
 	);
-	z-index: 9998;
+	z-index: 8;
 	pointer-events: none;
 `
 
@@ -42,7 +42,7 @@ export const LanguageSwitcherStyled = styled(motion.div)<{
 	border: 1px solid rgba(138, 99, 210, 0.3);
 	box-shadow: 0 0 20px rgba(98, 0, 234, 0.15),
 		inset 0 0 15px rgba(138, 99, 210, 0.2);
-	z-index: 9998;
+	z-index: 8;
 	transition: all 0.5s ease;
 	filter: ${({ $isTransitioning }) =>
 		$isTransitioning ? 'blur(1px)' : 'none'};
@@ -63,7 +63,7 @@ export const LanguageSwitcherStyled = styled(motion.div)<{
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
 		pointer-events: none;
-		z-index: 9999;
+		z-index: 8;
 	}
 
 	.cosmic-glow {
@@ -120,7 +120,7 @@ export const LanguageButton = styled(motion.button)<{
 	align-items: center;
 	justify-content: center;
 	gap: 6px;
-	padding: 8px 16px;
+	padding: 8px 16px 8px 10px;
 	border: none;
 	background: ${({ $active }) =>
 		$active
@@ -138,7 +138,7 @@ export const LanguageButton = styled(motion.button)<{
 	font-size: 14px;
 	border-radius: 40px;
 	transition: all 0.3s ease;
-	z-index: 99999;
+	z-index: 8;
 	pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
 
 	.flag {
@@ -150,10 +150,6 @@ export const LanguageButton = styled(motion.button)<{
 				? 'drop-shadow(0 0 4px rgba(138, 99, 210, 0.8))'
 				: 'none'};
 		transition: all 0.3s ease;
-
-		@media (max-width: 900px) {
-			font-size: 10px;
-		}
 	}
 
 	.text {
@@ -183,10 +179,6 @@ export const LanguageButton = styled(motion.button)<{
 		.text::after {
 			width: ${({ $disabled }) => ($disabled ? '0' : '100%')};
 		}
-	}
-	@media (max-width: 980px) {
-		padding: 8px 11px;
-		font-size: 12px;
 	}
 `
 
@@ -232,16 +224,8 @@ export const SelectStyled = styled(LanguageSwitcherStyled)`
 	flex-direction: column;
 	align-items: stretch;
 	padding: 4px;
-	min-width: 120px;
+	min-width: 80px;
 	position: relative;
-
-	@media (max-width: 900px) {
-		// position: absolute;
-		// top: 40px;
-		// right: 0;
-		min-width: 80px;
-		max-width: 90px;
-	}
 `
 
 export const SelectButton = styled(LanguageButton)`
@@ -254,10 +238,6 @@ export const SelectButton = styled(LanguageButton)`
 		font-size: 12px;
 		transition: all 0.3s ease;
 		margin-left: 8px;
-
-		@media (max-width: 900px) {
-			font-size: 10px;
-		}
 	}
 `
 
@@ -295,7 +275,7 @@ export const OptionsList = styled(motion.div)`
 `
 
 export const OptionItem = styled(motion.div)<{ $active: boolean }>`
-	padding: 8px 12px;
+	padding: 8px 1px;
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -311,9 +291,6 @@ export const OptionItem = styled(motion.div)<{ $active: boolean }>`
 		font-size: 16px;
 		filter: ${({ $active }) =>
 			$active ? 'drop-shadow(0 0 4px rgba(138, 99, 210, 0.8))' : 'none'};
-		@media (max-width: 900px) {
-			font-size: 12px;
-		}
 	}
 
 	&:hover {

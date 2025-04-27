@@ -7,6 +7,7 @@ import Modal from '@mui/material/Modal'
 import { CloseButtonWrapper, Content } from './styled'
 import CloseButton from '../UI/CloseButton/CloseButton'
 import { Button, Paper, List, ListItem, ListItemIcon } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
 const modalStyle = {
 	position: 'absolute',
@@ -41,13 +42,12 @@ export const GameGuideModal: React.FC<GameGuideModalProps> = ({
 	isVisible,
 	onClose,
 }) => {
-	const SectionHeader = ({
-		children,
-		icon,
-	}: {
-		children: React.ReactNode
-		icon?: string
-	}) => (
+	const { t, ready } = useTranslation('common')
+
+	const guide = t('content', { returnObjects: true }).games.spacePug
+		.spacePugGuide
+
+	const SectionHeader = ({ children }: { children: React.ReactNode }) => (
 		<Typography
 			variant='h5'
 			component='h2'
@@ -75,18 +75,12 @@ export const GameGuideModal: React.FC<GameGuideModalProps> = ({
 				},
 			}}
 		>
-			{icon && <span>{icon}</span>}
 			{children}
 		</Typography>
 	)
 
 	return (
-		<Modal
-			open={isVisible}
-			onClose={onClose}
-			aria-labelledby='game-guide-modal-title'
-			aria-describedby='game-guide-modal-description'
-		>
+		<Modal open={isVisible} onClose={onClose}>
 			<Box sx={modalStyle}>
 				<CloseButtonWrapper>
 					<CloseButton onClick={onClose} title='✕' />
@@ -115,19 +109,17 @@ export const GameGuideModal: React.FC<GameGuideModalProps> = ({
 							},
 						}}
 					>
-						👩‍🚀 Space Pug: Руководство по игре
+						{guide.title}
 					</Typography>
 
-					{/* Основная цель игры */}
-					<SectionHeader icon='🎯'>Цель игры</SectionHeader>
+					{/* Goal Section */}
+					<SectionHeader>{guide.sections.goal.title}</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Управляйте космическим кораблем мопса, собирайте кристаллы BIFS и
-						избегайте опасностей! Чем дольше вы продержитесь, тем больше токенов
-						заработаете.
+						{guide.sections.goal.content}
 					</Typography>
 
-					{/* Управление */}
-					<SectionHeader icon='🎮'>Управление</SectionHeader>
+					{/* Controls Section */}
+					<SectionHeader>{guide.sections.controls.title}</SectionHeader>
 					<Box
 						sx={{
 							display: 'grid',
@@ -151,33 +143,33 @@ export const GameGuideModal: React.FC<GameGuideModalProps> = ({
 								<ListItem sx={{ px: 0 }}>
 									<ListItemIcon sx={{ minWidth: 30 }}>⬆️</ListItemIcon>
 									<Typography color='white' variant='body2'>
-										Вверх
+										{guide.sections.controls.items.up}
 									</Typography>
 								</ListItem>
 								<ListItem sx={{ px: 0 }}>
 									<ListItemIcon sx={{ minWidth: 30 }}>⬇️</ListItemIcon>
 									<Typography color='white' variant='body2'>
-										Вниз
+										{guide.sections.controls.items.down}
 									</Typography>
 								</ListItem>
 								<ListItem sx={{ px: 0 }}>
 									<ListItemIcon sx={{ minWidth: 30 }}>⬅️</ListItemIcon>
 									<Typography color='white' variant='body2'>
-										Влево
+										{guide.sections.controls.items.left}
 									</Typography>
 								</ListItem>
 								<ListItem sx={{ px: 0 }}>
 									<ListItemIcon sx={{ minWidth: 30 }}>➡️</ListItemIcon>
 									<Typography color='white' variant='body2'>
-										Вправо
+										{guide.sections.controls.items.right}
 									</Typography>
 								</ListItem>
 							</List>
 						</Paper>
 					</Box>
 
-					{/* Предметы */}
-					<SectionHeader icon='💎'>Предметы и бонусы</SectionHeader>
+					{/* Items Section */}
+					<SectionHeader>{guide.sections.items.title}</SectionHeader>
 					<Box
 						sx={{
 							display: 'grid',
@@ -186,77 +178,39 @@ export const GameGuideModal: React.FC<GameGuideModalProps> = ({
 							mb: 3,
 						}}
 					>
-						{[
-							{
-								icon: '🪙',
-								name: 'Монеты BIFS',
-								desc: 'Основная валюта игры',
-								color: '#8c00ff',
-							},
-							{
-								icon: '💰',
-								name: 'Сумки с монетами',
-								desc: 'Редкие и ценные',
-								color: '#ff00ea',
-							},
-							{
-								icon: '❤️',
-								name: 'Аптечки',
-								desc: 'Восстанавливают HP',
-								color: '#FF5252',
-							},
-							{
-								icon: '⚡',
-								name: 'Бустер скорости',
-								desc: 'Временное ускорение',
-								color: '#FFD700',
-							},
-							{
-								icon: '⬆️',
-								name: 'Увеличитель',
-								desc: 'Увеличивает размер корабля',
-								color: '#4CAF50',
-							},
-							{
-								icon: '⬇️',
-								name: 'Уменьшитель',
-								desc: 'Уменьшает размер корабля',
-								color: '#FF9800',
-							},
-						].map(item => (
-							<Paper
-								key={item.name}
-								sx={{
-									p: 2,
-									background: `rgba(${
-										item.color === '#00BFFF'
-											? '0, 191, 255, 0.1'
-											: item.color === '#f200ff'
-											? '242, 0, 255, 0.1'
-											: item.color === '#FF5252'
-											? '255, 82, 82, 0.1'
-											: item.color === '#FFD700'
-											? '255, 215, 0, 0.1'
-											: item.color === '#4CAF50'
-											? '76, 175, 80, 0.1'
-											: '255, 152, 0, 0.1'
-									})`,
-									border: `1px solid ${item.color}`,
-									borderRadius: '8px',
-								}}
-							>
-								<Typography sx={{ color: item.color, fontWeight: 'bold' }}>
-									{item.icon} {item.name}
-								</Typography>
-								<Typography variant='body2' sx={{ color: '#AAA' }}>
-									{item.desc}
-								</Typography>
-							</Paper>
-						))}
+						{guide.sections.items.list.map((item, index) => {
+							const colors = [
+								'#8c00ff',
+								'#ff00ea',
+								'#FF5252',
+								'#FFD700',
+								'#4CAF50',
+								'#FF9800',
+							]
+							const icons = ['🪙', '💰', '❤️', '⚡', '⬆️', '⬇️']
+							return (
+								<Paper
+									key={index}
+									sx={{
+										p: 2,
+										background: `rgba(${hexToRgb(colors[index])}, 0.1)`,
+										border: `1px solid ${colors[index]}`,
+										borderRadius: '8px',
+									}}
+								>
+									<Typography sx={{ color: colors[index], fontWeight: 'bold' }}>
+										{icons[index]} {item.name}
+									</Typography>
+									<Typography variant='body2' sx={{ color: '#AAA' }}>
+										{item.desc}
+									</Typography>
+								</Paper>
+							)
+						})}
 					</Box>
 
-					{/* Опасности */}
-					<SectionHeader icon='⚠️'>Опасности</SectionHeader>
+					{/* Dangers Section */}
+					<SectionHeader>{guide.sections.dangers.title}</SectionHeader>
 					<Box
 						sx={{
 							display: 'grid',
@@ -265,108 +219,53 @@ export const GameGuideModal: React.FC<GameGuideModalProps> = ({
 							mb: 3,
 						}}
 					>
-						{[
-							{
-								icon: '🪨',
-								name: 'Астероиды',
-								desc: 'Отнимают HP',
-
-								color: '#FF5722',
-							},
-							{
-								icon: '☄️',
-								name: 'Огненные кометы',
-								desc: 'Отнимают 99% HP',
-								color: '#e2a00f',
-							},
-							{
-								icon: '🌀',
-								name: 'Черные дыры',
-								desc: 'Уменьшают счет вдвое',
-								color: '#0000ff',
-							},
-							{
-								icon: '💀',
-								name: 'Бомбы',
-								desc: 'Мгновенный Game Over',
-								color: '#FF5252',
-							},
-						].map(item => (
-							<Paper
-								key={item.name}
-								sx={{
-									p: 2,
-									background: `rgba(${
-										item.color === '#FF5252'
-											? '255, 82, 82, 0.1'
-											: item.color === '#9C27B0'
-											? '156, 39, 176, 0.1'
-											: item.color === '#212121'
-											? '33, 33, 33, 0.1'
-											: '255, 87, 34, 0.1'
-									})`,
-									border: `1px solid ${item.color}`,
-									borderRadius: '8px',
-								}}
-							>
-								<Typography sx={{ color: item.color, fontWeight: 'bold' }}>
-									{item.icon} {item.name}
-								</Typography>
-								<Typography variant='body2' sx={{ color: '#AAA' }}>
-									{item.desc}
-								</Typography>
-							</Paper>
-						))}
+						{guide.sections.dangers.list.map((item, index) => {
+							const colors = ['#FF5722', '#e2a00f', '#0000ff', '#FF5252']
+							const icons = ['🪨', '☄️', '🌀', '💀']
+							return (
+								<Paper
+									key={index}
+									sx={{
+										p: 2,
+										background: `rgba(${hexToRgb(colors[index])}, 0.1)`,
+										border: `1px solid ${colors[index]}`,
+										borderRadius: '8px',
+									}}
+								>
+									<Typography sx={{ color: colors[index], fontWeight: 'bold' }}>
+										{icons[index]} {item.name}
+									</Typography>
+									<Typography variant='body2' sx={{ color: '#AAA' }}>
+										{item.desc}
+									</Typography>
+								</Paper>
+							)
+						})}
 					</Box>
 
-					{/* Стратегии */}
-					<SectionHeader icon='🧠'>Советы и стратегии</SectionHeader>
+					{/* Tips Section */}
+					<SectionHeader>{guide.sections.tips.title}</SectionHeader>
 					<Box
 						component='ul'
-						sx={{
-							color: '#FFFFFF',
-							pl: 2,
-							'& li': { mb: 1 },
-						}}
+						sx={{ color: '#FFFFFF', pl: 2, '& li': { mb: 1 } }}
 					>
-						<li>
-							<strong>Собирайте аптечки</strong> - они помогут вам продержаться
-							дольше
-						</li>
-						<li>
-							<strong>Используйте ускорение</strong> - но помните, оно делает
-							игру сложнее
-						</li>
-						<li>
-							<strong>Избегайте черных дыр</strong> - они могут уничтожить ваш
-							прогресс
-						</li>
-						<li>
-							<strong>Следите за размером корабля</strong> - маленький корабль
-							маневреннее, большой - проще попасть
-						</li>
+						{guide.sections.tips.list.map((tip, index) => (
+							<li key={index}>{tip}</li>
+						))}
 					</Box>
 
-					{/* Статистика */}
-					<SectionHeader icon='📊'>Система подсчета очков</SectionHeader>
+					{/* Scoring Section */}
+					<SectionHeader>{guide.sections.scoring.title}</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Ваш итоговый счет зависит от нескольких факторов:
+						{guide.sections.scoring.content}
 					</Typography>
 					<Box
 						component='ul'
-						sx={{
-							color: '#FFFFFF',
-							pl: 2,
-							mb: 3,
-							'& li': { mb: 1 },
-						}}
+						sx={{ color: '#FFFFFF', pl: 2, mb: 3, '& li': { mb: 1 } }}
 					>
-						<li>
-							<strong>Собранные кристаллы</strong>: Основной источник очков
-						</li>
-						<li>
-							<strong>Время выживания</strong>: +1 очко каждую секунду
-						</li>
+						{guide.sections.scoring.factors?.map((factor, index) => (
+							<li key={index}>{factor}</li>
+						))}
 					</Box>
 
 					<Typography
@@ -377,10 +276,18 @@ export const GameGuideModal: React.FC<GameGuideModalProps> = ({
 							fontSize: '0.8rem',
 						}}
 					>
-						Space Pug v1.2 · © 2025 BIFS Ecosystem
+						{guide.footer}
 					</Typography>
 				</Content>
 			</Box>
 		</Modal>
 	)
+}
+
+// Вспомогательная функция для преобразования hex в rgb
+const hexToRgb = (hex: string) => {
+	const r = parseInt(hex.slice(1, 3), 16)
+	const g = parseInt(hex.slice(3, 5), 16)
+	const b = parseInt(hex.slice(5, 7), 16)
+	return `${r}, ${g}, ${b}`
 }

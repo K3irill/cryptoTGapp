@@ -57,7 +57,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 	const cases = [
 		{
 			type: 'coins',
-			title: 'BIFS COINS',
+			title: 'BIFSCOINS',
 			img: '/store/cases/case-1.png',
 			price: 2500,
 			color: '#4f046c',
@@ -65,7 +65,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 		},
 		{
 			type: 'days',
-			title: 'AUTOMINING',
+			title: 'AUTO_MINING',
 			img: '/store/cases/case-3.png',
 			price: 7500,
 			color: '#d1ce105c',
@@ -73,7 +73,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 		},
 		{
 			type: 'ships',
-			title: 'SPACESHIPS',
+			title: 'SHIPS',
 			img: '/store/cases/case-2.png',
 			price: 2500,
 			color: '#045885',
@@ -81,7 +81,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 		},
 		{
 			type: 'secret',
-			title: 'ЗАТЕРЯЛОСЬ В КОСМОСЕ',
+			title: data.content.lost_case_title,
 			img: '/store/secret.png',
 			price: 0,
 			color: '#045885',
@@ -109,7 +109,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 		},
 		{
 			type: 'secret',
-			title: 'ЗАТЕРЯЛОСЬ В КОСМОСЕ',
+			title: data.content.lost_case_title,
 			img: '/store/secret.png',
 			price: 0,
 			color: '#045885',
@@ -130,10 +130,12 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 
 			<SliderSection
 				initial={{ y: 20, opacity: 0 }}
+				x
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ delay: 0.2, duration: 0.5 }}
 			>
-				<SliderTitle>Кейсы</SliderTitle>
+				<SliderTitle>{data.content.cases_title}</SliderTitle>
+				{/* Кейсы */}
 				<StyledSwiper
 					slidesPerView={'auto'}
 					spaceBetween={20}
@@ -169,7 +171,8 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ delay: 0.2, duration: 0.5 }}
 			>
-				<SliderTitle>Особые Наборы</SliderTitle>
+				<SliderTitle>{data.content.special_sets_title}</SliderTitle>
+				{/* Особые Наборы */}
 				<StyledSwiper
 					slidesPerView={'auto'}
 					spaceBetween={20}
@@ -207,6 +210,7 @@ export const Store: FunctionComponent<StoreProps> = ({ data }) => {
 					text={modalData.text}
 					imgSrc={modalData.imgSrc}
 					casePrice={modalData.casePrice}
+					data={data.content}
 				/>
 			)}
 		</StoreContainer>

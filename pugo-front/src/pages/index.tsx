@@ -1,3 +1,4 @@
+import { CONTENT as STATIC_CONTENT } from '@/assets/constants/static_content'
 import { Home } from '../modules/Home/Home'
 import MainLayout from '@/components/Layouts/MainLayouts'
 import { GetStaticProps, NextPage } from 'next'
@@ -10,12 +11,11 @@ import {
 	ContentData,
 	FooterContent,
 	HeaderContent,
-	HomeTypes,
 	PagesTypes,
 } from '@/types/types'
 
 const HomePage = () => {
-	const { t } = useTranslation('common')
+	const { t, ready } = useTranslation('common')
 	const [isFirstTime, setIsFirstTime] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const [isClient, setIsClient] = useState(false)
@@ -32,16 +32,22 @@ const HomePage = () => {
 		setIsFirstTime(false)
 	}
 
-	if (!isClient || isLoading) return <Loader />
-	if (isFirstTime) return <NoobSlider onClose={handleSliderClose} />
+	if (!ready || !isClient || isLoading) return <Loader />
+	const content = t('content', { returnObjects: true }) as ContentData
+	if (isFirstTime)
+		return <NoobSlider content={content} onClose={handleSliderClose} />
 
-	const PAGES_CONTENT = t('pages', { returnObjects: true }) as PagesTypes
-	const HEADER_CONTENT = t('header', { returnObjects: true }) as HeaderContent
-	const FOOTER_CONTENT = t('footer', { returnObjects: true }) as FooterContent
+	if (!content?.pages?.home) {
+		console.error('Invalid content structure:', content)
+		return <div>Error loading content</div>
+	}
 
 	return (
-		<MainLayout header={HEADER_CONTENT} footer={FOOTER_CONTENT}>
-			<Home data={PAGES_CONTENT.home} />
+		<MainLayout
+			header={content.header || STATIC_CONTENT.header}
+			footer={content.footer || STATIC_CONTENT.footer}
+		>
+			<Home data={content.pages.home} />
 		</MainLayout>
 	)
 }

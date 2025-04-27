@@ -75,13 +75,13 @@ const CustomSelect = ({ options, value, onChange }: CustomSelectProps) => {
 						{selectedOption.icon}
 					</motion.span>
 					<span className='text'>{selectedOption.label}</span>
-					<motion.span
+					{/* <motion.span
 						className='arrow'
 						animate={{ rotate: isOpen ? 180 : 0 }}
 						transition={{ duration: 0.3 }}
 					>
 						▼
-					</motion.span>
+					</motion.span> */}
 				</SelectButton>
 
 				<AnimatePresence>

@@ -1,5 +1,5 @@
 import { Container, Headline, NotifyContent } from '@/styles/styled'
-
+import { TFunction } from 'next-i18next'
 import { REQUEST_LINK } from '../../constant'
 import { Toaster, toast } from 'react-hot-toast'
 import { UserState } from '@/store/slices/userSlice'
@@ -31,7 +31,8 @@ export const sendMessageFromBot = async (message: string, userId: string) => {
 export const handleBuyTokens = async (
 	stars: number,
 	pugos: number,
-	user: UserState
+	user: UserState,
+	t: TFunction
 ) => {
 	try {
 		const response = await fetch(`${REQUEST_LINK}/api/exchange/buy-tokens`, {
@@ -46,15 +47,15 @@ export const handleBuyTokens = async (
 
 		toast(
 			<NotifyContent>
-				<span>Бот отправил вам сообщение об оплате, откройте</span>{' '}
+				<span>{t('notifications.botPayment.message')}</span>{' '}
 				<a
 					href='https://t.me/BIFSCryptoBot'
 					target='_blank'
 					rel='noopener noreferrer'
 				>
-					чат с ботом
+					{t('notifications.botPayment.botLinkText')}
 				</a>
-				😊
+				{t('notifications.botPayment.emoji')}
 			</NotifyContent>,
 			{
 				style: {
@@ -73,11 +74,11 @@ export const handleBuyTokens = async (
 		window.open('https://t.me/BIFSCryptoBot', '_blank')
 	} catch (error) {
 		console.error('Error triggering bot action:', error)
-		toast.error('Возникла ошибка, попробуйте ещё раз.')
+		toast.error(t('notifications.errors.default'))
 	}
 }
 
-export const handleAutomining = async (user: UserState) => {
+export const handleAutomining = async (user: UserState, t: TFunction) => {
 	try {
 		const response = await fetch(`${REQUEST_LINK}/api/exchange/automining`, {
 			method: 'POST',
@@ -91,15 +92,15 @@ export const handleAutomining = async (user: UserState) => {
 
 		toast(
 			<NotifyContent>
-				<span>Бот отправил вам сообщение об оплате, откройте</span>{' '}
+				<span>{t('notifications.botPayment.message')}</span>{' '}
 				<a
 					href='https://t.me/BIFSCryptoBot'
 					target='_blank'
 					rel='noopener noreferrer'
 				>
-					чат с ботом
+					{t('notifications.botPayment.botLinkText')}
 				</a>
-				😊
+				{t('notifications.botPayment.emoji')}
 			</NotifyContent>,
 			{
 				style: {
@@ -118,6 +119,6 @@ export const handleAutomining = async (user: UserState) => {
 		window.open('https://t.me/BIFSCryptoBot', '_blank')
 	} catch (error) {
 		console.error('Error triggering bot action:', error)
-		toast.error('Возникла ошибка, попробуйте ещё раз.')
+		toast.error(t('notifications.errors.default'))
 	}
 }

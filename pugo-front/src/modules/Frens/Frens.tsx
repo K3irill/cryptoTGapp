@@ -42,11 +42,11 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 				navigator.clipboard
 					.writeText(referralLink)
 					.then(() => {
-						toast.success('Реферальная ссылка скопирована!')
+						toast.success(data.note.success)
 					})
 					.catch(error => {
 						console.error('Ошибка при копировании ссылки: ', error)
-						toast.error('Ошибка, обновите страницу пожалуйста!')
+						toast.error(data.note.error)
 					})
 			}
 		}
@@ -65,8 +65,8 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ duration: 0.5 }}
 			>
-				<MainTitle>Приглашайте друзей</MainTitle>
-				<SubTitle>Получайте токены за каждого приглашенного друга</SubTitle>
+				<MainTitle>{data.heading.title}</MainTitle>
+				<SubTitle>{data.heading.subtitle}</SubTitle>
 			</Header>
 
 			<BenefitsContainer
@@ -82,13 +82,13 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 						<Image src='/icons/gift.svg' width={32} height={32} alt='Бонус' />
 					</BenefitIcon>
 					<BenefitText>
-						<BenefitTitle>Бонус за приглашение</BenefitTitle>
+						<BenefitTitle>{data.bonuses.bonus_1.title}</BenefitTitle>
 						<BenefitDescription>
-							Вы получите{' '}
+							{data.bonuses.bonus_1.text}
 							<span>
-								{status ? defineReferralAwardByStatus(status) : 50} BIFS
+								{status ? defineReferralAwardByStatus(status) : 500} BIFS
 							</span>
-							, а ваш друг получит <span>500 BIFS</span>
+							{data.bonuses.bonus_1.text_part} <span>500 BIFS</span>
 						</BenefitDescription>
 					</BenefitText>
 				</BenefitItem>
@@ -106,10 +106,8 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 						/>
 					</BenefitIcon>
 					<BenefitText>
-						<BenefitTitle>Повышайте статус</BenefitTitle>
-						<BenefitDescription>
-							Увеличивайте награды за рефералов, повышая свой статус в системе
-						</BenefitDescription>
+						<BenefitTitle>{data.bonuses.bonus_2.title}</BenefitTitle>
+						<BenefitDescription>{data.bonuses.bonus_2.text}</BenefitDescription>
 					</BenefitText>
 				</BenefitItem>
 			</BenefitsContainer>
@@ -119,7 +117,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 				whileHover={{ scale: 1.02 }}
 				whileTap={{ scale: 0.98 }}
 			>
-				{referralCode ? 'СКОПИРОВАТЬ РЕФЕРАЛЬНУЮ ССЫЛКУ' : 'Загрузка ссылки...'}
+				{referralCode ? data.refBtn.text : data.refBtn.loading_text}
 			</ReferralButton>
 
 			<ReferralsSection
@@ -128,7 +126,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 				transition={{ delay: 0.2, duration: 0.5 }}
 			>
 				<ReferralsHeader>
-					<ReferralsTitle>Ваши рефералы</ReferralsTitle>
+					<ReferralsTitle>{data.refs_block.title}</ReferralsTitle>
 				</ReferralsHeader>
 
 				<ReferralsList>
@@ -140,8 +138,7 @@ export const Frens: FunctionComponent<FrensProps> = ({ data }) => {
 							animate={{ opacity: 1 }}
 							transition={{ delay: 0.3 }}
 						>
-							У вас пока нет рефералов. Скорее приглашайте друзей и получайте
-							бонусы!
+							{data.refs_block.empty}
 						</EmptyState>
 					)}
 				</ReferralsList>

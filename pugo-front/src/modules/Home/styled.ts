@@ -62,6 +62,10 @@ export const CoinCountInfoWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	gap: 18px;
+
+	@media (max-height: 720px) {
+		gap: 0px;
+	}
 `
 export const CoinCountInfo = styled.div`
 	display: flex;
@@ -100,7 +104,8 @@ export const CoinCount = styled.div<{ unit?: string }>`
 	}
 
 	@media (max-height: 754px) {
-		font-size: 36px;
+		font-size: 32px;
+		line-height: 1.4;
 	}
 `
 

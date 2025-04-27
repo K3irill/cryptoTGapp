@@ -33,6 +33,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 	const { id, tokens, automining } = useSelector(
 		(state: RootState) => state.user
 	)
+	console.log(data)
 	const dispatch = useDispatch()
 	const [showModal, setShowModal] = useState<boolean>(false)
 	const [isSwitchOn, setIsSwitchOn] = useState<boolean>(automining || false)
@@ -95,7 +96,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 
 	// Обработчик для IOSSwitch
 	const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (automining) return toast(`🤑Работает? Не трогай!`)
+		if (automining) return toast(`🤑${data.mining.notification}`)
 		const isChecked = event.target.checked
 		setIsSwitchOn(isChecked)
 		setShowModal(isChecked)
@@ -116,7 +117,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
             title='TRADE'
           />
           <Button href='https://t.me/pugo_official' theme='fill' title='NEWS' /> */}
-					<GamesSlider />
+					<GamesSlider content={data.gameSlider} />
 				</BannerStyled>
 				<CoinSection>
 					<CoinCountInfoWrapper>
@@ -138,7 +139,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 					<ActivityWrapper>
 						<CoinName>BIFSCOIN</CoinName>
 						<AutoMining>
-							<AutoMiningText>Авто-Майнинг</AutoMiningText>
+							<AutoMiningText>{data.mining.text}</AutoMiningText>
 							<FormControlLabel
 								control={
 									<IOSSwitch
@@ -158,9 +159,9 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 				{/* Модальное окно */}
 
 				<BasicModal
-					btnText='Приобрести'
-					title='Авто-майнинг недоступен'
-					text='Чтобы использовать авто-майнинг, необходимо приобрести эту функцию.'
+					btnText={data.basicModal.btnText}
+					title={data.basicModal.title}
+					text={data.basicModal.text}
 					isVisible={showModal}
 					onClose={handleModalClose}
 					imgSrc='/pugs/stop-pug.png'

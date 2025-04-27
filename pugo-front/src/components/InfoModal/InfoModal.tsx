@@ -23,6 +23,8 @@ import {
 	useSetUserStatusMutation,
 	useUpdateTokensMutation,
 } from '@/store/services/api/userApi'
+import { useTranslation } from 'next-i18next'
+import Loader from '../Loader/Loader'
 
 const modalStyle = {
 	position: 'absolute',
@@ -54,16 +56,18 @@ interface BasicModalProps {
 }
 
 export const InfoModal: React.FC<BasicModalProps> = ({
+	content,
 	isVisible,
 	onClose,
 }) => {
+	const { t, ready } = useTranslation()
 	const user = useSelector((state: RootState) => state.user)
 	const [setUserStatus] = useSetUserStatusMutation()
 	const [updateTokens] = useUpdateTokensMutation()
 
 	const setUserStatusOnServer = async (status: number) => {
 		const roundedStatus = Math.round(Number(status))
-
+		console.log(content)
 		try {
 			const response = await setUserStatus({
 				telegramId: Number(user.id),
@@ -78,6 +82,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 			throw error
 		}
 	}
+
 	const updateTokensOnServer = async (
 		delta: number,
 		isPlus: boolean = true
@@ -103,9 +108,11 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 		if (user.tokens >= cost) {
 			await updateTokensOnServer(cost, false)
 			await setUserStatusOnServer(status)
-		} else {
 		}
 	}
+
+	if (!ready) return <Loader />
+
 	const SectionHeader = ({
 		children,
 		id,
@@ -183,7 +190,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							},
 						}}
 					>
-						🚀 Руководство по экосистеме BIFS
+						{t('content.header.infoModal.title')}
 					</Typography>
 
 					{/* Оглавление */}
@@ -197,39 +204,14 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 						}}
 					>
 						<Typography variant='h6' sx={{ color: '#f200ff', mb: 1 }}>
-							<strong>📋 Содержание</strong>
+							<strong>
+								{t('content.header.infoModal.tableOfContents.title')}
+							</strong>
 						</Typography>
 						<List dense sx={{ py: 0 }}>
-							{[
-								{
-									id: 'tokens',
-									text: 'Как заработать токены',
-								},
-								{
-									id: 'value',
-									text: 'Ценность токенов',
-								},
-								{
-									id: 'privileges',
-									text: 'Статусы и привилегии',
-								},
-								{
-									id: 'invite',
-									text: 'Реферальная программа',
-								},
-								{
-									id: 'ads',
-									text: 'Вознаграждения за рекламу',
-								},
-								{
-									id: 'goals',
-									text: 'Наши цели',
-								},
-								{
-									id: 'bot',
-									text: 'О боте BIF',
-								},
-							].map(item => (
+							{t('content.header.infoModal.tableOfContents.items', {
+								returnObjects: true,
+							}).map(item => (
 								<ListItem key={item.id} sx={{ py: 0.5, px: 0 }}>
 									<ListItemIcon sx={{ minWidth: 30, color: '#f200ff' }}>
 										{item.icon}
@@ -247,28 +229,28 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 
 					{/* Важное уведомление */}
 					<SectionHeader id='tokens' icon='⚠️'>
-						Важная информация
+						{t('content.header.infoModal.importantNotice.title')}
 					</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Наше приложение находится в активной разработке. Некоторые функции
-						могут быть недоступны, так как мы работаем над:
+						{t('content.header.infoModal.importantNotice.description')}
 					</Typography>
 					<ul style={{ color: '#FFFFFF', paddingLeft: 20, marginBottom: 16 }}>
-						<li>Улучшением пользовательского опыта</li>
-						<li>Добавлением новых способов заработка</li>
-						<li>Повышением безопасности</li>
+						{t('content.header.infoModal.importantNotice.points', {
+							returnObjects: true,
+						}).map((point, index) => (
+							<li key={index}>{point}</li>
+						))}
 					</ul>
 					<Typography sx={{ color: '#FFFFFF', fontStyle: 'italic' }}>
-						Благодарим за терпение и поддержку, пока мы вместе строим будущее
-						BIFS!
+						{t('content.header.infoModal.importantNotice.closing')}
 					</Typography>
 
 					{/* Как заработать токены */}
 					<SectionHeader id='tokens' icon='💰'>
-						Как заработать токены
+						{t('content.header.infoModal.sections.tokens.title')}
 					</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Пополняйте баланс BIFS несколькими способами:
+						{t('content.header.infoModal.sections.tokens.description')}
 					</Typography>
 					<Box
 						sx={{
@@ -278,33 +260,9 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							mb: 3,
 						}}
 					>
-						{[
-							{
-								title: 'Ежедневный майнинг',
-								desc: 'Пассивный доход от автомайнинга',
-								emoji: '⛏️',
-							},
-							{
-								title: 'Рефералы',
-								desc: 'Заработок с приглашенных друзей',
-								emoji: '👥',
-							},
-							{
-								title: 'Создание контента',
-								desc: 'Вознаграждение за продвижение BIFS',
-								emoji: '🎬',
-							},
-							{
-								title: 'Задания в приложении',
-								desc: 'Выполняйте миссии за токены',
-								emoji: '✅',
-							},
-							{
-								title: 'Открывайте кейсы',
-								desc: 'Вы можете выиграть BIFS открывая кейсы!',
-								emoji: '📦',
-							},
-						].map(item => (
+						{t('content.header.infoModal.sections.tokens.methods', {
+							returnObjects: true,
+						}).map(item => (
 							<Paper
 								key={item.title}
 								sx={{
@@ -326,10 +284,10 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 
 					{/* Ценность токенов */}
 					<SectionHeader id='value' icon='💎'>
-						Ценность токенов
+						{t('content.header.infoModal.sections.value.title')}
 					</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Токены BIFS дают доступ к эксклюзивным возможностям экосистемы:
+						{t('content.header.infoModal.sections.value.description')}
 					</Typography>
 					<Box
 						component='ul'
@@ -339,27 +297,16 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							'& li': { mb: 1 },
 						}}
 					>
-						<li>
-							<strong>Премиум-функции:</strong> Расширенные возможности
-							приложения
-						</li>
-						<li>
-							<strong>Управление:</strong> Участие в принятии решений по проекту
-						</li>
-						<li>
-							<strong>Биржевая торговля:</strong> Листинг на платформах в
-							будущем
-						</li>
-						<li>
-							<strong>Доступ к NFT:</strong> Получение цифровых коллекционных
-							предметов
-						</li>
+						{t('content.header.infoModal.sections.value.benefits', {
+							returnObjects: true,
+						}).map((benefit, index) => (
+							<li key={index}>{benefit}</li>
+						))}
 					</Box>
 
 					{/* Статусы и привилегии */}
-					{/* Статусы и привилегии */}
 					<SectionHeader id='privileges' icon='🏆'>
-						Уровни статусов
+						{t('content.header.infoModal.sections.privileges.title')}
 					</SectionHeader>
 					<Typography
 						sx={{
@@ -369,7 +316,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							fontStyle: 'italic',
 						}}
 					>
-						Повышайте статус для максимального заработка во всех активностях
+						{t('content.header.infoModal.sections.privileges.description')}
 					</Typography>
 
 					<Box
@@ -377,9 +324,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							display: 'grid',
 							gridTemplateColumns: {
 								xs: '1fr',
-								sm: 'repeat(2, 1fr)',
-								md: 'repeat(3, 1fr)',
-								lg: 'repeat(4, 1fr)',
+								lg: 'repeat(2, 1fr)',
 							},
 							gap: 3,
 							mb: 4,
@@ -387,7 +332,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 					>
 						{Object.entries(statusConfig).map(([key, status]) => {
 							const statusKey = parseInt(key)
-							const isSpecialStatus = statusKey >= 8 // Для KING, LEGEND, GOD
+							const isSpecialStatus = statusKey >= 8
 							const hasGlow = status.glow
 
 							return (
@@ -398,11 +343,11 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 										p: 2,
 										borderRadius: '12px',
 										background: `
-            linear-gradient(
-              135deg, 
-              ${darkenColor(status.color, 0.3)} 0%, 
-              ${status.color} 100%
-            )`,
+                      linear-gradient(
+                        135deg, 
+                        ${darkenColor(status.color, 0.3)} 0%, 
+                        ${status.color} 100%
+                      )`,
 										border: '1px solid',
 										borderColor: lightenColor(status.color, 0.2),
 										boxShadow: hasGlow
@@ -426,11 +371,11 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 												width: '200%',
 												height: '200%',
 												background: `
-                radial-gradient(
-                  circle at center, 
-                  ${status.glowColor}80 0%, 
-                  transparent 70%
-                )`,
+                          radial-gradient(
+                            circle at center, 
+                            ${status.glowColor}80 0%, 
+                            transparent 70%
+                          )`,
 												animation: 'rotate 10s linear infinite',
 												zIndex: 0,
 											},
@@ -507,7 +452,10 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 														variant='body2'
 														sx={{ color: status.textColor, opacity: 0.8 }}
 													>
-														⛏️ Майнинг:
+														⛏️{' '}
+														{t(
+															'content.header.infoModal.sections.privileges.statuses.status_card.mining'
+														)}
 													</Typography>
 												</Box>
 												<Typography
@@ -527,7 +475,10 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 															ml: 0.5,
 														}}
 													>
-														/день
+														/{' '}
+														{t(
+															'content.header.infoModal.sections.privileges.statuses.status_card.day'
+														)}
 													</Typography>
 												</Typography>
 											</Box>
@@ -545,7 +496,10 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 														variant='body2'
 														sx={{ color: status.textColor, opacity: 0.8 }}
 													>
-														👥 Рефералы:
+														👥{' '}
+														{t(
+															'content.header.infoModal.sections.privileges.statuses.status_card.ref'
+														)}
 													</Typography>
 												</Box>
 												<Typography
@@ -565,7 +519,10 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 															ml: 0.5,
 														}}
 													>
-														/приглашение
+														/{' '}
+														{t(
+															'content.header.infoModal.sections.privileges.statuses.status_card.invite'
+														)}
 													</Typography>
 												</Typography>
 											</Box>
@@ -598,7 +555,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 															bgcolor:
 																statusKey <= user.status ||
 																user.tokens < status.requirements.minTokens
-																	? 'rgba(255, 255, 255, 0.15)' // Отключаем hover, если кнопка disabled
+																	? 'rgba(255, 255, 255, 0.15)'
 																	: 'rgba(255, 255, 255, 0.25)',
 														},
 														'&.Mui-disabled': {
@@ -613,9 +570,16 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 												>
 													{statusKey > user.status
 														? user.tokens >= status.requirements.minTokens
-															? `Повысить до ${status.name}`
-															: 'Недостаточно токенов'
-														: `Получено`}
+															? t(
+																	'content.header.infoModal.sections.privileges.statuses.upgradeButton.available',
+																	{ status: status.name }
+															  )
+															: t(
+																	'content.header.infoModal.sections.privileges.statuses.upgradeButton.notEnough'
+															  )
+														: t(
+																'content.header.infoModal.sections.privileges.statuses.upgradeButton.achieved'
+														  )}
 												</Button>
 											)}
 										</Box>
@@ -638,10 +602,10 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 
 					{/* Реферальная программа */}
 					<SectionHeader id='invite' icon='👥'>
-						Реферальная программа
+						{t('content.header.infoModal.sections.invite.title')}
 					</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Приглашайте друзей и зарабатывайте вместе:
+						{t('content.header.infoModal.sections.invite.description')}
 					</Typography>
 					<Box
 						sx={{
@@ -653,8 +617,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 						}}
 					>
 						<Typography sx={{ color: '#00BFFF', fontStyle: 'italic' }}>
-							Приглашайте друзей и получайте <strong>бонусные токены</strong>,
-							когда они:
+							{t('content.header.infoModal.sections.invite.description')}
 						</Typography>
 						<Box
 							component='ul'
@@ -665,7 +628,11 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 								'& li': { mb: 1 },
 							}}
 						>
-							<li>Завершат регистрацию</li>
+							{t('content.header.infoModal.sections.invite.steps', {
+								returnObjects: true,
+							}).map((step, index) => (
+								<li key={index}>{step}</li>
+							))}
 						</Box>
 						<Typography
 							sx={{
@@ -675,17 +642,19 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 								fontWeight: 'bold',
 							}}
 						>
-							Используйте команду{' '}
-							<span style={{ color: '#f200ff' }}>/invite</span> в боте
+							{t('content.header.infoModal.sections.invite.commandHint')}
+							<span style={{ color: '#970895', fontWeight: 'bold' }}>
+								/invite
+							</span>
 						</Typography>
 					</Box>
 
 					{/* Вознаграждения за рекламу */}
 					<SectionHeader id='ads' icon='📢'>
-						Программа для создателей контента
+						{t('content.header.infoModal.sections.ads.title')}
 					</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Зарабатывайте токены, продвигая BIFS через:
+						{t('content.header.infoModal.sections.ads.description')}
 					</Typography>
 					<Box
 						sx={{
@@ -695,28 +664,9 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							mb: 3,
 						}}
 					>
-						{[
-							{
-								title: 'Соцсети',
-								desc: 'Посты в Twitter, Telegram и др.',
-								reward: '10000-100000 токенов',
-							},
-							{
-								title: 'Видео',
-								desc: 'Обзоры на YouTube/TikTok',
-								reward: '50000-1000000 токенов',
-							},
-							{
-								title: 'Статьи',
-								desc: 'Блог-посты и руководства',
-								reward: '5,000-250000 токенов',
-							},
-							{
-								title: 'Сообщество',
-								desc: 'Активная модерация групп',
-								reward: 'Ежемесячный бонус',
-							},
-						].map(item => (
+						{t('content.header.infoModal.sections.ads.methods', {
+							returnObjects: true,
+						}).map(item => (
 							<Paper
 								key={item.title}
 								sx={{
@@ -746,16 +696,16 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							mb: 3,
 						}}
 					>
-						Отправляйте контент через команду{' '}
-						<span style={{ color: '#f200ff' }}>/earn</span>
+						{t('content.header.infoModal.sections.ads.commandHint')}
+						<span style={{ color: '#970895', fontWeight: 'bold' }}>/earn</span>
 					</Typography>
 
 					{/* Наши цели */}
 					<SectionHeader id='goals' icon='🌌'>
-						Видение проекта
+						{t('content.header.infoModal.sections.goals.title')}
 					</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Наша дорожная карта включает амбициозные этапы:
+						{t('content.header.infoModal.sections.goals.description')}
 					</Typography>
 					<Box
 						sx={{
@@ -765,37 +715,9 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							mb: 3,
 						}}
 					>
-						{[
-							{
-								title: 'Q2 2025',
-								items: [
-									'Веб-сайт',
-									'Телаграм бот BIFS',
-									'Релиз мобильного Telegram-приложения с мини-игрой "Space Pug"',
-									'Базовая реферальная система',
-								],
-							},
-							{
-								title: 'Q3 2025',
-								items: [
-									'Листинг на BLUM',
-									'Первые аирдропы',
-									'Стейкинг токенов',
-									'Первый листинг на централизованной бирже',
-									'Конкурс трейдеров с призами в BIFS',
-								],
-							},
-							{
-								title: 'Q4 2025',
-								items: [
-									'NFT-коллекция "Космические мопсы"',
-									'Продвинутые DeFi-функции',
-									'Турнирная система с розыгрышем эксклюзивных NFT',
-									'Листинг на крупных биржах',
-									'Сюрпризный ивент "Тайна черной дыры"',
-								],
-							},
-						].map(quarter => (
+						{t('content.header.infoModal.sections.goals.quarters', {
+							returnObjects: true,
+						}).map(quarter => (
 							<Box key={quarter.title} sx={{ mb: 2 }}>
 								<Typography
 									sx={{
@@ -834,10 +756,10 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 
 					{/* О боте BIF */}
 					<SectionHeader id='bot' icon='🤖'>
-						Возможности бота BIF
+						{t('content.header.infoModal.sections.bot.title')}
 					</SectionHeader>
 					<Typography sx={{ color: '#FFFFFF', mb: 2 }}>
-						Ваш персональный помощник для всех активностей BIFS:
+						{t('content.header.infoModal.sections.bot.description')}
 					</Typography>
 					<Box
 						sx={{
@@ -847,38 +769,9 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							mb: 3,
 						}}
 					>
-						{[
-							{
-								command: '/balance',
-								desc: 'Проверка баланса и истории',
-								color: '#00BFFF',
-							},
-							{
-								command: '/mining',
-								desc: 'Управление автомайнингом',
-								color: '#00BFFF',
-							},
-							{
-								command: '/invite',
-								desc: 'Создание реферальных ссылок',
-								color: '#f200ff',
-							},
-							{
-								command: '/earn',
-								desc: 'Отправка контента для наград',
-								color: '#f200ff',
-							},
-							{
-								command: '/store',
-								desc: 'Покупка токенов и статусов',
-								color: '#FFD700',
-							},
-							{
-								command: '/support',
-								desc: 'Помощь от нашей команды',
-								color: '#FFD700',
-							},
-						].map(feature => (
+						{t('content.header.infoModal.sections.bot.commands', {
+							returnObjects: true,
+						}).map(feature => (
 							<Paper
 								key={feature.command}
 								sx={{
@@ -906,7 +799,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 
 					{/* Социальные сети */}
 					<SectionHeader id='socials' icon='🌐'>
-						Наши сообщества
+						{t('content.header.infoModal.sections.socials.title')}
 					</SectionHeader>
 					<Box
 						sx={{
@@ -918,28 +811,9 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							flexWrap: 'wrap',
 						}}
 					>
-						{[
-							{
-								name: 'Telegram Канал',
-								url: 'https://t.me/BIFScryptoSpace',
-								icon: '📢',
-							},
-							{
-								name: 'Сайт',
-								url: 'https://bifscoin.ru',
-								icon: '🌐',
-							},
-							// {
-							// 	name: 'Twitter',
-							// 	url: 'https://twitter.com',
-							// 	icon: '🐦',
-							// },
-							// {
-							// 	name: 'Discord',
-							// 	url: 'https://discord.gg',
-							// 	icon: '💬',
-							// },
-						].map(social => (
+						{t('content.header.infoModal.sections.socials.links', {
+							returnObjects: true,
+						}).map(social => (
 							<Link
 								key={social.name}
 								href={social.url}
@@ -973,7 +847,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 							fontSize: '0.8rem',
 						}}
 					>
-						Экосистема BIFS v1.1 · © 2025 Все права защищены
+						{t('content.header.infoModal.footerText')}
 					</Typography>
 				</Content>
 			</Box>

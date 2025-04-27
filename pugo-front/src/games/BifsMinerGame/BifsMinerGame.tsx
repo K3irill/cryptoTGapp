@@ -22,6 +22,7 @@ import { useUpdateTokensMutation } from '@/store/services/api/userApi'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import BifsMinerGuideModal from '@/components/BifsMinerGuideModal/BifsMinerGuideModal'
+import { useTranslation } from 'next-i18next'
 
 type GameObjectType =
 	| 'bifs'
@@ -105,6 +106,9 @@ const OBJECT_CONFIG = {
 } as const
 
 const BifsMinerGame = () => {
+	const { t, ready } = useTranslation('common')
+	const gameTexts = t('content', { returnObjects: true }).games.bifsMiner
+
 	const router = useRouter()
 	const gameStartTime = useRef<number>(Date.now())
 	const lastSpawnTime = useRef<number>(0)
@@ -485,7 +489,7 @@ const BifsMinerGame = () => {
 							zIndex: 10,
 						}}
 					>
-						Загрузка ресурсов...
+						{gameTexts.ui.loading}
 					</div>
 				)}
 
@@ -538,32 +542,48 @@ const BifsMinerGame = () => {
 							willChange: 'transform, opacity',
 						}}
 					>
-						{clickFeedback.type === 'good' ? '+' : 'Oops!'}
+						{clickFeedback.type === 'good'
+							? gameTexts.feedback.good
+							: gameTexts.feedback.bad}
 					</div>
 				)}
 			</div>
 
 			<GameUi style={{ zIndex: 2 }}>
-				<ScoreText>BIFS: {score}</ScoreText>
-				<TimeText>Time: {gameTime} сек</TimeText>
-				<LevelText>Level: {level}</LevelText>
+				<ScoreText>
+					{gameTexts.ui.score}: {score}
+				</ScoreText>
+				<TimeText>
+					{gameTexts.ui.time}: {gameTime} {gameTexts.ui.seconds}
+				</TimeText>
+				<LevelText>
+					{gameTexts.ui.level}: {level}
+				</LevelText>
 				<MissedBifs missedBifs={missedBifs}>
-					Missed: {missedBifs} / {missedAvailableBifs}
+					{gameTexts.ui.missed}: {missedBifs} / {missedAvailableBifs}
 				</MissedBifs>
 				{comboActive && (
-					<ComboText style={{ color: '#FFD700' }}>🔥 Combo-mode!</ComboText>
+					<ComboText style={{ color: '#FFD700' }}>
+						{gameTexts.ui.comboMode}
+					</ComboText>
 				)}
-				{combo >= 2 && !comboActive && <ComboText>Combo: {combo}x</ComboText>}
+				{combo >= 2 && !comboActive && (
+					<ComboText>
+						{gameTexts.ui.combo}: {combo}x
+					</ComboText>
+				)}
 			</GameUi>
 
 			{isGameActive && !showModal && (
-				<StopBtn onClick={() => setShowStopModal(true)}>STOP</StopBtn>
+				<StopBtn onClick={() => setShowStopModal(true)}>
+					{gameTexts.buttons.stop}
+				</StopBtn>
 			)}
 
 			<BasicModal
-				btnText='ДА'
-				title='Вы уверены, что хотите завершить игру?'
-				text='Все добытые монеты будут потеряны!'
+				btnText={gameTexts.buttons.yes}
+				title={gameTexts.modals.confirmExit.title}
+				text={gameTexts.modals.confirmExit.text}
 				isVisible={showStopModal}
 				onButtonClick={() => {
 					setIsGameActive(false)
@@ -579,9 +599,12 @@ const BifsMinerGame = () => {
 			/>
 
 			<BasicModal
-				btnText='ОК'
-				title='Игра окончена'
-				text={`Вы собрали ${score} BIFS за ${gameTime} секунд (Уровень ${level})`}
+				btnText={gameTexts.buttons.ok}
+				title={gameTexts.modals.gameOver.title}
+				text={gameTexts.modals.gameOver.text
+					.replace('{score}', score.toString())
+					.replace('{time}', gameTime.toString())
+					.replace('{level}', level.toString())}
 				isVisible={showModal}
 				onButtonClick={() => setShowModal(false)}
 				onClose={() => setShowModal(false)}
@@ -591,9 +614,15 @@ const BifsMinerGame = () => {
 			{!isGameActive && !showModal && (
 				<GameOverlay>
 					<BtnGroup>
-						<RestartBtn onClick={restartGame}>Играть снова</RestartBtn>
-						<InfoBtn onClick={() => setShowInfoModal(true)}>Об игре</InfoBtn>
-						<ExitBtn onClick={() => router.push('/earn')}>Выйти</ExitBtn>
+						<RestartBtn onClick={restartGame}>
+							{gameTexts.buttons.playAgain}
+						</RestartBtn>
+						<InfoBtn onClick={() => setShowInfoModal(true)}>
+							{gameTexts.buttons.gameInfo}
+						</InfoBtn>
+						<ExitBtn onClick={() => router.push('/earn')}>
+							{gameTexts.buttons.exit}
+						</ExitBtn>
 					</BtnGroup>
 				</GameOverlay>
 			)}

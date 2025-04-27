@@ -21,7 +21,10 @@ import CustomSelect from '../LanguageSwitcher/LanguageSwitcher'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
-export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
+export const Header: FunctionComponent<HeaderProps> = ({
+	content,
+	children,
+}) => {
 	const router = useRouter()
 	const user = useSelector((state: RootState) => state.user)
 	const [openInfoModal, setOpenInfoModal] = useState(false)
@@ -58,10 +61,8 @@ export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
 		}
 	}
 
-	// Синхронизация при монтировании компонента
 	useEffect(() => {
 		const initializeLanguage = async () => {
-			// Приоритеты: 1. localStorage 2. Роутер 3. Дефолтный 'en'
 			const savedLanguage = localStorage.getItem('language')
 			const preferredLanguage = savedLanguage || router.locale || 'en'
 
@@ -100,7 +101,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
 							{user.firstName && <h3>{user.firstName}</h3>}
 						</>
 					) : (
-						<p>{t('header.not_found')}</p>
+						<p>🔃loading...</p>
 					)}
 				</UserNicknameStyled>
 			</UserBlockStyled>
@@ -120,7 +121,11 @@ export const Header: FunctionComponent<HeaderProps> = ({ children }) => {
 			</OutButton>
 
 			{children}
-			<InfoModal isVisible={openInfoModal} onClose={handleModalClose} />
+			<InfoModal
+				content={content.infoModal}
+				isVisible={openInfoModal}
+				onClose={handleModalClose}
+			/>
 		</HeaderStyled>
 	)
 }

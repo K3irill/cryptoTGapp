@@ -48,8 +48,15 @@ import NitroPack from './components/Nitro'
 import { GameGuideModal } from '@/components/GameInfoModal/GameInfoModal'
 import BlackHole from './components/BlackHole'
 import CoinBag from './components/CoinBag'
+import { useTranslation } from 'next-i18next'
+import Loader from '@/components/Loader/Loader'
+import { ContentData } from '@/types/types'
 
 const GameCanvas = () => {
+	const { t, ready } = useTranslation('common')
+
+	const spacePugContent = t('content', { returnObjects: true }).games.spacePug
+
 	const dispatch = useDispatch()
 	const spacePugContext = useContext(SpacePugGameContext)
 	if (!spacePugContext) {
@@ -677,10 +684,18 @@ const GameCanvas = () => {
 				))}
 			{!showGuideModal && (
 				<GameUi style={{ zIndex: 2 }}>
-					<RecordText>Record: {spacePugRecord || 0}</RecordText>
-					<ScoreText>BIFS: {state.score}</ScoreText>
-					<LiveText lives={state.lives}>HP: {state.lives}</LiveText>
-					<TimeText>Time: {gameTime} s</TimeText>
+					<RecordText>
+						{spacePugContent.ui.record}: {spacePugRecord || 0}
+					</RecordText>
+					<ScoreText>
+						{spacePugContent.ui.score}: {state.score}
+					</ScoreText>
+					<LiveText lives={state.lives}>
+						{spacePugContent.ui.lives}: {state.lives}
+					</LiveText>
+					<TimeText>
+						{spacePugContent.ui.time}: {gameTime} {spacePugContent.ui.seconds}
+					</TimeText>
 				</GameUi>
 			)}
 
@@ -689,14 +704,22 @@ const GameCanvas = () => {
 				nitroActionTimer) && (
 				<CenterUi>
 					{smallSizeActionTimer > 0 && (
-						<TimeText>Уменьшение: {smallSizeActionTimer} сек</TimeText>
+						<TimeText>
+							{spacePugContent.ui.sizeReduction}: {smallSizeActionTimer}{' '}
+							{spacePugContent.ui.seconds}
+						</TimeText>
 					)}
 					{bigSizeActionTimer > 0 && (
-						<TimeText>Увеличение: {bigSizeActionTimer} сек</TimeText>
+						<TimeText>
+							{spacePugContent.ui.sizeIncrease}: {bigSizeActionTimer}{' '}
+							{spacePugContent.ui.seconds}
+						</TimeText>
 					)}
-
 					{nitroActionTimer > 0 && (
-						<SpeedText>Ускорение: {nitroActionTimer} сек</SpeedText>
+						<SpeedText>
+							{spacePugContent.ui.speedBoost}: {nitroActionTimer}{' '}
+							{spacePugContent.ui.seconds}
+						</SpeedText>
 					)}
 				</CenterUi>
 			)}
@@ -709,7 +732,7 @@ const GameCanvas = () => {
 							whileHover={{ scale: 1.03 }}
 							whileTap={{ scale: 0.98 }}
 						>
-							Играть снова
+							{spacePugContent.buttons.playAgain}
 						</RestartBtn>
 
 						<InfoBtn
@@ -717,7 +740,7 @@ const GameCanvas = () => {
 							whileHover={{ scale: 1.03 }}
 							whileTap={{ scale: 0.98 }}
 						>
-							Об игре
+							{spacePugContent.buttons.gameInfo}
 						</InfoBtn>
 
 						<ExitBtn
@@ -725,13 +748,16 @@ const GameCanvas = () => {
 							whileHover={{ scale: 1.03 }}
 							whileTap={{ scale: 0.98 }}
 						>
-							Выйти
+							{spacePugContent.buttons.exit}
 						</ExitBtn>
 					</BtnGroup>
 				</GameOverlay>
 			)}
+
 			{!isGameOver && (
-				<StopBtn onClick={() => setShowStopModal(true)}>STOP</StopBtn>
+				<StopBtn onClick={() => setShowStopModal(true)}>
+					{spacePugContent.buttons.stop}
+				</StopBtn>
 			)}
 			{!showGuideModal && (
 				<Controls
@@ -743,9 +769,9 @@ const GameCanvas = () => {
 			)}
 
 			<BasicModal
-				btnText='ДА'
-				title='Вы уверены, что хотите завершить игру?'
-				text='Все добытые монеты будут потеряны!'
+				btnText={spacePugContent.modals.confirmExit.button}
+				title={spacePugContent.modals.confirmExit.title}
+				text={spacePugContent.modals.confirmExit.text}
 				isVisible={showStopModal}
 				onButtonClick={handleModalStopClose}
 				onClose={() => setShowStopModal(false)}
@@ -753,9 +779,9 @@ const GameCanvas = () => {
 			/>
 
 			<BasicModal
-				btnText='ОК'
-				title='Игра окончена'
-				text='Похоже вы потратили все жизни'
+				btnText={spacePugContent.modals.gameOver.button}
+				title={spacePugContent.modals.gameOver.title}
+				text={spacePugContent.modals.gameOver.text}
 				isVisible={showModal}
 				onButtonClick={handleModalClose}
 				onClose={handleModalClose}

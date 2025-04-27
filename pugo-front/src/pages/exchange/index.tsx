@@ -10,17 +10,24 @@ import {
 	PagesTypes,
 } from '@/types/types'
 import { GetStaticProps, NextPage } from 'next'
+import Loader from '@/components/Loader/Loader'
 
 const ExchangePage = () => {
-	const { t } = useTranslation('common')
+	const { t, ready } = useTranslation('common')
+	if (!ready) return <Loader />
 
-	const PAGES_CONTENT = t('pages', { returnObjects: true }) as PagesTypes
-	const HEADER_CONTENT = t('header', { returnObjects: true }) as HeaderContent
-	const FOOTER_CONTENT = t('footer', { returnObjects: true }) as FooterContent
+	const content = t('content', { returnObjects: true }) as ContentData
 
+	if (!content?.pages?.exchange) {
+		console.error('Invalid content structure:', content)
+		return <div>Error loading content</div>
+	}
 	return (
-		<MainLayout header={HEADER_CONTENT} footer={FOOTER_CONTENT}>
-			<Exchange data={PAGES_CONTENT.exchange} />
+		<MainLayout
+			header={content.header || STATIC_CONTENT.header}
+			footer={content.footer || STATIC_CONTENT.footer}
+		>
+			<Exchange data={content.pages.exchange} />
 		</MainLayout>
 	)
 }

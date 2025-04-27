@@ -53,6 +53,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 	imgSrc = '/store/cases/case-1.png',
 	caseType,
 	casePrice = 500,
+	data,
 }) => {
 	const [showBuyModal, setShowBuyModal] = useState<boolean>(false)
 	const [isSpinning, setIsSpinning] = useState(false)
@@ -66,20 +67,17 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 
 	const getPrizeResult = (value: string) => {
 		if (caseType === 'coins') {
-			// Для монет - просто число
 			return value.match(/^\d+$/) ? parseInt(value, 10) : 0
 		}
 		if (caseType === 'days') {
-			// Для дней - извлекаем число после 'days-'
 			const match = value.match(/^days-(\d+)$/)
 			return match ? parseInt(match[1], 10) : 0
 		}
 		if (caseType === 'privileges') {
-			// Для привилегий - извлекаем число после 'privilege-'
 			const match = value.match(/^privilege-(\d+)$/)
 			return match ? parseInt(match[1], 10) : 0
 		}
-		return 0 // или другое значение по умолчанию
+		return 0
 	}
 	const handleBuyModalClose = () => {
 		setShowBuyModal(false)
@@ -93,7 +91,6 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		})
 	useEffect(() => {
 		const generateCaseItems = () => {
-			// Фильтруем предметы по типу кейса
 			const filteredItemsArr = filteredItems(items)
 
 			setCaseItems(filteredItemsArr.map(([key]) => key))
@@ -154,10 +151,12 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 		if (!prizeResult) return ''
 
 		const names = {
-			coins: `${getPrizeResult(prizeResult)} BIFS Coins`,
-			days: `${getPrizeResult(prizeResult)} Дней авто-майнинга`,
+			coins: `${getPrizeResult(prizeResult)} ${data.caseResults.coins}`,
+			days: `${getPrizeResult(prizeResult)} ${data.caseResults.days}`,
 			ships: `Ship ${prizeResult.replace('Ship', '')}`,
-			privileges: `Привилегия ${getPrizeResult(prizeResult)}`,
+			privileges: `${data.caseResults.privileges} ${getPrizeResult(
+				prizeResult
+			)}`,
 		}
 
 		return names[caseType] || prizeResult
@@ -165,12 +164,12 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 
 	const hasEnoughTokens = user.tokens && user.tokens >= casePrice
 	const buttonText = !hasEnoughTokens
-		? 'НЕ ХВАТАЕТ'
+		? data.modals.notEnough
 		: isSpinning
-		? 'ОТКРЫВАЕМ...'
+		? data.modals.opening
 		: showResult
-		? 'ЗАКРЫТЬ'
-		: btnText
+		? data.modals.close
+		: `${data.modals.openBtn} ${casePrice} BIFS`
 
 	if (!isVisible) return null
 
@@ -200,7 +199,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 				/>
 				<CaseButtonWrapper>
 					{caseType === 'privileges' && user.status === 10 ? (
-						<h3>У вас уже GOD статус, выше только STAR LORD</h3>
+						<h3>{data.modals.alreadyHaveStatus}</h3>
 					) : (
 						<MulticolouredButton
 							theme={
@@ -229,23 +228,22 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 					<ResultModal>
 						<ResultContent>
 							<PrizeImage src={getPrizeImage()} alt='Prize' />
-							<PrizeTitle>Поздравляем!</PrizeTitle>
+							<PrizeTitle>{data.modals.congrats}</PrizeTitle>
 							<p style={{ color: 'white', marginBottom: '10px' }}>
-								Вы выиграли: {getPrizeName()}
+								{data.modals.youWon} {getPrizeName()}
 							</p>
 							<MulticolouredButton onClick={handleCloseResult}>
-								Закрыть
+								{data.modals.close}
 							</MulticolouredButton>
 						</ResultContent>
 					</ResultModal>
 				)}
-
 				<CaseButtonWrapper>
 					<MulticolouredButton
 						theme='blue'
 						onClick={() => setShowCaseItems(true)}
 					>
-						СОДЕРЖАНИЕ КЕЙСА
+						{data.modals.contentBtn}
 					</MulticolouredButton>
 				</CaseButtonWrapper>
 
@@ -261,18 +259,18 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 								theme='blue'
 								onClick={() => setShowCaseItems(false)}
 							>
-								Закрыть
+								{data.modals.close}
 							</MulticolouredButton>
 						</CaseItemsWrapper>
 					</CaseItemsModal>
 				)}
 			</Content>
 			<BasicModal
-				title='Не хватает BIFS монет'
-				text='Вы можете заработать монеты в играх, приглашая друзей, рекламируя нас или приобрести за Звезды'
-				btnText='Приобрести'
+				title={data.modals.buy_modal.title}
+				text={data.modals.buy_modal.text}
+				btnText={data.modals.buy_modal.btnText}
 				isVisible={showBuyModal}
-				onButtonClick={() => handleBuyTokens(500, 2000, user)}
+				onButtonClick={() => handleBuyTokens(500, 40000, user)}
 				onClose={handleBuyModalClose}
 			/>
 		</CaseModalStyled>

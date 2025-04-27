@@ -11,7 +11,7 @@ export const Map: FunctionComponent<MapProps> = ({ data, children }) => {
 			<TopPageInfo data={data.top_section} />
 			<Container>
 				<MapBlock>
-					<MapSvg src='/map.png' />
+					<MapSvg src={data.mapSrc} />
 				</MapBlock>
 				{children}
 			</Container>
