@@ -11,7 +11,7 @@ import {
 	ProgressText,
 } from './styled'
 import { FunctionComponent } from 'react'
-import { TasksApi } from '@/types/types'
+import { ContentData, TasksApi } from '@/types/types'
 import Image from 'next/image'
 import {
 	useCompleteTaskMutation,
@@ -19,8 +19,9 @@ import {
 } from '@/store/services/api/tasksApi'
 import Label from '../Label/Label'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 import Loader from '../Loader/Loader'
+
 
 interface TaskItemProps {
 	props: TasksApi
@@ -33,11 +34,11 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const router = useRouter()
 	const { t, ready } = useTranslation('common')
 	if (!ready) return <Loader />
+  const content = t('content', { returnObjects: true }) as ContentData
+	// const language = router.locale || 'en'
 
-	const language = router.locale || 'en'
-
-	const descriptionJson = JSON.parse(props.description)
-	const taskDescription = descriptionJson[language] || descriptionJson.en
+	// const descriptionJson = JSON.parse(props.description)
+	// const taskDescription = descriptionJson[language] || descriptionJson.en
 
 	const handleTaskAction = async () => {
 		try {
@@ -120,15 +121,15 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 
 	function getButtonText() {
 		if (isLoading && props.chatId)
-			return t('content.pages.tasks.taskItem.button.checking')
+			return content.pages.tasks.taskItem.button.checking
 		if (props.UserTask.status !== 'available') {
 			return props.UserTask.status === 'pending'
-				? t('content.pages.tasks.taskItem.button.pending')
-				: t('content.pages.tasks.taskItem.button.completed')
+				? content.pages.tasks.taskItem.button.pending
+				: content.pages.tasks.taskItem.button.completed
 		}
 		return props.type === 'game_achievement'
-			? t('content.pages.tasks.taskItem.button.go')
-			: t('content.pages.tasks.taskItem.button.complete')
+			? content.pages.tasks.taskItem.button.go
+			: content.pages.tasks.taskItem.button.complete
 	}
 }
 

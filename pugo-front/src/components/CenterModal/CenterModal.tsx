@@ -9,6 +9,7 @@ import CloseButton from '../UI/CloseButton/CloseButton'
 import { handleAutomining } from '@/utils/sendBotMessage'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import { useTranslation } from 'next-i18next'
 
 interface BasicModalProps {
 	isVisible: boolean
@@ -32,7 +33,8 @@ export const BasicModal: React.FC<BasicModalProps> = ({
 	background,
 }) => {
 	const user = useSelector((state: RootState) => state.user)
-
+  const { t, ready } = useTranslation('common')
+  
 	const modalStyle = {
 		position: 'absolute',
 		top: '50%',
@@ -75,7 +77,7 @@ export const BasicModal: React.FC<BasicModalProps> = ({
 					<MulticolouredButton
 						title={btnText && btnText}
 						onClick={
-							onButtonClick ? onButtonClick : () => handleAutomining(user)
+							onButtonClick ? onButtonClick : () => handleAutomining(user, t)
 						}
 					/>
 				</Content>

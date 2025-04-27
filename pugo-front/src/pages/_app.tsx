@@ -179,6 +179,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 		}, [])
 	}
 	useStarryBackground()
+  
 	useEffect(() => {
 		const loadStateFromLocalStorage = () => {
 			try {

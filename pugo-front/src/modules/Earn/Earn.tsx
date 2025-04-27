@@ -31,7 +31,7 @@ export const Earn: FunctionComponent<EarnProps> = ({ data }) => {
 
 	const handleCardClick = (gameId: string, isAvailable: boolean) => {
 		if (isAvailable) {
-			router.push(`/game/${gameId}`)
+			router.push(`${router.locale && router.locale}/game/${gameId}`)
 		}
 	}
 
