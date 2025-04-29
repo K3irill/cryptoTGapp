@@ -23,23 +23,29 @@ const CustomSelect = ({ options, value, onChange }: CustomSelectProps) => {
 	const selectedOption =
 		options.find(option => option.value === value) || options[0]
 
-	const handleSelect = async (newValue: string) => {
-		if (value === newValue || isTransitioning) {
-			return
-		}
+    const handleSelect = async (newValue: string) => {
+      if (value === newValue || isTransitioning) {
+        return
+      }
+    
+      setIsTransitioning(true)
+      setIsOpen(false)
+    
 
-		setIsTransitioning(true)
-		setIsOpen(false)
+      await new Promise(resolve => setTimeout(resolve, 800))
+    
+      try {
 
-		// Анимация перед сменой языка
-		await new Promise(resolve => setTimeout(resolve, 800))
+        await i18n.changeLanguage(newValue)
 
-		await i18n.changeLanguage(newValue)
-
-		await onChange(newValue)
-
-		setIsTransitioning(false)
-	}
+        await onChange(newValue)
+      } catch (error) {
+        console.error('Ошибка при смене языка:', error)
+      }
+    
+      setIsTransitioning(false)
+    }
+    
 
 	return (
 		<>

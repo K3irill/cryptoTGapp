@@ -11,8 +11,9 @@ import {
 	UserAvatarWrap,
 	OutButton,
 } from './styled'
+import { changeStoreLang } from '@/store/slices/userSlice'
 import { HeaderProps } from './Header.d'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { InfoModal } from '../InfoModal/InfoModal'
 import { statusConfig } from '@/assets/constants/statusConfig'
@@ -20,6 +21,7 @@ import { useTranslation } from 'next-i18next'
 import CustomSelect from '../LanguageSwitcher/LanguageSwitcher'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
+import { useChangeLangMutation } from '@/store/services/api/userApi'
 
 export const Header: FunctionComponent<HeaderProps> = ({
 	content,
@@ -29,26 +31,43 @@ export const Header: FunctionComponent<HeaderProps> = ({
 	const user = useSelector((state: RootState) => state.user)
 	const [openInfoModal, setOpenInfoModal] = useState(false)
 	const { t, i18n } = useTranslation()
+  const [changeLang] = useChangeLangMutation()
+  const dispatch = useDispatch()
+
+  const changeLangOnServer = async (lang: string) => {
+		try {
+			const response = await changeLang({
+				telegramId: Number(user.id),
+				lang
+			}).unwrap()
+
+			if (!response.success) {
+				throw new Error(response.error || 'Failed to change lang')
+			}
+		} catch (error) {
+			console.error('Changing lang error:', error)
+			throw error
+		}
+	}
 
 	const languageOptions = [
 		{ value: 'en', label: 'EN', icon: '🌐' },
 		{ value: 'ru', label: 'RU', icon: '🪆' },
 		{ value: 'ua', label: 'UA', icon: '🌻' },
 		{ value: 'cn', label: 'CN', icon: '🐉' },
-		{ value: 'fn', label: 'FN', icon: '🗼' },
+		{ value: 'fr', label: 'FR', icon: '🗼' },
 		{ value: 'de', label: 'DE', icon: '🍪' },
 		{ value: 'pt', label: 'PT', icon: '🍷' },
 	]
 
-	const [currentLanguage, setCurrentLanguage] = useState(router.locale || 'en')
+	
 
 	const handleLanguageChange = async (newLanguage: string) => {
-		if (newLanguage === currentLanguage) return
+		if (newLanguage === user.lang) return
 
 		try {
-			localStorage.setItem('language', newLanguage)
-
-			setCurrentLanguage(newLanguage)
+			changeLangOnServer(newLanguage)
+			dispatch(changeStoreLang(newLanguage))
 
 			await i18n.changeLanguage(newLanguage)
 
@@ -61,13 +80,21 @@ export const Header: FunctionComponent<HeaderProps> = ({
 		}
 	}
 
+  useEffect(() => {
+    // Синхронизируем язык из URL с Redux при загрузке
+    if (router.locale && router.locale !== user.lang) {
+      dispatch(changeStoreLang(router.locale));
+    }
+  }, [router.locale]);
+
 	useEffect(() => {
 		const initializeLanguage = async () => {
-			const savedLanguage = localStorage.getItem('language')
-			const preferredLanguage = savedLanguage || router.locale || 'en'
 
-			if (preferredLanguage !== currentLanguage) {
-				setCurrentLanguage(preferredLanguage)
+			const preferredLanguage = user.lang || router.locale || 'en'
+
+      dispatch(changeStoreLang(preferredLanguage))
+			if (preferredLanguage !== user.lang) {
+        changeLangOnServer(preferredLanguage)
 				await i18n.changeLanguage(preferredLanguage)
 			}
 		}
@@ -108,7 +135,7 @@ export const Header: FunctionComponent<HeaderProps> = ({
 
 			<CustomSelect
 				options={languageOptions}
-				value={currentLanguage}
+				value={user.lang}
 				onChange={handleLanguageChange}
 			/>
 

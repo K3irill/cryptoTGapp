@@ -33,7 +33,7 @@ export const Home: FunctionComponent<HomeProps> = ({ data, children }) => {
 	const { id, tokens, automining } = useSelector(
 		(state: RootState) => state.user
 	)
-	console.log(data)
+	
 	const dispatch = useDispatch()
 	const [showModal, setShowModal] = useState<boolean>(false)
 	const [isSwitchOn, setIsSwitchOn] = useState<boolean>(automining || false)

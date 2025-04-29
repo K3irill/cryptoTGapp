@@ -131,6 +131,7 @@
 					"ads": {
 						"title": "Программа для создателей контента",
 						"description": "Зарабатывайте токены, продвигая BIFS через:",
+            "reward": "Награда",
 						"methods": [
 							{
 								"title": "Соцсети",
@@ -388,13 +389,13 @@
 							"id": "miner",
 							"title": "Crystal Miner",
 							"description": "Добывайте кристалы и получайте BIFS",
-							"image": "/games/crystal-preview.jpg"
+							"image": "/games/miner-preview.jpg"
 						},
 						{
 							"id": "spacepug",
 							"title": "Space Pug",
 							"description": "Космические приключения мопса-астронавта",
-							"image": "/games/space-pug.jpg"
+							"image": "/games/spacepug-preview.jpg"
 						}
 					]
 				}

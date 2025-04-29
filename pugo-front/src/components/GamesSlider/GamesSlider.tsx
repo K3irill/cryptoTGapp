@@ -217,7 +217,7 @@ const GamesSlider = ({ content }: GamesSliderInterface) => {
 			</PlayButtonWrapper>
 		)
 	}
-	console.log(content.games[current].image)
+
 	return (
 		<SliderContainer>
 			<AnimatePresence custom={direction} initial={false}>

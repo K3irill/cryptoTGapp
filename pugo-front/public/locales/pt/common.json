@@ -131,6 +131,7 @@
 					"ads": {
 						"title": "Programa para criadores de conteúdo",
 						"description": "Ganhe tokens promovendo o BIFS através de:",
+            "reward": "Recompensa",
 						"methods": [
 							{
 								"title": "Redes sociais",
@@ -388,13 +389,13 @@
 							"id": "miner",
 							"title": "Crystal Miner",
 							"description": "Mine cristais e ganhe BIFS",
-							"image": "/games/crystal-preview.jpg"
+						  "image": "/games/miner-preview.jpg"
 						},
 						{
 							"id": "spacepug",
 							"title": "Space Pug",
 							"description": "Aventuras espaciais do pug-astronauta",
-							"image": "/games/space-pug.jpg"
+							"image": "/games/spacepug-preview.jpg"
 						}
 					]
 				}
@@ -534,7 +535,7 @@
 					"title": "Mapa",
 					"titleWithBorder": false
 				},
-				"mapSrc": "/map.png"
+				"mapSrc": "/map-en.png"
 			},
 			"earn": {
 				"top_section": {

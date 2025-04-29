@@ -131,6 +131,7 @@
 					"ads": {
 						"title": "Програма для творців контенту",
 						"description": "Заробляйте токени, просуваючи BIFS через:",
+            "reward": "Нагорода",
 						"methods": [
 							{
 								"title": "Соцмережі",
@@ -388,13 +389,13 @@
 							"id": "miner",
 							"title": "Crystal Miner",
 							"description": "Добувайте кристали та отримуйте BIFS",
-							"image": "/games/crystal-preview.jpg"
+							"image": "/games/miner-preview.jpg"
 						},
 						{
 							"id": "spacepug",
 							"title": "Space Pug",
 							"description": "Космічні пригоди мопса-астронавта",
-							"image": "/games/space-pug.jpg"
+					"image": "/games/spacepug-preview.jpg"
 						}
 					]
 				}
@@ -534,7 +535,7 @@
 					"title": "Карта",
 					"titleWithBorder": false
 				},
-				"mapSrc": "/map.png"
+				"mapSrc": "/map-en.png"
 			},
 			"earn": {
 				"top_section": {

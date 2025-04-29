@@ -35,6 +35,7 @@ export interface UserState {
 	spacePugRecord: number | null
 	cards: BifCardType[] | null
 	ships: BifShipType[] | null
+  lang: string 
 }
 
 const initialState: UserState = {
@@ -58,6 +59,7 @@ const initialState: UserState = {
 	spacePugRecord: null,
 	cards: null,
 	ships: null,
+  lang: 'en'
 }
 
 const saveStateToLocalStorage = (state: UserState) => {
@@ -87,8 +89,14 @@ const userSlice = createSlice({
 			}
 			saveStateToLocalStorage(state)
 		},
+
+    changeStoreLang(state, action: PayloadAction<string>) {
+			state.lang = action.payload
+      const serializedState = JSON.stringify(state);
+      localStorage.setItem('userState', serializedState);
+		},
 	},
 })
 
-export const { setUser, updateTokens } = userSlice.actions
+export const { setUser, updateTokens , changeStoreLang} = userSlice.actions
 export default userSlice.reducer

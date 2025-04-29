@@ -131,6 +131,7 @@
 					"ads": {
 						"title": "创作者计划",
 						"description": "通过以下方式推广BIFS赚取代币：",
+            "reward": "酬金",
 						"methods": [
 							{
 								"title": "社交媒体",
@@ -388,13 +389,13 @@
 							"id": "miner",
 							"title": "水晶矿工",
 							"description": "挖掘水晶获取BIFS",
-							"image": "/games/crystal-preview.jpg"
+									"image": "/games/miner-preview.jpg"
 						},
 						{
 							"id": "spacepug",
 							"title": "太空狗",
 							"description": "太空狗的星际冒险",
-							"image": "/games/space-pug.jpg"
+								"image": "/games/spacepug-preview.jpg"
 						}
 					]
 				}

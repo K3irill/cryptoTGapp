@@ -683,7 +683,7 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 									{item.desc}
 								</Typography>
 								<Typography variant='body2' sx={{ color: '#f200ff' }}>
-									Награда: {item.reward}
+                {t('content.header.infoModal.sections.ads.reward')}: {item.reward}
 								</Typography>
 							</Paper>
 						))}

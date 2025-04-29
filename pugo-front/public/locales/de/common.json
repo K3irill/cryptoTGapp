@@ -131,6 +131,7 @@
 					"ads": {
 						"title": "Programm für Content Creator",
 						"description": "Verdiene Token durch die Bewerbung von BIFS via:",
+            "reward": "Prämie",
 						"methods": [
 							{
 								"title": "Soziale Medien",
@@ -388,13 +389,13 @@
 							"id": "miner",
 							"title": "Crystal Miner",
 							"description": "Sammle Kristalle und verdiene BIFS",
-							"image": "/games/crystal-preview.jpg"
+							"image": "/games/miner-preview.jpg"
 						},
 						{
 							"id": "spacepug",
 							"title": "Space Pug",
 							"description": "Weltraumabenteuer eines Mops-Astronauten",
-							"image": "/games/space-pug.jpg"
+							"image": "/games/spacepug-preview.jpg"
 						}
 					]
 				}
@@ -534,7 +535,7 @@
 					"title": "Karte",
 					"titleWithBorder": false
 				},
-				"mapSrc": "/map.png"
+				"mapSrc": "/map-en.png"
 			},
 			"earn": {
 				"top_section": {

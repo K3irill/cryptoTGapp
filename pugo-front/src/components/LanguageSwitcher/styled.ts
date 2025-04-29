@@ -42,7 +42,7 @@ export const LanguageSwitcherStyled = styled(motion.div)<{
 	border: 1px solid rgba(138, 99, 210, 0.3);
 	box-shadow: 0 0 20px rgba(98, 0, 234, 0.15),
 		inset 0 0 15px rgba(138, 99, 210, 0.2);
-	z-index: 8;
+	z-index: 6;
 	transition: all 0.5s ease;
 	filter: ${({ $isTransitioning }) =>
 		$isTransitioning ? 'blur(1px)' : 'none'};

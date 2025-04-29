@@ -3,7 +3,7 @@ import { ReactElement, ReactNode, useEffect } from 'react'
 import '@/styles/globals.scss'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import { RootState, store } from '@/store/store'
-import { setUser } from '@/store/slices/userSlice'
+import { changeStoreLang, setUser } from '@/store/slices/userSlice'
 import Script from 'next/script'
 import { IS_DEV, REQUEST_LINK } from '../../constant'
 import {
@@ -30,25 +30,41 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 
 	useEffect(() => {
 		if (!!i18n) {
-			const savedLanguage = localStorage.getItem('language')
+			const savedLanguage = user.lang || 'en'
 			if (savedLanguage && savedLanguage !== i18n.language) {
 				i18n.changeLanguage(savedLanguage)
 			}
 		}
 	}, [i18n])
 
-	useEffect(() => {
-		const initializeLanguage = async () => {
-			const savedLanguage = localStorage.getItem('language')
-			const preferredLanguage = savedLanguage || router.locale || 'en'
+  useEffect(() => {
+    const initializeLanguage = async () => {
 
-			if (preferredLanguage !== i18n.language) {
-				await i18n.changeLanguage(preferredLanguage)
-			}
-		}
+      const savedLanguage = user.lang || 'en';
+      
 
-		initializeLanguage()
-	}, [router.locale, i18n])
+      if (savedLanguage && i18n.language !== savedLanguage) {
+        await i18n.changeLanguage(savedLanguage);
+      }
+      
+   
+      if (!user.lang && user.id) {
+        try {
+          const response = await fetch(`${REQUEST_LINK}/api/user/${user.id}`);
+          const data = await response.json();
+          if (data?.userInfo?.lang) {
+            const serverLang = data.userInfo.lang;
+            dispatch(changeStoreLang(serverLang));
+            await i18n.changeLanguage(serverLang);
+          }
+        } catch (error) {
+          console.error('Error fetching user lang:', error);
+        }
+      }
+    };
+  
+    initializeLanguage();
+  }, [i18n, user.lang, user.id, dispatch]);
 
 	const createStarLayer = (
 		id: string,
@@ -306,6 +322,7 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 								spacePugRecord: data.userInfo.spacePugRecord || null,
 								cards: data.userInfo.cards || null,
 								ships: data.userInfo.ships || null,
+                lang:  data.userInfo.lang || 'en',
 							})
 						)
 					}

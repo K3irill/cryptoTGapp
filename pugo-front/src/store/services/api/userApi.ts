@@ -11,6 +11,8 @@ interface MiningActivationResponse {
 	error?: string
 }
 
+
+
 export const userInfoApi = createApi({
 	reducerPath: 'userInfoApi',
 	baseQuery: fetchBaseQuery({
@@ -70,6 +72,19 @@ export const userInfoApi = createApi({
 				body: { telegramId, status },
 			}),
 		}),
+    changeLang: builder.mutation<
+			MiningActivationResponse,
+			{
+				telegramId: number
+				lang: string
+			}
+		>({
+			query: ({ telegramId, lang }) => ({
+				url: 'user/lang',
+				method: 'POST',
+				body: { telegramId, lang },
+			}),
+		}),
 	}),
 })
 
@@ -78,4 +93,5 @@ export const {
 	useUpdateTokensMutation,
 	useActivateMiningMutation,
 	useSetUserStatusMutation,
+  useChangeLangMutation
 } = userInfoApi

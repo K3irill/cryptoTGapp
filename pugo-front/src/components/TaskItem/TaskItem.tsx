@@ -21,6 +21,8 @@ import Label from '../Label/Label'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import Loader from '../Loader/Loader'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 
 
 interface TaskItemProps {
@@ -32,13 +34,25 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 	const [completeTask] = useCompleteTaskMutation()
 	const [completeTgTask, { isLoading }] = useCompleteTgTaskMutation()
 	const router = useRouter()
+    const { lang } = useSelector(
+      (state: RootState) => state.user
+    )
 	const { t, ready } = useTranslation('common')
 	if (!ready) return <Loader />
   const content = t('content', { returnObjects: true }) as ContentData
-	// const language = router.locale || 'en'
 
-	// const descriptionJson = JSON.parse(props.description)
-	// const taskDescription = descriptionJson[language] || descriptionJson.en
+
+  let taskDescription = '';
+
+  try {
+    const descriptionObj = props.description 
+ 
+    taskDescription = descriptionObj[lang as 'en'] || descriptionObj.en;
+  } catch (e) {
+    console.error('Ошибка при парсинге описания:', e);
+    taskDescription = 'The description is not currently available.'; 
+  }
+  
 
 	const handleTaskAction = async () => {
 		try {
@@ -89,7 +103,7 @@ const TaskItem: FunctionComponent<TaskItemProps> = ({ props, userId }) => {
 			</TaskIcon>
 
 			<TaskContent>
-				<TaskTitle>{props.description}</TaskTitle>
+				<TaskTitle>{taskDescription}</TaskTitle>
 
 				{showProgress && (
 					<div style={{ width: '100%', marginTop: '8px' }}>

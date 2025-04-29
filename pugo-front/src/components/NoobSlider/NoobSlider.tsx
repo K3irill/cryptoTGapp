@@ -27,6 +27,10 @@ import { motion } from 'framer-motion'
 import CustomSelect from '../LanguageSwitcher/LanguageSwitcher'
 import { useRouter } from 'next/router'
 import { ContentData, WelcomeSlider } from '@/types/types'
+import { RootState } from '@/store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { useChangeLangMutation } from '@/store/services/api/userApi'
+import { changeStoreLang } from '@/store/slices/userSlice'
 
 interface NoobSliderProps {
 	onClose?: () => void
@@ -37,6 +41,7 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({
 	onClose,
 	content,
 }) => {
+    const user = useSelector((state: RootState) => state.user)
 	const { t, i18n } = useTranslation('common')
 	const [activeIndex, setActiveIndex] = useState(0)
 	const swiperRef = useRef<SwiperInstance | null>(null)
@@ -72,7 +77,24 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({
 	const handleNext = () => swiperRef.current?.slideNext()
 	const handlePrev = () => swiperRef.current?.slidePrev()
 	const goToSlide = (index: number) => swiperRef.current?.slideTo(index)
+  const [changeLang] = useChangeLangMutation()
+  const dispatch = useDispatch()
 
+  const changeLangOnServer = async (lang: string) => {
+		try {
+			const response = await changeLang({
+				telegramId: Number(user.id),
+				lang
+			}).unwrap()
+
+			if (!response.success) {
+				throw new Error(response.error || 'Failed to change lang')
+			}
+		} catch (error) {
+			console.error('Changing lang error:', error)
+			throw error
+		}
+	}
 	const router = useRouter()
 
 	const languageOptions = [
@@ -80,45 +102,44 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({
 		{ value: 'ru', label: 'RU', icon: '🪆' },
 		{ value: 'ua', label: 'UA', icon: '🌻' },
 		{ value: 'cn', label: 'CN', icon: '🐉' },
-		{ value: 'fn', label: 'FN', icon: '🗼' },
+		{ value: 'fr', label: 'FR', icon: '🗼' },
 		{ value: 'de', label: 'DE', icon: '🍪' },
 		{ value: 'pt', label: 'PT', icon: '🍷' },
 	]
 
-	const [currentLanguage, setCurrentLanguage] = useState(router.locale || 'en')
 
-	const handleLanguageChange = async (newLanguage: string) => {
-		if (newLanguage === currentLanguage) return
+const handleLanguageChange = async (newLanguage: string) => {
+    if (newLanguage === user.lang) return
 
-		try {
-			localStorage.setItem('language', newLanguage)
+    try {
+      changeLangOnServer(newLanguage)
+      dispatch(changeStoreLang(newLanguage))
 
-			setCurrentLanguage(newLanguage)
+      await i18n.changeLanguage(newLanguage)
 
-			await i18n.changeLanguage(newLanguage)
+      await router.push(router.pathname, router.asPath, {
+        locale: newLanguage,
+        scroll: false,
+      })
+    } catch (error) {
+      console.error('Language change failed:', error)
+    }
+  }
 
-			await router.push(router.pathname, router.asPath, {
-				locale: newLanguage,
-				scroll: false,
-			})
-		} catch (error) {
-			console.error('Language change failed:', error)
-		}
-	}
-
-	useEffect(() => {
-		const initializeLanguage = async () => {
-			const savedLanguage = localStorage.getItem('language')
-			const preferredLanguage = savedLanguage || router.locale || 'en'
-
-			if (preferredLanguage !== currentLanguage) {
-				setCurrentLanguage(preferredLanguage)
-				await i18n.changeLanguage(preferredLanguage)
-			}
-		}
-
-		initializeLanguage()
-	}, [])
+    useEffect(() => {
+      const initializeLanguage = async () => {
+  
+        const preferredLanguage = user.lang || router.locale || 'en'
+  
+        if (preferredLanguage !== user.lang) {
+          changeLangOnServer(preferredLanguage)
+          dispatch(changeStoreLang(preferredLanguage))
+          await i18n.changeLanguage(preferredLanguage)
+        }
+      }
+  
+      initializeLanguage()
+    }, [])
 
 	return (
 		<CosmicSliderContainer>
@@ -136,7 +157,7 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({
 			<CustomSelectWrapper>
 				<CustomSelect
 					options={languageOptions}
-					value={currentLanguage}
+					value={user.lang}
 					onChange={handleLanguageChange}
 				/>
 			</CustomSelectWrapper>
