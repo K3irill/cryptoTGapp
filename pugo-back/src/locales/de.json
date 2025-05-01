@@ -1,0 +1,208 @@
+{
+  "common": {
+    "error": {
+      "general": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal.",
+      "registration": "Bei der Registrierung ist ein Fehler aufgetreten. Verwenden Sie /help",
+      "balanceCheck": "Ein Fehler ist bei der Überprüfung des Kontostands aufgetreten",
+      "miningCheck": "⚠️ Ein Fehler ist bei der Überprüfung des Minings aufgetreten.",
+      "referralCheck": "Ein Fehler ist bei der Überprüfung des Referral-Codes aufgetreten",
+      "reportTooLarge": "Die Datei ist zu groß. Bitte senden Sie eine Datei mit maximal 2 MB.",
+      "unknownCommand": "Geben Sie den Befehl /help ein, um mehr zu erfahren.",
+      "mining": "⚠️ Ein Fehler ist bei der Überprüfung des Minings aufgetreten."
+    },
+    "buttons": {
+      "back": "🔙 Zurück",
+      "close": "❌ Schließen",
+      "delete": "🗑 Löschen",
+      "next": "➡️ Weiter",
+      "prev": "⬅️ Zurück"
+    },
+    "unknown": "unbekannt",
+    "user": "Benutzer",
+    "notSpecified": "Nicht angegeben",
+    "noText": "Kein Text",
+    "selectAction": "Wählen Sie eine Aktion:"
+  },
+  
+  "start": {
+    "welcomeNewUser": "✨ <b>Willkommen bei BIFS!</b> ✨\n\nWir freuen uns, Sie in unserer App begrüßen zu dürfen, wo Sie:\n- 🪙 Token verdienen können, indem Sie Aufgaben erledigen.\n- 🎮 Spannende Spiele spielen.\n- 🤝 Freunde einladen und Boni erhalten.\n- 🛠 Token für Verbesserungen und exklusive Funktionen nutzen können.\n\nKlicken Sie auf \"Starten\", um fortzufahren, oder \"Mehr Informationen\", um mehr zu erfahren.",
+    "welcomeRegisteredUser": "🌟 <b>Willkommen zurück, {username}!</b> 🌟\n\nWir freuen uns, Sie wieder bei BIFS zu sehen! Verdienen Sie weiterhin Token, spielen Sie und laden Sie Freunde ein, um noch mehr Boni zu erhalten.\n\n{balance}\n\nKlicken Sie auf \"Starten\", um fortzufahren, oder \"Mehr Informationen\", um mehr zu erfahren.",
+    "balance": "Ihr aktueller Kontostand: {balance} Token.",
+    "buttons": {
+      "moreInfo": "📚 Mehr Informationen",
+      "start": "🚀 Starten"
+    }
+  },
+
+  "balance": {
+    "success": "{username}! Sie haben {balance} BIFS.",
+    "error": "Entschuldigung, {username}! Ein Fehler ist bei der Überprüfung des Kontostands aufgetreten"
+  },
+
+  "lang": {
+    "selectOption": "Wählen Sie eine Sprache:",
+    "info": "Hier können Sie die Sprache ändern"
+  },
+
+  "mining": {
+    "menuTitle": "🔷 <b>Automatisches Mining-Menü</b> 🔷",
+    "selectOption": "Wählen Sie eine Option:",
+    "activeStatus": "⛏ <b>Ihr automatisches Mining ist aktiv</b>\n\n💰 Einkommen: {dailyReward} BIFS/Tag\n⏳ Verbleibend: {remainingTime}\n\nSie können die Mining-Periode verlängern oder die Statistik überprüfen.",
+    "inactiveStatus": "🔋 <b>Automatisches Mining ist nicht aktiviert</b>\n\nAktivieren Sie das automatische Mining, um täglich passiv ab 1000 BIFS zu verdienen!",
+    "expired": "⏳ Ihr automatisches Mining ist abgelaufen. Schalten Sie es wieder ein!",
+    "remainingTime": "⏳ Verbleibende Mining-Zeit:\n\n🕒 {days} {daysText}, {hours} {hoursText}, {minutes} {minutesText}\n\n📅 Endet am: {endDate}",
+    "remainingFormat": "{days}T {hours}Std {minutes}Min",
+    "notConnected": "🔍 {username}, Sie haben kein automatisches Mining aktiviert!",
+    "howItWorks": "ℹ️ <b>Wie funktioniert automatisches Mining?</b>\n\n⏰ <b>Gutschriftzeiten:</b>\nGutschriften erfolgen einmal täglich um <b>00:00 Uhr Moskauer Zeit</b>\n\n💸 <b>Ablauf:</b>\n1. Aktivieren Sie Mining für eine bestimmte Zeit (gegen Telegram Stars oder durch Kisten)\n2. Jeden Tag um Mitternacht erhalten Sie 1000 BIFS\n3. Nach Ablauf der Zeit wird das Mining automatisch beendet\n\n📈 <b>Beispielrechnung:</b>\n• Aktivierung: 700 Stars\n• Einkommen für 7 Tage: 7000 BIFS (1000×7)\n\n🔁 <b>Verlängerung:</b>\nKann unbegrenzt oft verlängert werden\nJede Verlängerung fügt die gekaufte Anzahl an Mining-Tagen hinzu\n\n⚠️ <b>Wichtig:</b>\nWenn nicht rechtzeitig verlängert wird, wird das Mining beendet\nAngesammelte BIFS bleiben auf Ihrem Konto",
+    "buttons": {
+      "remaining": "⌚Verbleibendes Mining⌚",
+      "buy": "🫰Kaufen🫰",
+      "extend": "💎 Mining verlängern",
+      "activate": "🫰 Mining aktivieren",
+      "howItWorks": "❓ Wie funktioniert Mining"
+    }
+  },
+
+  "invite": {
+    "menuTitle": "Wählen Sie eine Option:",
+    "referralCode": "Ihr Referral-Code: {code}, und Ihr Referral-Link: {link}",
+    "referralsList": "Sie haben {count} Referrals: {names}",
+    "noReferrals": "Entschuldigung, {username}, Sie haben noch keine Referrals.",
+    "info": "🤝 <b>Freunde einladen:</b>\n\n🎉 <b>Laden Sie Freunde ein und erhalten Sie Boni!</b>\n   - Für jeden eingeladenen Freund erhalten Sie zusätzliche Token.\n   - Ihre Freunde erhalten ebenfalls Boni für die Registrierung.\n\n💡 <b>So funktioniert es:</b>\n   1. Teilen Sie Ihren Referral-Link mit Freunden.\n   2. Nach der Registrierung Ihres Freundes erhalten Sie Token auf Ihr Konto.\n   3. Je mehr Freunde Sie einladen, desto mehr Token verdienen Sie!\n\n🚀 <b>Fangen Sie jetzt an, Freunde einzuladen!</b>",
+    "buttons": {
+      "myCode": "🎫Mein Referral-Code🎫",
+      "myReferrals": "🫂Meine Referrals🫂"
+    }
+  },
+
+  "support": {
+    "message": "🛠 <b>Support-Center</b> 🛠\n\nHallo {firstName}!\n\nWenn Sie Fragen, Probleme haben oder Hilfe benötigen,\nunser Support-Team ist bereit zu helfen!\n\n📌 <b>Kontaktmöglichkeiten:</b>\n👉 Support-Manager: @bifs_manager\n👉 Offizieller Chat: https://t.me/BIFSCryptoBot\n👉 Email: bifs.helper@gmail.com\n\n⏱ <b>Öffnungszeiten:</b>\nMo-Fr: 9:00-22:00 (MSK)\nSa-So: Antwort innerhalb von 24 Stunden\n\n📋 <b>Für schnelle Hilfe geben Sie an:</b>\n1. Ihre ID: <code>{userId}</code>\n2. Problembeschreibung\n3. Screenshots (falls vorhanden)",
+    "error": "⚠️ Ein Fehler ist aufgetreten. Bitte schreiben Sie direkt an @bifs_manager",
+    "buttons": {
+      "contact": "📨 Support kontaktieren"
+    }
+  },
+
+  "reports": {
+    "reportText": "Bericht vom Benutzer:\nBenutzername: {username}\nTelegram ID: {telegramId}\nChat ID: {chatId}\nDatum: {date}\nBerichtstext: {text}",
+    "documentLink": "Dokumentenlink: {link}",
+    "photoLink": "Foto-Link: {link}",
+    "success": "Ihr Bericht wurde erfolgreich gesendet! Vielen Dank!",
+    "instructions": "Bitte senden Sie den Berichtstext und fügen Sie ein Dokument an (falls vorhanden). Der Berichtstext MUSS mit dem Wort beginnen: bif-bericht:"
+  },
+
+  "help": {
+    "menu": "Wählen Sie aus, wie wir Ihnen helfen können:",
+    "buttons": {
+      "moreInfo": "📚 Grundlegende Informationen",
+      "support": "🛠 Support 🛠",
+       "lang": "🌎 Sprache ändern 🌍"
+    }
+  },
+
+  "store": {
+    "welcome": "Gehen wir zum Shop!",
+    "menu": "✨ <b>Shop:</b> ✨\n\n📌 <b>Hier können Sie eine begrenzte Anzahl von Token, verschiedene Waren und Dienstleistungen erwerben, die hinzugefügt werden.</b>",
+    "selectTokens": "Wählen Sie die Anzahl der zu kaufenden Token:",
+    "selectMiningDays": "Wählen Sie die Anzahl der zu kaufenden Mining-Tage:",
+    "buttons": {
+      "goToStore": "💳 Zum Shop gehen",
+      "tokens": "🪙 Token",
+      "automining": "🤑 Automatisches Mining"
+    }
+  },
+
+  "payments": {
+    "success": "✅ Zahlung erfolgreich! Sie haben {amount} {currency} bezahlt. {message}",
+    "invalidAmount": "Ungültiger Betrag oder Währung",
+    "purchase": "Kauf: {product}",
+    "buy": "Kaufen {amount} {product}",
+    "tokenOption": "{amount} BIFS für {price} Stars",
+    "miningOption": "{days} Tage für {price} Stars",
+    "tokensPurchased": "Sie haben {amount} BIFS erhalten!",
+    "miningActivated": "Sie haben {days} Tage automatisches Mining aktiviert!",
+    "tokensPurchase": "BIFS gekauft"
+  },
+
+  "tasks": {
+    "menu": "🤝 <b>Erledigen Sie:</b>\n\n🎉 <b>Hier können Sie Ihre Aufgaben einsehen, erledigen können Sie sie in der App!</b>\n\n😊 <b>So funktioniert es:</b>\n   1. Sie erledigen eine Aufgabe.\n   2. Der Bot oder Manager überprüft sie.\n   3. Sie erhalten Token!",
+    "available": "📋 *Verfügbare Aufgaben:*\n\n{tasks}",
+    "completed": "✅ *Ihre erledigten Aufgaben:*\n\n{tasks}",
+    "noneAvailable": "Sie haben keine verfügbaren Aufgaben.",
+    "noneCompleted": "Sie haben keine erledigten Aufgaben.",
+    "buttons": {
+      "available": "Verfügbare Aufgaben",
+      "completed": "Erledigte Aufgaben"
+    }
+  },
+
+  "moreInfo": {
+    "menu": "✨ <b>Wählen Sie einen Bereich, um mehr zu erfahren:</b>",
+    "buttons": {
+      "howToStart": "🚀 Wie starten 🚀",
+      "store": "💳 Shop",
+      "invite": "Freunde einladen 🤝",
+      "tasks": "⚒️ Aufgaben",
+      "mining": "Automatisches Mining 💎",
+      "earn": "🤑Verdienen🤑",
+      "getTokens": "🚀 Wie erhalte ich Token",
+      "tokensValue": "Wert der Token 💰",
+      "goals": "🎯 Unsere Ziele",
+      "aboutBot": "Über den BIF-Bot 🤖",
+      "commands": "📃 Grundlegende Befehle",
+      "support": "🆘 Support",
+      "lang": "🌍 Sprache 🌎",
+      "socials": "🌐 Soziale Netzwerke 🌐"
+    }
+  },
+
+  "infoSections": {
+    "howToStart": "✨ <b>Wie starten:</b> ✨\n\n🚀 <b>1. Geben Sie den Befehl /start ein oder klicken Sie auf die Schaltfläche unten</b>\n   - Dies startet den Registrierungsprozess.\n\n🎉 <b>2. Die Registrierung erfolgt automatisch</b>\n   - Sie müssen keine zusätzlichen Daten eingeben.\n\n🎁 <b>3. Erhalten Sie einen Bonus von 50 Token</b>\n   - Ihr Startbonus wartet bereits auf Sie!\n\n📱 <b>4. Folgen Sie dem Link:</b>\n   - <a href=\"https://t.me/BIFSCryptoBot/bifs\">Mini-App starten</a>\n\n😍 <b>5. Führen Sie Aktivitäten durch:</b>\n   - Spielen Sie, laden Sie Freunde ein, öffnen Sie Kisten und Sammlungen, werben Sie uns, suchen Sie Easter Eggs!",
+    "tokensInfo": "✨ <b>Wie erhalte ich Token:</b> ✨\n\n📌 <b>Sie können Token auf folgende Weise erhalten:</b>\n\n1. 🎮 <b>Spiele spielen</b> — Verdienen Sie Token, indem Sie Level abschließen und Spielaufgaben erledigen.\n\n2. 📝 <b>Aufgaben erledigen</b> — Erledigen Sie tägliche und spezielle Aufgaben, um Belohnungen zu erhalten.\n\n3. 🤝 <b>Freunde einladen</b> — Erhalten Sie Boni für jeden eingeladenen Freund.\n\n4. 📢 <b>Werben Sie uns</b> — Teilen Sie Informationen über das Projekt und erhalten Sie Token für Aktivität.\n\n💡 <b>Jede Aktion bringt Ihnen eine Belohnung in BIFS-Token!</b>",
+    "tokensValue": "✨ <b>Wert der BIFS-Token:</b> ✨\n\n💎 <b>BIFS-Token sind Ihre Währung in der Welt von BIFS!</b>\n\n📌 <b>Was Sie mit Token tun können:</b>\n\n1. 🛠 <b>Verbesserungen kaufen</b>\n   - Verbessern Sie Ihre Möglichkeiten in Spielen und Apps.\n\n2. 🚀 <b>Exklusive Funktionen erhalten</b>\n   - Erhalten Sie Zugang zu einzigartigen Funktionen und Inhalten.\n\n3. 💼 <b>In die Zukunft investieren</b>\n   - In Zukunft können BIFS-Token gegen reale Assets eingetauscht werden.\n\n4. 🎁 <b>Boni erhalten</b>\n   - Verwenden Sie Token, um an Aktionen teilzunehmen und Geschenke zu erhalten.\n\n💡 <b>BIFS-Token sind nicht nur eine Währung, sondern ein Schlüssel zu neuen Möglichkeiten!</b>",
+    "earnInfo": "✨ <b>Über das Verdienen mit Werbung:</b> ✨\n\n📌 <b>Wir schätzen Ihre Unterstützung und sind bereit, Sie für die Bewerbung unseres Projekts zu belohnen!</b>\n\n🎯 <b>So funktioniert es:</b>\n\n1. 🎮 <b>Erstellen Sie Inhalte</b>\n   - Schreiben Sie Beiträge, drehen Sie Videos (TikTok, Shorts), erstellen Sie Memes oder verteilen Sie Flyer.\n   - Alles, was Aufmerksamkeit auf unser Projekt lenkt, bringt Ihnen Token!\n\n2. 📝 <b>Erhalten Sie Aufrufe</b>\n   - Je mehr Menschen Ihren Inhalt sehen, desto mehr Token erhalten Sie.\n\n3. 🤝 <b>Senden Sie einen Bericht</b>\n   - Gehen Sie zu unserem Bot, Abschnitt \"Verdienen\" und klicken Sie auf die Schaltfläche \"Bericht anhängen\".\n   - Wählen Sie den Punkt <b>Bericht anhängen</b>.\n\n4. 📢 <b>Fügen Sie hinzu:</b>\n   - Link zu Ihrem Inhalt.\n   - Screenshot mit der Anzahl der Aufrufe.\n   - Informationen, wie Sie kontaktiert werden können.\n\n   <b>UNBEDINGT</b> beginnen Sie den Berichtstext mit dem Wort:  <b>bif-bericht:</b>\n\n💡 <b>Wir überprüfen Ihre Aktivität und gutschreiben Token. Je kreativer Ihr Inhalt, desto mehr verdienen Sie!</b>",
+    "inviteInfo":"🤝 <b>Freunde einladen:</b>\n\n🎉 <b>Laden Sie Freunde ein und erhalten Sie Boni!</b>\n   - Für jeden eingeladenen Freund erhalten Sie zusätzliche Token.\n   - Ihre Freunde erhalten ebenfalls Boni für die Registrierung.\n\n💡 <b>So funktioniert es:</b>\n   1. Teilen Sie Ihren Referral-Link mit Freunden.\n   2. Nach der Registrierung Ihres Freundes erhalten Sie Token auf Ihr Konto.\n   3. Je mehr Freunde Sie einladen, desto mehr Token verdienen Sie!\n\n🚀 <b>Fangen Sie jetzt an, Freunde einzuladen!</b>",
+
+
+    "tasksInfo": 
+     "🤝 <b>Erledigen Sie:</b>\n\n🎉 <b>Hier können Sie Ihre Aufgaben einsehen, erledigen können Sie sie in der App!</b>\n\n😊 <b>So funktioniert es:</b>\n   1. Sie erledigen eine Aufgabe.\n   2. Der Bot oder Manager überprüft sie.\n   3. Sie erhalten Token!",
+
+    "goals": "✨ <b>Unsere Ziele:</b> ✨\n\n🎯 <b>Wir streben danach, eines der führenden Projekte in der Welt der Kryptowährungen zu werden!</b>\n\n📌 <b>Unsere Hauptziele:</b>\n\n1. 🌐 <b>Listing auf großen Börsen</b>\n   - Wir planen, auf Plattformen wie BLUM, STON.fi DEX, BYBIT und Binance zu gelangen.\n\n2. 🚀 <b>Entwicklung des Ökosystems</b>\n   - Wir arbeiten aktiv an der Hinzufügung neuer Spiele, Aufgaben und Funktionen.\n\n3. 🤝 <b>Aufbau einer globalen Community</b>\n   - Wir möchten Menschen aus der ganzen Welt um unser Projekt vereinen.\n\n4. 💡 <b>Bequemlichkeit und Zugänglichkeit</b>\n   - Wir machen Kryptowährungen einfach und verständlich für jeden.\n\n💡 <b>Wir bewegen uns sicher auf diese Ziele zu und laden Sie ein, Teil unseres Erfolgs zu werden!</b>",
+    "aboutBot": "✨ <b>Über den BIF-Bot:</b> ✨\n\n🤖 <b>Unser Telegram-Bot ist Ihr Helfer in der Welt von BIFS!</b>\n\n📌 <b>Hauptfunktionen des Bots:</b>\n\n1. 🪙 <b>Token verdienen</b>\n   - Erledigen Sie Aufgaben, spielen Sie Spiele und erhalten Sie Token.\n\n2. 🤝 <b>Freunde einladen</b>\n   - Laden Sie Freunde ein und erhalten Sie Boni für jeden eingeladenen Freund.\n\n3. 🛠 <b>Konto verwalten</b>\n   - Überprüfen Sie Kontostand, Transaktionsverlauf und Mining-Status.\n\n4. 📢 <b>Werbung und Promotion</b>\n   - Erhalten Sie Token für die Bewerbung des Projekts.\n\n5. 🎮 <b>Spiele und Aufgaben</b>\n   - Nehmen Sie an Spielen teil und erledigen Sie Aufgaben, um Belohnungen zu erhalten.\n\n💡 <b>Mit dem BIF-Bot sind Sie immer auf dem Laufenden und können Ihre Assets einfach verwalten!</b>",
+    "commands": "📜 <b>Grundlegende Befehle:</b>\n\n🚀 <b>/start</b> — Starten Sie den Bot.\n🛒 <b>/store</b> — Gehen Sie zum Shop, um Token und Dienstleistungen zu kaufen.\n💰 <b>/balance</b> — Überprüfen Sie den aktuellen Token-Kontostand.\n🌎 <b>/lang</b> — Sprache auswählen.\n💸 <b>/earn</b> — Liste der verfügbaren Aufgaben anzeigen.\n🤝 <b>/invite</b> — Freunde einladen und Boni erhalten.\n💎 <b>/mining</b> — Informationen über automatisches Mining.\n🆘 <b>/support</b> — Kontaktieren Sie den Support.\n\n💡 <b>Verwenden Sie diese Befehle, um Ihr Konto zu verwalten und Token zu verdienen!</b>",
+    "socials": "✨ <b>Offizielle soziale Netzwerke von BIFS:</b>",
+    "buttons": {
+      "startApp": "🚀 Los geht's!",
+      "attachReport": "🖇️ Bericht anhängen"
+    }
+  },
+
+  "socials": {
+    "buttons": {
+      "telegramChannel": "1️⃣ Telegram-Kanal",
+      "website": "2️⃣ Website",
+      "youtube": "3️⃣ YouTube",
+      "twitter": "4️⃣ X(Twitter)"
+    }
+  },
+
+  "webApp": {
+    "autominingActivated": "Sie haben automatisches Mining aktiviert!",
+    "messageReceived": "Der Bot hat die Nachricht erhalten: \"{text}\""
+  },
+
+  "language": {
+    "select": "Bitte wählen Sie eine Sprache:",
+    "set": "Sprache festgelegt!",
+    "buttons": {
+      "russian": "🇷🇺 Russisch",
+      "english": "🇬🇧 Englisch",
+      "german": "🇩🇪 Deutsch",
+      "french": "🇫🇷 Französisch",
+      "chinese": "🇨🇳 Chinesisch",
+      "ukrainian": "🇺🇦 Ukrainisch",
+      "portuguese": "🇵🇹 Portugiesisch",
+      "spanish": "🇪🇸 Spanisch"
+    }
+  }
+}

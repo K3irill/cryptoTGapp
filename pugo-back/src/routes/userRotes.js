@@ -7,6 +7,7 @@ const {
 	updateUserTokens,
 	enableMiningForUser,
 	setStatusForUser,
+  changeUserLang,
 } = require('../services/userService')
 const { defineUserStatus } = require('../utils/utils')
 const router = express.Router()
@@ -22,6 +23,19 @@ router.get('/:telegramId', async (req, res) => {
 		res
 			.status(500)
 			.json({ success: false, message: 'Ошибка получения кошелька' })
+	}
+})
+
+router.post('/lang', async (req, res) => {
+	try {
+    const { telegramId, lang } = req.body
+    const result = changeUserLang(telegramId, lang)
+		res.status(200).json({ success: true, result })
+	} catch (error) {
+		console.error(error)
+		res
+			.status(500)
+			.json({ success: false, message: 'Ошибка смены языка' })
 	}
 })
 

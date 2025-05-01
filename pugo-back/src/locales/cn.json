@@ -1,0 +1,204 @@
+{
+  "common": {
+    "error": {
+      "general": "发生错误。请稍后再试。",
+      "registration": "注册时发生错误。请使用 /help",
+      "balanceCheck": "检查余额时发生错误",
+      "miningCheck": "⚠️ 检查挖矿时发生错误。",
+      "referralCheck": "检查推荐代码时发生错误",
+      "reportTooLarge": "文件太大。请发送不超过2MB的文件。",
+      "unknownCommand": "输入 /help 命令了解更多。",
+      "mining": "⚠️ 检查挖矿时发生错误。"
+    },
+    "buttons": {
+      "back": "🔙 返回",
+      "close": "❌ 关闭",
+      "delete": "🗑 删除",
+      "next": "➡️ 下一步",
+      "prev": "⬅️ 上一步"
+    },
+    "unknown": "未知",
+    "user": "用户",
+    "notSpecified": "未指定",
+    "noText": "无文本",
+    "selectAction": "选择操作:"
+  },
+  
+  "start": {
+    "welcomeNewUser": "✨ <b>欢迎来到BIFS！</b> ✨\n\n我们很高兴欢迎您使用我们的应用程序，您可以在这里：\n- 🪙 通过完成任务赚取代币。\n- 🎮 玩有趣的游戏。\n- 🤝 邀请朋友并获得奖励。\n- 🛠 使用代币进行升级和独家功能。\n\n点击“开始”继续，或点击“更多信息”了解更多。",
+    "welcomeRegisteredUser": "🌟 <b>欢迎回来，{username}！</b> 🌟\n\n很高兴再次在BIFS见到您！继续赚取代币、玩游戏和邀请朋友以获得更多奖励。\n\n{balance}\n\n点击“开始”继续，或点击“更多信息”了解更多。",
+    "balance": "您当前的余额：{balance} 代币。",
+    "buttons": {
+      "moreInfo": "📚 更多信息",
+      "start": "🚀 开始"
+    }
+  },
+
+  "balance": {
+    "success": "{username}！您有 {balance} BIFS。",
+    "error": "抱歉，{username}！检查余额时发生错误"
+  },
+
+  "lang": {
+    "selectOption": "选择语言:",
+    "info": "在这里您可以更改语言"
+  },
+
+  "mining": {
+    "menuTitle": "🔷 <b>自动挖矿菜单</b> 🔷",
+    "selectOption": "选择选项:",
+    "activeStatus": "⛏ <b>您的自动挖矿已激活</b>\n\n💰 收入: {dailyReward} BIFS/天\n⏳ 剩余: {remainingTime}\n\n您可以延长挖矿期限或检查统计信息。",
+    "inactiveStatus": "🔋 <b>自动挖矿未激活</b>\n\n激活自动挖矿每天可赚取1000 BIFS以上！",
+    "expired": "⏳ 您的自动挖矿已结束。请重新连接！",
+    "remainingTime": "⏳ 剩余挖矿时间:\n\n🕒 {days} {daysText}, {hours} {hoursText}, {minutes} {minutesText}\n\n📅 结束: {endDate}",
+    "remainingFormat": "{days}天 {hours}小时 {minutes}分钟",
+    "notConnected": "🔍 {username}，您未连接自动挖矿！",
+    "howItWorks": "ℹ️ <b>自动挖矿如何工作？</b>\n\n⏰ <b>支付时间:</b>\n每天<b>莫斯科时间00:00</b>支付一次\n\n💸 <b>流程:</b>\n1. 激活挖矿一段时间（通过Telegram Stars或在箱子中赢得）\n2. 每天午夜，您将收到1000 BIFS\n3. 时间结束后，挖矿自动停止\n\n📈 <b>示例计算:</b>\n• 激活: 700 Stars\n• 7天收入: 7000 BIFS (1000×7)\n\n🔁 <b>延长:</b>\n可以无限次延长\n每次延长增加购买的挖矿天数\n\n⚠️ <b>重要:</b>\n如果未及时延长，挖矿将停止\n累积的BIFS将保留在您的余额中",
+    "buttons": {
+      "remaining": "⌚剩余自动挖矿⌚",
+      "buy": "🫰购买🫰",
+      "extend": "💎 延长挖矿",
+      "activate": "🫰 激活挖矿",
+      "howItWorks": "❓ 挖矿如何工作"
+    }
+  },
+
+  "invite": {
+    "menuTitle": "选择选项:",
+    "referralCode": "您的推荐代码: {code}，您的推荐链接: {link}",
+    "referralsList": "您有 {count} 位推荐人: {names}",
+    "noReferrals": "抱歉，{username}，您目前没有推荐人。",
+    "info": "🤝 <b>邀请朋友:</b>\n\n🎉 <b>邀请朋友并获得奖励！</b>\n   - 每邀请一位朋友，您将获得额外的代币。\n   - 您的朋友也会因注册而获得奖励。\n\n💡 <b>如何运作:</b>\n   1. 与朋友分享您的推荐链接。\n   2. 朋友注册后，您将在余额中获得代币。\n   3. 邀请的朋友越多，赚取的代币越多！\n\n🚀 <b>立即开始邀请朋友！</b>",
+    "buttons": {
+      "myCode": "🎫我的推荐代码🎫",
+      "myReferrals": "🫂我的推荐人🫂"
+    }
+  },
+
+  "support": {
+    "message": "🛠 <b>支持中心</b> 🛠\n\n您好，{firstName}！\n\n如果您有任何问题、问题或需要帮助，\n我们的支持团队随时为您服务！\n\n📌 <b>联系方式:</b>\n👉 支持经理: @bifs_manager\n👉 官方聊天: https://t.me/BIFSCryptoBot\n👉 电子邮件: bifs.helper@gmail.com\n\n⏱ <b>工作时间:</b>\n周一至周五: 9:00-22:00 (莫斯科时间)\n周六至周日: 24小时内回复\n\n📋 <b>快速帮助，请提供:</b>\n1. 您的ID: <code>{userId}</code>\n2. 问题描述\n3. 截图（如果有）",
+    "error": "⚠️ 发生错误。请直接联系 @bifs_manager",
+    "buttons": {
+      "contact": "📨 联系支持"
+    }
+  },
+
+  "reports": {
+    "reportText": "用户报告:\n用户名: {username}\nTelegram ID: {telegramId}\n聊天ID: {chatId}\n日期: {date}\n报告文本: {text}",
+    "documentLink": "文档链接: {link}",
+    "photoLink": "照片链接: {link}",
+    "success": "您的报告已成功提交！谢谢！",
+    "instructions": "请发送报告文本并附上文档（如果有）。报告文本必须以以下单词开头: bif-报告:"
+  },
+
+  "help": {
+    "menu": "选择我们可以如何帮助您:",
+    "buttons": {
+      "moreInfo": "📚 基本信息",
+      "support": "🛠 支持 🛠",
+      "lang": "🌎 更改语言 🌍"
+    }
+  },
+
+  "store": {
+    "welcome": "让我们去商店吧！",
+    "menu": "✨ <b>商店:</b> ✨\n\n📌 <b>在这里您可以购买有限数量的代币、各种商品和服务。</b>",
+    "selectTokens": "选择要购买的代币数量:",
+    "selectMiningDays": "选择要购买的自动挖矿天数:",
+    "buttons": {
+      "goToStore": "💳 去商店",
+      "tokens": "🪙 代币",
+      "automining": "🤑 自动挖矿"
+    }
+  },
+
+  "payments": {
+    "success": "✅ 支付成功！您支付了 {amount} {currency}。{message}",
+    "invalidAmount": "无效金额或货币",
+    "purchase": "购买: {product}",
+    "buy": "购买 {amount} {product}",
+    "tokenOption": "{amount} BIFS 需 {price} Stars",
+    "miningOption": "{days} 天需 {price} Stars",
+    "tokensPurchased": "您获得了 {amount} BIFS！",
+    "miningActivated": "您激活了 {days} 天的自动挖矿！",
+    "tokensPurchase": "已购买BIFS"
+  },
+
+  "tasks": {
+    "menu": "🤝 <b>完成:</b>\n\n🎉 <b>在这里您可以查看您的任务，可以在应用中完成！</b>\n\n😊 <b>如何运作:</b>\n   1. 您完成任务。\n   2. 机器人或经理检查。\n   3. 您获得代币！",
+    "available": "📋 *可用任务:*\n\n{tasks}",
+    "completed": "✅ *您已完成的任务:*\n\n{tasks}",
+    "noneAvailable": "您没有可用任务。",
+    "noneCompleted": "您没有已完成任务。",
+    "buttons": {
+      "available": "可用任务",
+      "completed": "已完成任务"
+    }
+  },
+
+  "moreInfo": {
+    "menu": "✨ <b>选择一个部分了解更多:</b>",
+    "buttons": {
+      "howToStart": "🚀 如何开始 🚀",
+      "store": "💳 商店",
+      "invite": "邀请朋友 🤝",
+      "tasks": "⚒️ 任务",
+      "mining": "自动挖矿 💎",
+      "earn": "🤑赚钱🤑",
+      "getTokens": "🚀 如何获取代币",
+      "tokensValue": "代币价值 💰",
+      "goals": "🎯 我们的目标",
+      "aboutBot": "关于BIF机器人 🤖",
+      "commands": "📃 基本命令",
+      "support": "🆘 支持",
+      "lang": "🌍 语言 🌎",
+      "socials": "🌐 社交媒体 🌐"
+    }
+  },
+
+  "infoSections": {
+    "howToStart": "✨ <b>如何开始:</b> ✨\n\n🚀 <b>1. 输入 /start 命令或点击下方按钮</b>\n   - 这将启动注册过程。\n\n🎉 <b>2. 注册将自动完成</b>\n   - 您无需输入其他数据。\n\n🎁 <b>3. 获得50代币奖励</b>\n   - 您的起始奖励已经在等您！\n\n📱 <b>4. 点击链接:</b>\n   - <a href=\"https://t.me/BIFSCryptoBot/bifs\">启动迷你应用</a>\n\n😍 <b>5. 完成活动:</b>\n   - 玩游戏、邀请朋友、开箱子和收藏、宣传我们、寻找彩蛋！",
+    "tokensInfo": "✨ <b>如何获取代币:</b> ✨\n\n📌 <b>您可以通过以下方式赚取代币:</b>\n\n1. 🎮 <b>玩游戏</b> — 通过完成关卡和游戏任务赚取代币。\n\n2. 📝 <b>完成任务</b> — 完成每日和特殊任务以获得奖励。\n\n3. 🤝 <b>邀请朋友</b> — 每邀请一位朋友获得奖励。\n\n4. 📢 <b>宣传我们</b> — 分享项目信息并通过活动赚取代币。\n\n💡 <b>每个行动都能赚取BIFS代币！</b>",
+    "tokensValue": "✨ <b>BIFS代币价值:</b> ✨\n\n💎 <b>BIFS代币是您在BIFS世界中的货币！</b>\n\n📌 <b>您可以用代币做什么:</b>\n\n1. 🛠 <b>购买升级</b>\n   - 提升您在游戏和应用中的能力。\n\n2. 🚀 <b>获得独家功能</b>\n   - 解锁独特功能和内容。\n\n3. 💼 <b>投资未来</b>\n   - 未来，BIFS代币可以兑换为真实资产。\n\n4. 🎁 <b>获得奖励</b>\n   - 使用代币参与促销和获得礼物。\n\n💡 <b>BIFS代币不仅是货币，更是新机会的钥匙！</b>",
+    "earnInfo": "✨ <b>关于通过广告赚钱:</b> ✨\n\n📌 <b>我们重视您的支持，并愿意奖励您推广我们的项目！</b>\n\n🎯 <b>如何运作:</b>\n\n1. 🎮 <b>创建内容</b>\n   - 写帖子、拍摄视频（TikTok、Shorts）、制作表情包或分发传单。\n   - 任何吸引人们关注我们项目的内容都能赚取代币！\n\n2. 📝 <b>获得观看</b>\n   - 观看您内容的人越多，您赚取的代币越多。\n\n3. 🤝 <b>提交报告</b>\n   - 进入我们的机器人，“赚钱”部分，点击“附加报告”。\n   - 选择<b>附加报告</b>。\n\n4. 📢 <b>附加:</b>\n   - 您内容的链接。\n   - 观看次数的截图。\n   - 如何联系您的信息。\n\n   <b>必须</b>以以下单词开头报告文本: <b>bif-报告:</b>\n\n💡 <b>我们将检查您的活动并发放代币。您的内容越有创意，赚得越多！</b>",
+    "inviteInfo": "🤝 <b>邀请朋友:</b>\n\n🎉 <b>邀请朋友并获得奖励！</b>\n   - 每邀请一位朋友，您将获得额外的代币。\n   - 您的朋友也会因注册而获得奖励。\n\n💡 <b>如何运作:</b>\n   1. 与朋友分享您的推荐链接。\n   2. 朋友注册后，您将在余额中获得代币。\n   3. 邀请的朋友越多，赚取的代币越多！\n\n🚀 <b>立即开始邀请朋友！</b>",
+    "tasksInfo": "🤝 <b>完成:</b>\n\n🎉 <b>在这里您可以查看您的任务，可以在应用中完成！</b>\n\n😊 <b>如何运作:</b>\n   1. 您完成任务。\n   2. 机器人或经理检查。\n   3. 您获得代币！",
+    "goals": "✨ <b>我们的目标:</b> ✨\n\n🎯 <b>我们努力成为加密货币领域的领先项目之一！</b>\n\n📌 <b>我们的关键目标:</b>\n\n1. 🌐 <b>在主要交易所上市</b>\n   - 我们计划在BLUM、STON.fi DEX、BYBIT和Binance等平台上市。\n\n2. 🚀 <b>生态系统发展</b>\n   - 我们正在积极添加新游戏、任务和功能。\n\n3. 🤝 <b>创建全球社区</b>\n   - 我们希望将全球的人们团结在我们的项目周围。\n\n4. 💡 <b>便利和可访问性</b>\n   - 我们使加密货币对每个人来说都简单易懂。\n\n💡 <b>我们正朝着这些目标稳步前进，并邀请您成为我们成功的一部分！</b>",
+    "aboutBot": "✨ <b>关于BIF机器人:</b> ✨\n\n🤖 <b>我们的Telegram机器人是您在BIFS世界中的助手！</b>\n\n📌 <b>主要功能:</b>\n\n1. 🪙 <b>赚取代币</b>\n   - 完成任务、玩游戏并赚取代币。\n\n2. 🤝 <b>邀请朋友</b>\n   - 邀请朋友并为每位邀请的人获得奖励。\n\n3. 🛠 <b>账户管理</b>\n   - 检查您的余额、交易历史和自动挖矿状态。\n\n4. 📢 <b>广告和推广</b>\n   - 通过推广项目赚取代币。\n\n5. 🎮 <b>游戏和任务</b>\n   - 参与游戏并完成任务以获得奖励。\n\n💡 <b>使用BIF机器人，您随时了解最新动态，并轻松管理您的资产！</b>",
+    "commands": "📜 <b>基本命令:</b>\n\n🚀 <b>/start</b> — 开始使用机器人。\n🛒 <b>/store</b> — 进入商店购买代币和服务。\n💰 <b>/balance</b> — 检查当前代币余额。\n🌎 <b>/lang</b> — 选择一种语言.\n💸   <b>/earn</b> — 查看可用任务列表。\n🤝 <b>/invite</b> — 邀请朋友并获得奖励。\n💎 <b>/mining</b> — 关于自动挖矿的信息。\n🆘 <b>/support</b> — 联系支持。\n\n💡 <b>使用这些命令管理您的账户并赚取代币！</b>",
+    "socials": "✨ <b>官方BIFS社交媒体:</b>",
+    "buttons": {
+      "startApp": "🚀 出发！",
+      "attachReport": "🖇️ 附加报告"
+    }
+  },
+
+  "socials": {
+    "buttons": {
+      "telegramChannel": "1️⃣ Telegram频道",
+      "website": "2️⃣ 网站",
+      "youtube": "3️⃣ YouTube",
+      "twitter": "4️⃣ X(Twitter)"
+    }
+  },
+
+  "webApp": {
+    "autominingActivated": "您已激活自动挖矿！",
+    "messageReceived": "机器人收到消息: \"{text}\""
+  },
+
+  "language": {
+    "select": "请选择语言:",
+    "set": "语言已设置！",
+    "buttons": {
+      "russian": "🇷🇺 俄语",
+      "english": "🇬🇧 英语",
+      "german": "🇩🇪 德语",
+      "french": "🇫🇷 法语",
+      "chinese": "🇨🇳 中文",
+      "ukrainian": "🇺🇦 乌克兰语",
+      "portuguese": "🇵🇹 葡萄牙语",
+      "spanish": "🇪🇸 西班牙语"
+    }
+  }
+}

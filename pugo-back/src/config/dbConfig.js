@@ -15,9 +15,10 @@ const sequelize = new Sequelize(
 
 module.exports = { sequelize }
 
-//для миграций  npx sequelize-cli db:migrate --config src/config/dbConfig.js
-// // src/config/dbConfig.js
-// require('dotenv').config()
+// // npx sequelize-cli db:migrate --config src/config/dbConfig.js
+// // npx sequelize-cli migration:generate --name lang-to-users
+//  // src/config/dbConfig.js
+
 
 // module.exports = {
 //   development: {

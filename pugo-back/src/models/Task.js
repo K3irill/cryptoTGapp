@@ -22,7 +22,7 @@ const Task = sequelize.define(
 			allowNull: true,
 		},
 		description: {
-			type: DataTypes.TEXT,
+			type: DataTypes.JSONB,
 			allowNull: false,
 		},
 		reward: {

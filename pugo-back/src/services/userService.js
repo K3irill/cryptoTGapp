@@ -1,3 +1,4 @@
+const LANGUAGES = require('../languages')
 const { User, Task, UserTask } = require('../models')
 const generateReferralCode = require('../utils/generateReferralCode')
 const {
@@ -22,6 +23,7 @@ const createUser = async (telegramId, username = telegramId, firstName, lastName
 		autominingExpiresAt: null,
 		transactions: [],
 		status: 3,
+    lang: 'en'
 	})
 
 	// Получаем все существующие задачи
@@ -39,6 +41,8 @@ const createUser = async (telegramId, username = telegramId, firstName, lastName
 	return user
 }
 
+
+
 // Функция поиска пользователя по Telegram ID
 const getUserByTelegramId = async telegramId => {
 	console.log(`🔍 Ищу пользователя в БД: telegramId=${telegramId}`)
@@ -46,6 +50,37 @@ const getUserByTelegramId = async telegramId => {
 	console.log(`🔍 Результат поиска: ${user ? 'Найден' : 'Не найден'}`)
 	return user ? user : null
 }
+
+const isLanguageSupported = (lang) => {
+  return LANGUAGES.includes(lang?.toLowerCase());
+};
+
+
+const changeUserLang = async (telegramId, lang) => {
+    const user = await User.findOne({ where: { telegramId } })
+  console.log(lang)
+    if (!user) {
+      throw new Error('Пользователь не найден')
+    }
+  
+    if (!isLanguageSupported(lang)) {
+      console.warn(
+        `Такой язык не поддерживается: ${lang} `
+      )
+      return 'error checkLangExist'
+    }
+  
+    user.lang = lang
+    await user.save()
+  
+    console.log(
+      `👅Язык пользователя ${telegramId} обновлен на ${user.lang}`
+    )
+    return user.lang
+  }
+  
+
+
 
 const createUserIfNeeded = async ({
 	telegramId,
@@ -244,4 +279,5 @@ module.exports = {
 	addTransaction,
 	checkAndAddPugoDaily,
 	setStatusForUser,
+  changeUserLang
 }

@@ -105,6 +105,7 @@ const NoobSlider: FunctionComponent<NoobSliderProps> = ({
 		{ value: 'fr', label: 'FR', icon: '🗼' },
 		{ value: 'de', label: 'DE', icon: '🍪' },
 		{ value: 'pt', label: 'PT', icon: '🍷' },
+    { value: 'es', label: 'ES', icon: '🦜' },
 	]
 
 

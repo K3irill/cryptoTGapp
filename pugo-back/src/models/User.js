@@ -14,6 +14,11 @@ const User = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+    lang: {
+      type: DataTypes.ENUM('ru', 'en', 'de', 'fr', 'cn', 'ua', 'pt', 'es'),
+			defaultValue: 'en',
+      allowNull: false
+		},
 		balance: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0,

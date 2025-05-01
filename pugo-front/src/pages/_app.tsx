@@ -28,43 +28,35 @@ function AppContent({ Component, pageProps }: MyAppProps) {
 	const router = useRouter()
 	const { i18n } = useTranslation()
 
-	useEffect(() => {
-		if (!!i18n) {
-			const savedLanguage = user.lang || 'en'
-			if (savedLanguage && savedLanguage !== i18n.language) {
-				i18n.changeLanguage(savedLanguage)
-			}
-		}
-	}, [i18n])
+
 
   useEffect(() => {
     const initializeLanguage = async () => {
-
-      const savedLanguage = user.lang || 'en';
-      
-
-      if (savedLanguage && i18n.language !== savedLanguage) {
-        await i18n.changeLanguage(savedLanguage);
-      }
-      
-   
-      if (!user.lang && user.id) {
+      const savedLanguage = user.lang || 'en'; 
+      await i18n.changeLanguage(savedLanguage); 
+      await router.push(router.pathname, router.asPath, { locale: savedLanguage, scroll: false });
+      if (!savedLanguage && user.id) {
         try {
           const response = await fetch(`${REQUEST_LINK}/api/user/${user.id}`);
           const data = await response.json();
           if (data?.userInfo?.lang) {
             const serverLang = data.userInfo.lang;
-            dispatch(changeStoreLang(serverLang));
-            await i18n.changeLanguage(serverLang);
+            dispatch(changeStoreLang(serverLang));  
+            await i18n.changeLanguage(serverLang); 
+            await router.push(router.pathname, router.asPath, { locale: serverLang, scroll: false });
           }
         } catch (error) {
           console.error('Error fetching user lang:', error);
         }
+      } else {
+ 
+        await i18n.changeLanguage(savedLanguage);
       }
     };
   
     initializeLanguage();
   }, [i18n, user.lang, user.id, dispatch]);
+  
 
 	const createStarLayer = (
 		id: string,

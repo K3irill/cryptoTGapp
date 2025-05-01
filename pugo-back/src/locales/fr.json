@@ -1,0 +1,204 @@
+{
+  "common": {
+    "error": {
+      "general": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+      "registration": "Une erreur s'est produite lors de l'inscription. Utilisez /help",
+      "balanceCheck": "Une erreur s'est produite lors de la vérification du solde",
+      "miningCheck": "⚠️ Une erreur s'est produite lors de la vérification du minage.",
+      "referralCheck": "Une erreur s'est produite lors de la vérification du code de parrainage",
+      "reportTooLarge": "Le fichier est trop volumineux. Veuillez envoyer un fichier de moins de 2 Mo.",
+      "unknownCommand": "Tapez la commande /help pour en savoir plus.",
+      "mining": "⚠️ Une erreur s'est produite lors de la vérification du minage."
+    },
+    "buttons": {
+      "back": "🔙 Retour",
+      "close": "❌ Fermer",
+      "delete": "🗑 Supprimer",
+      "next": "➡️ Suivant",
+      "prev": "⬅️ Précédent"
+    },
+    "unknown": "inconnu",
+    "user": "Utilisateur",
+    "notSpecified": "Non spécifié",
+    "noText": "Sans texte",
+    "selectAction": "Choisissez une action :"
+  },
+  
+  "start": {
+    "welcomeNewUser": "✨ <b>Bienvenue dans BIFS !</b> ✨\n\nNous sommes ravis de vous accueillir dans notre application, où vous pouvez :\n- 🪙 Gagner des jetons en accomplissant des tâches.\n- 🎮 Jouer à des jeux captivants.\n- 🤝 Inviter des amis et recevoir des bonus.\n- 🛠 Utiliser des jetons pour des améliorations et des fonctionnalités exclusives.\n\nCliquez sur \"Commencer\" pour continuer ou \"Plus d'informations\" pour en savoir plus.",
+    "welcomeRegisteredUser": "🌟 <b>Bienvenue de retour, {username} !</b> 🌟\n\nNous sommes ravis de vous revoir dans BIFS ! Continuez à gagner des jetons, à jouer et à inviter des amis pour obtenir encore plus de bonus.\n\n{balance}\n\nCliquez sur \"Commencer\" pour continuer ou \"Plus d'informations\" pour en savoir plus.",
+    "balance": "Votre solde actuel : {balance} jetons.",
+    "buttons": {
+      "moreInfo": "📚 Plus d'informations",
+      "start": "🚀 Commencer"
+    }
+  },
+
+  "balance": {
+    "success": "{username} ! Vous avez {balance} BIFS.",
+    "error": "Désolé, {username} ! Une erreur s'est produite lors de la vérification du solde"
+  },
+
+  "lang": {
+    "selectOption": "Choisissez la langue :",
+    "info": "Ici, vous pouvez changer la langue"
+  },
+
+  "mining": {
+    "menuTitle": "🔷 <b>Menu de minage automatique</b> 🔷",
+    "selectOption": "Choisissez une option :",
+    "activeStatus": "⛏ <b>Votre minage automatique est actif</b>\n\n💰 Revenu : {dailyReward} BIFS/jour\n⏳ Temps restant : {remainingTime}\n\nVous pouvez prolonger la période de minage ou vérifier les statistiques.",
+    "inactiveStatus": "🔋 <b>Le minage automatique n'est pas activé</b>\n\nActivez le minage automatique pour un revenu passif à partir de 1000 BIFS par jour !",
+    "expired": "⏳ Votre minage automatique est terminé. Reconnectez-le !",
+    "remainingTime": "⏳ Temps restant de minage :\n\n🕒 {days} {daysText}, {hours} {hoursText}, {minutes} {minutesText}\n\n📅 Se terminera le : {endDate}",
+    "remainingFormat": "{days}j {hours}h {minutes}m",
+    "notConnected": "🔍 {username}, vous n'avez pas de minage automatique connecté !",
+    "howItWorks": "ℹ️ <b>Comment fonctionne le minage automatique ?</b>\n\n⏰ <b>Heure des crédits :</b>\nLes crédits ont lieu une fois par jour à <b>00:00 heure de Moscou</b>\n\n💸 <b>Processus de fonctionnement :</b>\n1. Vous activez le minage pour une durée (avec des Telegram Stars ou en ouvrant des caisses)\n2. Chaque jour à minuit, vous recevez 1000 BIFS\n3. Après un certain temps, le minage s'arrête automatiquement\n\n📈 <b>Exemple de calcul :</b>\n• Activation : 700 Stars\n• Revenu sur 7 jours : 7000 BIFS (1000×7)\n\n🔁 <b>Prolongation :</b>\nVous pouvez prolonger un nombre illimité de fois\nChaque prolongation ajoute le nombre de jours de minage achetés\n\n⚠️ <b>Important :</b>\nSi vous ne prolongez pas à temps, le minage s'arrête\nLes BIFS accumulés restent sur votre solde",
+    "buttons": {
+      "remaining": "⌚ Temps restant de minage ⌚",
+      "buy": "🫰 Acheter 🫰",
+      "extend": "💎 Prolonger le minage",
+      "activate": "🫰 Activer le minage",
+      "howItWorks": "❓ Comment fonctionne le minage"
+    }
+  },
+
+  "invite": {
+    "menuTitle": "Choisissez une option :",
+    "referralCode": "Votre code de parrainage : {code}, et votre lien de parrainage : {link}",
+    "referralsList": "Vous avez {count} filleuls : {names}",
+    "noReferrals": "Désolé, {username}, vous n'avez pas encore de filleuls.",
+    "info": "🤝 <b>Invitation d'amis :</b>\n\n🎉 <b>Invitez des amis et recevez des bonus !</b>\n   - Pour chaque ami invité, vous recevrez des jetons supplémentaires.\n   - Vos amis recevront également des bonus pour leur inscription.\n\n💡 <b>Comment ça marche :</b>\n   1. Partagez votre lien de parrainage avec des amis.\n   2. Après l'inscription de votre ami, vous recevrez des jetons sur votre solde.\n   3. Plus vous invitez d'amis, plus vous gagnez de jetons !\n\n🚀 <b>Commencez à inviter des amis dès maintenant !</b>",
+    "buttons": {
+      "myCode": "🎫 Mon code de parrainage 🎫",
+      "myReferrals": "🫂 Mes filleuls 🫂"
+    }
+  },
+
+  "support": {
+    "message": "🛠 <b>Centre de support</b> 🛠\n\nBonjour {firstName} !\n\nSi vous avez des questions, des problèmes ou besoin d'aide,\nnotre service client est là pour vous aider !\n\n📌 <b>Moyens de contact :</b>\n👉 Manager du support : @bifs_manager\n👉 Chat officiel : https://t.me/BIFSCryptoBot\n👉 Email : bifs.helper@gmail.com\n\n⏱ <b>Heures d'ouverture :</b>\nLun-Ven : 9h00-22h00 (heure de Moscou)\nSam-Dim : réponses dans les 24 heures\n\n📋 <b>Pour une aide rapide, indiquez :</b>\n1. Votre ID : <code>{userId}</code>\n2. La nature du problème\n3. Des captures d'écran (si disponibles)",
+    "error": "⚠️ Une erreur s'est produite. Veuillez écrire directement à @bifs_manager",
+    "buttons": {
+      "contact": "📨 Écrire au support"
+    }
+  },
+
+  "reports": {
+    "reportText": "Rapport de l'utilisateur :\nNom d'utilisateur : {username}\nID Telegram : {telegramId}\nID Chat : {chatId}\nDate : {date}\nTexte du rapport : {text}",
+    "documentLink": "Lien vers le document : {link}",
+    "photoLink": "Lien vers la photo : {link}",
+    "success": "Votre rapport a été envoyé avec succès ! Merci !",
+    "instructions": "Veuillez envoyer le texte du rapport et joindre un document (si nécessaire). COMMENCEZ OBLIGATOIREMENT le texte du rapport par le mot : bif-rapport :"
+  },
+
+  "help": {
+    "menu": "Choisissez comment nous pouvons vous aider :",
+    "buttons": {
+      "moreInfo": "📚 Informations principales",
+      "support": "🛠 Support 🛠",
+       "lang": "🌎 Changer de langue 🌍"
+    }
+  },
+
+  "store": {
+    "welcome": "Allons dans le magasin !",
+    "menu": "✨ <b>Magasin :</b> ✨\n\n📌 <b>Ici, vous pouvez acheter un nombre limité de jetons, divers produits et services qui seront ajoutés.</b>",
+    "selectTokens": "Choisissez le nombre de jetons à acheter :",
+    "selectMiningDays": "Choisissez le nombre de jours de minage automatique à acheter :",
+    "buttons": {
+      "goToStore": "💳 Aller au magasin",
+      "tokens": "🪙 Jetons",
+      "automining": "🤑 Minage automatique"
+    }
+  },
+
+  "payments": {
+    "success": "✅ Paiement réussi ! Vous avez payé {amount} {currency}. {message}",
+    "invalidAmount": "Montant ou devise invalide",
+    "purchase": "Achat : {product}",
+    "buy": "Acheter {amount} {product}",
+    "tokenOption": "{amount} BIFS pour {price} Stars",
+    "miningOption": "{days} jours pour {price} Stars",
+    "tokensPurchased": "Vous avez reçu {amount} BIFS !",
+    "miningActivated": "Vous avez activé {days} jours de minage automatique !",
+    "tokensPurchase": "BIFS achetés"
+  },
+
+  "tasks": {
+    "menu": "🤝 <b>Effectuez :</b>\n\n🎉 <b>Ici, vous pouvez voir vos tâches, vous pouvez les accomplir dans l'application !</b>\n\n😊 <b>Comment ça marche :</b>\n   1. Vous accomplissez une tâche.\n   2. Le bot ou le manager la vérifie.\n   3. Vous recevez des jetons !",
+    "available": "📋 *Tâches disponibles :*\n\n{tasks}",
+    "completed": "✅ *Vos tâches accomplies :*\n\n{tasks}",
+    "noneAvailable": "Vous n'avez pas de tâches disponibles.",
+    "noneCompleted": "Vous n'avez pas de tâches accomplies.",
+    "buttons": {
+      "available": "Tâches disponibles",
+      "completed": "Tâches accomplies"
+    }
+  },
+
+  "moreInfo": {
+    "menu": "✨ <b>Choisissez une section pour en savoir plus :</b>",
+    "buttons": {
+      "howToStart": "🚀 Comment commencer 🚀",
+      "store": "💳 Magasin",
+      "invite": "Invitation d'amis 🤝",
+      "tasks": "⚒️ Tâches",
+      "mining": "Minage automatique 💎",
+      "earn": "🤑 Gagner de l'argent 🤑",
+      "getTokens": "🚀 Comment obtenir des jetons",
+      "tokensValue": "Valeur des jetons 💰",
+      "goals": "🎯 Nos objectifs",
+      "aboutBot": "À propos du bot BIF 🤖",
+      "commands": "📃 Commandes principales",
+      "support": "🆘 Support",
+      "lang": "🌍 langue 🌎",
+      "socials": "🌐 Réseaux sociaux 🌐"
+    }
+  },
+
+  "infoSections": {
+    "howToStart": "✨ <b>Comment commencer :</b> ✨\n\n🚀 <b>1. Tapez la commande /start ou cliquez sur le bouton ci-dessous</b>\n   - Cela lancera le processus d'inscription.\n\n🎉 <b>2. L'inscription se fera automatiquement</b>\n   - Vous n'avez pas besoin de saisir des informations supplémentaires.\n\n🎁 <b>3. Recevez un bonus de 50 jetons</b>\n   - Votre bonus de bienvenue vous attend déjà !\n\n📱 <b>4. Suivez le lien :</b>\n   - <a href=\"https://t.me/BIFSCryptoBot/bifs\">Lancer la mini-application</a>\n\n😍 <b>5. Effectuez des activités :</b>\n   - Jouez, invitez des amis, ouvrez des caisses et des collections, faites de la publicité pour nous, cherchez des easter eggs !",
+    "tokensInfo": "✨ <b>Comment obtenir des jetons :</b> ✨\n\n📌 <b>Vous pouvez obtenir des jetons de plusieurs manières :</b>\n\n1. 🎮 <b>En jouant à des jeux</b> — gagnez des jetons en passant des niveaux et en accomplissant des missions.\n\n2. 📝 <b>En accomplissant des tâches</b> — effectuez des tâches quotidiennes et spéciales pour recevoir des récompenses.\n\n3. 🤝 <b>En invitant des amis</b> — recevez des bonus pour chaque ami invité.\n\n4. 📢 <b>En faisant de la publicité</b> — partagez des informations sur le projet et recevez des jetons pour votre activité.\n\n💡 <b>Chaque action vous rapporte des jetons BIFS !</b>",
+    "tokensValue": "✨ <b>Valeur des jetons BIFS :</b> ✨\n\n💎 <b>Les jetons BIFS sont votre monnaie dans le monde de BIFS !</b>\n\n📌 <b>Ce que vous pouvez faire avec les jetons :</b>\n\n1. 🛠 <b>Achetez des améliorations</b>\n   - Améliorez vos capacités dans les jeux et applications.\n\n2. 🚀 <b>Accédez à des fonctionnalités exclusives</b>\n   - Débloquez des fonctions et contenus uniques.\n\n3. 💼 <b>Investissez dans le futur</b>\n   - À l'avenir, les jetons BIFS pourront être échangés contre des actifs réels.\n\n4. 🎁 <b>Recevez des bonus</b>\n   - Utilisez des jetons pour participer à des promotions et recevoir des cadeaux.\n\n💡 <b>Les jetons BIFS ne sont pas juste une monnaie, c'est une clé vers de nouvelles possibilités !</b>",
+    "earnInfo": "✨ <b>À propos des gains avec la publicité :</b> ✨\n\n📌 <b>Nous apprécions votre soutien et sommes prêts à vous récompenser pour la promotion de notre projet !</b>\n\n🎯 <b>Voici comment ça marche :</b>\n\n1. 🎮 <b>Créez du contenu</b>\n   - Écrivez des posts, filmez des vidéos (TikTok, Shorts), créez des memes ou même distribuez des flyers.\n   - Tout ce qui attire l'attention sur notre projet vous rapporte des jetons !\n\n2. 📝 <b>Obtenez des vues</b>\n   - Plus les gens voient votre contenu, plus vous gagnez de jetons.\n\n3. 🤝 <b>Envoyez un rapport</b>\n   - Allez dans notre bot, section \"Gagner\" et cliquez sur le bouton \"Joindre un rapport\".\n   - Choisissez l'option <b>Joindre un rapport</b>.\n\n4. 📢 <b>Joignez :</b>\n   - Un lien vers votre contenu.\n   - Une capture d'écran du nombre de vues.\n   - Des informations pour vous contacter.\n\n   <b>OBLIGATOIRE</b> commencez le texte du rapport par le mot :  <b>bif-rapport :</b>\n\n💡 <b>Nous vérifierons votre activité et créditerons des jetons. Plus votre contenu est créatif, plus vous gagnez !</b>",
+    "inviteInfo":"🤝 <b>Invitation d'amis :</b>\n\n🎉 <b>Invitez des amis et recevez des bonus !</b>\n   - Pour chaque ami invité, vous recevrez des jetons supplémentaires.\n   - Vos amis recevront également des bonus pour leur inscription.\n\n💡 <b>Comment ça marche :</b>\n   1. Partagez votre lien de parrainage avec des amis.\n   2. Après l'inscription de votre ami, vous recevrez des jetons sur votre solde.\n   3. Plus vous invitez d'amis, plus vous gagnez de jetons !\n\n🚀 <b>Commencez à inviter des amis dès maintenant !</b>",
+    "tasksInfo": "🤝 <b>Effectuez :</b>\n\n🎉 <b>Ici, vous pouvez voir vos tâches, vous pouvez les accomplir dans l'application !</b>\n\n😊 <b>Comment ça marche :</b>\n   1. Vous accomplissez une tâche.\n   2. Le bot ou le manager la vérifie.\n   3. Vous recevez des jetons !",
+    "goals": "✨ <b>Nos objectifs :</b> ✨\n\n🎯 <b>Nous aspirons à devenir l'un des principaux projets dans le monde des cryptomonnaies !</b>\n\n📌 <b>Nos objectifs clés :</b>\n\n1. 🌐 <b>Listing sur les grandes plateformes</b>\n   - Nous prévoyons d'être listés sur des plateformes comme BLUM, STON.fi DEX, BYBIT et Binance.\n\n2. 🚀 <b>Développement de l'écosystème</b>\n   - Nous travaillons activement à l'ajout de nouveaux jeux, tâches et fonctionnalités.\n\n3. 🤝 <b>Création d'une communauté globale</b>\n   - Nous voulons unir des gens du monde entier autour de notre projet.\n\n4. 💡 <b>Confort et accessibilité</b>\n   - Nous rendons les cryptomonnaies simples et compréhensibles pour tous.\n\n💡 <b>Nous avançons avec confiance vers ces objectifs et vous invitons à faire partie de notre succès !</b>",
+    "aboutBot": "✨ <b>À propos du bot BIF :</b> ✨\n\n🤖 <b>Notre bot Telegram est votre assistant dans le monde de BIFS !</b>\n\n📌 <b>Fonctionnalités principales du bot :</b>\n\n1. 🪙 <b>Gagner des jetons</b>\n   - Accomplissez des tâches, jouez à des jeux et recevez des jetons.\n\n2. 🤝 <b>Invitation d'amis</b>\n   - Invitez des amis et recevez des bonus pour chaque invité.\n\n3. 🛠 <b>Gestion du compte</b>\n   - Vérifiez votre solde, l'historique des transactions et le statut du minage automatique.\n\n4. 📢 <b>Publicité et promotion</b>\n   - Recevez des jetons pour la promotion du projet.\n\n5. 🎮 <b>Jeux et tâches</b>\n   - Participez à des jeux et accomplissez des tâches pour recevoir des récompenses.\n\n💡 <b>Avec le bot BIF, vous êtes toujours informé et pouvez facilement gérer vos actifs !</b>",
+    "commands": "📜 <b>Commandes principales :</b>\n\n🚀 <b>/start</b> — Commencer à utiliser le bot.\n🛒 <b>/store</b> — Aller au magasin pour acheter des jetons et services.\n💰 <b>/balance</b> — Vérifier le solde actuel des jetons.\n🌎 <b>/lang</b> — Choisir la langue.\n💸 <b>/earn</b> — Voir la liste des tâches disponibles.\n🤝 <b>/invite</b> — Inviter des amis et recevoir des bonus.\n💎 <b>/mining</b> — Informations sur le minage automatique.\n🆘 <b>/support</b> — Contacter le support technique.\n\n💡 <b>Utilisez ces commandes pour gérer votre compte et gagner des jetons !</b>",
+    "socials": "✨ <b>Réseaux sociaux officiels de BIFS :</b>",
+    "buttons": {
+      "startApp": "🚀 Allons-y !",
+      "attachReport": "🖇️ Joindre un rapport"
+    }
+  },
+
+  "socials": {
+    "buttons": {
+      "telegramChannel": "1️⃣ Chaîne Telegram",
+      "website": "2️⃣ Site web",
+      "youtube": "3️⃣ YouTube",
+      "twitter": "4️⃣ X(Twitter)"
+    }
+  },
+
+  "webApp": {
+    "autominingActivated": "Vous avez activé le minage automatique !",
+    "messageReceived": "Le bot a reçu le message : \"{text}\""
+  },
+
+  "language": {
+    "select": "Veuillez choisir une langue :",
+    "set": "Langue définie !",
+    "buttons": {
+      "russian": "🇷🇺 Russe",
+      "english": "🇬🇧 Anglais",
+      "german": "🇩🇪 Allemand",
+      "french": "🇫🇷 Français",
+      "chinese": "🇨🇳 Chinois",
+      "ukrainian": "🇺🇦 Ukrainien",
+      "portuguese": "🇵🇹 Portugais",
+      "spanish": "🇪🇸 Espagnol"
+    }
+  }
+}

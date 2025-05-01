@@ -58,49 +58,48 @@ export const Header: FunctionComponent<HeaderProps> = ({
 		{ value: 'fr', label: 'FR', icon: '🗼' },
 		{ value: 'de', label: 'DE', icon: '🍪' },
 		{ value: 'pt', label: 'PT', icon: '🍷' },
+    { value: 'es', label: 'ES', icon: '🦜' },
 	]
 
 	
 
 	const handleLanguageChange = async (newLanguage: string) => {
-		if (newLanguage === user.lang) return
+    if (newLanguage === user.lang) return;
+  
+    try {
 
-		try {
-			changeLangOnServer(newLanguage)
-			dispatch(changeStoreLang(newLanguage))
-
-			await i18n.changeLanguage(newLanguage)
-
-			await router.push(router.pathname, router.asPath, {
-				locale: newLanguage,
-				scroll: false,
-			})
-		} catch (error) {
-			console.error('Language change failed:', error)
-		}
-	}
+      await changeLangOnServer(newLanguage);
+  
+      dispatch(changeStoreLang(newLanguage));
+     
+      await i18n.changeLanguage(newLanguage);
+    
+      await router.push(router.pathname, router.asPath, { locale: newLanguage, scroll: false });
+    } catch (error) {
+      console.error('Ошибка при смене языка:', error);
+    }
+  };
+  
 
   useEffect(() => {
-    // Синхронизируем язык из URL с Redux при загрузке
+
     if (router.locale && router.locale !== user.lang) {
       dispatch(changeStoreLang(router.locale));
     }
   }, [router.locale]);
 
-	useEffect(() => {
-		const initializeLanguage = async () => {
+  useEffect(() => {
+    const initializeLanguage = async () => {
+      const savedLanguage = user.lang || router.locale || 'en';
+        await i18n.changeLanguage(savedLanguage);
+        dispatch(changeStoreLang(savedLanguage));
 
-			const preferredLanguage = user.lang || router.locale || 'en'
-
-      dispatch(changeStoreLang(preferredLanguage))
-			if (preferredLanguage !== user.lang) {
-        changeLangOnServer(preferredLanguage)
-				await i18n.changeLanguage(preferredLanguage)
-			}
-		}
-
-		initializeLanguage()
-	}, [])
+        handleLanguageChange(savedLanguage)
+    };
+  
+    initializeLanguage();
+  }, [user.lang, router.locale, dispatch, i18n]);
+  
 
 	const handleModalClose = () => {
 		setOpenInfoModal(false)

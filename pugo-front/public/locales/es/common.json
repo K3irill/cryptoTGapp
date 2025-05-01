@@ -1,0 +1,823 @@
+{
+	"content": {
+		"messages": [
+			"¡Los tokens BIFS se obtienen en misiones - revisa la sección 'Tareas'!",
+			"El Capitán Pug dice: '¡Aquí los tokens se ganan, no se consiguen haciendo clics!'",
+			"Consejo de la tripulación: completar misiones da BIFS, no los clics",
+			"Dato curioso: ¡nuestros mejores jugadores no hacen clics - completan misiones!",
+			"¿Quieres BIFS? Abre cajas, completa tareas, ¡o vete al espacio de una vez!",
+			"Recuerda: 1 tarea completada = 1000+ BIFS, 1000 clics = 0 BIFS",
+			"En el espacio se valora el ingenio, no la velocidad de clics - ¡prueba las misiones!",
+			"En el planeta BIFS rigen otras leyes - ¡los clics no influyen!",
+			"El prototipo de pug-astronauta descubrió: estrategias inteligentes > clics sin sentido",
+			"Aviso importante: el servidor de clics está temporalmente desconectado (es broma, ¡no somos un clicker!)",
+			"Ruleta espacial: haz 1000 clics y... no ganarás nada. ¡Mejor gana jugando!",
+			"El bot-analista reporta: 92% de los BIFS se obtienen en actividades de juego",
+			"Gráfico de dependencia: más misiones = más BIFS, más clics = dedo cansado",
+			"Hecho: nuestros jugadores dedican 0% a clics y 100% a misiones",
+			"Evidencia científica: los clics no afectan el valor de BIFS, ¡pero la actividad sí!",
+			"¿Quieres entrar al Salón de la Fama? ¡Allí no hay categoría 'Mejores clickers'!"
+		],
+		"welcomeSlider": {
+			"slides": [
+				{
+					"title": "¡Bienvenido a la galaxia BIFS!",
+					"text": "¡Embárcate en un viaje interestelar con BIFSCOIN - donde los memes se encuentran con la tecnología blockchain en una aventura espacial!",
+					"button": "Siguiente →"
+				},
+				{
+					"title": "Obtén tokens fácilmente",
+					"text": "Gana tokens BIFS mediante juegos, misiones y referidos. ¡Cuanto más explores, más ganarás!",
+					"button": "Siguiente →"
+				},
+				{
+					"title": "Gasta en todo el universo",
+					"text": "Usa tus tokens para mejoras, potenciadores y funciones espaciales exclusivas. ¡Próximamente en exchanges!",
+					"button": "Siguiente →"
+				},
+				{
+					"title": "Expande tu tripulación espacial",
+					"text": "Invita amigos y gana juntos. ¡Misiones cooperativas significan recompensas compartidas en nuestra galaxia!",
+					"button": "Siguiente →"
+				},
+				{
+					"title": "El futuro ya está aquí",
+					"text": "Constantemente expandimos el universo BIFS. ¡Mantente atento a nuevas funciones emocionantes!",
+					"button": "Comenzar 🚀"
+				}
+			],
+			"navigation": {
+				"back": "Atrás ←",
+				"next": "Siguiente →",
+				"start": "Comenzar 🚀",
+				"dots": "Slide {current} de {total}"
+			},
+			"tokenBadge": "TOKEN BIFS"
+		},
+
+		"notifications": {
+			"botPayment": {
+				"message": "El bot te envió un mensaje de pago, ábrelo",
+				"botLinkText": "chat con el bot",
+				"emoji": "😊"
+			},
+			"errors": {
+				"default": "Ocurrió un error, por favor inténtalo de nuevo."
+			}
+		},
+		"header": {
+			"infoModal": {
+				"title": "🚀 Guía del ecosistema BIFS",
+				"sections": {
+					"tokens": {
+						"title": "Cómo ganar tokens",
+						"description": "Recarga tu balance de BIFS de varias formas:",
+						"methods": [
+							{
+								"title": "Minería diaria",
+								"desc": "Ingreso pasivo con auto-minería"
+							},
+							{
+								"title": "Referidos",
+								"desc": "Gana con amigos invitados"
+							},
+							{
+								"title": "Creación de contenido",
+								"desc": "Recompensas por promover BIFS"
+							},
+							{
+								"title": "Misiones en la app",
+								"desc": "Completa misiones por tokens"
+							},
+							{
+								"title": "Abre cajas",
+								"desc": "¡Puedes ganar BIFS abriendo cajas!"
+							}
+						]
+					},
+					"value": {
+						"title": "Valor de los tokens",
+						"description": "Los tokens BIFS dan acceso a funciones exclusivas del ecosistema:",
+						"benefits": [
+							"Funciones premium: Capacidades avanzadas de la app",
+							"Gobernanza: Participa en decisiones del proyecto",
+							"Trading: Próximo listing en plataformas",
+							"Acceso a NFT: Obtén objetos digitales coleccionables"
+						]
+					},
+					"privileges": {
+						"title": "Niveles de estatus",
+						"description": "Sube de nivel para maximizar ganancias en todas las actividades",
+						"statuses": {
+							"upgradeButton": {
+								"available": "Mejorar a {status}",
+								"notEnough": "Tokens insuficientes",
+								"achieved": "Obtenido"
+							},
+							"status_card": {
+								"mining": "Minería",
+								"day": "Día",
+								"ref": "Referidos",
+								"invite": "Invitación"
+							}
+						}
+					},
+					"invite": {
+						"title": "Programa de referidos",
+						"description": "Invita amigos y gana juntos:",
+						"steps": ["Completen registro"],
+						"commandHint": "Usa este comando en el bot:"
+					},
+					"ads": {
+						"title": "Programa para creadores",
+						"description": "Gana tokens promoviendo BIFS mediante:",
+            "reward": "Recompensa",
+						"methods": [
+							{
+								"title": "Redes sociales",
+								"desc": "Posts en Twitter, Telegram, etc.",
+								"reward": "10,000-100,000 tokens"
+							},
+							{
+								"title": "Videos",
+								"desc": "Reviews en YouTube/TikTok",
+								"reward": "50,000-1,000,000 tokens"
+							},
+							{
+								"title": "Artículos",
+								"desc": "Blog posts y guías",
+								"reward": "5,000-250,000 tokens"
+							},
+							{
+								"title": "Comunidad",
+								"desc": "Moderación activa de grupos",
+								"reward": "Bonificación mensual"
+							}
+						],
+						"commandHint": "Envía contenido mediante el comando:"
+					},
+					"goals": {
+						"title": "Visión del proyecto",
+						"description": "Nuestro roadmap incluye etapas ambiciosas:",
+						"quarters": [
+							{
+								"title": "Q2 2025",
+								"items": [
+									"Sitio web",
+									"Bot de Telegram BIFS",
+									"Lanzamiento de app móvil con minijuego \"Space Pug\"",
+									"Sistema básico de referidos"
+								]
+							},
+							{
+								"title": "Q3 2025",
+								"items": [
+									"Listing en BLUM",
+									"Primeros airdrops",
+									"Staking de tokens",
+									"Primer listing en exchange centralizado",
+									"Torneo de traders con premios en BIFS"
+								]
+							},
+							{
+								"title": "Q4 2025",
+								"items": [
+									"Colección NFT \"Pugs Espaciales\"",
+									"Funciones DeFi avanzadas",
+									"Sistema de torneos con NFT exclusivos",
+									"Listings en exchanges mayores",
+									"Evento sorpresa \"Misterio del agujero negro\""
+								]
+							}
+						]
+					},
+					"bot": {
+						"title": "Funciones del bot BIF",
+						"description": "Tu asistente personal para actividades BIFS:",
+						"commands": [
+							{
+								"command": "/balance",
+								"desc": "Ver balance e historial",
+								"color": "#09ebd4"
+							},
+							{
+								"command": "/mining",
+								"desc": "Gestionar auto-minería",
+								"color": "#09ebd4"
+							},
+							{
+								"command": "/invite",
+								"desc": "Crear enlaces de referido",
+								"color": "#eb09be"
+							},
+							{
+								"command": "/earn",
+								"desc": "Enviar contenido para recompensas",
+								"color": "#eb09be"
+							},
+							{
+								"command": "/store",
+								"desc": "Comprar tokens y estatus",
+								"color": "#ebe709"
+							},
+							{
+								"command": "/support",
+								"desc": "Ayuda de nuestro equipo",
+								"color": "#ebe709"
+							}
+						]
+					},
+					"socials": {
+						"title": "Nuestras comunidades",
+						"links": [
+							{
+								"name": "📢 Canal de Telegram",
+								"url": "https://t.me/BIFScryptoSpace"
+							},
+							{
+								"name": "🕸️ Sitio web",
+								"url": "https://bifscoin.ru"
+							}
+						]
+					}
+				},
+				"importantNotice": {
+					"title": "Información importante",
+					"description": "Nuestra app está en desarrollo activo. Algunas funciones pueden no estar disponibles mientras trabajamos en:",
+					"points": [
+						"Mejorar la experiencia de usuario",
+						"Añadir nuevas formas de ganar",
+						"Incrementar la seguridad"
+					],
+					"closing": "¡Gracias por tu paciencia y apoyo mientras construimos juntos el futuro de BIFS!"
+				},
+				"tableOfContents": {
+					"title": "Contenido",
+					"items": [
+						{
+							"id": "tokens",
+							"text": "Cómo ganar tokens"
+						},
+						{
+							"id": "value",
+							"text": "Valor de los tokens"
+						},
+						{
+							"id": "privileges",
+							"text": "Estatus y privilegios"
+						},
+						{
+							"id": "invite",
+							"text": "Programa de referidos"
+						},
+						{
+							"id": "ads",
+							"text": "Recompensas por publicidad"
+						},
+						{
+							"id": "goals",
+							"text": "Nuestras metas"
+						},
+						{
+							"id": "bot",
+							"text": "Sobre el bot BIF"
+						}
+					]
+				},
+				"footerText": "Ecosistema BIFS v1.1 · © 2025 Todos los derechos reservados"
+			}
+		},
+		"footer": {
+			"navigation": {
+				"nav_elements": [
+					{
+						"id": "1",
+						"title": "Inicio",
+						"src": "/icons/home.svg",
+						"href": "/",
+						"availability": true
+					},
+					{
+						"id": "2",
+						"title": "Retiro",
+						"src": "/icons/bank.svg",
+						"href": "/bank",
+						"availability": false
+					},
+					{
+						"id": "4",
+						"title": null,
+						"isButton": true,
+						"src": "/icons/open.png",
+						"href": "#",
+						"availability": true
+					},
+					{
+						"id": "5",
+						"title": "Tienda",
+						"src": "/icons/store.svg",
+						"href": "/store",
+						"availability": true
+					},
+					{
+						"id": "6",
+						"title": "Intercambio",
+						"src": "/icons/exchange.svg",
+						"href": "/exchange",
+						"availability": true
+					}
+				],
+				"top_nav": [
+					{
+						"id": "1",
+						"title": "Amigos",
+						"src": "/icons/frens.svg",
+						"href": "/frens",
+						"availability": true
+					},
+					{
+						"id": "2",
+						"title": "Tareas",
+						"src": "/icons/task.svg",
+						"href": "/tasks",
+						"availability": true
+					},
+					{
+						"id": "4",
+						"title": "Ganar",
+						"src": "/icons/Bounty.svg",
+						"href": "/earn",
+						"availability": true
+					},
+					{
+						"id": "3",
+						"title": "Ranking",
+						"src": "/icons/rating.svg",
+						"href": "/rating",
+						"availability": false
+					},
+					{
+						"id": "4",
+						"title": "Mapa",
+						"src": "/icons/map-en.svg",
+						"href": "/map",
+						"availability": true
+					}
+				]
+			}
+		},
+		"pages": {
+			"home": {
+				"top_section": null,
+				"site_link": "https://www.static-pugo.com",
+				"banner": {
+					"title": "El listing será pronto, confía en nosotros <3"
+				},
+				"mining": {
+					"text": "Auto-Minería",
+					"notification": "¿Funciona? ¡No lo toques!"
+				},
+				"basicModal": {
+					"btnText": "Comprar",
+					"title": "Auto-minería no disponible",
+					"text": "Para usar auto-minería, debes comprar esta función."
+				},
+				"gameSlider": {
+					"button": "Jugar",
+					"games": [
+						{
+							"id": "miner",
+							"title": "Crystal Miner",
+							"description": "Excava cristales y gana BIFS",
+							"image": "/games/miner-preview.jpg"
+						},
+						{
+							"id": "spacepug",
+							"title": "Space Pug",
+							"description": "Aventuras espaciales de un pug astronauta",
+							"image": "/games/spacepug-preview.jpg"
+						}
+					]
+				}
+			},
+			"bank": {
+				"top_section": {
+					"title": "Retiro",
+					"titleWithBorder": false
+				}
+			},
+
+			"exchange": {
+				"top_section": {
+					"title": "Intercambio",
+					"titleWithBorder": false
+				},
+				"content": {
+					"balance": {
+						"title": "Tu balance",
+						"dollarEquivalent": "≈ $?.??"
+					},
+					"mining": {
+						"title": "Auto-minería",
+						"active": "Minería activa:",
+						"inactive": "Minería inactiva",
+						"activateButton": "Activar minería",
+						"dailyReward": "BIFS diarios"
+					},
+					"stars": {
+						"title": "Comprar BIFS",
+						"subtitle": "con Telegram Stars",
+						"buyButton": "Comprar",
+						"starsLabel": "Stars",
+						"tokensLabel": "BIFS"
+					},
+					"timeUnits": {
+						"days": ["día", "días", "días"],
+						"hours": ["hora", "horas", "horas"],
+						"minutes": ["minuto", "minutos", "minutos"]
+					}
+				}
+			},
+
+			"frens": {
+				"top_section": {
+					"title": "Amigos",
+					"titleWithBorder": false
+				},
+				"heading": {
+					"title": "Invita amigos",
+					"subtitle": "Gana tokens por cada amigo invitado"
+				},
+				"bonuses": {
+					"bonus_1": {
+						"title": "Bono por invitación",
+						"text": "Tú recibes ",
+						"text_part": " , y tu amigo recibe "
+					},
+					"bonus_2": {
+						"title": "Sube de nivel",
+						"text": "Aumenta recompensas por referidos subiendo tu estatus"
+					}
+				},
+				"note": {
+					"success": "¡Enlace de referido copiado!",
+					"error": "Error, ¡por favor actualiza la página!"
+				},
+				"refBtn": {
+					"loading_text": "Cargando enlace...",
+					"text": "COPIAR ENLACE DE REFERIDO"
+				},
+				"refs_block": {
+					"title": "Tus referidos",
+					"empty": "Aún no tienes referidos. ¡Invita amigos y gana bonos!"
+				}
+			},
+			"tasks": {
+				"top_section": {
+					"title": "Tareas",
+					"titleWithBorder": false
+				},
+				"header": {
+					"subtitle": "Completa tareas y gana BIFS"
+				},
+				"instruction": {
+					"title": "¿Cómo funciona?",
+					"steps": [
+						{
+							"text": "Paso 1",
+							"image": "/instruction-card-1.svg"
+						},
+						{
+							"text": "Paso 2",
+							"image": "/coin-c.png"
+						},
+						{
+							"text": "Paso 3",
+							"image": "/icons/dollar.png"
+						}
+					]
+				},
+				"sections": {
+					"available": {
+						"title": "Tareas disponibles",
+						"empty": {
+							"text": "No hay tareas disponibles",
+							"image": "/icons/empty-box.svg"
+						}
+					},
+					"completed": {
+						"title": "Tareas completadas",
+						"empty": {
+							"text": "Aún no completas ninguna tarea",
+							"image": "/icons/empty-box.svg"
+						}
+					}
+				},
+				"taskItem": {
+					"button": {
+						"checking": "Verificando...",
+						"pending": "Verificación",
+						"completed": "Completado",
+						"go": "Ir",
+						"complete": "Completar"
+					},
+					"progress": "{{progress}} / {{target}} ({{percent}}%)"
+				}
+			},
+			"rating": {
+				"top_section": {
+					"title": "Ranking",
+					"titleWithBorder": false
+				}
+			},
+			"map": {
+				"top_section": {
+					"title": "Mapa",
+					"titleWithBorder": false
+				},
+				"mapSrc": "/map.png"
+			},
+			"earn": {
+				"top_section": {
+					"title": "Ganancias",
+					"titleWithBorder": false
+				},
+				"content": {
+					"header": {
+						"mainTitle": "Juegos y entretenimiento",
+						"subTitle": "Gana tokens jugando juegos divertidos"
+					},
+					"games": [
+						{
+							"id": "miner",
+							"title": "Crystal Miner",
+							"description": "Excava cristales en un minijuego emocionante"
+						},
+						{
+							"id": "spacepug",
+							"title": "Space Pug",
+							"description": "Ayuda al pug a recolectar tokens BIFS en el espacio"
+						},
+						{
+							"id": "quiz",
+							"title": "Crypto Quiz",
+							"description": "Pon a prueba tus conocimientos sobre cripto",
+							"comingSoon": "PRÓXIMAMENTE"
+						}
+					]
+				}
+			},
+
+			"store": {
+				"top_section": {
+					"title": "Tienda",
+					"titleWithBorder": false
+				},
+				"content": {
+					"lost_case_title": "PERDIDO EN EL ESPACIO",
+					"cases_title": "Cajas",
+					"special_sets_title": "Sets Especiales",
+					"modals": {
+						"openBtn": "ABRIR POR",
+						"contentBtn": "CONTENIDO DE LA CAJA",
+						"notEnough": "NO ALCANZA",
+						"opening": "ABRIENDO...",
+						"close": "CERRAR",
+						"congrats": "¡Felicidades!",
+						"youWon": "Ganaste:",
+						"alreadyHaveStatus": "Ya tienes estatus GOD",
+						"buy_modal": {
+							"title": "No tienes suficientes BIFS",
+							"text": "Puedes ganar monedas jugando, invitando amigos, promocionándonos o comprar con Stars",
+							"btnText": "Comprar"
+						}
+					},
+					"caseResults": {
+						"coins": "BIFS Coins",
+						"days": "Días de Auto-Minería",
+						"privileges": "Privilegio"
+					},
+					"caseTitles": {
+						"coins": "BIFSCOINS",
+						"days": "Auto-Minería",
+						"privileges": "PRIVILEGIOS",
+						"ships": "NAVES ESPACIALES"
+					}
+				}
+			}
+		},
+		"games": {
+			"spacePug": {
+				"ui": {
+					"record": "Récord",
+					"score": "BIFS",
+					"lives": "HP",
+					"time": "Tiempo",
+					"sizeReduction": "Reducción",
+					"sizeIncrease": "Aumento",
+					"speedBoost": "Velocidad",
+					"seconds": "seg"
+				},
+				"buttons": {
+					"playAgain": "Jugar de nuevo",
+					"gameInfo": "Sobre el juego",
+					"exit": "Salir",
+					"stop": "PARAR"
+				},
+				"modals": {
+					"gameOver": {
+						"title": "Juego terminado",
+						"text": "Parece que te quedaste sin vidas",
+						"button": "OK"
+					},
+					"confirmExit": {
+						"title": "¿Seguro que quieres terminar el juego?",
+						"text": "¡Todas las monedas recolectadas se perderán!",
+						"button": "SÍ"
+					}
+				},
+				"spacePugGuide": {
+					"title": "👩‍🚀 Space Pug: Guía del juego",
+					"sections": {
+						"goal": {
+							"title": "🎯 Objetivo del juego",
+							"content": "Controla la nave espacial del pug, recolecta cristales BIFS y evita peligros. ¡Cuanto más dures, más tokens ganarás!"
+						},
+						"controls": {
+							"title": "🎮 Controles",
+							"items": {
+								"up": "Arriba",
+								"down": "Abajo",
+								"left": "Izquierda",
+								"right": "Derecha"
+							}
+						},
+						"items": {
+							"title": "💎 Objetos y bonos",
+							"list": [
+								{
+									"name": "Monedas BIFS",
+									"desc": "Moneda principal del juego"
+								},
+								{
+									"name": "Bolsas de monedas",
+									"desc": "Raras y valiosas"
+								},
+								{
+									"name": "Botiquines",
+									"desc": "Recuperan HP"
+								},
+								{
+									"name": "Potenciador de velocidad",
+									"desc": "Velocidad temporal"
+								},
+								{
+									"name": "Aumentador",
+									"desc": "Aumenta tamaño de nave"
+								},
+								{
+									"name": "Reductor",
+									"desc": "Reduce tamaño de nave"
+								}
+							]
+						},
+						"dangers": {
+							"title": "⚠️ Peligros",
+							"list": [
+								{
+									"name": "Asteroides",
+									"desc": "Reducen HP"
+								},
+								{
+									"name": "Cometas de fuego",
+									"desc": "Reducen 99% HP"
+								},
+								{
+									"name": "Agujeros negros",
+									"desc": "Reducen puntaje a la mitad"
+								},
+								{
+									"name": "Bombas",
+									"desc": "Game Over instantáneo"
+								}
+							]
+						},
+						"tips": {
+							"title": "🧠 Consejos y estrategias",
+							"list": [
+								"Recoge botiquines - te ayudarán a durar más",
+								"Usa velocidad - pero recuerda que aumenta la dificultad",
+								"Evita agujeros negros - pueden arruinar tu progreso",
+								"Controla tamaño de nave - pequeña es más ágil, grande más fácil de golpear"
+							]
+						},
+						"scoring": {
+							"title": "📊 Sistema de puntaje",
+							"content": "Tu puntaje final depende de varios factores:",
+							"factors": [
+								"Cristales recolectados: Fuente principal de puntos",
+								"Tiempo sobrevivido: +1 punto por segundo"
+							]
+						},
+						"footer": "Space Pug v1.2 · © 2025 Ecosistema BIFS"
+					}
+				}
+			},
+			"bifsMiner": {
+				"ui": {
+					"score": "BIFS",
+					"time": "Tiempo",
+					"level": "Nivel",
+					"missed": "Perdidos",
+					"combo": "Combo",
+					"comboMode": "🔥 ¡Modo combo!",
+					"loading": "Cargando recursos...",
+					"seconds": "seg"
+				},
+				"buttons": {
+					"stop": "PARAR",
+					"playAgain": "Jugar de nuevo",
+					"gameInfo": "Información del juego",
+					"exit": "Salir",
+					"yes": "SÍ",
+					"ok": "OK"
+				},
+				"modals": {
+					"confirmExit": {
+						"title": "¿Seguro que quieres salir?",
+						"text": "¡Todas las monedas recolectadas se perderán!"
+					},
+					"gameOver": {
+						"title": "Juego terminado",
+						"text": "Recolectaste {score} BIFS en {time} segundos (Nivel {level})"
+					}
+				},
+
+				"feedback": {
+					"good": "+",
+					"bad": "¡Ups!"
+				},
+				"crystalMinerGuide": {
+					"title": "🚀 CRYSTAL Miner: Cómo jugar",
+					"sections": {
+						"goal": {
+							"title": "🎯 Objetivo del juego",
+							"content": "Haz clic en objetos que caen para recolectar cristales BIFS y bonos. Evita trampas y junta tantos puntos como puedas."
+						},
+						"objects": {
+							"title": "💎 Objetos",
+							"items": [
+								{
+									"name": "Cristal BIFS",
+									"desc": "Da +3 puntos. ¡El objetivo principal!"
+								},
+								{
+									"name": "Cristal grande",
+									"desc": "Da más puntos."
+								},
+								{
+									"name": "Cristal rojo-blanco",
+									"desc": "-100 puntos! Mejor evitarlo."
+								},
+								{
+									"name": "Agujero negro",
+									"desc": "Reduce tu puntaje a la mitad."
+								},
+								{
+									"name": "Cazador",
+									"desc": "Aumenta límite de errores en 10."
+								},
+								{
+									"name": "Cristal envenenado rojo",
+									"desc": "¡Termina el juego al instante!"
+								}
+							]
+						},
+						"mechanics": {
+							"title": "⚙️ Mecánicas",
+							"items": [
+								"Combo: 5 clicks seguidos activan +50% puntos por 7 seg.",
+								"Dificultad aumenta con tiempo y nivel.",
+								"Si alcanzas el límite de cristales perdidos - juego termina."
+							]
+						},
+						"scoring": {
+							"title": "📊 Sistema de puntaje",
+							"content": "Cada objeto suma o resta puntos. ¡Usa combos para aumentar eficiencia!"
+						},
+						"tips": {
+							"title": "💡 Consejos",
+							"items": [
+								"Intenta hacer clicks precisos - cada objeto tiene hitbox.",
+								"Aprovecha al máximo el modo combo.",
+								"Cazador es útil - no lo ignores.",
+								"Si ves cristal rojo o rojo-blanco - mejor no arriesgar."
+							]
+						}
+					},
+					"footer": "Crystal Miner v1.1 · © 2025 Ecosistema BIFS"
+				}
+			}
+		}
+	}
+}
