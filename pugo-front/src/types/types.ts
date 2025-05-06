@@ -45,6 +45,7 @@ export interface ContentData {
 	footer: FooterContent
 	pages: PagesTypes
 	welcomeSlider: WelcomeSlider
+  messages: string[]
 }
 
 export type GamesSliderType = {

@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
+
 import React, { useState, useRef, useEffect } from 'react'
 import { CoinFrame, CoinStyled, ImgFrame } from './styled'
 import { Toaster, toast } from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
+import Image from 'next/image'
+import { ContentData } from '@/types/types'
+
 export const Coin = () => {
 	const [rotation, setRotation] = useState({ x: 0, y: 0 })
 	const [scale, setScale] = useState(1)
@@ -13,11 +15,11 @@ export const Coin = () => {
 	const { t, ready } = useTranslation('common')
 	const content = t('content', { returnObjects: true }) as ContentData
 
-	const handleMove = e => {
+	const handleMove = (e:MouseEvent | TouchEvent) => {
 		const isTouch = 'touches' in e
 		const clientX = isTouch ? e.touches[0].clientX : e.clientX
 		const clientY = isTouch ? e.touches[0].clientY : e.clientY
-		const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    const { left, top, width, height } = (e.currentTarget as HTMLElement).getBoundingClientRect();
 
 		const x = ((clientX - left) / width - 0.5) * 30
 		const y = ((clientY - top) / height - 0.5) * -30
@@ -53,11 +55,11 @@ export const Coin = () => {
 		setIsInteracting(false)
 	}
 
-	const handleMouseDown = e => {
+	const handleMouseDown = (e:MouseEvent | TouchEvent)  => {
 		const isTouch = 'touches' in e
 		const clientX = isTouch ? e.touches[0].clientX : e.clientX
 		const clientY = isTouch ? e.touches[0].clientY : e.clientY
-		const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    const { left, top, width, height } = (e.currentTarget as HTMLElement).getBoundingClientRect();
 
 		const x = ((clientX - left) / width - 0.5) * 10
 		const y = ((clientY - top) / height - 0.5) * -10
@@ -135,6 +137,7 @@ export const Coin = () => {
 		})
 	}
 
+
 	return (
 		<CoinFrame>
 			<CoinStyled
@@ -152,7 +155,7 @@ export const Coin = () => {
 				// onClick={handleTap} тапааааааааалкааааа
 				onClick={showMessage}
 			>
-				<img draggable={false} src='./coin-c.png' alt='Coin' />
+				<img src='./coin-c.png' alt='Coin' />
 			</CoinStyled>
 			<Toaster />
 		</CoinFrame>

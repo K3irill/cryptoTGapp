@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 export const CoinStyled = styled.div<{
-	$rotateX: number
-	$rotateY: number
-	$scale: number
-	$isInteracting: boolean
+	$rotateX?: number
+	$rotateY?: number
+	$scale?: number
+	$isInteracting?: boolean
 }>`
 	position: relative;
 	border-radius: 50%;

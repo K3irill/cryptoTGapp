@@ -96,7 +96,7 @@ class SocialMediaBooster {
       const result = await this.createTask(
         'telegram', // или другая соцсеть
         'post_views',
-        'realstats_Russia', // качество
+        'emergency_Medium', // качество
         postLink,
         viewsCount.toString()
       );
@@ -134,7 +134,8 @@ class SocialMediaBooster {
 // Основной цикл задач с уведомлениями
 async runTasks() {
   if (!this.isRunning) return;
-
+  // const services = await this.getServices()
+  // console.log(services.response.telegram.post_views)
   let reportMessage = '<b>🔹 Начало нового цикла накрутки</b>\n';
   
   try {
@@ -230,23 +231,23 @@ async runTasks() {
   }
 }
 
-// Пример использования
+// использование
 (async () => {
   const API_TOKEN = 'd5X9729gT0eVsjB9fR6t216Y6j1T6WmN';
   const CHANNEL_LINK = 'https://t.me/BIFScryptoSpace';
   const POST_LINKS = [
     'https://t.me/BIFScryptoSpace/3',
     'https://t.me/BIFScryptoSpace/4',
-    'https://t.me/BIFScryptoSpace/5',
     'https://t.me/BIFScryptoSpace/6',
     'https://t.me/BIFScryptoSpace/8',
     'https://t.me/BIFScryptoSpace/9',
-    'https://t.me/BIFScryptoSpace/11'
+    'https://t.me/BIFScryptoSpace/11',
+    'https://t.me/BIFScryptoSpace/14'
   ];
 
   // Настройки Telegram бота
-  const TELEGRAM_BOT_TOKEN = '7704706584:AAHZ7lX43e2ugEInh7ZsEPfb9xIP66r7pbE'; // Замените на реальный токен бота
-  const TELEGRAM_CHAT_ID = '1112303359'; // Ваш chat_id
+  const TELEGRAM_BOT_TOKEN = '7704706584:AAHZ7lX43e2ugEInh7ZsEPfb9xIP66r7pbE'; 
+  const TELEGRAM_CHAT_ID = '1112303359'; 
 
   const booster = new SocialMediaBooster(
     API_TOKEN,

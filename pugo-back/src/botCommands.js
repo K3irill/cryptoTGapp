@@ -985,7 +985,8 @@ bot.onText(/\/lang/, async msg => {
         textPin: 'goals',
       },
       'bot_info': {
-        image: 'https://i.postimg.cc/J0Zw0bNq/0167d904-9aa7-4d73-aee9-6e7511a1a2c9-1.png',
+        image: 'https://i.postimg.cc/d3NS9vy4/0167d904-9aa7-4d73-aee9-6e7511a1a2c9-1.png',
+   
         textPin: 'aboutBot',
       },
       'commands': {      textPin: 'commands',},
@@ -1024,23 +1025,24 @@ bot.onText(/\/lang/, async msg => {
             inline_keyboard: Array.isArray(section.buttons[0]) ? 
               section.buttons : 
               [section.buttons]
-          } : undefined
+          } : {}
         };
-        
+
         bot.sendPhoto(chatId, section.image, {
           caption: text,
           ...options
         });
       } else {
         const options = {
+          
           parse_mode: 'HTML',
           reply_markup: section.buttons ? {
             inline_keyboard: Array.isArray(section.buttons[0]) ? 
               section.buttons : 
               [section.buttons]
-          } : undefined
+          } : {}
         };
-        
+
         bot.sendMessage(chatId, text, options);
       }
       return;

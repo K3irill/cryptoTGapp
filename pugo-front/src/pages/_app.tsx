@@ -11,6 +11,7 @@ import nextI18NextConfig from '../../next-i18next.config.js';
 import { useRouter } from 'next/router';
 import debounce from 'lodash.debounce';
 import { handleReferral } from '@/utils/handleReferral'
+import useStarBackground from '@/hooks/useStarBackground'
 
 type NextPageWithLayout = {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -27,7 +28,15 @@ function AppContent({ Component, pageProps }: MyAppProps) {
   const { i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(true); 
 
- 
+  useEffect(()=>{
+
+    console.log('render')
+  },[])
+
+  console.log('render-type-2')
+
+  useStarBackground()
+  
   const loadUserData = async () => {
     if (!user.id) return;
 
