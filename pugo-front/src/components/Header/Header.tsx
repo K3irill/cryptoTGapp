@@ -88,17 +88,17 @@ export const Header: FunctionComponent<HeaderProps> = ({
     }
   }, [router.locale]);
 
-  useEffect(() => {
-    const initializeLanguage = async () => {
-      const savedLanguage = user.lang || router.locale || 'en';
-        await i18n.changeLanguage(savedLanguage);
-        dispatch(changeStoreLang(savedLanguage));
+  // useEffect(() => {
+  //   const initializeLanguage = async () => {
+  //     const savedLanguage = user.lang || router.locale || 'en';
+  //       await i18n.changeLanguage(savedLanguage);
+  //       dispatch(changeStoreLang(savedLanguage));
 
-        handleLanguageChange(savedLanguage)
-    };
+  //       handleLanguageChange(savedLanguage)
+  //   };
   
-    initializeLanguage();
-  }, [user.lang, router.locale, dispatch, i18n]);
+  //   initializeLanguage();
+  // }, [user.lang, router.locale, dispatch, i18n]);
   
 
 	const handleModalClose = () => {

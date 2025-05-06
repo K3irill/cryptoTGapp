@@ -219,7 +219,7 @@ export const CaseModal: React.FC<CaseModalProps> = ({
 									: () => setShowBuyModal(true)
 							}
 						>
-							{`${buttonText}  ${casePrice} BIFS`}
+							{`${buttonText}`}
 						</MulticolouredButton>
 					)}
 				</CaseButtonWrapper>

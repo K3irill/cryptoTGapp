@@ -359,7 +359,7 @@
 					{
 						"id": "4",
 						"title": "Mapa",
-						"src": "/icons/map-en.svg",
+						"src": "/icons/map.svg",
 						"href": "/map",
 						"availability": true
 					}
@@ -535,7 +535,7 @@
 					"title": "Mapa",
 					"titleWithBorder": false
 				},
-				"mapSrc": "/map.png"
+				"mapSrc": "/map-en.png"
 			},
 			"earn": {
 				"top_section": {
