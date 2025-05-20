@@ -9,6 +9,7 @@ import Link from 'next/link'
 const FooterTopNavigation: FunctionComponent<FooterTopNavigationProps> = ({
 	elements,
 	extraMenuOpen,
+  
 }) => {
 	const { pathname, locale } = useRouter()
 
@@ -17,7 +18,7 @@ const FooterTopNavigation: FunctionComponent<FooterTopNavigationProps> = ({
 			{elements.map((el, i) => {
 				const isActive = pathname === el.href
 				return (
-					<Link href={el.href} passHref locale={locale} key={el.id}>
+					<Link  href={el.availability ? el.href : ''} passHref locale={locale} key={el.id}>
 						<NavElement
 							// position={(i + 1) % 2 === 0 ? 'top' : 'bottom'}
 							disabled={el.availability}

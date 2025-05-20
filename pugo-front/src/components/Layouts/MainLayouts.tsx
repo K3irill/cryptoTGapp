@@ -9,8 +9,8 @@ import {
 	InclusiveFont,
 	IcebergFont,
 } from '@/assets/fonts/fonts'
-import { Footer } from '../Footer/Footer'
-import { Header } from '../Header/Header'
+import  Footer  from '../Footer/Footer'
+import  Header  from '../Header/Header'
 import { FooterContent, HeaderContent } from '@/types/types'
 import { ShineBottomRightElem, ShineTopLeftElem } from '@/styles/styled'
 

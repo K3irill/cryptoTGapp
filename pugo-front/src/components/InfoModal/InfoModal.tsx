@@ -55,7 +55,7 @@ interface BasicModalProps {
 	onClose: () => void
 }
 
-export const InfoModal: React.FC<BasicModalProps> = ({
+ const InfoModal: React.FC<BasicModalProps> = ({
 	content,
 	isVisible,
 	onClose,
@@ -854,3 +854,5 @@ export const InfoModal: React.FC<BasicModalProps> = ({
 		</Modal>
 	)
 }
+
+export default React.memo(InfoModal)

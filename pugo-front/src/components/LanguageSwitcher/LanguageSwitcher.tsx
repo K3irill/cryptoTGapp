@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import {
 	SelectStyled,
 	SelectButton,
@@ -121,4 +121,4 @@ const CustomSelect = ({ options, value, onChange }: CustomSelectProps) => {
 	)
 }
 
-export default CustomSelect
+export default memo(CustomSelect)

@@ -62,7 +62,9 @@ module.exports = bot => {
     try {
       let user = await getUserByTelegramId(telegramId);
       const lang = user?.lang || 'en';
-
+      // if (!user) {
+      //   user = await createUser(telegramId, username);
+      // }
       if (!user) {
         // Показываем выбор языка для нового пользователя
         const languageOptions = {

@@ -16,7 +16,7 @@ export const NavCircleElement: FunctionComponent<NavCircleElementProps> = ({
 	const { locale } = useRouter()
 
 	return (
-		<Link href={path} passHref locale={locale}>
+		<Link  href={disabled ? path : ''} passHref locale={locale}>
 			<NavElement
 				background={background}
 				width={width}

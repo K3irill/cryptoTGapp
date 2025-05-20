@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { FunctionComponent, memo, useEffect, useState } from 'react'
 import {
 	HeaderStyled,
 	UserAvatarStyled,
@@ -15,7 +15,7 @@ import { changeStoreLang } from '@/store/slices/userSlice'
 import { HeaderProps } from './Header.d'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import { InfoModal } from '../InfoModal/InfoModal'
+import  InfoModal  from '../InfoModal/InfoModal'
 import { statusConfig } from '@/assets/constants/statusConfig'
 import { useTranslation } from 'next-i18next'
 import CustomSelect from '../LanguageSwitcher/LanguageSwitcher'
@@ -23,7 +23,7 @@ import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 import { useChangeLangMutation } from '@/store/services/api/userApi'
 
-export const Header: FunctionComponent<HeaderProps> = ({
+ const Header: FunctionComponent<HeaderProps> = ({
 	content,
 	children,
 }) => {
@@ -88,17 +88,6 @@ export const Header: FunctionComponent<HeaderProps> = ({
     }
   }, [router.locale]);
 
-  // useEffect(() => {
-  //   const initializeLanguage = async () => {
-  //     const savedLanguage = user.lang || router.locale || 'en';
-  //       await i18n.changeLanguage(savedLanguage);
-  //       dispatch(changeStoreLang(savedLanguage));
-
-  //       handleLanguageChange(savedLanguage)
-  //   };
-  
-  //   initializeLanguage();
-  // }, [user.lang, router.locale, dispatch, i18n]);
   
 
 	const handleModalClose = () => {
@@ -155,3 +144,5 @@ export const Header: FunctionComponent<HeaderProps> = ({
 		</HeaderStyled>
 	)
 }
+
+export default memo(Header);

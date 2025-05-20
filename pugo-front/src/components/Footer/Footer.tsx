@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, memo, useState } from 'react'
 import { FooterBottom, FooterStyled, FooterTop } from './styled'
 import { FooterProps } from './Footer.d'
 import Navigation from '../Navigation/Navigation'
@@ -7,7 +7,7 @@ import FooterTopNavigation from '../FooterTopNavigation/FooterTopNavigation'
 import FooterBanner from '../FooterBanner/FooterBanner'
 import { useTranslation } from 'next-i18next'
 
-export const Footer: FunctionComponent<FooterProps> = ({
+const Footer: FunctionComponent<FooterProps> = ({
 	children,
 	content,
 }) => {
@@ -32,3 +32,5 @@ export const Footer: FunctionComponent<FooterProps> = ({
 		</FooterStyled>
 	)
 }
+
+export default memo(Footer)
