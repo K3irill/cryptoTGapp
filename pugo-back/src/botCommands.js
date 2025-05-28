@@ -537,7 +537,7 @@ bot.onText(/\/lang/, async msg => {
         }
       };
 
-      const welcomeImageUrl = 'https://i.postimg.cc/qv7mZsN5/a8e6e245-3e60-4a46-8325-30b14cc50bf7.jpg';
+      const welcomeImageUrl = 'http://postimg.su/image/DEWKbCGh/aef297b6-f152-4e6a-993f-d697911ffa6d.png';
 
       bot.sendPhoto(chatId, welcomeImageUrl, {
         caption: getLocalizedText(lang, 'store.menu'),
@@ -911,7 +911,7 @@ bot.onText(/\/lang/, async msg => {
     // Разделы информации
     const infoSections = {
       'how_to_start': {
-        image: 'https://i.postimg.cc/YqNKwzq2/c912d4a4-4baa-40ce-aae1-53bc15163b8c.jpg',
+        image: 'http://postimg.su/image/5kqzzVao/f928a1bc-f158-4cd7-98bc-85ae87803bf7.jpg',
         textPin: 'howToStart',
         buttons: [
           {
@@ -933,7 +933,7 @@ bot.onText(/\/lang/, async msg => {
         textPin: 'tokensValue',
       },
       'tasks': {
-        image: 'https://i.postimg.cc/MTs0B4DZ/d43d5b0f-9edf-4f7e-a27d-1277068f5ddd.jpg',
+        image: 'http://postimg.su/image/DbseNhMG/c78ee7c2-147a-4400-b8ea-c480d2c4473a.png',
         textPin: 'tasksInfo',
         buttons: [
           {
@@ -951,7 +951,7 @@ bot.onText(/\/lang/, async msg => {
         ]
       },
       'invite_info': {
-        image: 'https://i.postimg.cc/pr2Q5v86/6d794a94-4b25-4d3e-9145-81011089652c.jpg',
+        image: 'http://postimg.su/image/yX2ZxF8Z/24d6dc15-1863-4a06-a92d-a30d1dd01c14.png',
         textPin: 'inviteInfo',
         buttons: [
           {

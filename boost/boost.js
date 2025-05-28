@@ -238,11 +238,13 @@ async runTasks() {
   const POST_LINKS = [
     'https://t.me/BIFScryptoSpace/3',
     'https://t.me/BIFScryptoSpace/4',
+    'https://t.me/BIFScryptoSpace/5',
     'https://t.me/BIFScryptoSpace/6',
     'https://t.me/BIFScryptoSpace/8',
     'https://t.me/BIFScryptoSpace/9',
     'https://t.me/BIFScryptoSpace/11',
-    'https://t.me/BIFScryptoSpace/14'
+    'https://t.me/BIFScryptoSpace/14',
+    'https://t.me/BIFScryptoSpace/16'
   ];
 
   // Настройки Telegram бота
