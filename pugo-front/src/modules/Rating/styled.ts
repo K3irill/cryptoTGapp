@@ -24,22 +24,26 @@ export const Header = styled(motion.div)`
 	margin-bottom: 14px;
 	position: relative;
 `
-export const HeaderBorderImg = styled(motion.img)`
+export const HeaderBorderImg = styled(motion.img)<{ perevertish?: boolean }>`
 	width: 100%;
 	position: absolute;
 	left: 0;
 	top: 0;
+	${p => p.perevertish && `transform: rotate(180deg); 	top: -150%;`}
 `
 
-export const HeaderInfoRow = styled(motion.div)`
-	display: grid;
-	grid-template-columns: 41px 140px 1fr;
+export const HeaderInfoRow = styled(motion.div)<{ flat?: boolean }>`
+	${p =>
+		!p.flat
+			? `display: grid;
+      padding: 10px 18px;
+	grid-template-columns: 16% 30% 1fr;
 	column-gap: 28px;
-	padding: 10px 18px;
 
 	div:last-child {
 		justify-content: end;
-	}
+	}`
+			: `margin-top: 10px;   padding: 0 18px;`}
 `
 
 export const HeaderInfoItemWrap = styled(motion.div)`

@@ -11,8 +11,6 @@ interface MiningActivationResponse {
 	error?: string
 }
 
-
-
 export const userInfoApi = createApi({
 	reducerPath: 'userInfoApi',
 	baseQuery: fetchBaseQuery({
@@ -21,6 +19,10 @@ export const userInfoApi = createApi({
 	endpoints: builder => ({
 		getUserInfo: builder.query({
 			query: telegramId => `user/${telegramId}`,
+		}),
+
+		getUsersList: builder.query({
+			query: () => `user/users-list`,
 		}),
 
 		updateTokens: builder.mutation<
@@ -72,7 +74,7 @@ export const userInfoApi = createApi({
 				body: { telegramId, status },
 			}),
 		}),
-    changeLang: builder.mutation<
+		changeLang: builder.mutation<
 			MiningActivationResponse,
 			{
 				telegramId: number
@@ -90,8 +92,9 @@ export const userInfoApi = createApi({
 
 export const {
 	useGetUserInfoQuery,
+	useGetUsersListQuery,
 	useUpdateTokensMutation,
 	useActivateMiningMutation,
 	useSetUserStatusMutation,
-  useChangeLangMutation
+	useChangeLangMutation,
 } = userInfoApi
