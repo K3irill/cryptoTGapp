@@ -1,0 +1,11 @@
+Model Information:
+* title:	"Pug" Outfit
+* source:	https://sketchfab.com/3d-models/pug-outfit-c592169de95f49eaa0932b7828dd22f6
+* author:	Yung Samzy (https://sketchfab.com/SSLeaker)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on ""Pug" Outfit" (https://sketchfab.com/3d-models/pug-outfit-c592169de95f49eaa0932b7828dd22f6) by Yung Samzy (https://sketchfab.com/SSLeaker) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -32,7 +32,8 @@
 		"react-type-animation": "^3.2.0",
 		"sass": "^1.85.0",
 		"styled-components": "^6.1.15",
-		"swiper": "^11.2.6"
+		"swiper": "^11.2.6",
+		"three": "^0.176.0"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",

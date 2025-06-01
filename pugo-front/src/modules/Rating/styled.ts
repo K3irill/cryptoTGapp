@@ -22,7 +22,34 @@ export const RatingContainer = styled(motion.div)`
 export const Header = styled(motion.div)`
 	text-align: center;
 	margin-bottom: 14px;
+	position: relative;
 `
+export const HeaderBorderImg = styled(motion.img)`
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+`
+
+export const HeaderInfoRow = styled(motion.div)`
+	display: grid;
+	grid-template-columns: 41px 140px 1fr;
+	column-gap: 28px;
+	padding: 10px 18px;
+
+	div:last-child {
+		justify-content: end;
+	}
+`
+
+export const HeaderInfoItemWrap = styled(motion.div)`
+	display: flex;
+`
+export const HeaderInfoItem = styled(motion.p)`
+	width: fit-content;
+`
+
+export const BestPlayerContainer = styled(motion.div)``
 
 export const MainTitle = styled(motion.h1)`
 	font-size: 32px;
@@ -37,122 +64,8 @@ export const SubTitle = styled(motion.p)`
 	color: ${COLORS.ice};
 `
 
-export const BenefitsContainer = styled(motion.div)`
-	background: rgba(30, 30, 46, 0.6);
-	backdrop-filter: blur(10px);
-	border-radius: 20px;
-	padding: 24px;
-	margin-bottom: 24px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-`
-
-export const BenefitItem = styled(motion.div)`
-	display: flex;
-	align-items: center;
-	gap: 16px;
-	padding: 16px;
-	background: rgba(255, 255, 255, 0.05);
-	border-radius: 12px;
-	margin-bottom: 16px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-
-	&:last-child {
-		margin-bottom: 0;
-	}
-`
-
-export const BenefitIcon = styled.div`
-	flex-shrink: 0;
-	width: 48px;
-	height: 48px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: rgba(0, 191, 255, 0.1);
-	border-radius: 12px;
-	border: 1px solid rgba(0, 191, 255, 0.2);
-`
-
-export const BenefitText = styled.div`
-	flex: 1;
-`
-
-export const BenefitTitle = styled.h3`
-	font-size: 16px;
-	font-weight: 600;
-	color: ${COLORS.ice};
-	margin-bottom: 4px;
-`
-
-export const BenefitDescription = styled.p`
-	font-size: 14px;
-	color: ${COLORS.ice};
-
-	span {
-		${blueTextGradient};
-		font-weight: 600;
-	}
-`
-
-export const ReferralButton = styled(motion.button)`
-	width: 100%;
-	padding: 16px;
-	border-radius: 12px;
-	background: linear-gradient(90deg, #00bfff, #0080ff);
-	color: white;
-	font-size: 16px;
-	font-weight: 600;
-	border: none;
-	cursor: pointer;
-	margin-bottom: 24px;
-	transition: all 0.3s ease;
-	position: relative;
-
-	&:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 16px rgba(0, 191, 255, 0.3);
-	}
-
-	&:active {
-		transform: translateY(0);
-	}
-`
-
-export const ReferralsSection = styled(motion.div)`
-	background: rgba(30, 30, 46, 0.6);
-	backdrop-filter: blur(10px);
-	border-radius: 20px;
-	padding: 24px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-`
-
-export const ReferralsHeader = styled(motion.div)`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 16px;
-	padding-bottom: 8px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-`
-
-export const ReferralsTitle = styled.h3`
-	font-size: 18px;
-	font-weight: 600;
-	color: ${COLORS.ice};
-`
-
-export const ReferralsList = styled(motion.ul)`
+export const BestPlayersList = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
-
-	& li:first-child {
-		border: none;
-	}
-`
-
-export const EmptyState = styled(motion.div)`
-	text-align: center;
-	padding: 24px;
-	color: ${COLORS.ice};
-	font-size: 14px;
 `

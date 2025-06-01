@@ -7,7 +7,8 @@ const {
 	updateUserTokens,
 	enableMiningForUser,
 	setStatusForUser,
-  changeUserLang,
+	changeUserLang,
+	getUsers,
 } = require('../services/userService')
 const { defineUserStatus } = require('../utils/utils')
 const router = express.Router()
@@ -20,22 +21,33 @@ router.get('/:telegramId', async (req, res) => {
 		res.status(200).json({ success: true, userInfo })
 	} catch (error) {
 		console.error(error)
+		res.status(500).json({
+			success: false,
+			message: 'Ошибка получения информации о пользователе',
+		})
+	}
+})
+
+router.get('/users-list', async (_, res) => {
+	try {
+		const usersList = await getUsers()
+		res.status(200).json({ success: true, usersList })
+	} catch (error) {
+		console.error(error)
 		res
 			.status(500)
-			.json({ success: false, message: 'Ошибка получения кошелька' })
+			.json({ success: false, message: 'Ошибка получения пользователей' })
 	}
 })
 
 router.post('/lang', async (req, res) => {
 	try {
-    const { telegramId, lang } = req.body
-    const result = changeUserLang(telegramId, lang)
+		const { telegramId, lang } = req.body
+		const result = changeUserLang(telegramId, lang)
 		res.status(200).json({ success: true, result })
 	} catch (error) {
 		console.error(error)
-		res
-			.status(500)
-			.json({ success: false, message: 'Ошибка смены языка' })
+		res.status(500).json({ success: false, message: 'Ошибка смены языка' })
 	}
 })
 

@@ -1,32 +1,21 @@
 import React, { FunctionComponent } from 'react'
 import {
-	SubTitle,
 	RatingContainer,
 	Header,
-	MainTitle,
-	BenefitsContainer,
-	BenefitItem,
-	BenefitIcon,
-	BenefitText,
-	BenefitTitle,
-	BenefitDescription,
-	ReferralButton,
-	ReferralsSection,
-	ReferralsHeader,
-	ReferralsTitle,
-	ReferralsList,
-	EmptyState,
+	BestPlayerContainer,
+	HeaderBorderImg,
+	HeaderInfoRow,
+	HeaderInfoItemWrap,
+	HeaderInfoItem,
+	SubTitle,
+	BestPlayersList,
 } from './styled'
 import { RatingProps } from './Rating.d'
 import TopPageInfo from '@/components/TopPageInfo/TopPageInfo'
-import Image from 'next/image'
+
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-
-import { Ref } from './components/Ref/Ref'
 import { Toaster, toast } from 'react-hot-toast'
-
-import { defineReferralAwardByStatus } from '@/utils/utils'
 
 export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 	const { referralCode, referrals, status } = useSelector(
@@ -40,12 +29,33 @@ export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 			transition={{ duration: 0.5 }}
 		>
 			<TopPageInfo data={data.top_section} />
-
-			<Header
-				initial={{ y: -20, opacity: 0 }}
-				animate={{ y: 0, opacity: 1 }}
-				transition={{ duration: 0.5 }}
-			></Header>
+			<BestPlayerContainer>
+				<Header
+					initial={{ y: -20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ duration: 0.5 }}
+				>
+					<HeaderBorderImg src='/grey-top-border.svg' alt='border' />
+					<HeaderInfoRow>
+						<HeaderInfoItemWrap>
+							<HeaderInfoItem>
+								<SubTitle>Avatar</SubTitle>
+							</HeaderInfoItem>
+						</HeaderInfoItemWrap>
+						<HeaderInfoItemWrap>
+							<HeaderInfoItem>
+								<SubTitle>Name/coins</SubTitle>
+							</HeaderInfoItem>
+						</HeaderInfoItemWrap>
+						<HeaderInfoItemWrap>
+							<HeaderInfoItem>
+								<SubTitle>Position</SubTitle>
+							</HeaderInfoItem>
+						</HeaderInfoItemWrap>
+					</HeaderInfoRow>
+				</Header>
+				<BestPlayersList></BestPlayersList>
+			</BestPlayerContainer>
 
 			<Toaster position='top-center' />
 		</RatingContainer>
