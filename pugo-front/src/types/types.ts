@@ -45,7 +45,7 @@ export interface ContentData {
 	footer: FooterContent
 	pages: PagesTypes
 	welcomeSlider: WelcomeSlider
-  messages: string[]
+	messages: string[]
 }
 
 export type GamesSliderType = {
@@ -214,6 +214,9 @@ export interface GameItem {
 	comingSoon?: string
 }
 
+export interface RatingTypes {
+	top_section: TopSectionTypes
+}
 export interface EarnContent {
 	header: {
 		mainTitle: string
@@ -267,38 +270,38 @@ export interface StoreTypes {
 	content: StoreContentTypes
 }
 export interface TasksApi {
-  id: number;
-  icon: string;
-  description: {
-    cn: string;
-    de: string;
-    en: string;
-    es: string;
-    fr: string;
-    pt: string;
-    ru: string;
-    ua: string;
-  };
-  reward: string;
-  createdAt: Date;
-  updatedAt: Date;
-  link: string;
-  chatId: string | null;
-  type?: 'game_achievement' | 'subscription' | 'default';
-  achievementType?: 'open_cases' | 'space_pug_score' | 'referrals_count' | null;
-  targetValue?: number | null;
-  period?: 'once' | 'daily' | 'weekly' | 'monthly';
-  isActive?: boolean;
+	id: number
+	icon: string
+	description: {
+		cn: string
+		de: string
+		en: string
+		es: string
+		fr: string
+		pt: string
+		ru: string
+		ua: string
+	}
+	reward: string
+	createdAt: Date
+	updatedAt: Date
+	link: string
+	chatId: string | null
+	type?: 'game_achievement' | 'subscription' | 'default'
+	achievementType?: 'open_cases' | 'space_pug_score' | 'referrals_count' | null
+	targetValue?: number | null
+	period?: 'once' | 'daily' | 'weekly' | 'monthly'
+	isActive?: boolean
 
-  UserTask: {
-    status: 'available' | 'pending' | 'completed';
-    currentProgress?: number;
-    completedAt?: Date | null;
-  };
+	UserTask: {
+		status: 'available' | 'pending' | 'completed'
+		currentProgress?: number
+		completedAt?: Date | null
+	}
 
-  progress?: number;
-  isCompleted?: boolean;
-  completedAt?: Date | null;
+	progress?: number
+	isCompleted?: boolean
+	completedAt?: Date | null
 }
 
 // export interface ExchangeTypes {}
