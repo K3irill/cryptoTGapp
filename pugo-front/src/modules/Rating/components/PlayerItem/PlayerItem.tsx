@@ -19,7 +19,11 @@ import PositionSvg from './PositionSvg'
 
 const PlayerItem = ({ user, position }: { user: IUser; position: number }) => {
 	return (
-		<PlayerItemStyled>
+		<PlayerItemStyled 
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
 			<PlayerItemStyledWrap>
 				<UserAvatarWrap>
 					<UserAvatarContainer

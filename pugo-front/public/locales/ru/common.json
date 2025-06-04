@@ -528,7 +528,14 @@
 				"top_section": {
 					"title": "Рейтинг",
 					"titleWithBorder": false
-				}
+				}, "headerRow": {
+          "avatarTitle": "Аватарка",
+          "name_coinsTitle": "Имя/Монеты",
+          "position": "Позиция"
+        },
+        "footerRow": {
+          "position": "Ваша позиция"
+        }
 			},
 			"map": {
 				"top_section": {

@@ -216,6 +216,14 @@ export interface GameItem {
 
 export interface RatingTypes {
 	top_section: TopSectionTypes
+  headerRow: {
+    avatarTitle: string,
+    name_coinsTitle: string,
+    position: string
+  },
+  footerRow: {
+    position: string
+  }
 }
 export interface EarnContent {
 	header: {

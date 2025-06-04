@@ -528,7 +528,16 @@
 				"top_section": {
 					"title": "Rangliste",
 					"titleWithBorder": false
-				}
+				},
+        "headerRow": {
+          "avatarTitle": "Avatare",
+          "name_coinsTitle": "name/münzen",
+          "position": "Position"
+        },
+        "footerRow": {
+          "position": "ihre Position"
+        }
+        
 			},
 			"map": {
 				"top_section": {

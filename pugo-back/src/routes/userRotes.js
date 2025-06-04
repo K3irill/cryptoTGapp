@@ -13,7 +13,18 @@ const {
 const { defineUserStatus } = require('../utils/utils')
 const router = express.Router()
 
-
+router.post('/lang', async (req, res) => {
+	try {
+    const { telegramId, lang } = req.body
+    const result = changeUserLang(telegramId, lang)
+		res.status(200).json({ success: true, result })
+	} catch (error) {
+		console.error(error)
+		res
+			.status(500)
+			.json({ success: false, message: 'Ошибка смены языка' })
+	}
+})
 
 router.get('/users-list', async (req, res) => {
   try {

@@ -526,7 +526,14 @@
 				"top_section": {
 					"title": "Rating",
 					"titleWithBorder": false
-				}
+				}, "headerRow": {
+          "avatarTitle": "avatar",
+          "name_coinsTitle": "name/coins",
+          "position": "position"
+        },
+        "footerRow": {
+          "position": "your position"
+        }
 			},
 			"map": {
 				"top_section": {

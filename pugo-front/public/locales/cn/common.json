@@ -528,7 +528,14 @@
 				"top_section": {
 					"title": "排行榜",
 					"titleWithBorder": false
-				}
+				}, "headerRow": {
+          "avatarTitle": "阿凡达",
+          "name_coinsTitle": "名称/硬币",
+          "position": "职位"
+        },
+        "footerRow": {
+          "position": "你的职位"
+        }
 			},
 			"map": {
 				"top_section": {

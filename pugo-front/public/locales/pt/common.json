@@ -528,7 +528,14 @@
 				"top_section": {
 					"title": "Ranking",
 					"titleWithBorder": false
-				}
+				}, "headerRow": {
+          "avatarTitle": "avatar",
+          "name_coinsTitle": "nome / moedas",
+          "position": "posição"
+        },
+        "footerRow": {
+          "position": "a sua posição"
+        }
 			},
 			"map": {
 				"top_section": {

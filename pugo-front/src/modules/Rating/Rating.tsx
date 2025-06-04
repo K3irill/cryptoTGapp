@@ -66,8 +66,8 @@ export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 	return (
 		<RatingContainer
 			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			transition={{ duration: 0.5 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
 		>
 			<TopPageInfo data={data.top_section} />
 			<BestPlayerContainer>
@@ -80,27 +80,27 @@ export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 					<HeaderInfoRow>
 						<HeaderInfoItemWrap>
 							<HeaderInfoItem>
-								<SubTitle>Avatar</SubTitle>
+								<SubTitle>{data.headerRow.avatarTitle}</SubTitle>
 							</HeaderInfoItem>
 						</HeaderInfoItemWrap>
 						<HeaderInfoItemWrap>
 							<HeaderInfoItem>
-								<SubTitle>Name/coins</SubTitle>
+								<SubTitle>{data.headerRow.name_coinsTitle}</SubTitle>
 							</HeaderInfoItem>
 						</HeaderInfoItemWrap>
 						<HeaderInfoItemWrap>
 							<HeaderInfoItem>
-								<SubTitle>Position</SubTitle>
+								<SubTitle>{data.headerRow.position}</SubTitle>
 							</HeaderInfoItem>
 						</HeaderInfoItemWrap>
 					</HeaderInfoRow>
 				</Header>
-				<BestPlayersList>
+				<BestPlayersList >
 					{sortedUsers.length > 0 &&
 						sortedUsers
 							.slice(0, 5)
 							.map((user, index) => (
-								<PlayerItem
+								<PlayerItem 
 									key={user.telegramId}
 									user={user}
 									position={index}
@@ -122,7 +122,7 @@ export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 					<HeaderInfoRow flat>
 						<HeaderInfoItemWrap>
 							<HeaderInfoItem>
-								<SubTitle>Your position:</SubTitle>
+								<SubTitle>{data.footerRow.position}</SubTitle>
 							</HeaderInfoItem>
 						</HeaderInfoItemWrap>
 					</HeaderInfoRow>
