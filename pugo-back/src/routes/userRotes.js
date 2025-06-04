@@ -13,6 +13,27 @@ const {
 const { defineUserStatus } = require('../utils/utils')
 const router = express.Router()
 
+
+
+router.get('/users-list', async (req, res) => {
+  try {
+
+    
+    const usersList = await getUsers();
+    
+    res.status(200).json({ 
+      success: true, 
+      data: usersList,
+    });
+  } catch (error) {
+    console.error('Ошибка в роутере /users-list:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Ошибка получения пользователей',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
 // Получить информацию о пользователе
 router.get('/:telegramId', async (req, res) => {
 	try {
@@ -28,28 +49,7 @@ router.get('/:telegramId', async (req, res) => {
 	}
 })
 
-router.get('/users-list', async (_, res) => {
-	try {
-		const usersList = await getUsers()
-		res.status(200).json({ success: true, usersList })
-	} catch (error) {
-		console.error(error)
-		res
-			.status(500)
-			.json({ success: false, message: 'Ошибка получения пользователей' })
-	}
-})
 
-router.post('/lang', async (req, res) => {
-	try {
-		const { telegramId, lang } = req.body
-		const result = changeUserLang(telegramId, lang)
-		res.status(200).json({ success: true, result })
-	} catch (error) {
-		console.error(error)
-		res.status(500).json({ success: false, message: 'Ошибка смены языка' })
-	}
-})
 
 // Пополнить баланс
 router.post('/deposit', depositBalance)

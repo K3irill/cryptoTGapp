@@ -31,7 +31,7 @@ export interface PagesTypes {
 	exchange: ExchangeTypes
 	tasks: TasksTypes
 	frens: FrensTypes
-	rating: object
+	rating: RatingTypes
 	map: MapTypes
 	earn: EarnTypes
 	store: StoreTypes

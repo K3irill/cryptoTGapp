@@ -27,6 +27,7 @@ const RatingPage: NextPage<RatingPageProps> = () => {
 		console.error('Invalid content structure:', content)
 		return <div>Error loading content</div>
 	}
+  
 	return (
 		<MainLayout
 			header={content.header || STATIC_CONTENT.header}

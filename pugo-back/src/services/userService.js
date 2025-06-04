@@ -55,17 +55,16 @@ const getUserByTelegramId = async telegramId => {
 }
 
 const getUsers = async () => {
-	console.log(`🔍 Собираю всех пользователей с БД`)
-	const users = await User.findAll()
-	console.log(
-		`🔍 Результат поиска: ${
-			users.length
-				? `Количество пользователей: ${users.length}`
-				: 'Пользователи не найдены'
-		}`
-	)
-	return users ? users : null
-}
+  console.log(`🔍 Получаю всех пользователей из БД`);
+  try {
+    const users = await User.findAll();
+    console.log(`🔍 Найдено пользователей: ${users.length}`);
+    return users;
+  } catch (error) {
+    console.error('Ошибка при получении пользователей:', error);
+    throw error;
+  }
+};
 
 const isLanguageSupported = lang => {
 	return LANGUAGES.includes(lang?.toLowerCase())

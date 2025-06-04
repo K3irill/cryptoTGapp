@@ -20,7 +20,7 @@ const PositionSvg = ({ position }: { position: number }) => {
 				? BRONZA
 				: position === 3
 				? PURPLE
-				: position > 3 && position < 1000
+				: position > 3 && position < 100
 				? GREEN
 				: RED}
 			<PositionText

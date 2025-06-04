@@ -354,7 +354,7 @@
 						"title": "Rating",
 						"src": "/icons/rating.svg",
 						"href": "/rating",
-						"availability": false
+						"availability": true
 					},
 					{
 						"id": "4",

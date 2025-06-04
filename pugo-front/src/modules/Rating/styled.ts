@@ -29,7 +29,7 @@ export const HeaderBorderImg = styled(motion.img)<{ perevertish?: boolean }>`
 	position: absolute;
 	left: 0;
 	top: 0;
-	${p => p.perevertish && `transform: rotate(180deg); 	top: -150%;`}
+	${p => p.perevertish && `transform: rotate(180deg); 	top: -35%;`}
 `
 
 export const HeaderInfoRow = styled(motion.div)<{ flat?: boolean }>`
@@ -43,7 +43,7 @@ export const HeaderInfoRow = styled(motion.div)<{ flat?: boolean }>`
 	div:last-child {
 		justify-content: end;
 	}`
-			: `margin-top: 10px;   padding: 0 18px;`}
+			: `margin-top: 10px;   padding: 0 18px 10px;`}
 `
 
 export const HeaderInfoItemWrap = styled(motion.div)`

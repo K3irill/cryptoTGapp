@@ -30,25 +30,23 @@ export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 	const [currentUserIndex, setCurrentUserIndex] = useState<number>()
 	const [currentUser, setCurrentUser] = useState<IUser | null>()
 	const [sortedUsers, setSortedUsers] = useState<IUser[]>([])
+
 	useEffect(() => {
-		if (USER_LIST) {
-			setSortedUsers(
-				[...USER_LIST.data].sort((a, b) => {
-					if (b.tokens !== a.tokens) {
-						return Number(b.tokens) - Number(a.tokens)
-					}
+		if (USER_LIST && sortedUsers.length < 1) {
+			const sorted = [...USER_LIST.data].sort((a, b) => {
+				if (b.tokens !== a.tokens) {
+					return Number(b.tokens) - Number(a.tokens)
+				}
 
-					return (
-						new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-					)
-				})
-			)
+				return (
+					new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+				)
+			})
+			setSortedUsers(sorted)
 
-			setCurrentUserIndex(sortedUsers.findIndex(user => user.telegramId === id))
-
-			const currentUserLocal =
-				currentUserIndex !== -1 ? sortedUsers[currentUserIndex as number] : null
-			setCurrentUser(currentUserLocal)
+			const userIndex = sorted.findIndex(user => user.telegramId === id)
+			setCurrentUserIndex(userIndex)
+			setCurrentUser(userIndex !== -1 ? sorted[userIndex] : null)
 		}
 	}, [USER_LIST, error, isLoading])
 
@@ -100,7 +98,7 @@ export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 				<BestPlayersList>
 					{sortedUsers.length > 0 &&
 						sortedUsers
-							.splice(0, 5)
+							.slice(0, 5)
 							.map((user, index) => (
 								<PlayerItem
 									key={user.telegramId}
@@ -131,7 +129,7 @@ export const Rating: FunctionComponent<RatingProps> = ({ data }) => {
 					<PlayerItem
 						key={currentUser.telegramId}
 						user={currentUser}
-						position={(currentUserIndex as number) + 1}
+						position={(currentUserIndex as number)}
 					/>
 				</Header>
 			)}
